@@ -1,18 +1,20 @@
+import type { ColorToken } from '../../styles/tokens'
+
 export type CategoryId = 'muscle' | 'pain' | 'cycle' | 'energy'
 
 export interface Category {
   id: CategoryId
   emoji: string
   label: string
-  hue: number
-  sat: number
+  /** design-token color (see src/styles/tokens.css) this category's shapes are drawn in */
+  color: ColorToken
 }
 
 export const CATEGORIES: Record<CategoryId, Category> = {
-  muscle: { id: 'muscle', emoji: '💪', label: 'Muscle signals', hue: 210, sat: 70 },
-  pain: { id: 'pain', emoji: '⚡', label: 'Pain types', hue: 355, sat: 78 },
-  cycle: { id: 'cycle', emoji: '🌙', label: 'Cycle & hormones', hue: 280, sat: 55 },
-  energy: { id: 'energy', emoji: '🔋', label: 'Energy & fuel', hue: 38, sat: 85 },
+  muscle: { id: 'muscle', emoji: '💪', label: 'Muscle signals', color: 'anchor' },
+  pain: { id: 'pain', emoji: '⚡', label: 'Pain types', color: 'signals' },
+  cycle: { id: 'cycle', emoji: '🌙', label: 'Cycle & hormones', color: 'cycle' },
+  energy: { id: 'energy', emoji: '🔋', label: 'Energy & fuel', color: 'energy' },
 }
 
 export interface WordCard {

@@ -8,6 +8,14 @@
   --color-cycle: #d8d0f0;
   --color-ground: #fdfcf9;
 
+  /* Neutral surfaces/text, theme-switchable — the 5 palette colors above
+     never change between themes, only these black<->white roles do. */
+  --color-ink: color-mix(in srgb, var(--color-ground) 8%, black);
+  --color-ink-muted: color-mix(in srgb, var(--color-ground) 38%, black);
+  --color-surface: var(--color-ground);
+  --color-surface-raised: color-mix(in srgb, var(--color-ground) 96%, black);
+  --color-overlay: rgb(0 0 0 / 8%);
+
   /* Fonts */
   --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-body: 'DM Sans', system-ui, sans-serif;
@@ -36,4 +44,15 @@
   font-family: var(--font-body);
   font-size: var(--body-font-size);
   line-height: var(--body-line-height);
+}
+
+/* Dark theme: flips only the black<->white neutral roles. The 5 palette
+   colors (anchor/energy/signals/cycle/ground) stay exactly the same so
+   category colors read consistently in both themes. */
+:root[data-theme='dark'] {
+  --color-ink: var(--color-ground);
+  --color-ink-muted: color-mix(in srgb, var(--color-ground) 55%, black);
+  --color-surface: color-mix(in srgb, var(--color-ground) 8%, black);
+  --color-surface-raised: color-mix(in srgb, var(--color-ground) 14%, black);
+  --color-overlay: rgb(255 255 255 / 12%);
 }

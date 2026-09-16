@@ -1,12 +1,15 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { CATEGORIES, GRID_COLS, GRID_ROWS, WORD_CARDS, type CategoryId, type WordCard } from './bodyWordsData'
 import { floatVars, motifFor, shapeFor } from './shapes'
+import ThemeToggle from '../theme/ThemeToggle'
 import './BodyWordCards.css'
 
+/** Category's token color, darkened a touch per intensity level so sharper/heavier
+ * words read as slightly deeper shades of the same design-token color. */
 function categoryColor(categoryId: CategoryId, intensity: number): string {
-  const { hue, sat } = CATEGORIES[categoryId]
-  const lightness = 68 - intensity * 8
-  return `hsl(${hue} ${sat}% ${lightness}%)`
+  const { color } = CATEGORIES[categoryId]
+  const shade = 100 - intensity * 12
+  return `color-mix(in srgb, var(--color-${color}) ${shade}%, black)`
 }
 
 /**
@@ -159,6 +162,7 @@ export default function BodyWordCards() {
           <h1>Body Language for Athletes</h1>
           <p>24 words to help you understand what your body feels</p>
         </div>
+        <ThemeToggle />
       </header>
 
       <div className="word-grid-viewport" ref={viewportRef}>
