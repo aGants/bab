@@ -1,157 +1,15 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
-import { CATEGORIES, GRID_COLS, GRID_ROWS, WORD_CARDS, type CategoryId, type WordCard } from './bodyWordsData'
-import { floatVars, motifFor, shapeFor } from './shapes'
+import { useState, type CSSProperties } from 'react'
+import { GRID_COLS, GRID_ROWS, WORD_CARDS, type WordCard } from './bodyWordsData'
+import { categoryColor } from './categoryColor'
+import { EnergyFilterDefs, WordShape } from './WordShape'
+import { WordCardButton } from './WordCardButton'
+import { useGridPanning } from './useGridPanning'
 import ThemeToggle from '../theme/ThemeToggle'
 import './BodyWordCards.css'
 
-/** Category's token color, darkened a touch per intensity level so sharper/heavier
- * words read as slightly deeper shades of the same design-token color. */
-function categoryColor(categoryId: CategoryId, intensity: number): string {
-  const { color } = CATEGORIES[categoryId]
-  const shade = 100 - intensity * 12
-  return `color-mix(in srgb, var(--color-${color}) ${shade}%, black)`
-}
-
-/**
- * expressive=false: settled near a circle, just barely hinting at the word's real shape.
- * expressive=true (hover/selected/detail view): the shape unfolds into its full,
- * intensity-driven form. Both variants share path structure, so the browser can
- * morph the `d` attribute smoothly instead of jump-cutting between them.
- */
-function WordShape({ card, expressive = false }: { card: WordCard; expressive?: boolean }) {
-  const shape = useMemo(
-    () => shapeFor(card.category, card.id, card.intensity, expressive),
-    [card.category, card.id, card.intensity, expressive],
-  )
-  const color = categoryColor(card.category, card.intensity)
-  const driftStyle = useMemo(() => floatVars(card.id) as CSSProperties, [card.id])
-  const motifClass = motifFor(card.id) === 'pulse' ? ' word-shape--pulse' : ''
-  const className = `word-shape${motifClass}`
-
-  if (shape.kind === 'layers') {
-    return (
-      <svg viewBox="0 0 100 100" className={className} style={driftStyle}>
-        <path className="word-shape-path" d={shape.path} fill={color} opacity={0.55} />
-        <path
-          className="word-shape-path"
-          d={shape.inner}
-          fill={color}
-          transform="translate(20 20) scale(0.6)"
-        />
-      </svg>
-    )
-  }
-
-  if (shape.kind === 'filtered') {
-    return (
-      <svg viewBox="0 0 100 100" className={className} style={driftStyle}>
-        <path className="word-shape-path" d={shape.path} fill={color} filter="url(#energy-wobble)" />
-      </svg>
-    )
-  }
-
-  // 'blob' and 'burst' both render as a single flat path
-  return (
-    <svg viewBox="0 0 100 100" className={className} style={driftStyle}>
-      <path className="word-shape-path" d={shape.path} fill={color} />
-    </svg>
-  )
-}
-
-function EnergyFilterDefs() {
-  // shared turbulence/displacement filter that gives energy & fuel shapes
-  // an unstable, static-y edge instead of a clean outline
-  return (
-    <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true">
-      <defs>
-        <filter id="energy-wobble" x="-20%" y="-20%" width="140%" height="140%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" seed="7" result="noise" />
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" />
-        </filter>
-      </defs>
-    </svg>
-  )
-}
-
-function WordCardButton({
-  card,
-  selected,
-  onSelect,
-  cardRef,
-}: {
-  card: WordCard
-  selected: boolean
-  onSelect: (card: WordCard) => void
-  cardRef: (el: HTMLButtonElement | null) => void
-}) {
-  const [hovered, setHovered] = useState(false)
-  const expressive = hovered || selected
-
-  return (
-    <button
-      type="button"
-      ref={cardRef}
-      className={`word-card${selected ? ' is-selected' : ''}`}
-      style={{ gridColumn: card.col + 1, gridRow: card.row + 1 }}
-      onClick={() => onSelect(card)}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onFocus={() => setHovered(true)}
-      onBlur={() => setHovered(false)}
-      aria-pressed={selected}
-    >
-      <WordShape card={card} expressive={expressive} />
-      <span className="word-card-label">{card.word}</span>
-    </button>
-  )
-}
-
 export default function BodyWordCards() {
   const [selected, setSelected] = useState<WordCard | null>(null)
-  const viewportRef = useRef<HTMLDivElement>(null)
-  const detailRef = useRef<HTMLDivElement>(null)
-  const cardRefs = useRef<Record<string, HTMLButtonElement | null>>({})
-
-  useEffect(() => {
-    // start the pannable canvas centered on the grid
-    const el = viewportRef.current
-    if (!el) return
-    el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2
-    el.scrollTop = (el.scrollHeight - el.clientHeight) / 2
-  }, [])
-
-  useLayoutEffect(() => {
-    // pan the canvas so the selected bubble lands centered in whatever
-    // viewport space is left above the detail sheet, instead of staying
-    // wherever it happened to be when clicked
-    if (!selected) return
-    const viewport = viewportRef.current
-    const card = cardRefs.current[selected.id]
-    if (!viewport || !card) return
-
-    const viewportRect = viewport.getBoundingClientRect()
-    const cardRect = card.getBoundingClientRect()
-    const detailRect = detailRef.current?.getBoundingClientRect()
-
-    const cardCenterX = cardRect.left - viewportRect.left + viewport.scrollLeft + cardRect.width / 2
-    const cardCenterY = cardRect.top - viewportRect.top + viewport.scrollTop + cardRect.height / 2
-
-    const visibleBottom = detailRect ? Math.min(viewportRect.bottom, detailRect.top) : viewportRect.bottom
-    const visibleHeight = Math.max(visibleBottom - viewportRect.top, 0)
-
-    const targetLeft = cardCenterX - viewport.clientWidth / 2
-    const targetTop = cardCenterY - visibleHeight / 2
-
-    const maxLeft = viewport.scrollWidth - viewport.clientWidth
-    const maxTop = viewport.scrollHeight - viewport.clientHeight
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-    viewport.scrollTo({
-      left: Math.min(Math.max(targetLeft, 0), maxLeft),
-      top: Math.min(Math.max(targetTop, 0), maxTop),
-      behavior: prefersReducedMotion ? 'auto' : 'smooth',
-    })
-  }, [selected])
+  const { viewportRef, detailRef, registerCard } = useGridPanning(selected)
 
   return (
     <div className="word-cards">
@@ -183,9 +41,7 @@ export default function BodyWordCards() {
               card={card}
               selected={selected?.id === card.id}
               onSelect={setSelected}
-              cardRef={(el) => {
-                cardRefs.current[card.id] = el
-              }}
+              cardRef={registerCard(card.id)}
             />
           ))}
         </div>
