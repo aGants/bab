@@ -2,7 +2,7 @@ import { useState } from 'react'
 import type { WordCard } from './bodyWordsData'
 import { WordShape } from './WordShape'
 
-export function WordCardButton({
+export const WordCardButton = ({
   card,
   selected,
   onSelect,
@@ -12,7 +12,7 @@ export function WordCardButton({
   selected: boolean
   onSelect: (card: WordCard) => void
   cardRef: (el: HTMLButtonElement | null) => void
-}) {
+}) => {
   const [hovered, setHovered] = useState(false)
   const expressive = hovered || selected
 

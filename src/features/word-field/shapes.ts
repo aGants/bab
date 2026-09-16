@@ -1,7 +1,7 @@
 import * as blobs2 from 'blobs/v2'
 import type { CategoryId } from './bodyWordsData'
 
-export function hashSeed(str: string): number {
+export const hashSeed = (str: string): number => {
   let h = 0
   for (let i = 0; i < str.length; i++) {
     h = (h * 31 + str.charCodeAt(i)) >>> 0
@@ -11,7 +11,7 @@ export function hashSeed(str: string): number {
 
 /** Deterministic per-shape drift timing so shapes float instead of sitting static,
  * each on its own out-of-sync rhythm (no two cards bob in unison). */
-export function floatVars(seed: string): { '--float-dur': string; '--float-delay': string } {
+export const floatVars = (seed: string): { '--float-dur': string; '--float-delay': string } => {
   const rand = mulberry32(hashSeed(seed))
   const duration = 5 + rand() * 3 // 5s..8s
   const delay = -rand() * duration // negative delay starts mid-cycle, already desynced
@@ -22,7 +22,7 @@ export function floatVars(seed: string): { '--float-dur': string; '--float-delay
 }
 
 // deterministic 0..1 pseudo-random sequence from a string seed
-function mulberry32(seed: number) {
+const mulberry32 = (seed: number) => {
   let a = seed
   return () => {
     a |= 0
@@ -40,7 +40,7 @@ function mulberry32(seed: number) {
 
 /** Soft organic blob (muscle signals). expressive=false settles close to a circle;
  * expressive=true lets the word's own intensity roughen it. */
-export function muscleBlob(id: string, intensity: number, expressive: boolean): string {
+export const muscleBlob = (id: string, intensity: number, expressive: boolean): string => {
   return blobs2.svgPath({
     seed: id,
     extraPoints: 5 + intensity,
@@ -53,7 +53,7 @@ export function muscleBlob(id: string, intensity: number, expressive: boolean): 
  * because smooth curves can't read as "sharp". Calm keeps the same spike count but
  * pulls the inner radius up near the outer one, so it reads as a barely-scalloped
  * circle until it's expanded into a full star. */
-export function painBurst(id: string, intensity: number, expressive: boolean): string {
+export const painBurst = (id: string, intensity: number, expressive: boolean): string => {
   const rand = mulberry32(hashSeed(id))
   const points = 9 + intensity * 4
   const cx = 50
@@ -75,11 +75,11 @@ export function painBurst(id: string, intensity: number, expressive: boolean): s
 }
 
 /** Two nested blobs (cycle & hormones) — a shape actually swelling/pressing from within. */
-export function cycleLayers(
+export const cycleLayers = (
   id: string,
   intensity: number,
   expressive: boolean,
-): { outer: string; inner: string } {
+): { outer: string; inner: string } => {
   const outer = blobs2.svgPath({
     seed: `${id}-outer`,
     extraPoints: 6,
@@ -97,7 +97,7 @@ export function cycleLayers(
 }
 
 /** Base blob for energy & fuel words — gets distorted with an SVG filter (see EnergyFilterDefs). */
-export function energyBlob(id: string, intensity: number, expressive: boolean): string {
+export const energyBlob = (id: string, intensity: number, expressive: boolean): string => {
   return blobs2.svgPath({
     seed: id,
     extraPoints: 6,
@@ -112,12 +112,12 @@ export interface ShapeResult {
   inner?: string
 }
 
-export function shapeFor(
+export const shapeFor = (
   category: CategoryId,
   id: string,
   intensity: number,
   expressive: boolean,
-): ShapeResult {
+): ShapeResult => {
   switch (category) {
     case 'muscle':
       return { kind: 'blob', path: muscleBlob(id, intensity, expressive) }
@@ -136,6 +136,6 @@ export function shapeFor(
  * releasing — get a looping pulse instead of the default gentle drift. */
 const PULSE_WORDS = new Set(['tight', 'crampy', 'gripping', 'bloated', 'swollen', 'headachy'])
 
-export function motifFor(id: string): 'pulse' | 'drift' {
+export const motifFor = (id: string): 'pulse' | 'drift' => {
   return PULSE_WORDS.has(id) ? 'pulse' : 'drift'
 }

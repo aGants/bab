@@ -5,7 +5,7 @@ type Theme = 'light' | 'dark'
 
 const STORAGE_KEY = 'theme'
 
-function getInitialTheme(): Theme {
+const getInitialTheme = (): Theme => {
   const stored = window.localStorage.getItem(STORAGE_KEY)
   if (stored === 'light' || stored === 'dark') return stored
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
@@ -18,7 +18,7 @@ function getInitialTheme(): Theme {
  * (--color-ink, --color-surface, ...) while leaving the brand palette
  * (anchor/energy/signals/cycle/ground) untouched.
  */
-export default function ThemeToggle() {
+const ThemeToggle = () => {
   const [theme, setTheme] = useState<Theme>(getInitialTheme)
 
   useEffect(() => {
@@ -41,3 +41,5 @@ export default function ThemeToggle() {
     </button>
   )
 }
+
+export default ThemeToggle

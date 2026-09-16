@@ -9,7 +9,7 @@ import { floatVars, motifFor, shapeFor } from './shapes'
  * intensity-driven form. Both variants share path structure, so the browser can
  * morph the `d` attribute smoothly instead of jump-cutting between them.
  */
-export function WordShape({ card, expressive = false }: { card: WordCard; expressive?: boolean }) {
+export const WordShape = ({ card, expressive = false }: { card: WordCard; expressive?: boolean }) => {
   const shape = useMemo(
     () => shapeFor(card.category, card.id, card.intensity, expressive),
     [card.category, card.id, card.intensity, expressive],
@@ -51,7 +51,7 @@ export function WordShape({ card, expressive = false }: { card: WordCard; expres
 
 /** Shared turbulence/displacement filter that gives energy & fuel shapes
  * an unstable, static-y edge instead of a clean outline. Render once per page. */
-export function EnergyFilterDefs() {
+export const EnergyFilterDefs = () => {
   return (
     <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true">
       <defs>

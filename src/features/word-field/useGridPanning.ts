@@ -6,7 +6,7 @@ import type { WordCard } from './bodyWordsData'
  * mount, then re-centers on whichever card is selected so it lands in the space
  * left above the detail sheet instead of staying wherever it was clicked.
  */
-export function useGridPanning(selected: WordCard | null) {
+export const useGridPanning = (selected: WordCard | null) => {
   const viewportRef = useRef<HTMLDivElement>(null)
   const detailRef = useRef<HTMLDivElement>(null)
   const cardRefs = useRef<Record<string, HTMLButtonElement | null>>({})
@@ -14,7 +14,7 @@ export function useGridPanning(selected: WordCard | null) {
   // doesn't hand React a new function (and re-fire the ref) on every render
   const cardRefCallbacks = useRef<Record<string, (el: HTMLButtonElement | null) => void>>({})
 
-  function registerCard(id: string) {
+  const registerCard = (id: string) => {
     return (cardRefCallbacks.current[id] ??= (el) => {
       cardRefs.current[id] = el
     })

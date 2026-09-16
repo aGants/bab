@@ -1,6 +1,6 @@
 import BodyWordCards from './features/word-field/BodyWordCards'
 
-function App() {
+const App = () => {
   return <BodyWordCards />
 }
 
