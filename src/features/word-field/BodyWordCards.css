@@ -1,0 +1,205 @@
+.word-cards {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100dvh;
+  max-width: 480px;
+  margin: 0 auto;
+  background: #0b0b0f;
+  color: #fff;
+  font-family: var(--sans);
+  overflow: hidden;
+}
+
+.word-cards-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 16px 8px;
+}
+
+.word-cards-header h1 {
+  margin: 6px 0 4px;
+  font-size: 20px;
+  color: #fff;
+}
+
+.word-cards-header p {
+  margin: 0;
+  color: #9a9aa5;
+  font-size: 13px;
+}
+
+.word-grid-viewport {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.word-grid {
+  --cell: min(25vw, 16vh, 140px);
+  display: grid;
+  gap: 0;
+  width: calc(var(--cell) * var(--grid-cols));
+  height: calc(var(--cell) * var(--grid-rows));
+  margin: 40vh 40vw;
+}
+
+.word-card {
+  position: relative;
+  z-index: 0;
+  min-width: 0;
+  min-height: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  color: #0d0d10;
+  font: inherit;
+}
+
+.word-card:hover,
+.word-card.is-selected {
+  z-index: 1;
+}
+
+@keyframes shape-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(-1%, -1.5%) rotate(-1.5deg);
+  }
+  50% {
+    transform: translate(1%, 1%) rotate(1deg);
+  }
+  75% {
+    transform: translate(-1%, 1%) rotate(-0.75deg);
+  }
+}
+
+.word-shape {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  /* sized to just fill its own cell — touches its neighbours' edges without crossing into them */
+  transition: filter 0.15s ease;
+  animation: shape-drift var(--float-dur, 6s) ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+}
+
+.word-card:hover .word-shape,
+.word-card.is-selected .word-shape {
+  filter: brightness(1.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word-shape {
+    animation: none;
+  }
+}
+
+.word-card-label {
+  position: relative;
+  z-index: 1;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  padding: 0 6px;
+}
+
+.word-card.is-selected .word-card-label {
+  text-decoration: underline;
+}
+
+.word-detail {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  max-height: 72%;
+  overflow-y: auto;
+  background: #1c1c22;
+  border-radius: 20px 20px 0 0;
+  padding: 20px 20px 28px;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.word-detail-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  cursor: pointer;
+}
+
+.word-detail-shape {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  margin-bottom: 8px;
+}
+
+.word-detail-shape .word-shape {
+  position: static;
+}
+
+.word-detail-title {
+  display: block;
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.word-detail-tagline {
+  margin: 0 0 10px;
+  color: #9a9aa5;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.word-detail-metaphor {
+  margin: 0 0 10px;
+  font-style: italic;
+  color: #e4e4ea;
+}
+
+.word-detail-description {
+  margin: 0 0 14px;
+  color: #cfcfd6;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.word-detail-feels {
+  margin: 0;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cfcfd6;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.word-detail-feels span {
+  display: block;
+  color: #9a9aa5;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}

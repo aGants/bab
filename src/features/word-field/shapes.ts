@@ -1,0 +1,107 @@
+import * as blobs2 from 'blobs/v2'
+import type { CategoryId } from './bodyWordsData'
+
+export function hashSeed(str: string): number {
+  let h = 0
+  for (let i = 0; i < str.length; i++) {
+    h = (h * 31 + str.charCodeAt(i)) >>> 0
+  }
+  return h
+}
+
+/** Deterministic per-shape drift timing so shapes float instead of sitting static,
+ * each on its own out-of-sync rhythm (no two cards bob in unison). */
+export function floatVars(seed: string): { '--float-dur': string; '--float-delay': string } {
+  const rand = mulberry32(hashSeed(seed))
+  const duration = 5 + rand() * 3 // 5s..8s
+  const delay = -rand() * duration // negative delay starts mid-cycle, already desynced
+  return {
+    '--float-dur': `${duration.toFixed(2)}s`,
+    '--float-delay': `${delay.toFixed(2)}s`,
+  }
+}
+
+// deterministic 0..1 pseudo-random sequence from a string seed
+function mulberry32(seed: number) {
+  let a = seed
+  return () => {
+    a |= 0
+    a = (a + 0x6d2b79f5) | 0
+    let t = Math.imul(a ^ (a >>> 15), 1 | a)
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+  }
+}
+
+/** Soft organic blob (muscle signals) — smoother and rounder at low intensity. */
+export function muscleBlob(id: string, intensity: number): string {
+  return blobs2.svgPath({
+    seed: id,
+    extraPoints: 5 + intensity,
+    randomness: 2 + intensity * 2,
+    size: 100,
+  })
+}
+
+/** Hand-rolled jagged burst (pain types) — real geometry, not just an organic blob,
+ * because smooth curves can't read as "sharp". More intense = more, longer spikes. */
+export function painBurst(id: string, intensity: number): string {
+  const rand = mulberry32(hashSeed(id))
+  const points = 9 + intensity * 4
+  const cx = 50
+  const cy = 50
+  // kept under 50 even at max jitter (1.35x) so spikes reach the cell edge without crossing it
+  const outerBase = 37
+  const innerBase = 18 + (2 - intensity) * 5 // milder pain = blunter spikes
+  const coords: [number, number][] = []
+  for (let i = 0; i < points * 2; i++) {
+    const isOuter = i % 2 === 0
+    const angle = (Math.PI * i) / points
+    const jitter = (rand() - 0.5) * 0.35
+    const radius = (isOuter ? outerBase : innerBase) * (1 + jitter)
+    coords.push([cx + Math.cos(angle) * radius, cy + Math.sin(angle) * radius])
+  }
+  const [first, ...rest] = coords
+  return `M ${first[0]} ${first[1]} ` + rest.map(([x, y]) => `L ${x} ${y}`).join(' ') + ' Z'
+}
+
+/** Two nested blobs (cycle & hormones) — a shape actually swelling/pressing from within. */
+export function cycleLayers(id: string, intensity: number): { outer: string; inner: string } {
+  const outer = blobs2.svgPath({ seed: `${id}-outer`, extraPoints: 6, randomness: 3, size: 100 })
+  const inner = blobs2.svgPath({
+    seed: `${id}-inner`,
+    extraPoints: 5,
+    randomness: 2,
+    size: 60 + intensity * 6, // more intense = the inner pressure fills more of the outer shape
+  })
+  return { outer, inner }
+}
+
+/** Base blob for energy & fuel words — gets distorted with an SVG filter (see EnergyFilterDefs). */
+export function energyBlob(id: string, intensity: number): string {
+  return blobs2.svgPath({
+    seed: id,
+    extraPoints: 6,
+    randomness: 2 + intensity,
+    size: 100,
+  })
+}
+
+export function shapeFor(
+  category: CategoryId,
+  id: string,
+  intensity: number,
+): { kind: 'blob' | 'burst' | 'layers' | 'filtered'; path: string; inner?: string } {
+  switch (category) {
+    case 'muscle':
+      return { kind: 'blob', path: muscleBlob(id, intensity) }
+    case 'pain':
+      return { kind: 'burst', path: painBurst(id, intensity) }
+    case 'cycle': {
+      const { outer, inner } = cycleLayers(id, intensity)
+      return { kind: 'layers', path: outer, inner }
+    }
+    case 'energy':
+      return { kind: 'filtered', path: energyBlob(id, intensity) }
+  }
+}
