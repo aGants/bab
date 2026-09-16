@@ -98,13 +98,43 @@
   animation-delay: var(--float-delay, 0s);
 }
 
+/* the actual outline morphing between "settled near a circle" and "full shape" —
+   both variants share path structure, so this animates smoothly rather than snapping */
+.word-shape-path {
+  transition: d 0.35s ease;
+}
+
+@keyframes pulse-squeeze {
+  0%,
+  100% {
+    scale: 1;
+  }
+  30% {
+    scale: 1.16;
+  }
+  45% {
+    scale: 1.16;
+  }
+  75% {
+    scale: 0.93;
+  }
+}
+
+.word-shape--pulse {
+  animation:
+    shape-drift var(--float-dur, 6s) ease-in-out infinite,
+    pulse-squeeze 4.5s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s), var(--float-delay, 0s);
+}
+
 .word-card:hover .word-shape,
 .word-card.is-selected .word-shape {
   filter: brightness(1.18);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .word-shape {
+  .word-shape,
+  .word-shape--pulse {
     animation: none;
   }
 }
