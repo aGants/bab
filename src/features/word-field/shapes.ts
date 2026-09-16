@@ -60,8 +60,8 @@ export function painBurst(id: string, intensity: number, expressive: boolean): s
   const cy = 50
   // kept under 50 even at max jitter (1.35x) so spikes reach the cell edge without crossing it
   const outerBase = 37
-  const innerBase = expressive ? 18 + (2 - intensity) * 5 : outerBase * 0.8
-  const jitterRange = expressive ? 0.35 : 0.08
+  const innerBase = expressive ? 18 + (2 - intensity) * 5 : outerBase * 0.95
+  const jitterRange = expressive ? 0.35 : 0.04
   const coords: [number, number][] = []
   for (let i = 0; i < points * 2; i++) {
     const isOuter = i % 2 === 0
