@@ -1,5 +1,5 @@
 import * as blobs2 from 'blobs/v2'
-import type { CategoryId } from './bodyWordsData'
+import type { CategoryId } from '../bodyWordsData'
 
 export const hashSeed = (str: string): number => {
   let h = 0

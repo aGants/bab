@@ -1,13 +1,13 @@
 import { useState, type CSSProperties } from 'react'
 import { GRID_COLS, GRID_ROWS, WORD_CARDS, type WordCard } from './bodyWordsData'
-import { categoryColor } from './categoryColor'
+import { categoryColor } from './helpers/categoryColor'
 import { EnergyFilterDefs, WordShape } from './WordShape'
 import { WordCardButton } from './WordCardButton'
-import { useGridPanning } from './useGridPanning'
-import ThemeToggle from '../theme/ThemeToggle'
+import { useGridPanning } from './helpers/useGridPanning'
+import ThemeToggle from '@/features/theme/ThemeToggle'
 import './BodyWordCards.css'
 
-export default function BodyWordCards() {
+const BodyWordCards = () => {
   const [selected, setSelected] = useState<WordCard | null>(null)
   const { viewportRef, detailRef, registerCard } = useGridPanning(selected)
 
@@ -57,15 +57,15 @@ export default function BodyWordCards() {
           >
             ✕
           </button>
-          <div className="word-detail-shape">
+          {/* <div className="word-detail-shape">
             <WordShape card={selected} expressive />
-          </div>
+          </div> */}
           <strong className="word-detail-title" style={{ color: categoryColor(selected.category, 0) }}>
             {selected.word}
           </strong>
           <p className="word-detail-tagline">{selected.tagline}</p>
-          <p className="word-detail-metaphor">{selected.metaphor}</p>
-          <p className="word-detail-description">{selected.description}</p>
+          {/* <p className="word-detail-metaphor">{selected.metaphor}</p> */}
+          {/* <p className="word-detail-description">{selected.description}</p> */}
           <p className="word-detail-feels">
             <span>IT FEELS LIKE</span>
             {selected.feelsLike}
@@ -75,3 +75,5 @@ export default function BodyWordCards() {
     </div>
   )
 }
+
+export default BodyWordCards

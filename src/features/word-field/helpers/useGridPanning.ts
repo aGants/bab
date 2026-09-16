@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
-import type { WordCard } from './bodyWordsData'
+import type { WordCard } from '../bodyWordsData'
 
 /**
  * Drives the pannable word-cloud viewport: centers it on the whole grid once on

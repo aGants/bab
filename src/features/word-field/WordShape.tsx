@@ -1,7 +1,7 @@
 import { useMemo, type CSSProperties } from 'react'
 import type { WordCard } from './bodyWordsData'
-import { categoryColor } from './categoryColor'
-import { floatVars, motifFor, shapeFor } from './shapes'
+import { categoryColor } from './helpers/categoryColor'
+import { floatVars, motifFor, shapeFor } from './helpers/shapes'
 
 /**
  * expressive=false: settled near a circle, just barely hinting at the word's real shape.

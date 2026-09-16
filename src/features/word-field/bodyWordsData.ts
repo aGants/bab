@@ -1,4 +1,4 @@
-import type { ColorToken } from '../../styles/tokens'
+import type { ColorToken } from '@/styles/tokens'
 
 export type CategoryId = 'muscle' | 'pain' | 'cycle' | 'energy'
 

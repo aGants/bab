@@ -1,4 +1,4 @@
-import { CATEGORIES, type CategoryId } from './bodyWordsData'
+import { CATEGORIES, type CategoryId } from '../bodyWordsData'
 
 /** Category's token color, darkened a touch per intensity level so sharper/heavier
  * words read as slightly deeper shades of the same design-token color. */
