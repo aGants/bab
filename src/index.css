@@ -62,6 +62,20 @@ body {
   margin: 0;
 }
 
+/* On wide screens there's no real phone to fill, so the app sits in a
+   centered, phone-proportioned frame instead of stretching edge to edge. */
+@media (min-width: 700px) {
+  body {
+    background: #05050a;
+  }
+
+  #root {
+    align-items: center;
+    justify-content: center;
+    padding: 32px 0;
+  }
+}
+
 h1,
 h2 {
   font-family: var(--heading);

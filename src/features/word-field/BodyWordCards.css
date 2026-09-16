@@ -10,6 +10,19 @@
   overflow: hidden;
 }
 
+/* mimic a phone viewport on desktop instead of stretching the layout wide */
+@media (min-width: 700px) {
+  .word-cards {
+    width: min(430px, 100vw);
+    height: min(100dvh - 64px, 900px);
+    max-height: calc(100dvh - 64px);
+    border-radius: 40px;
+    box-shadow:
+      0 40px 100px rgba(0, 0, 0, 0.55),
+      0 0 0 1px rgba(255, 255, 255, 0.08);
+  }
+}
+
 .word-cards-header {
   display: flex;
   align-items: flex-start;
@@ -35,7 +48,7 @@
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
-  padding: 40px;
+  padding: 160px;
 }
 
 .word-grid {

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { CATEGORIES, GRID_COLS, GRID_ROWS, WORD_CARDS, type CategoryId, type WordCard } from './bodyWordsData'
 import { floatVars, motifFor, shapeFor } from './shapes'
 import './BodyWordCards.css'
@@ -74,10 +74,12 @@ function WordCardButton({
   card,
   selected,
   onSelect,
+  cardRef,
 }: {
   card: WordCard
   selected: boolean
   onSelect: (card: WordCard) => void
+  cardRef: (el: HTMLButtonElement | null) => void
 }) {
   const [hovered, setHovered] = useState(false)
   const expressive = hovered || selected
@@ -85,6 +87,7 @@ function WordCardButton({
   return (
     <button
       type="button"
+      ref={cardRef}
       className={`word-card${selected ? ' is-selected' : ''}`}
       style={{ gridColumn: card.col + 1, gridRow: card.row + 1 }}
       onClick={() => onSelect(card)}
@@ -103,6 +106,8 @@ function WordCardButton({
 export default function BodyWordCards() {
   const [selected, setSelected] = useState<WordCard | null>(null)
   const viewportRef = useRef<HTMLDivElement>(null)
+  const detailRef = useRef<HTMLDivElement>(null)
+  const cardRefs = useRef<Record<string, HTMLButtonElement | null>>({})
 
   useEffect(() => {
     // start the pannable canvas centered on the grid
@@ -111,6 +116,39 @@ export default function BodyWordCards() {
     el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2
     el.scrollTop = (el.scrollHeight - el.clientHeight) / 2
   }, [])
+
+  useLayoutEffect(() => {
+    // pan the canvas so the selected bubble lands centered in whatever
+    // viewport space is left above the detail sheet, instead of staying
+    // wherever it happened to be when clicked
+    if (!selected) return
+    const viewport = viewportRef.current
+    const card = cardRefs.current[selected.id]
+    if (!viewport || !card) return
+
+    const viewportRect = viewport.getBoundingClientRect()
+    const cardRect = card.getBoundingClientRect()
+    const detailRect = detailRef.current?.getBoundingClientRect()
+
+    const cardCenterX = cardRect.left - viewportRect.left + viewport.scrollLeft + cardRect.width / 2
+    const cardCenterY = cardRect.top - viewportRect.top + viewport.scrollTop + cardRect.height / 2
+
+    const visibleBottom = detailRect ? Math.min(viewportRect.bottom, detailRect.top) : viewportRect.bottom
+    const visibleHeight = Math.max(visibleBottom - viewportRect.top, 0)
+
+    const targetLeft = cardCenterX - viewport.clientWidth / 2
+    const targetTop = cardCenterY - visibleHeight / 2
+
+    const maxLeft = viewport.scrollWidth - viewport.clientWidth
+    const maxTop = viewport.scrollHeight - viewport.clientHeight
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    viewport.scrollTo({
+      left: Math.min(Math.max(targetLeft, 0), maxLeft),
+      top: Math.min(Math.max(targetTop, 0), maxTop),
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+    })
+  }, [selected])
 
   return (
     <div className="word-cards">
@@ -141,13 +179,16 @@ export default function BodyWordCards() {
               card={card}
               selected={selected?.id === card.id}
               onSelect={setSelected}
+              cardRef={(el) => {
+                cardRefs.current[card.id] = el
+              }}
             />
           ))}
         </div>
       </div>
 
       {selected && (
-        <div className="word-detail" role="dialog" aria-label={selected.word}>
+        <div className="word-detail" role="dialog" aria-label={selected.word} ref={detailRef}>
           <button
             type="button"
             className="word-detail-close"
