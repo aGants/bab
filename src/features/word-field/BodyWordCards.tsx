@@ -4,10 +4,10 @@ import { categoryColor } from './helpers/categoryColor'
 import { EnergyFilterDefs, WordShape } from './WordShape'
 import { WordCardButton } from './WordCardButton'
 import { useGridPanning } from './helpers/useGridPanning'
-import ThemeToggle from '@/features/theme/ThemeToggle'
+import ThemeToggle from '../theme/ThemeToggle'
 import './BodyWordCards.css'
 
-const BodyWordCards = () => {
+export default function BodyWordCards() {
   const [selected, setSelected] = useState<WordCard | null>(null)
   const { viewportRef, detailRef, registerCard } = useGridPanning(selected)
 
@@ -57,15 +57,10 @@ const BodyWordCards = () => {
           >
             ✕
           </button>
-          {/* <div className="word-detail-shape">
-            <WordShape card={selected} expressive />
-          </div> */}
           <strong className="word-detail-title" style={{ color: categoryColor(selected.category, 0) }}>
             {selected.word}
           </strong>
-          <p className="word-detail-tagline">{selected.tagline}</p>
-          {/* <p className="word-detail-metaphor">{selected.metaphor}</p> */}
-          {/* <p className="word-detail-description">{selected.description}</p> */}
+          <p className="word-detail-metaphor">{selected.metaphor}</p>
           <p className="word-detail-feels">
             <span>IT FEELS LIKE</span>
             {selected.feelsLike}
@@ -75,5 +70,3 @@ const BodyWordCards = () => {
     </div>
   )
 }
-
-export default BodyWordCards
