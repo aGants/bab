@@ -1,17 +1,25 @@
 import { useState } from 'react'
 import type { WordCard } from '@/features/word-field/bodyWordsData'
 import { useCheckInDraft } from './useCheckInDraft'
-import { BodyLocationStep, IntensityStep } from './steps'
+import { BodyLocationStep, IntensityStep, NotesStep } from './steps'
 import { CheckInStepHeader } from './CheckInStepHeader'
 import { Button } from '@/shared/ui'
 import './CheckInFlow.css';
 
-type Step = 'location' | 'intensity' | 'confirm'
+type Step = 'location' | 'intensity' | 'notes' | 'confirm'
 
 const STEP_TITLES: Record<Step, string> = {
   location: 'Body Map',
   intensity: 'Intensity',
+  notes: 'Notes',
   confirm: 'Summary',
+}
+
+const PREVIOUS_STEP: Record<Step, Step> = {
+  location: 'location',
+  intensity: 'location',
+  notes: 'intensity',
+  confirm: 'notes',
 }
 
 /** Debug-simple wizard: word -> body zone -> intensity -> save. Steps are plain
@@ -41,13 +49,15 @@ export const CheckInFlow = ({
 
       <CheckInStepHeader
         title={STEP_TITLES[step]}
-        onBack={step === 'location' ? onCancel : () => setStep(step === 'confirm' ? 'intensity' : 'location')}
+        onBack={step === 'location' ? onCancel : () => setStep(PREVIOUS_STEP[step])}
         onForward={
           step === 'location' && draft.bodyZone !== null
             ? () => setStep('intensity')
             : step === 'intensity' && draft.intensity !== null
-              ? () => setStep('confirm')
-              : undefined
+              ? () => setStep('notes')
+              : step === 'notes'
+                ? () => setStep('confirm')
+                : undefined
         }
       />
       <div className="check-in-flow-content">
@@ -63,9 +73,21 @@ export const CheckInFlow = ({
       {step === 'intensity' && (
         <>
           <IntensityStep value={draft.intensity} onSelect={draft.setIntensity} />
-          <Button disabled={draft.intensity === null} onClick={() => setStep('confirm')}>
+          <Button disabled={draft.intensity === null} onClick={() => setStep('notes')}>
             Next
           </Button>
+        </>
+      )}
+
+      {step === 'notes' && (
+        <>
+          <NotesStep
+            energy={draft.energy}
+            onEnergyChange={draft.setEnergy}
+            note={draft.note}
+            onNoteChange={draft.setNote}
+          />
+          <Button onClick={() => setStep('confirm')}>Next</Button>
         </>
       )}
 
