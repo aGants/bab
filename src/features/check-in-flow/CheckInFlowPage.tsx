@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { WORD_CARDS } from '@/features/word-field/bodyWordsData'
 import { ROUTES } from '@/routes/paths'
-import { PageFrame } from '@/shared/layout/PageFrame'
+import { PageFrame } from '@/shared/layout'
 import { CheckInFlow } from './CheckInFlow'
 
 /** Full-screen route for the check-in wizard — its own PageFrame, its own URL,

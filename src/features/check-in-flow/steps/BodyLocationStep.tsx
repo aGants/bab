@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Body, { type ExtendedBodyPart, type Slug } from 'react-muscle-highlighter'
 import type { BodyZone } from '@/entities/check-in/types'
-import { ToggleSwitch } from '@/shared/ui/ToggleSwitch/ToggleSwitch'
+import { ToggleSwitch } from '@/shared/ui'
 import {
   BACK_FORWARD,
   BODY_FILL,
@@ -17,6 +17,7 @@ import {
   sidedZone,
   type Side,
 } from './bodyZoneMap'
+import './BodyLocationStep.css'
 
 type Facing = 'front' | 'back'
 
@@ -58,7 +59,7 @@ export const BodyLocationStep = ({
       <h2>Where do you feel it?</h2>
       <p>Tap the areas on your body.</p>
 
-      <div style={{ marginBottom: 16 }}>
+      <div className="body-location-step__toggle">
         <ToggleSwitch
           options={[
             { value: 'front', label: 'Front' },
@@ -69,7 +70,7 @@ export const BodyLocationStep = ({
         />
       </div>
 
-      <div style={{ position: 'relative', width: 'fit-content' }}>
+      <div className="body-location-step__body-wrap">
         <Body
           gender="female"
           side={facing}
@@ -84,23 +85,15 @@ export const BodyLocationStep = ({
         {facing === 'front' && (
           <button
             type="button"
+            className="body-location-step__hotspot"
             aria-label="pelvic area"
             aria-pressed={value === 'abdomen'}
             onClick={() => onSelect('abdomen')}
             style={{
-              position: 'absolute',
               left: `${PELVIC_HOTSPOT.left}%`,
               top: `${PELVIC_HOTSPOT.top}%`,
               width: `${PELVIC_HOTSPOT.width}%`,
               height: `${PELVIC_HOTSPOT.height}%`,
-              padding: 0,
-              border: 'none',
-              // Invisible on purpose: selecting it re-colors the `abs` path
-              // itself (same slug the abdomen zone highlights), so the
-              // muscle lighting up is already the visual feedback here —
-              // an extra shape on top just reads as a stray blob.
-              background: 'transparent',
-              cursor: 'pointer',
             }}
           />
         )}
@@ -113,21 +106,15 @@ export const BodyLocationStep = ({
             <button
               key={side}
               type="button"
+              className="body-location-step__hotspot"
               aria-label={`${side} wrist`}
               aria-pressed={value === zone}
               onClick={() => onSelect(zone)}
               style={{
-                position: 'absolute',
                 left: `${spot.left}%`,
                 top: `${spot.top}%`,
                 width: `${spot.width}%`,
                 height: `${spot.height}%`,
-                padding: 0,
-                border: 'none',
-                // Invisible — selecting it re-colors the `hands` path for
-                // that side, same as clicking the hand itself.
-                background: 'transparent',
-                cursor: 'pointer',
               }}
             />
           )
@@ -136,8 +123,8 @@ export const BodyLocationStep = ({
 
       <button
         type="button"
+        className="body-location-step__whole"
         aria-pressed={value === 'whole'}
-        style={{ fontWeight: value === 'whole' ? 700 : 400 }}
         onClick={() => onSelect('whole')}
       >
         everywhere / hard to say

@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import type { WordCard } from '@/features/word-field/bodyWordsData'
 import { useCheckInDraft } from './useCheckInDraft'
-import { BodyLocationStep } from './steps/BodyLocationStep'
-import { IntensityStep } from './steps/IntensityStep'
+import { BodyLocationStep, IntensityStep } from './steps'
 import { CheckInStepHeader } from './CheckInStepHeader'
-import { Button } from '@/shared/ui/Button/Button'
+import { Button } from '@/shared/ui'
 import './CheckInFlow.css';
 
 type Step = 'location' | 'intensity' | 'confirm'

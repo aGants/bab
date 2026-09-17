@@ -1,0 +1,13 @@
+.intensity-step__levels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.intensity-step__level {
+    font-weight: 400;
+}
+
+.intensity-step__level[aria-pressed='true'] {
+    font-weight: 700;
+}

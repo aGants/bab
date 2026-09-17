@@ -1,0 +1,31 @@
+
+
+.body-location-step__toggle {
+    margin-top: 10px;
+    margin-bottom: 16px;
+}
+
+.body-location-step__body-wrap {
+    position: relative;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.body-location-step__hotspot {
+    position: absolute;
+    padding: 0;
+    border: none;
+    /* Invisible on purpose: selecting a hotspot re-colors the muscle path it
+       stands in for, so that's already the visual feedback — a shape drawn
+       on top would just read as a stray blob. */
+    background: transparent;
+    cursor: pointer;
+}
+
+.body-location-step__whole {
+    font-weight: 400;
+}
+
+.body-location-step__whole[aria-pressed='true'] {
+    font-weight: 700;
+}

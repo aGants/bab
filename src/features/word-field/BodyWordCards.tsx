@@ -6,7 +6,7 @@ import { WordCardButton } from './WordCardButton'
 import { useGridPanning } from './helpers/useGridPanning'
 import { Link } from 'react-router-dom'
 import { ROUTES, checkInFlowPath } from '@/routes/paths'
-import { PageFrame } from '@/shared/layout/PageFrame'
+import { PageFrame } from '@/shared/layout'
 import './BodyWordCards.css'
 
 export default function BodyWordCards() {

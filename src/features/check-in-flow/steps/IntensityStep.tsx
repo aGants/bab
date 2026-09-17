@@ -1,4 +1,5 @@
 import type { CheckInIntensity } from '@/entities/check-in/types'
+import './IntensityStep.css'
 
 // debug-simple: plain buttons 0..10. Swap for the drag-to-resize word shape
 // later without touching CheckInFlow — it only needs onSelect(level).
@@ -13,14 +14,14 @@ export const IntensityStep = ({
 }) => (
   <div>
     <h2>How big is it?</h2>
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+    <div className="intensity-step__levels">
       {LEVELS.map((level) => (
         <button
           key={level}
           type="button"
+          className="intensity-step__level"
           aria-pressed={value === level}
           onClick={() => onSelect(level)}
-          style={{ fontWeight: value === level ? 700 : 400 }}
         >
           {level}
         </button>

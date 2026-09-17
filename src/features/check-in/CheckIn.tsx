@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ROUTES } from "@/routes/paths";
-import { PageFrame } from "@/shared/layout/PageFrame";
+import { PageFrame } from "@/shared/layout";
 import './CheckIn.css';
 
 export const CheckIn = () => {

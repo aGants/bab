@@ -1,4 +1,4 @@
-import { ArrowButton } from '@/shared/ui/ArrowButton/ArrowButton'
+import { ArrowButton } from '@/shared/ui'
 
 /** Shared top bar for check-in wizard steps: back/forward arrows around a
  * step title, so each step doesn't hardcode its own nav buttons/links. */
