@@ -1,10 +1,19 @@
 import { useState } from 'react'
 import type { WordCard } from '@/features/word-field/bodyWordsData'
 import { useCheckInDraft } from './useCheckInDraft'
-import { BodyLocationStep } from './BodyLocationStep'
-import { IntensityStep } from './IntensityStep'
+import { BodyLocationStep } from './steps/BodyLocationStep'
+import { IntensityStep } from './steps/IntensityStep'
+import { CheckInStepHeader } from './CheckInStepHeader'
+import { Button } from '@/shared/ui/Button/Button'
+import './CheckInFlow.css';
 
 type Step = 'location' | 'intensity' | 'confirm'
+
+const STEP_TITLES: Record<Step, string> = {
+  location: 'Body Map',
+  intensity: 'Intensity',
+  confirm: 'Summary',
+}
 
 /** Debug-simple wizard: word -> body zone -> intensity -> save. Steps are plain
  * buttons on purpose; the visual pass (body-map silhouette, resize gesture) comes later. */
@@ -26,32 +35,38 @@ export const CheckInFlow = ({
   }
 
   return (
-    <div role="dialog" aria-label={`Check in: ${word.word}`} style={{ padding: 16, border: '1px solid currentColor' }}>
-      <button type="button" onClick={onCancel}>
-        ✕ cancel
-      </button>
+    <div className="check-in-flow" role="dialog" aria-label={`Check in: ${word.word}`}>
       <p>
         Checking in: <strong>{word.word}</strong>
       </p>
 
-      {step === 'location' && (
+      <CheckInStepHeader
+        title={STEP_TITLES[step]}
+        onBack={step === 'location' ? onCancel : () => setStep(step === 'confirm' ? 'intensity' : 'location')}
+        onForward={
+          step === 'location' && draft.bodyZone !== null
+            ? () => setStep('intensity')
+            : step === 'intensity' && draft.intensity !== null
+              ? () => setStep('confirm')
+              : undefined
+        }
+      />
+      <div className="check-in-flow-content">
+              {step === 'location' && (
         <>
           <BodyLocationStep value={draft.bodyZone} onSelect={draft.setBodyZone} />
-          <button type="button" disabled={draft.bodyZone === null} onClick={() => setStep('intensity')}>
+          <Button disabled={draft.bodyZone === null} onClick={() => setStep('intensity')}>
             Next
-          </button>
+          </Button>
         </>
       )}
 
       {step === 'intensity' && (
         <>
           <IntensityStep value={draft.intensity} onSelect={draft.setIntensity} />
-          <button type="button" onClick={() => setStep('location')}>
-            Back
-          </button>
-          <button type="button" disabled={draft.intensity === null} onClick={() => setStep('confirm')}>
+          <Button disabled={draft.intensity === null} onClick={() => setStep('confirm')}>
             Next
-          </button>
+          </Button>
         </>
       )}
 
@@ -60,14 +75,12 @@ export const CheckInFlow = ({
           <p>
             Zone: {draft.bodyZone} · Intensity: {draft.intensity}
           </p>
-          <button type="button" onClick={() => setStep('intensity')}>
-            Back
-          </button>
-          <button type="button" disabled={draft.saving} onClick={handleSave}>
+          <Button disabled={draft.saving} onClick={handleSave}>
             {draft.saving ? 'Saving…' : 'Save check-in'}
-          </button>
+          </Button>
         </>
       )}
+      </div>
     </div>
   )
 }
