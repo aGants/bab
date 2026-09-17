@@ -29,6 +29,8 @@
   /* Body copy: written for a tired 14-year-old on a phone on the bus home */
   --body-font-size: 16px;
   --body-line-height: 1.5;
+
+  --padding: 20px;
 }
 
 .text-display {

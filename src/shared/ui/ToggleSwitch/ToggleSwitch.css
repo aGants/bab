@@ -1,0 +1,43 @@
+.toggle-switch {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    background: var(--color-overlay);
+    border-radius: 999px;
+    padding: 4px;
+}
+
+.toggle-switch__thumb {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: calc(50% - 4px);
+    height: calc(100% - 8px);
+    background: var(--color-surface);
+    border-radius: 999px;
+    box-shadow: 0 1px 4px var(--color-overlay);
+    transition: transform 0.2s ease;
+}
+
+.toggle-switch[data-active-index='1'] .toggle-switch__thumb {
+    transform: translateX(100%);
+}
+
+.toggle-switch__option {
+    position: relative;
+    z-index: 1;
+    border: none;
+    background: transparent;
+    padding: 10px 0;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-ink-muted);
+    cursor: pointer;
+    border-radius: 999px;
+    transition: color 0.2s ease;
+}
+
+.toggle-switch__option[aria-pressed='true'] {
+    color: var(--color-ink);
+}
