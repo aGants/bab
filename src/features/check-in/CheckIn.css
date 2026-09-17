@@ -1,0 +1,28 @@
+.check-in-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  padding: 20px;
+  height: 100%;
+}
+
+.check-in-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+	height: 400px;
+}
+
+.plus-button {
+	display: inline-block;
+	font-size: 72px;
+	text-decoration: none;
+	color: var(--color-signals);
+	transition: color 0.5s ease, transform 0.2s ease;
+	&:hover {
+		transform: scale(1.24);
+		color: var(--color-energy);
+	}
+}

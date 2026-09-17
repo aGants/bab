@@ -1,0 +1,27 @@
+.page-frame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100dvh;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  overflow: hidden;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+/* mimic a phone viewport on desktop instead of stretching the layout wide */
+@media (min-width: 700px) {
+  .page-frame {
+    width: min(430px, 100vw);
+    height: min(100dvh - 64px, 900px);
+    max-height: calc(100dvh - 64px);
+    border-radius: 40px;
+    box-shadow:
+      0 40px 100px rgba(0, 0, 0, 0.18),
+      0 0 0 1px rgba(0, 0, 0, 0.06);
+  }
+}

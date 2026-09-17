@@ -4,9 +4,9 @@ import { categoryColor } from './helpers/categoryColor'
 import { EnergyFilterDefs } from './WordShape'
 import { WordCardButton } from './WordCardButton'
 import { useGridPanning } from './helpers/useGridPanning'
-import ThemeToggle from '../theme/ThemeToggle'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '@/routes/paths'
+import { PageFrame } from '@/shared/layout/PageFrame'
 import './BodyWordCards.css'
 
 export default function BodyWordCards() {
@@ -14,7 +14,7 @@ export default function BodyWordCards() {
   const { viewportRef, detailRef, registerCard } = useGridPanning(selected)
 
   return (
-    <div className="word-cards">
+    <PageFrame>
       <EnergyFilterDefs />
 
       <header className="word-cards-header">
@@ -23,7 +23,6 @@ export default function BodyWordCards() {
           <p>24 words to help you understand what your body feels</p>
         </div>
         <Link to={ROUTES.checkIn}>← Check-in</Link>
-        <ThemeToggle />
       </header>
 
       <div className="word-grid-viewport" ref={viewportRef}>
@@ -70,6 +69,6 @@ export default function BodyWordCards() {
           </p>
         </div>
       )}
-    </div>
+    </PageFrame>
   )
 }
