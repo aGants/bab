@@ -1,7 +1,7 @@
 import { useState, type CSSProperties } from 'react'
 import { GRID_COLS, GRID_ROWS, WORD_CARDS, type WordCard } from './bodyWordsData'
 import { categoryColor } from './helpers/categoryColor'
-import { EnergyFilterDefs, WordShape } from './WordShape'
+import { EnergyFilterDefs } from './WordShape'
 import { WordCardButton } from './WordCardButton'
 import { useGridPanning } from './helpers/useGridPanning'
 import ThemeToggle from '../theme/ThemeToggle'
