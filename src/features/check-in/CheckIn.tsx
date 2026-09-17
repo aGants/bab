@@ -1,15 +1,9 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import type { WordCard } from "../word-field/bodyWordsData";
 import { ROUTES } from "@/routes/paths";
 import { PageFrame } from "@/shared/layout/PageFrame";
 import './CheckIn.css';
 
 export const CheckIn = () => {
-  const [selected, setSelected] = useState<WordCard | null>(null)
-
-  useEffect(() => {
-  }), [];
 
   return (
     <PageFrame>
