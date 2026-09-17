@@ -5,6 +5,8 @@ import { EnergyFilterDefs } from './WordShape'
 import { WordCardButton } from './WordCardButton'
 import { useGridPanning } from './helpers/useGridPanning'
 import ThemeToggle from '../theme/ThemeToggle'
+import { Link } from 'react-router-dom'
+import { ROUTES } from '@/routes/paths'
 import './BodyWordCards.css'
 
 export default function BodyWordCards() {
@@ -20,6 +22,7 @@ export default function BodyWordCards() {
           <h1>Body Language for Athletes</h1>
           <p>24 words to help you understand what your body feels</p>
         </div>
+        <Link to={ROUTES.checkIn}>← Check-in</Link>
         <ThemeToggle />
       </header>
 
