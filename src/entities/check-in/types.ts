@@ -26,8 +26,8 @@ export type BodyZone =
   /** not localized to one body part — for words like "foggy" or "dizzy" */
   | 'whole'
 
-/** Same 0|1|2 scale as WordCard.intensity, but this is what the person picked
- * for this specific check-in, not the word's default. */
+/** How big the feeling is for this specific check-in — independent of
+ * WordCard.intensity, which just shapes the word's default card art. */
 export type CheckInIntensity = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
 
 export interface NewCheckInEntry {

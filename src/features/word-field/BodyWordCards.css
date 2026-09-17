@@ -4,6 +4,17 @@
   text-decoration: none;
 }
 
+.word-detail-description {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+}
+
+.word-detail-check-in {
+  font-size: 48px;
+}
+
 .word-cards-header {
   display: flex;
   align-items: center;

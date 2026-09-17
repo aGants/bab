@@ -5,7 +5,7 @@ import { EnergyFilterDefs } from './WordShape'
 import { WordCardButton } from './WordCardButton'
 import { useGridPanning } from './helpers/useGridPanning'
 import { Link } from 'react-router-dom'
-import { ROUTES } from '@/routes/paths'
+import { ROUTES, checkInFlowPath } from '@/routes/paths'
 import { PageFrame } from '@/shared/layout/PageFrame'
 import './BodyWordCards.css'
 
@@ -63,10 +63,13 @@ export default function BodyWordCards() {
             {selected.word}
           </strong>
           <p className="word-detail-metaphor">{selected.metaphor}</p>
-          <p className="word-detail-feels">
+          <div className="word-detail-description">
+            <p className="word-detail-feels">
             <span>IT FEELS LIKE</span>
             {selected.feelsLike}
           </p>
+            <Link className="word-detail-check-in" to={checkInFlowPath(selected.id)}>→</Link>
+          </div>
         </div>
       )}
     </PageFrame>
