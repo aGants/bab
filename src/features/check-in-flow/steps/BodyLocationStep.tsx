@@ -12,6 +12,7 @@ import {
   SELECTED_FILL,
   WRIST_HOTSPOT_LEFT,
   WRIST_HOTSPOT_RIGHT,
+  isSidedBase,
   matchesZone,
   resolveZone,
   sidedZone,
@@ -48,9 +49,15 @@ export const BodyLocationStep = ({
   // visibly lights up, regardless of which one was actually clicked.
   const data: ExtendedBodyPart[] = (Object.keys(forward) as Slug[]).map((slug) => {
     const entry = forward[slug]!
+    // Unsided zones (neck, chest, abdomen, upper/lower back) render as a
+    // left/right path pair with no real side of their own — tagging `side`
+    // here would make the library hide the color on whichever path wasn't
+    // clicked, so leave `side` off and let both paths light up together.
+    if (!isSidedBase(entry)) {
+      return value && matchesZone(entry, undefined, value) ? { slug, color: SELECTED_FILL } : { slug }
+    }
     if (value && matchesZone(entry, 'left', value)) return { slug, side: 'left', color: SELECTED_FILL }
     if (value && matchesZone(entry, 'right', value)) return { slug, side: 'right', color: SELECTED_FILL }
-    if (value && matchesZone(entry, undefined, value)) return { slug, color: SELECTED_FILL }
     return { slug }
   })
 

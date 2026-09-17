@@ -70,7 +70,7 @@ export const WRIST_HOTSPOT_LEFT = { left: 8, top: 41, width: 14, height: 6 }
 export const WRIST_HOTSPOT_RIGHT = { left: 78, top: 41, width: 14, height: 6 }
 
 const SIDED_BASES = new Set<string>(['shoulder', 'arm', 'hand', 'hip', 'thigh', 'knee', 'calf', 'ankle', 'foot'])
-const isSidedBase = (v: string): v is SidedBase => SIDED_BASES.has(v)
+export const isSidedBase = (v: string): v is SidedBase => SIDED_BASES.has(v)
 
 export const resolveZone = (entry: BodyZone | SidedBase, side?: Side): BodyZone | null => {
   if (isSidedBase(entry)) return side ? sidedZone(entry, side) : null
