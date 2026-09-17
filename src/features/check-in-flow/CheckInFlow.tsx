@@ -43,10 +43,6 @@ export const CheckInFlow = ({
 
   return (
     <div className="check-in-flow" role="dialog" aria-label={`Check in: ${word.word}`}>
-      <p>
-        Checking in: <strong>{word.word}</strong>
-      </p>
-
       <CheckInStepHeader
         title={STEP_TITLES[step]}
         onBack={step === 'location' ? onCancel : () => setStep(PREVIOUS_STEP[step])}
