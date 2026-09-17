@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { WordCard } from '@/features/word-field/bodyWordsData'
-import type { BodyZone, CheckInEntry, CheckInIntensity } from '@/entities/check-in/types'
+import type { BodyZone, CheckInEntry, CheckInIntensity, Energy } from '@/entities/check-in/types'
 import { checkInRepository } from '@/entities/check-in/checkInRepository'
 
 /** Holds the in-progress answers for one check-in flow and commits them
@@ -8,6 +8,7 @@ import { checkInRepository } from '@/entities/check-in/checkInRepository'
 export const useCheckInDraft = (word: WordCard) => {
   const [bodyZone, setBodyZone] = useState<BodyZone | null>(null)
   const [intensity, setIntensity] = useState<CheckInIntensity | null>(null)
+  const [energy, setEnergy] = useState<Energy | null>(null)
   const [note, setNote] = useState('')
   const [saving, setSaving] = useState(false)
 
@@ -19,6 +20,7 @@ export const useCheckInDraft = (word: WordCard) => {
         wordId: word.id,
         bodyZone,
         intensity,
+        energy: energy ?? undefined,
         note: note.trim() || undefined,
       })
     } finally {
@@ -26,5 +28,16 @@ export const useCheckInDraft = (word: WordCard) => {
     }
   }
 
-  return { bodyZone, setBodyZone, intensity, setIntensity, note, setNote, saving, commit }
+  return {
+    bodyZone,
+    setBodyZone,
+    intensity,
+    setIntensity,
+    energy,
+    setEnergy,
+    note,
+    setNote,
+    saving,
+    commit,
+  }
 }
