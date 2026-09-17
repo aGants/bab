@@ -13,16 +13,12 @@
 	align-items: center;
 	gap: 20px;
 	height: 400px;
+	text-align: center;
+}
+.check-in-content h1 {
+		font-style: italic;
 }
 
 .plus-button {
-	display: inline-block;
 	font-size: 72px;
-	text-decoration: none;
-	color: var(--color-signals);
-	transition: color 0.5s ease, transform 0.2s ease;
-	&:hover {
-		transform: scale(1.24);
-		color: var(--color-energy);
-	}
 }

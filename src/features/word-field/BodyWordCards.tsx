@@ -18,11 +18,11 @@ export default function BodyWordCards() {
       <EnergyFilterDefs />
 
       <header className="word-cards-header">
+        <Link className="back-arrow" to={ROUTES.checkIn}>←</Link>
         <div>
           <h1>Body Language for Athletes</h1>
           <p>24 words to help you understand what your body feels</p>
         </div>
-        <Link to={ROUTES.checkIn}>← Check-in</Link>
       </header>
 
       <div className="word-grid-viewport" ref={viewportRef}>
