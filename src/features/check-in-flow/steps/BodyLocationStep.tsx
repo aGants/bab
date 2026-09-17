@@ -7,6 +7,7 @@ import {
   BODY_FILL,
   BODY_STROKE,
   FRONT_FORWARD,
+  NO_HIGHLIGHT_SLUGS,
   PELVIC_HOTSPOT,
   SCALE,
   SELECTED_FILL,
@@ -49,6 +50,7 @@ export const BodyLocationStep = ({
   // visibly lights up, regardless of which one was actually clicked.
   const data: ExtendedBodyPart[] = (Object.keys(forward) as Slug[]).map((slug) => {
     const entry = forward[slug]!
+    if (NO_HIGHLIGHT_SLUGS.has(slug)) return { slug }
     // Unsided zones (neck, chest, abdomen, upper/lower back) render as a
     // left/right path pair with no real side of their own — tagging `side`
     // here would make the library hide the color on whichever path wasn't
@@ -62,7 +64,7 @@ export const BodyLocationStep = ({
   })
 
   return (
-    <div>
+    <div className="body-location-step">
       <h2>Where do you feel it?</h2>
       <p>Tap the areas on your body.</p>
 
@@ -78,24 +80,19 @@ export const BodyLocationStep = ({
       </div>
 
       <div className="body-location-step__body-wrap">
-        <Body
-          gender="female"
-          side={facing}
-          data={data}
-          onBodyPartPress={handlePress}
-          defaultFill={BODY_FILL}
-          defaultStroke={BODY_STROKE}
-          defaultStrokeWidth={1}
-          border={BODY_STROKE}
-          scale={SCALE}
-        />
+        {/* Hotspots sit *behind* the body SVG in paint order (both are
+            position: absolute, so plain DOM order decides the stack) — they
+            only exist to fill gaps the library draws no muscle path for, and
+            must never steal a click from a real muscle path drawn on top of
+            them (that made the abs/adductor/thigh area around the pelvic
+            hotspot barely clickable). */}
         {facing === 'front' && (
           <button
             type="button"
             className="body-location-step__hotspot"
             aria-label="pelvic area"
-            aria-pressed={value === 'abdomen'}
-            onClick={() => onSelect('abdomen')}
+            aria-pressed={value === 'pelvic'}
+            onClick={() => onSelect('pelvic')}
             style={{
               left: `${PELVIC_HOTSPOT.left}%`,
               top: `${PELVIC_HOTSPOT.top}%`,
@@ -126,6 +123,17 @@ export const BodyLocationStep = ({
             />
           )
         })}
+        <Body
+          gender="female"
+          side={facing}
+          data={data}
+          onBodyPartPress={handlePress}
+          defaultFill={BODY_FILL}
+          defaultStroke={BODY_STROKE}
+          defaultStrokeWidth={1}
+          border={BODY_STROKE}
+          scale={SCALE}
+        />
       </div>
 
       <button

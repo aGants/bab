@@ -20,7 +20,7 @@ export const FRONT_FORWARD: Partial<Record<Slug, BodyZone | SidedBase>> = {
   biceps: 'arm',
   forearm: 'arm',
   hands: 'hand',
-  adductors: 'thigh',
+  adductors: 'pelvic',
   quadriceps: 'thigh',
   knees: 'knee',
   tibialis: 'calf',
@@ -46,7 +46,7 @@ export const BACK_FORWARD: Partial<Record<Slug, BodyZone | SidedBase>> = {
   'lower-back': 'lowerBack',
   gluteal: 'hip',
   hamstring: 'thigh',
-  adductors: 'thigh',
+  adductors: 'pelvic',
   calves: 'calf',
   feet: 'foot',
 }
@@ -62,8 +62,7 @@ export const SCALE = 1.4
 // body map), so these two spots have no clickable path at all — manual
 // hit-targets over the gaps, positioned as % of the rendered 200x400
 // (pre-scale) body so they stay put across `scale` changes.
-// Groin/pelvic gap, maps to the existing `abdomen` zone rather than adding a
-// separate anatomical one.
+// Groin/pelvic gap — its own `pelvic` zone, distinct from `abdomen`.
 export const PELVIC_HOTSPOT = { left: 40, top: 38, width: 20, height: 18 }
 // Wrist gap between forearm and hand, present on both front and back views.
 export const WRIST_HOTSPOT_LEFT = { left: 8, top: 41, width: 14, height: 6 }
@@ -71,6 +70,12 @@ export const WRIST_HOTSPOT_RIGHT = { left: 78, top: 41, width: 14, height: 6 }
 
 const SIDED_BASES = new Set<string>(['shoulder', 'arm', 'hand', 'hip', 'thigh', 'knee', 'calf', 'ankle', 'foot'])
 export const isSidedBase = (v: string): v is SidedBase => SIDED_BASES.has(v)
+
+// Slugs that still resolve to a zone on click but shouldn't themselves light
+// up when that zone is selected — clicking hair should count as "head", but
+// coloring the hair shape in the same peach as the face reads as "the hair
+// hurts", which isn't what selecting "head" means here.
+export const NO_HIGHLIGHT_SLUGS = new Set<Slug>(['hair'])
 
 export const resolveZone = (entry: BodyZone | SidedBase, side?: Side): BodyZone | null => {
   if (isSidedBase(entry)) return side ? sidedZone(entry, side) : null
