@@ -24,46 +24,65 @@
 .calendar-picker {
   --rdp-accent-color: var(--color-ink);
   --rdp-accent-background-color: var(--color-surface-raised);
-  --rdp-day-width: 42px;
-  --rdp-day-height: 52px;
-  --rdp-day_button-width: 42px;
-  --rdp-day_button-height: 52px;
-  --rdp-day_button-border-radius: 14px;
+  --rdp-day-width: 56px;
+  --rdp-day-height: 92px;
+  --rdp-day_button-width: 56px;
+  --rdp-day_button-height: 92px;
+  --rdp-day_button-border-radius: 16px;
   --rdp-today-color: var(--color-signals);
   display: flex;
   justify-content: center;
   width: 100%;
+  font-size: 16px;
 }
 
 .calendar-day-button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 3px;
+  justify-content: flex-start;
+  padding-top: 8px;
+  gap: 8px;
   font-family: var(--font-body);
 }
 
 .calendar-day-number {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .calendar-day-marks {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 3px;
-  height: 14px;
+  gap: 4px;
+  width: 52px;
 }
 
 .calendar-day-mood {
   position: relative;
-  width: 14px;
-  height: 14px;
+  width: 24px;
+  height: 24px;
+}
+
+/* Calendar cells can show several feelings at once; the drift/pulse/spike
+   motion reads as noise at this size and count, so keep the icons static. */
+.calendar-day-mood .word-shape,
+.calendar-day-mood .word-shape--pulse,
+.calendar-day-mood .word-shape--spike,
+.calendar-day-mood .word-shape--jitter,
+.calendar-day-mood .word-shape--spike .word-shape-path {
+  animation: none;
+}
+
+.calendar-day-mood-more {
+  font-size: 12px;
+  line-height: 1;
+  color: var(--color-ink-muted);
 }
 
 .calendar-day-period {
-  font-size: 10px;
+  font-size: 13px;
   line-height: 1;
 }
 

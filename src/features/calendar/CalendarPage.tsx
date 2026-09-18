@@ -6,7 +6,7 @@ import { PageFrame } from '@/shared/layout'
 import { Greeting, TabBar } from '@/shared/ui'
 import { toDateKey } from '@/shared/lib/dateKey'
 import { WordShape } from '@/features/word-field/WordShape'
-import { CATEGORIES, WORD_CARDS } from '@/features/word-field/bodyWordsData'
+import { CATEGORIES, WORD_CARDS, type WordCard } from '@/features/word-field/bodyWordsData'
 import { wordsPath } from '@/routes/paths'
 import { checkInRepository } from '@/entities/check-in/checkInRepository'
 import { useCalendarMonthData } from './useCalendarMonthData'
@@ -39,22 +39,37 @@ export const CalendarPage = () => {
   // Recreated whenever a month's data loads, so each day button closes over
   // fresh entries/logs without needing a separate context provider.
   const CalendarDayButton = useMemo(() => {
+    const MAX_VISIBLE_MOODS = 3
     const DayButton = ({ day, modifiers: _modifiers, className, ...props }: DayButtonProps) => {
       const dateKey = toDateKey(day.date)
       const dayEntries = entriesByDate[dateKey]
-      // most recent check-in of the day is the one shown as the day's "feeling"
-      const featuredWord = dayEntries?.length
-        ? WORD_CARDS.find((card) => card.id === dayEntries[dayEntries.length - 1].wordId)
-        : undefined
+      // one icon per distinct feeling logged that day, most recent first —
+      // walk entries newest-to-oldest so a repeated word keeps its latest slot
+      const dayWords: WordCard[] = []
+      const seenWordIds = new Set<string>()
+      for (let i = (dayEntries?.length ?? 0) - 1; i >= 0; i--) {
+        const entry = dayEntries![i]
+        if (seenWordIds.has(entry.wordId)) continue
+        seenWordIds.add(entry.wordId)
+        const card = WORD_CARDS.find((c) => c.id === entry.wordId)
+        if (card) dayWords.push(card)
+      }
+      const visibleWords = dayWords.slice(0, MAX_VISIBLE_MOODS)
+      const extraMoodCount = dayWords.length - visibleWords.length
       const hadPeriod = dailyLogsByDate[dateKey]?.hadPeriod
 
       return (
         <button {...props} className={`${className ?? ''} calendar-day-button`}>
           <span className="calendar-day-number">{day.date.getDate()}</span>
           <span className="calendar-day-marks">
-            {featuredWord && (
-              <span className="calendar-day-mood" title={featuredWord.word}>
-                <WordShape card={featuredWord} />
+            {visibleWords.map((word) => (
+              <span key={word.id} className="calendar-day-mood" title={word.word}>
+                <WordShape card={word} expressive />
+              </span>
+            ))}
+            {extraMoodCount > 0 && (
+              <span className="calendar-day-mood-more" title={`+${extraMoodCount} more`}>
+                +{extraMoodCount}
               </span>
             )}
             {hadPeriod && (

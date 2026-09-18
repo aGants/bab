@@ -35,11 +35,9 @@ export default function BodyWordCards() {
       <Greeting />
       <header className="word-cards-header">
         <Link className="back-arrow" to={date ? calendarPath(date) : ROUTES.checkIn}>←</Link>
-        <div>
-          <h1>Body Language for Athletes</h1>
-          <p>24 words to help you understand what your body feels</p>
-        </div>
+        <h1>How is your body feeling today?</h1>
       </header>
+      <p className="word-cards-section-label">Body sensations</p>
 
       <div className="word-grid-viewport" ref={viewportRef}>
         <div className="word-grid" style={{ '--grid-cols': GRID_COLS } as CSSProperties}>

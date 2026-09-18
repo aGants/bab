@@ -191,6 +191,17 @@ export const wordColor = (id: string): string => WORD_VISUALS[id].color
  * releasing — get a looping pulse instead of the default gentle drift. */
 const PULSE_WORDS = new Set(['tight', 'crampy', 'gripping', 'bloated', 'swollen', 'headachy'])
 
-export const motifFor = (id: string): 'pulse' | 'drift' => {
-  return PULSE_WORDS.has(id) ? 'pulse' : 'drift'
+/** Words drawn as literal spiky stars — their points breathe in and out on a loop,
+ * echoing the jab/prick/spark each word describes. */
+const SPIKE_WORDS = new Set(['sharp', 'stabbing', 'tingling'])
+
+/** Words describing an unsteady, trembling sensation — drift plays faster and a
+ * touch wider so it reads as wobbly rather than calm. */
+const JITTER_WORDS = new Set(['shaky', 'dizzy', 'unstable'])
+
+export const motifFor = (id: string): 'pulse' | 'spike' | 'jitter' | 'drift' => {
+  if (PULSE_WORDS.has(id)) return 'pulse'
+  if (SPIKE_WORDS.has(id)) return 'spike'
+  if (JITTER_WORDS.has(id)) return 'jitter'
+  return 'drift'
 }

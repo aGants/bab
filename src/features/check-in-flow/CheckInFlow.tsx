@@ -17,9 +17,9 @@ const STEP_TITLES: Record<Step, string> = {
 }
 
 const PREVIOUS_STEP: Record<Step, Step> = {
-  location: 'location',
-  intensity: 'location',
-  notes: 'intensity',
+  intensity: 'intensity',
+  location: 'intensity',
+  notes: 'location',
   confirm: 'notes',
 }
 
@@ -40,7 +40,7 @@ export const CheckInFlow = ({
   onDone: () => void
   onCancel: () => void
 }) => {
-  const [step, setStep] = useState<Step>('location')
+  const [step, setStep] = useState<Step>('intensity')
   const draft = useCheckInDraft(word, date, editing)
 
   const handleSave = async () => {
@@ -52,11 +52,11 @@ export const CheckInFlow = ({
     <div className="check-in-flow" role="dialog" aria-label={`Check in: ${word.word}`}>
       <CheckInStepHeader
         title={STEP_TITLES[step]}
-        onBack={step === 'location' ? onCancel : () => setStep(PREVIOUS_STEP[step])}
+        onBack={step === 'intensity' ? onCancel : () => setStep(PREVIOUS_STEP[step])}
         onForward={
-          step === 'location' && draft.bodyZones.length > 0
-            ? () => setStep('intensity')
-            : step === 'intensity' && draft.intensity !== null
+          step === 'intensity' && draft.intensity !== null
+            ? () => setStep('location')
+            : step === 'location' && draft.bodyZones.length > 0
               ? () => setStep('notes')
               : step === 'notes'
                 ? () => setStep('confirm')
@@ -64,16 +64,7 @@ export const CheckInFlow = ({
         }
       />
       <div className="check-in-flow-content">
-              {step === 'location' && (
-        <>
-          <BodyLocationStep value={draft.bodyZones} onToggle={draft.toggleBodyZone} />
-          <Button disabled={draft.bodyZones.length === 0} onClick={() => setStep('intensity')}>
-            Next
-          </Button>
-        </>
-      )}
-
-      {step === 'intensity' && (
+              {step === 'intensity' && (
         <>
           <IntensityStep
             word={word}
@@ -82,7 +73,16 @@ export const CheckInFlow = ({
             trigger={draft.trigger}
             onTriggerChange={draft.setTrigger}
           />
-          <Button disabled={draft.intensity === null} onClick={() => setStep('notes')}>
+          <Button disabled={draft.intensity === null} onClick={() => setStep('location')}>
+            Next
+          </Button>
+        </>
+      )}
+
+      {step === 'location' && (
+        <>
+          <BodyLocationStep value={draft.bodyZones} onToggle={draft.toggleBodyZone} />
+          <Button disabled={draft.bodyZones.length === 0} onClick={() => setStep('notes')}>
             Next
           </Button>
         </>

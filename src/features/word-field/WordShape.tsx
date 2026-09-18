@@ -2,6 +2,13 @@ import { useMemo, type CSSProperties } from 'react'
 import type { WordCard } from './bodyWordsData'
 import { floatVars, motifFor, wordColor, wordPath } from './helpers/shapes'
 
+const MOTIF_CLASS: Record<ReturnType<typeof motifFor>, string> = {
+  pulse: ' word-shape--pulse',
+  spike: ' word-shape--spike',
+  jitter: ' word-shape--jitter',
+  drift: '',
+}
+
 /**
  * expressive=false: settled near a circle, just barely hinting at the word's real shape.
  * expressive=true (hover/selected): the shape unfolds into its full, hand-authored
@@ -11,13 +18,23 @@ import { floatVars, motifFor, wordColor, wordPath } from './helpers/shapes'
 export const WordShape = ({ card, expressive = false }: { card: WordCard; expressive?: boolean }) => {
   const path = useMemo(() => wordPath(card.id, !expressive), [card.id, expressive])
   const color = wordColor(card.id)
+  const motif = motifFor(card.id)
   const driftStyle = useMemo(() => floatVars(card.id) as CSSProperties, [card.id])
-  const motifClass = motifFor(card.id) === 'pulse' ? ' word-shape--pulse' : ''
-  const className = `word-shape${motifClass}`
+  const className = `word-shape${MOTIF_CLASS[motif]}`
+
+  // Spiky words loop between their own full and calm paths (see spike-breathe in
+  // BodyWordCards.css) — handed over as CSS vars since the path strings are per-word.
+  const pathStyle: CSSProperties | undefined =
+    motif === 'spike'
+      ? ({
+          '--word-shape-full': `path("${wordPath(card.id, false)}")`,
+          '--word-shape-calm': `path("${wordPath(card.id, true)}")`,
+        } as CSSProperties)
+      : undefined
 
   return (
     <svg viewBox="0 0 100 100" className={className} style={driftStyle}>
-      <path className="word-shape-path" d={path} fill={color} />
+      <path className="word-shape-path" d={path} fill={color} style={pathStyle} />
     </svg>
   )
 }

@@ -1,6 +1,9 @@
 .app-greeting {
   position: sticky;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   top: 0;
   z-index: 1;
   box-sizing: border-box;
@@ -9,17 +12,29 @@
   padding: 17px 20px;
   overflow: hidden;
   background: var(--color-surface);
+}
+
+.app-greeting-text {
+  min-width: 0;
+  margin: 0;
   font-size: 15px;
   font-weight: 600;
   color: var(--color-ink);
   white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.app-greeting--home {
+.app-greeting--home .app-greeting-text {
   font-size: 28px;
   font-weight: 800;
   white-space: normal;
   overflow: visible;
   text-overflow: initial;
+}
+
+.app-greeting-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
 }
