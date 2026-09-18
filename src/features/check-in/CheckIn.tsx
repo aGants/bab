@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ROUTES } from "@/routes/paths";
 import { PageFrame } from "@/shared/layout";
 import { checkInRepository } from "@/entities/check-in/checkInRepository";
-import { todayKey } from "@/entities/check-in/dateKey";
+import { todayKey } from "@/shared/lib/dateKey";
 import type { CheckInEntry } from "@/entities/check-in/types";
 import { CATEGORIES, WORD_CARDS } from "@/features/word-field/bodyWordsData";
 import './CheckIn.css';

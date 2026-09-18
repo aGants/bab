@@ -1,5 +1,5 @@
 import type { CheckInEntry, NewCheckInEntry } from './types'
-import { toDateKey } from './dateKey'
+import { toDateKey } from '@/shared/lib/dateKey'
 
 /**
  * Written as if it already talks to a real API — every method is async even
