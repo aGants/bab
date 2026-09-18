@@ -1,4 +1,4 @@
-import type { CheckInIntensity } from '@/entities/check-in/types'
+import { DEFAULT_CHECK_IN_INTENSITY, type CheckInIntensity } from '@/entities/check-in/types'
 import type { WordCard } from '@/features/word-field/bodyWordsData'
 import { WordShape } from '@/features/word-field/WordShape'
 import './IntensityStep.css'
@@ -22,7 +22,7 @@ export const IntensityStep = ({
   value: CheckInIntensity | null
   onSelect: (intensity: CheckInIntensity) => void
 }) => {
-  const level = value ?? Math.round((MIN_INTENSITY + MAX_INTENSITY) / 2)
+  const level = value ?? DEFAULT_CHECK_IN_INTENSITY
 
   return (
     <div className="intensity-step">

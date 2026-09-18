@@ -55,6 +55,10 @@ export type BodyZone =
  * WordCard.intensity, which just shapes the word's default card art. */
 export type CheckInIntensity = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
 
+/** Slider starts here so a user who never touches it still has a valid answer
+ * and can move on — picking a value is optional, not a required interaction. */
+export const DEFAULT_CHECK_IN_INTENSITY: CheckInIntensity = 5
+
 export type Energy = 'low' | 'medium' | 'high'
 
 export interface NewCheckInEntry {
