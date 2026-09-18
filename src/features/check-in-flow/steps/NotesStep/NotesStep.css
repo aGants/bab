@@ -19,9 +19,9 @@
 
 .notes-step__energy-pill {
     padding: 10px 20px;
-    border: 1.5px solid var(--color-energy);
+    border: none;
     border-radius: 999px;
-    background: var(--color-surface);
+    background: var(--color-surface-raised);
     color: var(--color-ink);
     font-family: var(--font-body);
     font-size: 15px;
@@ -42,7 +42,43 @@
 
 .notes-step__energy-slider {
     width: 100%;
-    accent-color: var(--color-anchor);
+    height: 20px;
+    margin: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.notes-step__energy-slider::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--color-surface-raised);
+}
+
+.notes-step__energy-slider::-moz-range-track {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--color-surface-raised);
+}
+
+.notes-step__energy-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    margin-top: -7px;
+    border: none;
+    border-radius: 999px;
+    background: var(--color-energy);
+}
+
+.notes-step__energy-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 999px;
+    background: var(--color-energy);
 }
 
 .notes-step__energy-numbers {

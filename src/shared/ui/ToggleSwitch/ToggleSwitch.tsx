@@ -14,11 +14,8 @@ export const ToggleSwitch = <T extends string>({
   value: T
   onChange: (value: T) => void
 }) => {
-  const activeIndex = options[0].value === value ? 0 : 1
-
   return (
-    <div className="toggle-switch" data-active-index={activeIndex}>
-      <div className="toggle-switch__thumb" />
+    <div className="toggle-switch">
       {options.map((option) => (
         <button
           key={option.value}

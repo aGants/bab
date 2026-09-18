@@ -43,7 +43,16 @@ export const IntensityStep = ({
   return (
     <div className="intensity-step">
       <h2>How big is it?</h2>
-      <input
+      <div className="intensity-step__stage">
+        <div
+          className="intensity-step__shape"
+          style={{ transform: `scale(${scaleForIntensity(level)})` }}
+        >
+          <WordShape card={word} expressive />
+        </div>
+      </div>
+
+            <input
         type="range"
         className="intensity-step__slider"
         min={MIN_INTENSITY}
@@ -53,17 +62,10 @@ export const IntensityStep = ({
         onChange={(event) => onSelect(Number(event.target.value) as CheckInIntensity)}
         aria-label="How big is it"
       />
-      <div className="intensity-step__stage">
-        <div
-          className="intensity-step__shape"
-          style={{ transform: `scale(${scaleForIntensity(level)})` }}
-        >
-          <WordShape card={word} expressive />
-        </div>
-      </div>
+
       <div className="intensity-step__scale-labels">
-        <span>т</span>
-        <span>Huge</span>
+        <span>no pain</span>
+        <span>worst possible pain</span>
       </div>
 
       <p className="intensity-step__label">When do you notice it?</p>

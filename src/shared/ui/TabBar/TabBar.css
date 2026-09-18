@@ -1,11 +1,19 @@
+/* --color-cycle stays the same light lavender in both themes (only
+   --color-ink flips), so text/icons sitting directly on it need their own
+   theme-invariant dark ink — otherwise dark mode swaps in near-white text
+   and the contrast disappears. */
+:root {
+  --tab-bar-ink-on-cycle: color-mix(in srgb, var(--color-ground) 8%, black);
+  --tab-bar-ink-muted-on-cycle: color-mix(in srgb, var(--tab-bar-ink-on-cycle) 55%, transparent);
+}
+
 .tab-bar {
   display: flex;
   flex-shrink: 0;
   position: sticky;
   bottom: 0;
   z-index: 1;
-  border-top: 1px solid var(--color-overlay);
-  background: var(--color-surface);
+  background: var(--color-cycle);
 }
 
 .tab-bar-item {
@@ -15,16 +23,16 @@
   align-items: center;
   gap: 2px;
   padding: 10px 0 calc(10px + env(safe-area-inset-bottom, 0px));
-  color: var(--color-ink-muted);
+  color: var(--tab-bar-ink-muted-on-cycle);
   text-decoration: none;
 }
 
 .tab-bar-item-active {
-  color: var(--color-ink);
+  color: var(--tab-bar-ink-on-cycle);
 }
 
 .tab-bar-icon {
-  font-size: 22px;
+  display: flex;
   line-height: 1;
 }
 
