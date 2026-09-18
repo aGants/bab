@@ -1,0 +1,147 @@
+.calendar-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: var(--padding);
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.calendar-title {
+  font-size: 28px;
+  margin: 0;
+}
+
+/* Compact, taller day cells so each one fits a number plus a feeling/period
+   row underneath, and swap the default circular selection for a soft pill. */
+.calendar-picker {
+  --rdp-accent-color: var(--color-ink);
+  --rdp-accent-background-color: var(--color-surface-raised);
+  --rdp-day-width: 42px;
+  --rdp-day-height: 52px;
+  --rdp-day_button-width: 42px;
+  --rdp-day_button-height: 52px;
+  --rdp-day_button-border-radius: 14px;
+  --rdp-today-color: var(--color-signals);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  /* auto vertical margins center the grid in the wrapper's free space below
+     the header, and collapse to 0 (no clipping) once the detail panel makes
+     the page taller than the screen. */
+  margin: auto 0;
+}
+
+.calendar-day-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-family: var(--font-body);
+}
+
+.calendar-day-number {
+  font-size: 14px;
+}
+
+.calendar-day-marks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 14px;
+}
+
+.calendar-day-mood {
+  position: relative;
+  width: 14px;
+  height: 14px;
+}
+
+.calendar-day-period {
+  font-size: 10px;
+  line-height: 1;
+}
+
+.calendar-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--color-surface-raised);
+}
+
+.calendar-detail-date {
+  margin: 0;
+  font-size: 16px;
+}
+
+.calendar-detail-flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.calendar-detail-flag {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--color-cycle);
+  color: color-mix(in srgb, var(--color-ground) 8%, black);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.calendar-detail-empty {
+  margin: 0;
+  color: var(--color-ink-muted);
+  font-size: 14px;
+}
+
+.calendar-detail-log {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.calendar-detail-log-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--color-surface);
+}
+
+.calendar-detail-log-emoji {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.calendar-detail-log-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.calendar-detail-log-meta {
+  font-size: 13px;
+  color: var(--color-ink-muted);
+}
+
+.calendar-detail-log-note {
+  margin: 4px 0 0;
+  font-size: 14px;
+}
