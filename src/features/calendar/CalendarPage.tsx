@@ -71,8 +71,8 @@ export const CalendarPage = () => {
 
   return (
     <PageFrame>
+      <Greeting />
       <div className="calendar-wrapper">
-        <Greeting />
         <div className="calendar-header">
           <h1 className="text-display calendar-title">Calendar</h1>
         </div>

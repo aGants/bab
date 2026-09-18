@@ -16,8 +16,8 @@ export const SettingsPage = () => {
 
   return (
     <PageFrame>
+      <Greeting />
       <div className="settings-wrapper">
-        <Greeting />
         <div className="settings-header">
           <h1 className="text-display settings-title">Settings</h1>
         </div>

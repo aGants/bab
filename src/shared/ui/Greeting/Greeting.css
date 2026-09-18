@@ -1,13 +1,25 @@
 .app-greeting {
   position: sticky;
+  display: block;
   top: 0;
   z-index: 1;
+  box-sizing: border-box;
   width: 100%;
   margin: 0;
-  padding-bottom: 12px;
+  padding: 17px 20px;
+  overflow: hidden;
   background: var(--color-surface);
   font-size: 15px;
   font-weight: 600;
-  color: var(--color-ink-muted);
-  text-align: center;
+  color: var(--color-ink);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.app-greeting--home {
+  font-size: 28px;
+  font-weight: 800;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: initial;
 }

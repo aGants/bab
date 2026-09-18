@@ -19,9 +19,9 @@
 
 .notes-step__energy-pill {
     padding: 10px 20px;
-    border: none;
+    border: 1.5px solid var(--color-energy);
     border-radius: 999px;
-    background: var(--color-surface-raised);
+    background: var(--color-surface);
     color: var(--color-ink);
     font-family: var(--font-body);
     font-size: 15px;
@@ -30,8 +30,9 @@
 }
 
 .notes-step__energy-pill[aria-pressed='true'] {
-    background: var(--color-cycle);
+    background: var(--color-energy);
     color: var(--notes-step-ink-on-cycle);
+    font-weight: 700;
 }
 
 .notes-step__energy-scale {

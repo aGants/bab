@@ -7,8 +7,8 @@ import './CheckIn.css';
 export const CheckIn = () => {
   return (
     <PageFrame>
+      <Greeting variant="home" />
       <div className="check-in-wrapper">
-				<Greeting />
 				<div className="check-in-content">
 					<h1>What is your body telling you today?</h1>
         	<Link className="plus-button" to={ROUTES.words}>+</Link>

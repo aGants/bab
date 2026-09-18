@@ -1,7 +1,13 @@
 import { useUserProfile } from '@/entities/user-profile/useUserProfile'
 import './Greeting.css'
 
-export const Greeting = () => {
+type GreetingProps = {
+  variant?: 'default' | 'home'
+}
+
+export const Greeting = ({ variant = 'default' }: GreetingProps) => {
   const { name } = useUserProfile()
-  return <p className="app-greeting">Hi, {name}</p>
+  const className =
+    variant === 'home' ? 'app-greeting app-greeting--home' : 'app-greeting'
+  return <p className={className}>Hi, {name}</p>
 }
