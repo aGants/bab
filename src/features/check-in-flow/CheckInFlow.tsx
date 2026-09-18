@@ -68,7 +68,7 @@ export const CheckInFlow = ({
 
       {step === 'intensity' && (
         <>
-          <IntensityStep value={draft.intensity} onSelect={draft.setIntensity} />
+          <IntensityStep word={word} value={draft.intensity} onSelect={draft.setIntensity} />
           <Button disabled={draft.intensity === null} onClick={() => setStep('notes')}>
             Next
           </Button>

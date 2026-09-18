@@ -1,31 +1,54 @@
 import type { CheckInIntensity } from '@/entities/check-in/types'
+import type { WordCard } from '@/features/word-field/bodyWordsData'
+import { WordShape } from '@/features/word-field/WordShape'
 import './IntensityStep.css'
 
-// debug-simple: plain buttons 0..10. Swap for the drag-to-resize word shape
-// later without touching CheckInFlow — it only needs onSelect(level).
-const LEVELS: CheckInIntensity[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const MIN_INTENSITY = 1
+const MAX_INTENSITY = 10
+
+/** Maps intensity (1..10) to a visual size multiplier for the shape — tiny at 1,
+ * dramatically larger at 10, so "how big is it" reads literally and viscerally. */
+const scaleForIntensity = (intensity: number): number => {
+  const t = (intensity - MIN_INTENSITY) / (MAX_INTENSITY - MIN_INTENSITY)
+  return 0.35 + t * 1.85
+}
 
 export const IntensityStep = ({
+  word,
   value,
   onSelect,
 }: {
+  word: WordCard
   value: CheckInIntensity | null
   onSelect: (intensity: CheckInIntensity) => void
-}) => (
-  <div>
-    <h2>How big is it?</h2>
-    <div className="intensity-step__levels">
-      {LEVELS.map((level) => (
-        <button
-          key={level}
-          type="button"
-          className="intensity-step__level"
-          aria-pressed={value === level}
-          onClick={() => onSelect(level)}
+}) => {
+  const level = value ?? Math.round((MIN_INTENSITY + MAX_INTENSITY) / 2)
+
+  return (
+    <div className="intensity-step">
+      <h2>How big is it?</h2>
+      <div className="intensity-step__stage">
+        <div
+          className="intensity-step__shape"
+          style={{ transform: `scale(${scaleForIntensity(level)})` }}
         >
-          {level}
-        </button>
-      ))}
+          <WordShape card={word} expressive />
+        </div>
+      </div>
+      <input
+        type="range"
+        className="intensity-step__slider"
+        min={MIN_INTENSITY}
+        max={MAX_INTENSITY}
+        step={1}
+        value={level}
+        onChange={(event) => onSelect(Number(event.target.value) as CheckInIntensity)}
+        aria-label="How big is it"
+      />
+      <div className="intensity-step__scale-labels">
+        <span>Tiny</span>
+        <span>Huge</span>
+      </div>
     </div>
-  </div>
-)
+  )
+}
