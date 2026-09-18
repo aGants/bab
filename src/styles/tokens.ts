@@ -1,10 +1,10 @@
 /** Design tokens, mirrored from tokens.css for use in JS/TS (inline styles, canvas, SVG fills, etc). */
 
 export const COLORS = {
-  anchor: '#0A7B6B',
-  energy: '#C2E84D',
+  anchor: '#114F4F',
+  energy: '#BCE739',
   signals: '#E8836A',
-  cycle: '#D8D0F0',
+  cycle: '#EDE6FE',
   ground: '#FDFCF9',
 } as const
 

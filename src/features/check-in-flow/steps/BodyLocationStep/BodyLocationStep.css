@@ -7,6 +7,13 @@
     min-height: 0;
 }
 
+.body-location-step > p {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--color-ink-muted);
+    margin: 0;
+}
+
 .body-location-step__toggle {
     display: flex;
     justify-content: center;

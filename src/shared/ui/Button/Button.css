@@ -1,13 +1,9 @@
-:root {
-    --button-primary-bg: #114f4f;
-}
-
 .button {
     width: 100%;
     padding: 16px;
     border: none;
     border-radius: 999px;
-    background: var(--button-primary-bg);
+    background: var(--color-anchor);
     color: var(--color-surface);
     font-family: var(--font-body);
     font-size: 17px;

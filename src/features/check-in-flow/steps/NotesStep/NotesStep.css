@@ -1,13 +1,15 @@
-/* --color-cycle stays the same light lavender in both themes (only
-   --color-ink flips), so text sitting directly on it needs its own
-   theme-invariant dark ink rather than var(--color-ink) — otherwise dark
-   mode swaps in near-white text and the contrast disappears. */
+/* --color-energy stays the same light lime in both themes (only --color-ink
+   flips), so text sitting directly on it needs its own theme-invariant dark
+   ink rather than var(--color-ink) — otherwise dark mode swaps in near-white
+   text and the contrast disappears. */
 :root {
-    --notes-step-ink-on-cycle: color-mix(in srgb, var(--color-ground) 8%, black);
+    --notes-step-ink-on-accent: color-mix(in srgb, var(--color-ground) 8%, black);
 }
 
 .notes-step__label {
-    font-weight: 700;
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: var(--color-ink);
     margin: 16px 0 8px;
 }
 
@@ -31,7 +33,7 @@
 
 .notes-step__energy-pill[aria-pressed='true'] {
     background: var(--color-energy);
-    color: var(--notes-step-ink-on-cycle);
+    color: var(--notes-step-ink-on-accent);
     font-weight: 700;
 }
 
@@ -88,9 +90,10 @@
 }
 
 .notes-step__energy-number {
-    width: 20px;
+    width: 24px;
     text-align: center;
-    font-size: 13px;
+    font-family: var(--font-body);
+    font-size: var(--body-font-size);
     font-weight: 600;
     color: var(--color-ink-muted);
 }
@@ -107,8 +110,8 @@
     padding: 16px;
     border: none;
     border-radius: 20px;
-    background: var(--color-cycle);
-    color: var(--notes-step-ink-on-cycle);
+    background: var(--color-surface-raised);
+    color: var(--color-ink);
     font-family: var(--font-body);
     font-size: 16px;
     line-height: var(--body-line-height);
@@ -117,7 +120,7 @@
 }
 
 .notes-step__textarea::placeholder {
-    color: color-mix(in srgb, var(--notes-step-ink-on-cycle) 45%, transparent);
+    color: var(--color-ink-muted);
 }
 
 .notes-step__textarea:focus {

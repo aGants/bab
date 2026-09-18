@@ -3,15 +3,29 @@ import {
   type CheckInIntensity,
   type Trigger,
 } from '@/entities/check-in/types'
-import type { WordCard } from '@/features/word-field/bodyWordsData'
+import { WORD_CARDS, type WordCard } from '@/features/word-field/bodyWordsData'
 import { WordShape } from '@/features/word-field/WordShape'
 import './IntensityStep.css'
 
 const MIN_INTENSITY = 1
 const MAX_INTENSITY = 10
 
+/** How many calm background shapes drift around the hero shape — enough to make
+ * the drift read as "alive" at a glance, without competing with the hero for focus. */
+const SATELLITE_COUNT = 3
+
+/** Picks a few other cards from the same category as `word`, walking forward from
+ * its own position so each word surfaces a different, but deterministic, set of
+ * neighbours instead of always the same two. */
+const satellitesFor = (word: WordCard): WordCard[] => {
+  const categoryCards = WORD_CARDS.filter((card) => card.category === word.category)
+  const startIndex = categoryCards.findIndex((card) => card.id === word.id)
+  const count = Math.min(SATELLITE_COUNT, categoryCards.length - 1)
+  return Array.from({ length: count }, (_, i) => categoryCards[(startIndex + i + 1) % categoryCards.length])
+}
+
 const TRIGGER_OPTIONS: { value: Trigger; label: string }[] = [
-  { value: 'movement', label: 'Only when I move it' },
+  { value: 'movement', label: 'When I move it' },
   { value: 'pressure', label: 'When I press it' },
   { value: 'stillness', label: 'Standing still' },
 ]

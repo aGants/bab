@@ -11,6 +11,8 @@
 
 .check-in-step-header h2 {
     margin: 0;
+    font-family: var(--font-display);
+    font-style: normal;
     font-size: 17px;
     font-weight: 700;
     text-align: center;

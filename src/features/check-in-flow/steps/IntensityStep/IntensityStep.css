@@ -1,29 +1,38 @@
-/* Same theme-invariant ink as NotesStep's --notes-step-ink-on-cycle: text on
-   --color-cycle needs its own dark ink since --color-ink flips in dark mode. */
+/* Same theme-invariant ink as NotesStep's --notes-step-ink-on-accent: text on
+   --color-energy needs its own dark ink since --color-ink flips in dark mode. */
 :root {
-    --intensity-step-ink-on-cycle: color-mix(in srgb, var(--color-ground) 8%, black);
+    --intensity-step-ink-on-accent: color-mix(in srgb, var(--color-ground) 8%, black);
 }
 
 .intensity-step {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 24px;
-    padding: 12px 0;
+    flex: 1;
+    min-height: 0;
+    gap: 14px;
+    padding: 4px 0;
+}
+
+.intensity-step h2 {
+    font-size: 17px;
+    margin: 0;
 }
 
 .intensity-step__stage {
     width: 100%;
     max-width: 320px;
-    height: 280px;
+    flex: 1;
+    min-height: 70px;
+    max-height: 220px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .intensity-step__shape {
-    width: 130px;
-    height: 130px;
+    width: 100px;
+    height: 100px;
     transition: transform 0.2s ease;
 }
 
@@ -81,6 +90,7 @@
     align-items: center;
     width: 100%;
     max-width: 320px;
+    font-family: var(--font-body);
     color: var(--color-ink-muted);
     font-size: 13px;
 }
@@ -93,7 +103,10 @@
 
 .intensity-step__label {
     align-self: flex-start;
-    font-weight: 700;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-ink);
     margin: 0;
 }
 
@@ -106,19 +119,19 @@
 }
 
 .intensity-step__trigger-pill {
-    padding: 10px 20px;
+    padding: 8px 16px;
     border: none;
     border-radius: 999px;
     background: var(--color-surface-raised);
     color: var(--color-ink);
     font-family: var(--font-body);
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
 }
 
 .intensity-step__trigger-pill[aria-pressed='true'] {
     background: var(--color-energy);
-    color: var(--intensity-step-ink-on-cycle);
+    color: var(--intensity-step-ink-on-accent);
     font-weight: 700;
 }

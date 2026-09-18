@@ -2,10 +2,10 @@
    Keep this file and tokens.ts in sync — see tokens.ts for the JS-side mirror. */
 :root {
   /* Palette */
-  --color-anchor: #0a7b6b;
-  --color-energy: #c2e84d;
+  --color-anchor: #114f4f;
+  --color-energy: #bce739;
   --color-signals: #e8836a;
-  --color-cycle: #d8d0f0;
+  --color-cycle: #ede6fe;
   --color-ground: #fdfcf9;
 
   /* Neutral surfaces/text, theme-switchable — the 5 palette colors above
