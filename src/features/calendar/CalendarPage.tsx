@@ -119,7 +119,7 @@ export const CalendarPage = () => {
                       <div className="calendar-detail-log-details">
                         <strong>{word?.word ?? 'Unknown'}</strong>
                         <span className="calendar-detail-log-meta">
-                          {entry.bodyZone} · intensity {entry.intensity}
+                          {entry.bodyZones.join(', ')} · intensity {entry.intensity}
                         </span>
                         {entry.note && <p className="calendar-detail-log-note">{entry.note}</p>}
                       </div>

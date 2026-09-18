@@ -2,7 +2,7 @@ import { useState } from 'react'
 import type { WordCard } from '@/features/word-field/bodyWordsData'
 import type { CheckInEntry } from '@/entities/check-in/types'
 import { useCheckInDraft } from './useCheckInDraft'
-import { BodyLocationStep, IntensityStep, NotesStep } from './steps'
+import { BodyLocationStep, IntensityStep, NotesStep, SummaryStep } from './steps'
 import { CheckInStepHeader } from './CheckInStepHeader'
 import { Button } from '@/shared/ui'
 import './CheckInFlow.css';
@@ -54,7 +54,7 @@ export const CheckInFlow = ({
         title={STEP_TITLES[step]}
         onBack={step === 'location' ? onCancel : () => setStep(PREVIOUS_STEP[step])}
         onForward={
-          step === 'location' && draft.bodyZone !== null
+          step === 'location' && draft.bodyZones.length > 0
             ? () => setStep('intensity')
             : step === 'intensity' && draft.intensity !== null
               ? () => setStep('notes')
@@ -66,8 +66,8 @@ export const CheckInFlow = ({
       <div className="check-in-flow-content">
               {step === 'location' && (
         <>
-          <BodyLocationStep value={draft.bodyZone} onSelect={draft.setBodyZone} />
-          <Button disabled={draft.bodyZone === null} onClick={() => setStep('intensity')}>
+          <BodyLocationStep value={draft.bodyZones} onToggle={draft.toggleBodyZone} />
+          <Button disabled={draft.bodyZones.length === 0} onClick={() => setStep('intensity')}>
             Next
           </Button>
         </>
@@ -87,6 +87,8 @@ export const CheckInFlow = ({
           <NotesStep
             energy={draft.energy}
             onEnergyChange={draft.setEnergy}
+            trigger={draft.trigger}
+            onTriggerChange={draft.setTrigger}
             note={draft.note}
             onNoteChange={draft.setNote}
             date={date}
@@ -95,11 +97,9 @@ export const CheckInFlow = ({
         </>
       )}
 
-      {step === 'confirm' && (
+      {step === 'confirm' && draft.bodyZones.length > 0 && draft.intensity !== null && (
         <>
-          <p>
-            Zone: {draft.bodyZone} · Intensity: {draft.intensity}
-          </p>
+          <SummaryStep word={word} bodyZones={draft.bodyZones} intensity={draft.intensity} />
           <Button disabled={draft.saving} onClick={handleSave}>
             {draft.saving ? 'Saving…' : editing ? 'Update check-in' : 'Save check-in'}
           </Button>

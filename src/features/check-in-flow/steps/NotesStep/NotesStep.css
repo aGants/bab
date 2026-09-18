@@ -34,6 +34,35 @@
     color: var(--notes-step-ink-on-cycle);
 }
 
+.notes-step__energy-scale {
+    width: 100%;
+    max-width: 320px;
+}
+
+.notes-step__energy-slider {
+    width: 100%;
+    accent-color: var(--color-anchor);
+}
+
+.notes-step__energy-numbers {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+}
+
+.notes-step__energy-number {
+    width: 20px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-ink-muted);
+}
+
+.notes-step__energy-number[data-active='true'] {
+    color: var(--color-ink);
+    font-weight: 700;
+}
+
 .notes-step__textarea {
     display: block;
     width: 100%;

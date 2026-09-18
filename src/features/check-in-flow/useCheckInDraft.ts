@@ -2,10 +2,12 @@ import { useState } from 'react'
 import type { WordCard } from '@/features/word-field/bodyWordsData'
 import {
   DEFAULT_CHECK_IN_INTENSITY,
+  DEFAULT_ENERGY,
   type BodyZone,
   type CheckInEntry,
   type CheckInIntensity,
   type Energy,
+  type Trigger,
 } from '@/entities/check-in/types'
 import { checkInRepository } from '@/entities/check-in/checkInRepository'
 
@@ -15,23 +17,31 @@ import { checkInRepository } from '@/entities/check-in/checkInRepository'
  * to seed the draft from an existing entry and patch it in place on commit,
  * instead of creating a new one. */
 export const useCheckInDraft = (word: WordCard, date?: string, editing?: CheckInEntry) => {
-  const [bodyZone, setBodyZone] = useState<BodyZone | null>(editing?.bodyZone ?? null)
+  const [bodyZones, setBodyZones] = useState<BodyZone[]>(editing?.bodyZones ?? [])
   const [intensity, setIntensity] = useState<CheckInIntensity | null>(
     editing?.intensity ?? DEFAULT_CHECK_IN_INTENSITY,
   )
-  const [energy, setEnergy] = useState<Energy | null>(editing?.energy ?? null)
+  const [energy, setEnergy] = useState<Energy | null>(editing?.energy ?? DEFAULT_ENERGY)
+  const [trigger, setTrigger] = useState<Trigger | null>(editing?.trigger ?? null)
   const [note, setNote] = useState(editing?.note ?? '')
   const [saving, setSaving] = useState(false)
 
+  const toggleBodyZone = (zone: BodyZone) => {
+    setBodyZones((zones) =>
+      zones.includes(zone) ? zones.filter((existing) => existing !== zone) : [...zones, zone],
+    )
+  }
+
   const commit = async (): Promise<CheckInEntry | null> => {
-    if (bodyZone === null || intensity === null) return null
+    if (bodyZones.length === 0 || intensity === null) return null
     setSaving(true)
     try {
       const payload = {
         wordId: word.id,
-        bodyZone,
+        bodyZones,
         intensity,
         energy: energy ?? undefined,
+        trigger: trigger ?? undefined,
         note: note.trim() || undefined,
       }
       return editing ? await checkInRepository.update(editing.id, payload) : await checkInRepository.save(payload, date)
@@ -41,12 +51,14 @@ export const useCheckInDraft = (word: WordCard, date?: string, editing?: CheckIn
   }
 
   return {
-    bodyZone,
-    setBodyZone,
+    bodyZones,
+    toggleBodyZone,
     intensity,
     setIntensity,
     energy,
     setEnergy,
+    trigger,
+    setTrigger,
     note,
     setNote,
     saving,

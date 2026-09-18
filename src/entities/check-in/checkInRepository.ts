@@ -1,4 +1,4 @@
-import type { CheckInEntry, NewCheckInEntry } from './types'
+import type { BodyZone, CheckInEntry, NewCheckInEntry } from './types'
 import { toDateKey } from '@/shared/lib/dateKey'
 
 /**
@@ -20,12 +20,23 @@ export interface CheckInRepository {
 
 const STORAGE_KEY = 'check-ins'
 
+/** Pre-multi-zone entries stored a single `bodyZone` instead of `bodyZones` —
+ * normalize them on read so old localStorage data doesn't crash new UI. */
+type StoredCheckInEntry = (CheckInEntry | (Omit<CheckInEntry, 'bodyZones'> & { bodyZone: BodyZone })) &
+  Partial<Pick<CheckInEntry, 'bodyZones'>>
+
+const normalizeEntry = (entry: StoredCheckInEntry): CheckInEntry => {
+  if (entry.bodyZones) return entry as CheckInEntry
+  const { bodyZone, ...rest } = entry as Omit<CheckInEntry, 'bodyZones'> & { bodyZone: BodyZone }
+  return { ...rest, bodyZones: [bodyZone] }
+}
+
 const readAll = (): CheckInEntry[] => {
   const raw = window.localStorage.getItem(STORAGE_KEY)
   if (!raw) return []
   try {
     const parsed = JSON.parse(raw)
-    return Array.isArray(parsed) ? parsed : []
+    return Array.isArray(parsed) ? parsed.map(normalizeEntry) : []
   } catch {
     return []
   }

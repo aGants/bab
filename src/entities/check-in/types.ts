@@ -59,14 +59,23 @@ export type CheckInIntensity = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
  * and can move on — picking a value is optional, not a required interaction. */
 export const DEFAULT_CHECK_IN_INTENSITY: CheckInIntensity = 5
 
-export type Energy = 'low' | 'medium' | 'high'
+/** Energy level on a 1 (empty) to 7 (full) scale. */
+export type Energy = 1 | 2 | 3 | 4 | 5 | 6 | 7
+
+/** Slider starts here so a user who never touches it still has a valid answer. */
+export const DEFAULT_ENERGY: Energy = 4
+
+/** When the sensation shows up — surfaced right after "how big is it". */
+export type Trigger = 'movement' | 'pressure' | 'stillness'
 
 export interface NewCheckInEntry {
   /** references WordCard.id from word-field/bodyWordsData — content isn't duplicated here */
   wordId: string
-  bodyZone: BodyZone
+  /** one or more zones tapped on the body map — non-empty once the location step is complete */
+  bodyZones: BodyZone[]
   intensity: CheckInIntensity
   energy?: Energy
+  trigger?: Trigger
   note?: string
 }
 
