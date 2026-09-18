@@ -26,7 +26,7 @@ export const NotesStep = ({
   const energyLevel = energy ?? DEFAULT_ENERGY
 
   return (
-    <div>
+    <div className="notes-step">
       <h2>Anything else you want to share?</h2>
 
       <p className="notes-step__label">Energy</p>

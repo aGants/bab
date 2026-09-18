@@ -6,11 +6,24 @@
     --notes-step-ink-on-accent: color-mix(in srgb, var(--color-ground) 8%, black);
 }
 
+.notes-step {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    /* Bigger gap when the flow has real room (desktop frame), tighter on a
+       short mobile screen so everything still fits without scrolling. */
+    gap: clamp(6px, 3cqh, 20px);
+}
+
+/* Spacing now comes from `.notes-step`'s gap instead of margins — margins on
+   flex children don't collapse the way they do in normal block flow, so
+   keeping both would double up the space between sections. */
 .notes-step__label {
     font-family: var(--font-body);
     font-weight: 600;
     color: var(--color-ink);
-    margin: 16px 0 8px;
+    margin: 0;
 }
 
 .notes-step__energy {
@@ -103,10 +116,15 @@
     font-weight: 700;
 }
 
+/* Grows to use whatever room the flexible notes-step column has left (same
+   idea as the Intensity shape) — small min so it still fits a short screen,
+   capped so it doesn't balloon absurdly tall on a big one. */
 .notes-step__textarea {
     display: block;
     width: 100%;
-    min-height: 160px;
+    flex: 1;
+    min-height: 70px;
+    max-height: 280px;
     padding: 16px;
     border: none;
     border-radius: 20px;

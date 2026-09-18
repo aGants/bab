@@ -16,13 +16,28 @@
     min-height: 0;
     overflow-y: auto;
     padding-bottom: var(--padding);
+    /* Lets a step's own row spacing (see .intensity-step / .notes-step) query
+       this box's real, laid-out height via cqh — unlike vh/dvh, that stays
+       correct even when this sits inside the shorter, capped phone-frame the
+       desktop layout simulates, instead of the browser window's raw height. */
+    container-type: size;
+    container-name: flow;
+}
+
+/* Keeps the step's Next button docked to the bottom of the screen instead of
+   trailing right after short content — any extra height (tall viewport, short
+   step) collects in this one gap instead of stretching/centering the step
+   itself, which read as random dead space between elements. */
+.check-in-flow-content > .button {
+    margin-top: auto;
+    flex-shrink: 0;
 }
 
 .check-in-flow-content h2 {
     font-family: var(--font-display);
     font-style: normal;
     font-weight: 800;
-    font-size: 26px;
+    font-size: 19px;
     line-height: 1.15;
     letter-spacing: -0.02em;
 }
