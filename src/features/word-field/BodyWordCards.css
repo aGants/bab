@@ -4,22 +4,11 @@
   text-decoration: none;
 }
 
-.word-detail-description {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 90%;
-}
-
-.word-detail-check-in {
-  font-size: 48px;
-}
-
 .word-cards-header {
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  padding: var(--padding) var(--padding) 8px;
+  padding: var(--gap-after-greeting) var(--padding) 8px;
 }
 
 .word-cards-header h1 {
@@ -294,17 +283,19 @@
 }
 
 .word-detail {
+  /* floats as its own card above the tab bar, with side gutters, rather than
+     a full-bleed sheet docked to the screen edge */
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  left: 16px;
+  right: 16px;
+  bottom: calc(var(--tab-bar-height) + 12px);
   z-index: 3;
-  max-height: 72%;
+  max-height: 62%;
   overflow-y: auto;
   background: var(--color-surface-raised);
-  border-radius: 20px 20px 0 0;
-  padding: 20px 20px 28px;
-  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+  padding: 20px 20px 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
 }
 
 .word-detail-close {
@@ -331,51 +322,61 @@
   position: static;
 }
 
+.word-detail-pill {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-signals) 30%, var(--color-surface-raised));
+  color: var(--color-ink);
+  font-size: 12px;
+  font-weight: 700;
+}
+
 .word-detail-title {
-  font-size: 22px;
-  margin-bottom: 4px;
+  display: block;
+  margin-bottom: 12px;
+  font-size: 32px;
   font-family: var(--font-display);
   font-weight: var(--display-weight);
   font-style: var(--display-style);
   letter-spacing: var(--display-tracking);
   transform: skewX(var(--display-skew));
-  display: inline-block;
 }
 
-.word-detail-tagline {
-  margin: 0 0 10px;
-  color: var(--color-ink-muted);
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+.word-detail-body {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
-.word-detail-metaphor {
-  margin: 0 0 10px;
-  font-style: italic;
-  color: var(--color-ink);
+.word-detail-text {
+  flex: 1;
+  min-width: 0;
 }
 
-.word-detail-description {
-  margin: 0 0 14px;
-  color: var(--color-ink);
-  line-height: 1.5;
-  font-size: 14px;
-}
-
+.word-detail-cue,
 .word-detail-feels {
   margin: 0;
-  padding-top: 14px;
-  border-top: 1px solid var(--color-overlay);
   color: var(--color-ink);
   line-height: 1.5;
-  font-size: 14px;
+  font-size: 15px;
 }
 
-.word-detail-feels span {
-  display: block;
-  color: var(--color-ink-muted);
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  margin-bottom: 4px;
+.word-detail-cue {
+  margin-bottom: 10px;
+}
+
+.word-detail-check-in {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  background: var(--color-energy);
+  color: var(--color-ink);
+  font-size: 20px;
+  text-decoration: none;
 }

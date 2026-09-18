@@ -1,14 +1,18 @@
 import { useEffect, useState, type CSSProperties } from 'react'
-import { GRID_COLS, WORD_CARDS, type WordCard } from './bodyWordsData'
+import { CATEGORIES, GRID_COLS, WORD_CARDS, type WordCard } from './bodyWordsData'
 import { wordColor } from './helpers/shapes'
 import { WordCardButton } from './WordCardButton'
 import { useScrollToSelected } from './helpers/useScrollToSelected'
 import { Link, useSearchParams } from 'react-router-dom'
-import { ROUTES, calendarPath, checkInFlowPath } from '@/routes/paths'
+import { checkInFlowPath } from '@/routes/paths'
 import { PageFrame } from '@/shared/layout'
 import { Greeting, TabBar } from '@/shared/ui'
 import { checkInRepository } from '@/entities/check-in/checkInRepository'
 import './BodyWordCards.css'
+
+// tagline is written as a standalone cue ("Notice how springy") without its own
+// end punctuation, so it can lead straight into the metaphor as one sentence pair
+const joinSentences = (a: string, b: string): string => `${/[.!?]$/.test(a) ? a : `${a}.`} ${b}`
 
 export default function BodyWordCards() {
   const [selected, setSelected] = useState<WordCard | null>(null)
@@ -34,7 +38,6 @@ export default function BodyWordCards() {
     <PageFrame>
       <Greeting />
       <header className="word-cards-header">
-        <Link className="back-arrow" to={date ? calendarPath(date) : ROUTES.checkIn}>←</Link>
         <h1>How is your body feeling today?</h1>
       </header>
       <p className="word-cards-section-label">Body sensations</p>
@@ -63,16 +66,22 @@ export default function BodyWordCards() {
           >
             ✕
           </button>
+          <span className="word-detail-pill">{CATEGORIES[selected.category].label}</span>
           <strong className="word-detail-title" style={{ color: wordColor(selected.id) }}>
             {selected.word}
           </strong>
-          <p className="word-detail-metaphor">{selected.metaphor}</p>
-          <div className="word-detail-description">
-            <p className="word-detail-feels">
-            <span>IT FEELS LIKE</span>
-            {selected.feelsLike}
-          </p>
-            <Link className="word-detail-check-in" to={checkInFlowPath(selected.id, date, entryId)}>→</Link>
+          <div className="word-detail-body">
+            <div className="word-detail-text">
+              <p className="word-detail-cue">{joinSentences(selected.tagline, selected.metaphor)}</p>
+              <p className="word-detail-feels">{selected.feelsLike}</p>
+            </div>
+            <Link
+              className="word-detail-check-in"
+              to={checkInFlowPath(selected.id, date, entryId)}
+              aria-label="Continue"
+            >
+              →
+            </Link>
           </div>
         </div>
       )}
