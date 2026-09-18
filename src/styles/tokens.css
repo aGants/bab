@@ -31,6 +31,10 @@
   --body-line-height: 1.5;
 
   --padding: 17px;
+  /* Space between the sticky Greeting bar and the page title below it —
+     kept smaller than --padding and shared so it stays consistent across
+     every screen that follows this Greeting-then-title layout. */
+  --gap-after-greeting: 6px;
 }
 
 .text-display {

@@ -17,8 +17,18 @@
 .body-location-step__toggle {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
-    margin-bottom: 16px;
+    margin-top: 6px;
+    margin-bottom: 10px;
+}
+
+/* Smaller than the default ToggleSwitch sizing (see ToggleSwitch.css) — this
+   toggle sits right above the silhouette, so shrinking it hands the freed
+   vertical space straight to .body-location-step__body-wrap below (its
+   flex: 1 sibling), making the body bigger and easier to tap. */
+.body-location-step__toggle .toggle-switch__option {
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 14px;
 }
 
 /* Grows to fill whatever vertical space the step has left over, so the

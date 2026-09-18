@@ -3,9 +3,11 @@
   flex-direction: column;
   gap: 20px;
   padding: var(--padding);
+  padding-top: var(--gap-after-greeting);
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .calendar-header {
@@ -20,19 +22,28 @@
 }
 
 /* Compact, taller day cells so each one fits a number plus a feeling/period
-   row underneath, and swap the default circular selection for a soft pill. */
+   row underneath, and swap the default circular selection for a soft pill.
+   The day size shrinks to fit 7 columns within the viewport (minus the page
+   padding) so the grid never overflows on narrow phone screens; it caps at
+   56px, the size the desktop-mimicking frame was designed around. */
 .calendar-picker {
+  --calendar-day-size: clamp(
+    38px,
+    calc((100vw - (var(--padding) * 2) - 4px) / 7),
+    56px
+  );
   --rdp-accent-color: var(--color-ink);
   --rdp-accent-background-color: var(--color-surface-raised);
-  --rdp-day-width: 56px;
+  --rdp-day-width: var(--calendar-day-size);
   --rdp-day-height: 92px;
-  --rdp-day_button-width: 56px;
+  --rdp-day_button-width: var(--calendar-day-size);
   --rdp-day_button-height: 92px;
   --rdp-day_button-border-radius: 16px;
   --rdp-today-color: var(--color-signals);
   display: flex;
   justify-content: center;
   width: 100%;
+  max-width: 100%;
   font-size: 16px;
 }
 
@@ -56,13 +67,14 @@
   align-items: center;
   justify-content: center;
   gap: 4px;
-  width: 52px;
+  width: 100%;
+  max-width: var(--calendar-day-size);
 }
 
 .calendar-day-mood {
   position: relative;
-  width: 24px;
-  height: 24px;
+  width: clamp(16px, calc(var(--calendar-day-size) * 3 / 7), 24px);
+  height: clamp(16px, calc(var(--calendar-day-size) * 3 / 7), 24px);
 }
 
 /* Calendar cells can show several feelings at once; the drift/pulse/spike

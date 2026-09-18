@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: 28px;
   padding: var(--padding);
+  padding-top: var(--gap-after-greeting);
   flex: 1;
   min-height: 0;
   overflow-y: auto;
