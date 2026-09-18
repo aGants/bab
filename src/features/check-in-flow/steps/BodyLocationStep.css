@@ -15,10 +15,7 @@
 /* Grows to fill whatever vertical space the step has left over, so the
    silhouette uses the full screen instead of sitting at a small fixed size.
    Stays `width: fit-content` (matching the svg's own rendered width, not the
-   full-width column) so the wrap's box is pixel-identical to the svg's box —
-   the hotspot buttons are positioned in percentages of *this wrapper*, and
-   if the wrapper were wider than the svg (e.g. from stretching/centering)
-   those percentages would land off the visible body. */
+   full-width column) so the wrap's box is pixel-identical to the svg's box. */
 .body-location-step__body-wrap {
     position: relative;
     flex: 1;
@@ -28,52 +25,36 @@
     margin: 0 auto;
     /* Mobile browsers flash their default tap-highlight rectangle on any
        element that handles a tap, and it inherits into the SVG's <path>
-       elements same as a normal DOM node — without this every muscle path
-       and hotspot button briefly flashes a blue box on tap. */
+       elements same as a normal DOM node — without this every body-part
+       path briefly flashes a blue box on tap. */
     -webkit-tap-highlight-color: transparent;
 }
 
-/* The library renders the SVG at a fixed pixel size (200x400 * scale prop).
-   Sizing it to the wrap's full (flex-grown) height and letting width follow
-   proportionally (intrinsic ratio from the svg's own width/height
-   attributes) makes it as large as the available space allows. */
+/* The svg's own viewBox sets its intrinsic aspect ratio — sizing it to the
+   wrap's full (flex-grown) height and letting width follow proportionally
+   makes it as large as the available space allows. */
 .body-location-step__body-wrap svg {
     height: 100%;
     width: auto;
     max-width: 100%;
 }
 
-.body-location-step__hotspot {
-    position: absolute;
-    z-index: 0;
-    padding: 0;
-    border: none;
-    /* Invisible on purpose: selecting a hotspot re-colors the muscle path it
-       stands in for, so that's already the visual feedback — a shape drawn
-       on top would just read as a stray blob. */
-    background: transparent;
+.body-location-step__body-wrap svg path[role='button'] {
     cursor: pointer;
+    outline: none;
+    transition: fill 200ms;
     -webkit-tap-highlight-color: transparent;
 }
 
-/* Positioned elements always paint above static ones regardless of DOM
-   order — without this the (position: absolute) hotspot buttons would sit
-   on top of the body SVG and steal clicks meant for real muscle paths
-   underneath them (e.g. abs/adductors around the pelvic hotspot). Giving the
-   SVG its own higher stacking position lets real paths win.
-   The SVG itself is set to pointer-events: none so its transparent gaps
-   (where the library draws no muscle path at all) fall through to the
-   hotspot underneath instead of the empty SVG box swallowing the click;
-   each individual muscle <path> opts back into being clickable. */
-.body-location-step__body-wrap svg {
-    position: relative;
-    z-index: 1;
-    pointer-events: none;
+.body-location-step__body-wrap svg path[role='button']:focus-visible {
+    stroke: var(--color-signals);
+    stroke-width: 4;
 }
 
-.body-location-step__body-wrap svg path {
-    pointer-events: auto;
-    -webkit-tap-highlight-color: transparent;
+@media (prefers-reduced-motion: reduce) {
+    .body-location-step__body-wrap svg path[role='button'] {
+        transition: none;
+    }
 }
 
 .body-location-step__whole {
