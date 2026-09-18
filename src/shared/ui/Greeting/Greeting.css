@@ -1,0 +1,13 @@
+.app-greeting {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  padding-bottom: 12px;
+  background: var(--color-surface);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-ink-muted);
+  text-align: center;
+}

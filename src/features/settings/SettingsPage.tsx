@@ -1,5 +1,5 @@
 import { PageFrame } from '@/shared/layout'
-import { TabBar, ToggleSwitch } from '@/shared/ui'
+import { Greeting, TabBar, ToggleSwitch } from '@/shared/ui'
 import { useTheme } from '@/features/theme/useTheme'
 import { DEFAULT_NAME } from '@/entities/user-profile/userProfileRepository'
 import { useUserProfile } from '@/entities/user-profile/useUserProfile'
@@ -17,6 +17,7 @@ export const SettingsPage = () => {
   return (
     <PageFrame>
       <div className="settings-wrapper">
+        <Greeting />
         <div className="settings-header">
           <h1 className="text-display settings-title">Settings</h1>
         </div>

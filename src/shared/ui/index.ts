@@ -1,4 +1,5 @@
 export { ArrowButton } from './ArrowButton/ArrowButton'
 export { Button } from './Button/Button'
+export { Greeting } from './Greeting/Greeting'
 export { TabBar } from './TabBar/TabBar'
 export { ToggleSwitch } from './ToggleSwitch/ToggleSwitch'

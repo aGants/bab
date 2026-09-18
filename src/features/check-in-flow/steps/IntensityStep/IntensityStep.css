@@ -1,3 +1,9 @@
+/* Same theme-invariant ink as NotesStep's --notes-step-ink-on-cycle: text on
+   --color-cycle needs its own dark ink since --color-ink flips in dark mode. */
+:root {
+    --intensity-step-ink-on-cycle: color-mix(in srgb, var(--color-ground) 8%, black);
+}
+
 .intensity-step {
     display: flex;
     flex-direction: column;
@@ -47,4 +53,35 @@
     font-weight: 700;
     color: var(--color-ink);
     font-size: 16px;
+}
+
+.intensity-step__label {
+    align-self: flex-start;
+    font-weight: 700;
+    margin: 0;
+}
+
+.intensity-step__trigger-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+    max-width: 320px;
+}
+
+.intensity-step__trigger-pill {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 999px;
+    background: var(--color-surface-raised);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.intensity-step__trigger-pill[aria-pressed='true'] {
+    background: var(--color-cycle);
+    color: var(--intensity-step-ink-on-cycle);
 }

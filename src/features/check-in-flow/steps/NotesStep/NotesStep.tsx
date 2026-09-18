@@ -1,29 +1,19 @@
-import { DEFAULT_ENERGY, type Energy, type Trigger } from '@/entities/check-in/types'
+import { DEFAULT_ENERGY, type Energy } from '@/entities/check-in/types'
 import { useDailyLog } from '@/entities/daily-log/useDailyLog'
 import { todayKey } from '@/shared/lib/dateKey'
 import './NotesStep.css'
 
 const ENERGY_LEVELS: Energy[] = [1, 2, 3, 4, 5, 6, 7]
 
-const TRIGGER_OPTIONS: { value: Trigger; label: string }[] = [
-  { value: 'movement', label: 'Only when I move it' },
-  { value: 'pressure', label: 'When I press it' },
-  { value: 'stillness', label: 'Standing still' },
-]
-
 export const NotesStep = ({
   energy,
   onEnergyChange,
-  trigger,
-  onTriggerChange,
   note,
   onNoteChange,
   date,
 }: {
   energy: Energy | null
   onEnergyChange: (energy: Energy) => void
-  trigger: Trigger | null
-  onTriggerChange: (trigger: Trigger) => void
   note: string
   onNoteChange: (note: string) => void
   /** day this check-in belongs to — defaults to today when editing a past day's entry */
@@ -62,21 +52,6 @@ export const NotesStep = ({
             </span>
           ))}
         </div>
-      </div>
-
-      <p className="notes-step__label">When do you notice it?</p>
-      <div className="notes-step__energy">
-        {TRIGGER_OPTIONS.map((option) => (
-          <button
-            key={option.value}
-            type="button"
-            className="notes-step__energy-pill"
-            aria-pressed={trigger === option.value}
-            onClick={() => onTriggerChange(option.value)}
-          >
-            {option.label}
-          </button>
-        ))}
       </div>
 
       <p className="notes-step__label">{isToday ? 'On period today?' : 'On period that day?'}</p>

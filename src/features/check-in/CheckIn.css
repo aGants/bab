@@ -22,12 +22,6 @@
 		font-style: italic;
 }
 
-.check-in-greeting {
-	font-size: 15px;
-	font-weight: 600;
-	color: var(--color-ink-muted);
-}
-
 .plus-button {
 	font-size: 72px;
 }

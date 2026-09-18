@@ -3,7 +3,7 @@ import { DayPicker, type DayButtonProps } from 'react-day-picker'
 import 'react-day-picker/style.css'
 import { Link, useSearchParams } from 'react-router-dom'
 import { PageFrame } from '@/shared/layout'
-import { TabBar } from '@/shared/ui'
+import { Greeting, TabBar } from '@/shared/ui'
 import { toDateKey } from '@/shared/lib/dateKey'
 import { WordShape } from '@/features/word-field/WordShape'
 import { CATEGORIES, WORD_CARDS } from '@/features/word-field/bodyWordsData'
@@ -72,6 +72,7 @@ export const CalendarPage = () => {
   return (
     <PageFrame>
       <div className="calendar-wrapper">
+        <Greeting />
         <div className="calendar-header">
           <h1 className="text-display calendar-title">Calendar</h1>
         </div>

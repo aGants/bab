@@ -1,10 +1,20 @@
-import { DEFAULT_CHECK_IN_INTENSITY, type CheckInIntensity } from '@/entities/check-in/types'
+import {
+  DEFAULT_CHECK_IN_INTENSITY,
+  type CheckInIntensity,
+  type Trigger,
+} from '@/entities/check-in/types'
 import type { WordCard } from '@/features/word-field/bodyWordsData'
 import { WordShape } from '@/features/word-field/WordShape'
 import './IntensityStep.css'
 
 const MIN_INTENSITY = 1
 const MAX_INTENSITY = 10
+
+const TRIGGER_OPTIONS: { value: Trigger; label: string }[] = [
+  { value: 'movement', label: 'Only when I move it' },
+  { value: 'pressure', label: 'When I press it' },
+  { value: 'stillness', label: 'Standing still' },
+]
 
 /** Maps intensity (1..10) to a visual size multiplier for the shape — tiny at 1,
  * dramatically larger at 10, so "how big is it" reads literally and viscerally.
@@ -19,24 +29,20 @@ export const IntensityStep = ({
   word,
   value,
   onSelect,
+  trigger,
+  onTriggerChange,
 }: {
   word: WordCard
   value: CheckInIntensity | null
   onSelect: (intensity: CheckInIntensity) => void
+  trigger: Trigger | null
+  onTriggerChange: (trigger: Trigger) => void
 }) => {
   const level = value ?? DEFAULT_CHECK_IN_INTENSITY
 
   return (
     <div className="intensity-step">
       <h2>How big is it?</h2>
-      <div className="intensity-step__stage">
-        <div
-          className="intensity-step__shape"
-          style={{ transform: `scale(${scaleForIntensity(level)})` }}
-        >
-          <WordShape card={word} expressive />
-        </div>
-      </div>
       <input
         type="range"
         className="intensity-step__slider"
@@ -47,9 +53,32 @@ export const IntensityStep = ({
         onChange={(event) => onSelect(Number(event.target.value) as CheckInIntensity)}
         aria-label="How big is it"
       />
+      <div className="intensity-step__stage">
+        <div
+          className="intensity-step__shape"
+          style={{ transform: `scale(${scaleForIntensity(level)})` }}
+        >
+          <WordShape card={word} expressive />
+        </div>
+      </div>
       <div className="intensity-step__scale-labels">
-        <span>Tiny</span>
+        <span>т</span>
         <span>Huge</span>
+      </div>
+
+      <p className="intensity-step__label">When do you notice it?</p>
+      <div className="intensity-step__trigger-options">
+        {TRIGGER_OPTIONS.map((option) => (
+          <button
+            key={option.value}
+            type="button"
+            className="intensity-step__trigger-pill"
+            aria-pressed={trigger === option.value}
+            onClick={() => onTriggerChange(option.value)}
+          >
+            {option.label}
+          </button>
+        ))}
       </div>
     </div>
   )

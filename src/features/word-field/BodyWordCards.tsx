@@ -6,6 +6,7 @@ import { useGridPanning } from './helpers/useGridPanning'
 import { Link, useSearchParams } from 'react-router-dom'
 import { ROUTES, calendarPath, checkInFlowPath } from '@/routes/paths'
 import { PageFrame } from '@/shared/layout'
+import { Greeting, TabBar } from '@/shared/ui'
 import { checkInRepository } from '@/entities/check-in/checkInRepository'
 import './BodyWordCards.css'
 
@@ -31,6 +32,7 @@ export default function BodyWordCards() {
 
   return (
     <PageFrame>
+      <Greeting />
       <header className="word-cards-header">
         <Link className="back-arrow" to={date ? calendarPath(date) : ROUTES.checkIn}>←</Link>
         <div>
@@ -87,6 +89,7 @@ export default function BodyWordCards() {
           </div>
         </div>
       )}
+      <TabBar />
     </PageFrame>
   )
 }

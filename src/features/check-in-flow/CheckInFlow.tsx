@@ -75,7 +75,13 @@ export const CheckInFlow = ({
 
       {step === 'intensity' && (
         <>
-          <IntensityStep word={word} value={draft.intensity} onSelect={draft.setIntensity} />
+          <IntensityStep
+            word={word}
+            value={draft.intensity}
+            onSelect={draft.setIntensity}
+            trigger={draft.trigger}
+            onTriggerChange={draft.setTrigger}
+          />
           <Button disabled={draft.intensity === null} onClick={() => setStep('notes')}>
             Next
           </Button>
@@ -87,8 +93,6 @@ export const CheckInFlow = ({
           <NotesStep
             energy={draft.energy}
             onEnergyChange={draft.setEnergy}
-            trigger={draft.trigger}
-            onTriggerChange={draft.setTrigger}
             note={draft.note}
             onNoteChange={draft.setNote}
             date={date}
