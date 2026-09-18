@@ -10,25 +10,31 @@ import {
 import { checkInRepository } from '@/entities/check-in/checkInRepository'
 
 /** Holds the in-progress answers for one check-in flow and commits them
- * to the repository once both are picked. Nothing here is saved until commit(). */
-export const useCheckInDraft = (word: WordCard) => {
-  const [bodyZone, setBodyZone] = useState<BodyZone | null>(null)
-  const [intensity, setIntensity] = useState<CheckInIntensity | null>(DEFAULT_CHECK_IN_INTENSITY)
-  const [energy, setEnergy] = useState<Energy | null>(null)
-  const [note, setNote] = useState('')
+ * to the repository once both are picked. Nothing here is saved until commit().
+ * `date` lets the flow log against a past day instead of today. Pass `editing`
+ * to seed the draft from an existing entry and patch it in place on commit,
+ * instead of creating a new one. */
+export const useCheckInDraft = (word: WordCard, date?: string, editing?: CheckInEntry) => {
+  const [bodyZone, setBodyZone] = useState<BodyZone | null>(editing?.bodyZone ?? null)
+  const [intensity, setIntensity] = useState<CheckInIntensity | null>(
+    editing?.intensity ?? DEFAULT_CHECK_IN_INTENSITY,
+  )
+  const [energy, setEnergy] = useState<Energy | null>(editing?.energy ?? null)
+  const [note, setNote] = useState(editing?.note ?? '')
   const [saving, setSaving] = useState(false)
 
   const commit = async (): Promise<CheckInEntry | null> => {
     if (bodyZone === null || intensity === null) return null
     setSaving(true)
     try {
-      return await checkInRepository.save({
+      const payload = {
         wordId: word.id,
         bodyZone,
         intensity,
         energy: energy ?? undefined,
         note: note.trim() || undefined,
-      })
+      }
+      return editing ? await checkInRepository.update(editing.id, payload) : await checkInRepository.save(payload, date)
     } finally {
       setSaving(false)
     }

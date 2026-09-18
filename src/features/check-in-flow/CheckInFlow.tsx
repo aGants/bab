@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { WordCard } from '@/features/word-field/bodyWordsData'
+import type { CheckInEntry } from '@/entities/check-in/types'
 import { useCheckInDraft } from './useCheckInDraft'
 import { BodyLocationStep, IntensityStep, NotesStep } from './steps'
 import { CheckInStepHeader } from './CheckInStepHeader'
@@ -26,15 +27,21 @@ const PREVIOUS_STEP: Record<Step, Step> = {
  * buttons on purpose; the visual pass (body-map silhouette, resize gesture) comes later. */
 export const CheckInFlow = ({
   word,
+  date,
+  editing,
   onDone,
   onCancel,
 }: {
   word: WordCard
+  /** day to log this check-in against — omit to use today */
+  date?: string
+  /** existing entry being edited, instead of creating a new one */
+  editing?: CheckInEntry
   onDone: () => void
   onCancel: () => void
 }) => {
   const [step, setStep] = useState<Step>('location')
-  const draft = useCheckInDraft(word)
+  const draft = useCheckInDraft(word, date, editing)
 
   const handleSave = async () => {
     const entry = await draft.commit()
@@ -82,6 +89,7 @@ export const CheckInFlow = ({
             onEnergyChange={draft.setEnergy}
             note={draft.note}
             onNoteChange={draft.setNote}
+            date={date}
           />
           <Button onClick={() => setStep('confirm')}>Next</Button>
         </>
@@ -93,7 +101,7 @@ export const CheckInFlow = ({
             Zone: {draft.bodyZone} · Intensity: {draft.intensity}
           </p>
           <Button disabled={draft.saving} onClick={handleSave}>
-            {draft.saving ? 'Saving…' : 'Save check-in'}
+            {draft.saving ? 'Saving…' : editing ? 'Update check-in' : 'Save check-in'}
           </Button>
         </>
       )}

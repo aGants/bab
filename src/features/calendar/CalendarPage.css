@@ -76,9 +76,27 @@
   background: var(--color-surface-raised);
 }
 
+.calendar-detail-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .calendar-detail-date {
   margin: 0;
   font-size: 16px;
+}
+
+.calendar-detail-add {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--color-ink);
+  color: var(--color-ground);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
 .calendar-detail-flags {
@@ -140,4 +158,32 @@
 .calendar-detail-log-note {
   margin: 4px 0 0;
   font-size: 14px;
+}
+
+.calendar-detail-log-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.calendar-detail-log-edit,
+.calendar-detail-log-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--color-surface-raised);
+  border: none;
+  color: var(--color-ink);
+  font-size: 13px;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.calendar-detail-log-delete {
+  color: var(--color-signals);
 }

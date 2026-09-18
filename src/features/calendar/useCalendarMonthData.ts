@@ -20,10 +20,12 @@ const groupByDate = (entries: CheckInEntry[]): Record<string, CheckInEntry[]> =>
 }
 
 /** Loads check-ins and daily logs for one visible month, keyed by day —
- * refetches whenever the calendar page flips month. */
+ * refetches whenever the calendar page flips month, or `refetch` is called
+ * after an edit/delete elsewhere invalidates the loaded month. */
 export const useCalendarMonthData = (month: Date) => {
   const [entriesByDate, setEntriesByDate] = useState<Record<string, CheckInEntry[]>>({})
   const [dailyLogsByDate, setDailyLogsByDate] = useState<Record<string, DailyLog>>({})
+  const [reloadToken, setReloadToken] = useState(0)
 
   useEffect(() => {
     const { fromDate, toDate } = monthRange(month)
@@ -41,7 +43,9 @@ export const useCalendarMonthData = (month: Date) => {
     return () => {
       cancelled = true
     }
-  }, [month])
+  }, [month, reloadToken])
 
-  return { entriesByDate, dailyLogsByDate }
+  const refetch = () => setReloadToken((token) => token + 1)
+
+  return { entriesByDate, dailyLogsByDate, refetch }
 }

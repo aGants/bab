@@ -7,8 +7,12 @@ import { toDateKey } from '@/shared/lib/dateKey'
  * backend later means writing a new CheckInRepository, not touching callers.
  */
 export interface CheckInRepository {
-  save(input: NewCheckInEntry): Promise<CheckInEntry>
+  /** `date` defaults to today — pass it to log a check-in against a past day. */
+  save(input: NewCheckInEntry, date?: string): Promise<CheckInEntry>
+  /** Patches an existing entry's answers, keeping its id/date/createdAt. Null if it no longer exists. */
+  update(id: string, patch: NewCheckInEntry): Promise<CheckInEntry | null>
   getAll(): Promise<CheckInEntry[]>
+  getById(id: string): Promise<CheckInEntry | null>
   getByDate(date: string): Promise<CheckInEntry[]>
   getRange(fromDate: string, toDate: string): Promise<CheckInEntry[]>
   remove(id: string): Promise<void>
@@ -32,19 +36,31 @@ const writeAll = (entries: CheckInEntry[]): void => {
 }
 
 export const createLocalStorageCheckInRepository = (): CheckInRepository => ({
-  save: async (input) => {
+  save: async (input, date) => {
     const now = new Date()
     const entry: CheckInEntry = {
       ...input,
       id: crypto.randomUUID(),
-      date: toDateKey(now),
+      date: date ?? toDateKey(now),
       createdAt: now.toISOString(),
     }
     writeAll([...readAll(), entry])
     return entry
   },
 
+  update: async (id, patch) => {
+    const entries = readAll()
+    const index = entries.findIndex((entry) => entry.id === id)
+    if (index === -1) return null
+    const updated: CheckInEntry = { ...entries[index], ...patch }
+    entries[index] = updated
+    writeAll(entries)
+    return updated
+  },
+
   getAll: async () => readAll(),
+
+  getById: async (id) => readAll().find((entry) => entry.id === id) ?? null,
 
   getByDate: async (date) => readAll().filter((entry) => entry.date === date),
 

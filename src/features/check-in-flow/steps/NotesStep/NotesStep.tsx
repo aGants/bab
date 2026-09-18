@@ -1,5 +1,6 @@
 import type { Energy } from '@/entities/check-in/types'
-import { useTodayDailyLog } from '@/entities/daily-log/useTodayDailyLog'
+import { useDailyLog } from '@/entities/daily-log/useDailyLog'
+import { todayKey } from '@/shared/lib/dateKey'
 import './NotesStep.css'
 
 const ENERGY_OPTIONS: { value: Energy; label: string }[] = [
@@ -13,13 +14,19 @@ export const NotesStep = ({
   onEnergyChange,
   note,
   onNoteChange,
+  date,
 }: {
   energy: Energy | null
   onEnergyChange: (energy: Energy) => void
   note: string
   onNoteChange: (note: string) => void
+  /** day this check-in belongs to — defaults to today when editing a past day's entry */
+  date?: string
 }) => {
-  const { hadPeriod, tookPainkiller, setHadPeriod, setTookPainkiller } = useTodayDailyLog()
+  const isToday = (date ?? todayKey()) === todayKey()
+  const { hadPeriod, tookPainkiller, setHadPeriod, setTookPainkiller } = useDailyLog(
+    date ?? todayKey(),
+  )
 
   return (
     <div>
@@ -40,7 +47,7 @@ export const NotesStep = ({
         ))}
       </div>
 
-      <p className="notes-step__label">On period today?</p>
+      <p className="notes-step__label">{isToday ? 'On period today?' : 'On period that day?'}</p>
       <div className="notes-step__energy">
         <button
           type="button"
@@ -60,7 +67,9 @@ export const NotesStep = ({
         </button>
       </div>
 
-      <p className="notes-step__label">Took a painkiller today?</p>
+      <p className="notes-step__label">
+        {isToday ? 'Took a painkiller today?' : 'Took a painkiller that day?'}
+      </p>
       <div className="notes-step__energy">
         <button
           type="button"
