@@ -24,13 +24,12 @@
     container-name: flow;
 }
 
-/* Keeps the step's Next button docked to the bottom of the screen instead of
-   trailing right after short content — any extra height (tall viewport, short
-   step) collects in this one gap instead of stretching/centering the step
-   itself, which read as random dead space between elements. */
-.check-in-flow-content > .button {
-    margin-top: auto;
+/* Always visible below the scrollable step content — never itself scrolls
+   out of reach, and sits outside the container-query box above so its own
+   tap target isn't affected by that box's size containment. */
+.check-in-flow-footer {
     flex-shrink: 0;
+    padding: 16px 0 var(--padding);
 }
 
 .check-in-flow-content h2 {

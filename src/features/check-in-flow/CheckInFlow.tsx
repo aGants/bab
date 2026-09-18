@@ -64,8 +64,7 @@ export const CheckInFlow = ({
         }
       />
       <div className="check-in-flow-content">
-              {step === 'intensity' && (
-        <>
+        {step === 'intensity' && (
           <IntensityStep
             word={word}
             value={draft.intensity}
@@ -73,23 +72,13 @@ export const CheckInFlow = ({
             trigger={draft.trigger}
             onTriggerChange={draft.setTrigger}
           />
-          <Button disabled={draft.intensity === null} onClick={() => setStep('location')}>
-            Next
-          </Button>
-        </>
-      )}
+        )}
 
-      {step === 'location' && (
-        <>
+        {step === 'location' && (
           <BodyLocationStep value={draft.bodyZones} onToggle={draft.toggleBodyZone} />
-          <Button disabled={draft.bodyZones.length === 0} onClick={() => setStep('notes')}>
-            Next
-          </Button>
-        </>
-      )}
+        )}
 
-      {step === 'notes' && (
-        <>
+        {step === 'notes' && (
           <NotesStep
             energy={draft.energy}
             onEnergyChange={draft.setEnergy}
@@ -97,18 +86,35 @@ export const CheckInFlow = ({
             onNoteChange={draft.setNote}
             date={date}
           />
-          <Button onClick={() => setStep('confirm')}>Next</Button>
-        </>
-      )}
+        )}
 
-      {step === 'confirm' && draft.bodyZones.length > 0 && draft.intensity !== null && (
-        <>
+        {step === 'confirm' && draft.bodyZones.length > 0 && draft.intensity !== null && (
           <SummaryStep word={word} bodyZones={draft.bodyZones} intensity={draft.intensity} />
+        )}
+      </div>
+
+      {/* Kept outside the scrollable, container-query-sized content box on
+          purpose — a step's own content can grow past one screen (long notes,
+          a full help list), and a primary action button that scrolls along
+          with it is easy to miss or mis-tap on a real phone. Pinning it here
+          keeps it visible and reliably tappable regardless of step length. */}
+      <div className="check-in-flow-footer">
+        {step === 'intensity' && (
+          <Button disabled={draft.intensity === null} onClick={() => setStep('location')}>
+            Next
+          </Button>
+        )}
+        {step === 'location' && (
+          <Button disabled={draft.bodyZones.length === 0} onClick={() => setStep('notes')}>
+            Next
+          </Button>
+        )}
+        {step === 'notes' && <Button onClick={() => setStep('confirm')}>Next</Button>}
+        {step === 'confirm' && draft.bodyZones.length > 0 && draft.intensity !== null && (
           <Button disabled={draft.saving} onClick={handleSave}>
             {draft.saving ? 'Saving…' : editing ? 'Update check-in' : 'Save check-in'}
           </Button>
-        </>
-      )}
+        )}
       </div>
     </div>
   )
