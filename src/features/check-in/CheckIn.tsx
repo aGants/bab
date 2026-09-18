@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ROUTES } from "@/routes/paths";
 import { PageFrame } from "@/shared/layout";
 import { checkInRepository } from "@/entities/check-in/checkInRepository";
+import { useTodayDailyLog } from "@/entities/daily-log/useTodayDailyLog";
 import { todayKey } from "@/shared/lib/dateKey";
 import type { CheckInEntry } from "@/entities/check-in/types";
 import { CATEGORIES, WORD_CARDS } from "@/features/word-field/bodyWordsData";
@@ -10,6 +11,7 @@ import './CheckIn.css';
 
 export const CheckIn = () => {
   const [entries, setEntries] = useState<CheckInEntry[]>([]);
+  const { hadPeriod, tookPainkiller } = useTodayDailyLog();
 
   useEffect(() => {
     checkInRepository.getByDate(todayKey()).then(setEntries);
@@ -22,6 +24,13 @@ export const CheckIn = () => {
 					<h1>What is your body telling you today?</h1>
         	<Link className="plus-button" to={ROUTES.words}>+</Link>
 				</div>
+
+        {(hadPeriod || tookPainkiller) && (
+          <div className="check-in-day-flags">
+            {hadPeriod && <span className="check-in-day-flag">🩸 On period</span>}
+            {tookPainkiller && <span className="check-in-day-flag">💊 Took a painkiller</span>}
+          </div>
+        )}
 
         {entries.length > 0 && (
           <ul className="check-in-log">

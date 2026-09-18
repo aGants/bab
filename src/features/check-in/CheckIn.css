@@ -23,6 +23,22 @@
 	font-size: 72px;
 }
 
+.check-in-day-flags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-bottom: 16px;
+}
+
+.check-in-day-flag {
+	padding: 6px 14px;
+	border-radius: 999px;
+	background: var(--color-cycle);
+	color: color-mix(in srgb, var(--color-ground) 8%, black);
+	font-size: 13px;
+	font-weight: 600;
+}
+
 .check-in-log {
 	display: flex;
 	flex-direction: column;
