@@ -79,7 +79,8 @@
 }
 
 .word-card:hover,
-.word-card.is-selected {
+.word-card.is-selected,
+.word-card.is-centered {
   z-index: 1;
 }
 
@@ -141,7 +142,8 @@
 }
 
 .word-card:hover .word-shape,
-.word-card.is-selected .word-shape {
+.word-card.is-selected .word-shape,
+.word-card.is-centered .word-shape {
   filter: brightness(1.18);
 }
 

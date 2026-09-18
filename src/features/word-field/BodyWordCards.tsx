@@ -10,7 +10,7 @@ import './BodyWordCards.css'
 
 export default function BodyWordCards() {
   const [selected, setSelected] = useState<WordCard | null>(null)
-  const { viewportRef, detailRef, registerCard } = useGridPanning(selected)
+  const { viewportRef, detailRef, registerCard, centeredId } = useGridPanning(selected)
 
   return (
     <PageFrame>
@@ -39,6 +39,7 @@ export default function BodyWordCards() {
               key={card.id}
               card={card}
               selected={selected?.id === card.id}
+              centered={centeredId === card.id}
               onSelect={setSelected}
               cardRef={registerCard(card.id)}
             />

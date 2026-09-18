@@ -1,26 +1,34 @@
 import { useState } from 'react'
 import type { WordCard } from './bodyWordsData'
 import { WordShape } from './WordShape'
+import { useHoverSupport } from './helpers/useHoverSupport'
 
 export const WordCardButton = ({
   card,
   selected,
+  centered,
   onSelect,
   cardRef,
 }: {
   card: WordCard
   selected: boolean
+  /** Whether this bubble is the one nearest the viewport's center right now —
+   * the touch-device stand-in for hover (see useGridPanning's centeredId). */
+  centered: boolean
   onSelect: (card: WordCard) => void
   cardRef: (el: HTMLButtonElement | null) => void
 }) => {
   const [hovered, setHovered] = useState(false)
-  const expressive = hovered || selected
+  const supportsHover = useHoverSupport()
+  const centerActive = centered && !supportsHover
+  const expressive = hovered || selected || centerActive
 
   return (
     <button
       type="button"
       ref={cardRef}
-      className={`word-card${selected ? ' is-selected' : ''}`}
+      data-word-id={card.id}
+      className={`word-card${selected ? ' is-selected' : ''}${centerActive ? ' is-centered' : ''}`}
       style={{ gridColumn: card.col + 1, gridRow: card.row + 1 }}
       onClick={() => onSelect(card)}
       onMouseEnter={() => setHovered(true)}

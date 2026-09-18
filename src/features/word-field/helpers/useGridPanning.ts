@@ -1,5 +1,10 @@
-import { useEffect, useLayoutEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import type { WordCard } from '../bodyWordsData'
+
+/** Shrinks the observed root down to this central fraction of the viewport —
+ * small enough that only bubble(s) actually near the middle qualify as
+ * candidates, large enough to reliably contain one even mid-pan. */
+const CENTER_ZONE_MARGIN = '-35%'
 
 /**
  * Drives the pannable word-cloud viewport: centers it on the whole grid once on
@@ -13,6 +18,10 @@ export const useGridPanning = (selected: WordCard | null) => {
   // one stable ref-callback per card id, so passing `registerCard(id)` to a button
   // doesn't hand React a new function (and re-fire the ref) on every render
   const cardRefCallbacks = useRef<Record<string, (el: HTMLButtonElement | null) => void>>({})
+  // bubbles currently inside the center zone, so the nearest one can be picked
+  // even when several overlap it near a grid seam
+  const centerCandidates = useRef<Map<string, DOMRectReadOnly>>(new Map())
+  const [centeredId, setCenteredId] = useState<string | null>(null)
 
   const registerCard = (id: string) => {
     return (cardRefCallbacks.current[id] ??= (el) => {
@@ -26,6 +35,53 @@ export const useGridPanning = (selected: WordCard | null) => {
     if (!el) return
     el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2
     el.scrollTop = (el.scrollHeight - el.clientHeight) / 2
+  }, [])
+
+  useEffect(() => {
+    // on touch devices there's no hover to reveal a bubble's full shape, so
+    // whichever bubble panning has aimed nearest the viewport's center stands
+    // in for it instead
+    const viewport = viewportRef.current
+    if (!viewport) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const id = (entry.target as HTMLElement).dataset.wordId
+          if (!id) continue
+          if (entry.isIntersecting) {
+            centerCandidates.current.set(id, entry.boundingClientRect)
+          } else {
+            centerCandidates.current.delete(id)
+          }
+        }
+
+        const rootBounds = entries[0]?.rootBounds
+        if (!rootBounds) return
+        const centerX = rootBounds.left + rootBounds.width / 2
+        const centerY = rootBounds.top + rootBounds.height / 2
+
+        let closestId: string | null = null
+        let closestDist = Infinity
+        for (const [id, rect] of centerCandidates.current) {
+          const dx = rect.left + rect.width / 2 - centerX
+          const dy = rect.top + rect.height / 2 - centerY
+          const dist = dx * dx + dy * dy
+          if (dist < closestDist) {
+            closestDist = dist
+            closestId = id
+          }
+        }
+        setCenteredId(closestId)
+      },
+      { root: viewport, rootMargin: CENTER_ZONE_MARGIN, threshold: [0, 0.25, 0.5, 0.75, 1] },
+    )
+
+    for (const card of Object.values(cardRefs.current)) {
+      if (card) observer.observe(card)
+    }
+
+    return () => observer.disconnect()
   }, [])
 
   useLayoutEffect(() => {
@@ -61,5 +117,5 @@ export const useGridPanning = (selected: WordCard | null) => {
     })
   }, [selected])
 
-  return { viewportRef, detailRef, registerCard }
+  return { viewportRef, detailRef, registerCard, centeredId }
 }
