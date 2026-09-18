@@ -5,6 +5,9 @@
 :root {
   --tab-bar-ink-on-cycle: color-mix(in srgb, var(--color-ground) 8%, black);
   --tab-bar-ink-muted-on-cycle: color-mix(in srgb, var(--tab-bar-ink-on-cycle) 55%, transparent);
+  /* icon + label + top/bottom padding, so other screens can float content
+     above the tab bar instead of guessing its rendered height */
+  --tab-bar-height: calc(58px + env(safe-area-inset-bottom, 0px));
 }
 
 .tab-bar {

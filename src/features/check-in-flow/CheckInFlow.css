@@ -30,7 +30,7 @@
    tap target isn't affected by that box's size containment. */
 .check-in-flow-footer {
     flex-shrink: 0;
-    padding: 16px 0 var(--padding);
+    padding-bottom: var(--padding);
 }
 
 .check-in-flow-content h2 {
