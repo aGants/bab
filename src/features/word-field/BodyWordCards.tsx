@@ -1,7 +1,6 @@
 import { useState, type CSSProperties } from 'react'
 import { GRID_COLS, GRID_ROWS, WORD_CARDS, type WordCard } from './bodyWordsData'
-import { categoryColor } from './helpers/categoryColor'
-import { EnergyFilterDefs } from './WordShape'
+import { wordColor } from './helpers/shapes'
 import { WordCardButton } from './WordCardButton'
 import { useGridPanning } from './helpers/useGridPanning'
 import { Link } from 'react-router-dom'
@@ -15,8 +14,6 @@ export default function BodyWordCards() {
 
   return (
     <PageFrame>
-      <EnergyFilterDefs />
-
       <header className="word-cards-header">
         <Link className="back-arrow" to={ROUTES.checkIn}>←</Link>
         <div>
@@ -59,7 +56,7 @@ export default function BodyWordCards() {
           >
             ✕
           </button>
-          <strong className="word-detail-title" style={{ color: categoryColor(selected.category, 0) }}>
+          <strong className="word-detail-title" style={{ color: wordColor(selected.id) }}>
             {selected.word}
           </strong>
           <p className="word-detail-metaphor">{selected.metaphor}</p>
