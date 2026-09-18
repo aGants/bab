@@ -330,7 +330,6 @@ const WORD_CARDS_RAW: WordCardInput[] = [
 // Lay every word out on one flat, continuous field — no quadrants — in a fixed
 // number of columns, filling row by row in the order the words are listed above.
 export const GRID_COLS = 4
-export const GRID_ROWS = Math.ceil(WORD_CARDS_RAW.length / GRID_COLS)
 
 export const WORD_CARDS: WordCard[] = WORD_CARDS_RAW.map((card, i) => ({
   ...card,

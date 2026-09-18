@@ -44,20 +44,21 @@
 .word-grid-viewport {
   flex: 1;
   min-height: 0;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
-  padding: 200px;
+  padding: 16px 16px 260px;
 }
 
 .word-grid {
-  /* deliberately bigger than a quarter of the viewport: the whole field never
-     fits on screen at once, so finding a word means panning to look for it */
-  --cell: clamp(190px, 42vw, 260px);
+  /* fills the viewport's width edge-to-edge so as many words as possible are
+     visible at once, packed corner to corner; the field only ever grows
+     downward, scrolled into view rather than panned to */
   display: grid;
+  grid-template-columns: repeat(var(--grid-cols), 1fr);
   gap: 0;
-  width: calc(var(--cell) * var(--grid-cols));
-  height: calc(var(--cell) * var(--grid-rows));
+  width: 100%;
   margin: 0;
 }
 
@@ -66,21 +67,24 @@
   z-index: 0;
   min-width: 0;
   min-height: 0;
+  aspect-ratio: 1;
   border: none;
   background: transparent;
   cursor: pointer;
   padding: 0;
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: visible;
   color: var(--color-ink);
   font: inherit;
+  /* picking a card pushes its near neighbours outward (see the inline
+     transform WordCardButton computes) instead of the whole field shifting */
+  transition: transform 0.35s ease;
 }
 
-.word-card:hover,
-.word-card.is-selected,
-.word-card.is-centered {
+.word-card.is-selected {
   z-index: 1;
 }
 
@@ -141,9 +145,7 @@
   animation-delay: var(--float-delay, 0s), var(--float-delay, 0s);
 }
 
-.word-card:hover .word-shape,
-.word-card.is-selected .word-shape,
-.word-card.is-centered .word-shape {
+.word-card.is-selected .word-shape {
   filter: brightness(1.18);
 }
 

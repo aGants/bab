@@ -39,15 +39,6 @@ export const BodyLocationStep = ({
           <FemaleBodyBack value={value} onToggle={onToggle} />
         )}
       </div>
-
-      <button
-        type="button"
-        className="body-location-step__whole"
-        aria-pressed={value.includes('whole')}
-        onClick={() => onToggle('whole')}
-      >
-        everywhere / hard to say
-      </button>
     </div>
   )
 }

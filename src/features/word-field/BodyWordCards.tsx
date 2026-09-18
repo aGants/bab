@@ -1,8 +1,8 @@
 import { useEffect, useState, type CSSProperties } from 'react'
-import { GRID_COLS, GRID_ROWS, WORD_CARDS, type WordCard } from './bodyWordsData'
+import { GRID_COLS, WORD_CARDS, type WordCard } from './bodyWordsData'
 import { wordColor } from './helpers/shapes'
 import { WordCardButton } from './WordCardButton'
-import { useGridPanning } from './helpers/useGridPanning'
+import { useScrollToSelected } from './helpers/useScrollToSelected'
 import { Link, useSearchParams } from 'react-router-dom'
 import { ROUTES, calendarPath, checkInFlowPath } from '@/routes/paths'
 import { PageFrame } from '@/shared/layout'
@@ -12,7 +12,7 @@ import './BodyWordCards.css'
 
 export default function BodyWordCards() {
   const [selected, setSelected] = useState<WordCard | null>(null)
-  const { viewportRef, detailRef, registerCard, centeredId } = useGridPanning(selected)
+  const { viewportRef, detailRef, registerCard } = useScrollToSelected(selected)
   const [searchParams] = useSearchParams()
   // present when this is the first step of logging a check-in for a past day
   // picked on the calendar, rather than today's check-in from the home screen
@@ -42,23 +42,12 @@ export default function BodyWordCards() {
       </header>
 
       <div className="word-grid-viewport" ref={viewportRef}>
-        <div
-          className="word-grid"
-          style={
-            {
-              gridTemplateColumns: `repeat(${GRID_COLS}, 1fr)`,
-              gridTemplateRows: `repeat(${GRID_ROWS}, 1fr)`,
-              '--grid-cols': GRID_COLS,
-              '--grid-rows': GRID_ROWS,
-            } as CSSProperties
-          }
-        >
+        <div className="word-grid" style={{ '--grid-cols': GRID_COLS } as CSSProperties}>
           {WORD_CARDS.map((card) => (
             <WordCardButton
               key={card.id}
               card={card}
-              selected={selected?.id === card.id}
-              centered={centeredId === card.id}
+              selected={selected}
               onSelect={setSelected}
               cardRef={registerCard(card.id)}
             />

@@ -8,6 +8,8 @@
 }
 
 .body-location-step__toggle {
+    display: flex;
+    justify-content: center;
     margin-top: 10px;
     margin-bottom: 16px;
 }
@@ -55,12 +57,4 @@
     .body-location-step__body-wrap svg path[role='button'] {
         transition: none;
     }
-}
-
-.body-location-step__whole {
-    font-weight: 400;
-}
-
-.body-location-step__whole[aria-pressed='true'] {
-    font-weight: 700;
 }
