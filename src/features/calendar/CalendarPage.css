@@ -33,10 +33,6 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  /* auto vertical margins center the grid in the wrapper's free space below
-     the header, and collapse to 0 (no clipping) once the detail panel makes
-     the page taller than the screen. */
-  margin: auto 0;
 }
 
 .calendar-day-button {
