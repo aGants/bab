@@ -9,17 +9,17 @@ type Facing = 'front' | 'back'
 
 export const BodyLocationStep = ({
   value,
-  onSelect,
+  onToggle,
 }: {
-  value: BodyZone | null
-  onSelect: (zone: BodyZone) => void
+  value: BodyZone[]
+  onToggle: (zone: BodyZone) => void
 }) => {
   const [facing, setFacing] = useState<Facing>('front')
 
   return (
     <div className="body-location-step">
       <h2>Where do you feel it?</h2>
-      <p>Tap the areas on your body.</p>
+      <p>Tap the areas on your body. Tap again to remove.</p>
 
       <div className="body-location-step__toggle">
         <ToggleSwitch
@@ -34,17 +34,17 @@ export const BodyLocationStep = ({
 
       <div className="body-location-step__body-wrap">
         {facing === 'front' ? (
-          <FemaleBodyFront value={value} onSelect={onSelect} />
+          <FemaleBodyFront value={value} onToggle={onToggle} />
         ) : (
-          <FemaleBodyBack value={value} onSelect={onSelect} />
+          <FemaleBodyBack value={value} onToggle={onToggle} />
         )}
       </div>
 
       <button
         type="button"
         className="body-location-step__whole"
-        aria-pressed={value === 'whole'}
-        onClick={() => onSelect('whole')}
+        aria-pressed={value.includes('whole')}
+        onClick={() => onToggle('whole')}
       >
         everywhere / hard to say
       </button>

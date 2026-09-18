@@ -47,26 +47,26 @@ const REGIONS: Region[] = [
 
 export const FemaleBodyFront = ({
   value,
-  onSelect,
+  onToggle,
 }: {
-  value: BodyZone | null
-  onSelect: (zone: BodyZone) => void
+  value: BodyZone[]
+  onToggle: (zone: BodyZone) => void
 }) => (
   <svg viewBox="187.5 82 405.5 1169.5" role="group" aria-label="Body, front view">
     {REGIONS.map((region) => (
       <path
         key={region.label}
         d={region.d}
-        fill={value === region.zone ? SELECTED_FILL : BODY_FILL}
+        fill={value.includes(region.zone) ? SELECTED_FILL : BODY_FILL}
         role="button"
         tabIndex={0}
         aria-label={region.label}
-        aria-pressed={value === region.zone}
-        onClick={() => onSelect(region.zone)}
+        aria-pressed={value.includes(region.zone)}
+        onClick={() => onToggle(region.zone)}
         onKeyDown={(event) => {
           if (event.key !== 'Enter' && event.key !== ' ') return
           event.preventDefault()
-          onSelect(region.zone)
+          onToggle(region.zone)
         }}
       />
     ))}
