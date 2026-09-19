@@ -82,6 +82,24 @@
   max-width: 100%;
 }
 
+/* phone-height screens: tighten the spacing so the whole page fits without
+   scrolling; the stage (the only flexible part) takes what's left */
+@media (max-height: 720px) {
+  .avatar-page__content {
+    gap: 12px;
+    padding-top: 12px;
+  }
+
+  .avatar-page__title {
+    margin: 0;
+  }
+
+  .avatar-page__stage {
+    flex-basis: 96px;
+    min-height: 96px;
+  }
+}
+
 /* "saved" confirmation: the button turns lime with a drawn check, the
    character hops and a ring flashes out behind it */
 .avatar-page__content > .button {
