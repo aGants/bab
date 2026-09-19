@@ -198,7 +198,7 @@ export const words: Record<WordId, WordText> = {
     feelsLike:
       'Quella sensazione ondeggiante e sgradevole in un lungo viaggio in auto, in cui tutto sembra muoversi un po’ troppo.',
     recommendation:
-      'Bevi acqua a piccoli sorsi. Mangia qualcosa di leggero e semplice. Non allenarti a stomaco vuoto. Se succede spesso insieme a giramenti di testa o tremori, controlla come ti alimenti.',
+      'Bevi acqua a piccoli sorsi e prova a mangiare qualcosa di leggero e semplice. Cerca di non allenarti a stomaco vuoto. Se succede spesso insieme a giramenti di testa o tremori, chiedi supporto.',
   },
   swollen: {
     word: 'tumefatta',

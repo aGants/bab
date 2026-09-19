@@ -193,7 +193,7 @@ export const words: Record<WordId, WordText> = {
     feelsLike:
       'That wavy, uncomfortable feeling on a long car ride, where everything feels to move a bit too much.',
     recommendation:
-      "Sip water slowly. Eat something small and bland. Don't train on an empty stomach. If it happens a lot with dizziness or shaking, check your eating patterns.",
+      'Sip water slowly and try to eat something small and bland. Try not to train on an empty stomach. If it happens a lot with dizziness or shaking, seek support.',
   },
   swollen: {
     word: 'swollen',
