@@ -100,6 +100,176 @@ const buildVisual = (
   }
 }
 
+/** Point count for shapes drawn from geometry below — dense enough that sharp
+ * corners and small notches survive the resample into a radial profile. */
+const TRACE_SAMPLES = 256
+
+/** Turns an inside-test into a radial profile by marching out from (cx, cy) along
+ * each ray until it leaves the shape, so a word can be drawn from plain geometry
+ * (polygons, circles, capsules) instead of a hand-typed table of radii. Rays start
+ * at the top and go clockwise, matching `radialPath`. */
+const traceOutline = (
+  inside: (x: number, y: number) => boolean,
+  cx: number,
+  cy: number,
+  maxRadius: number,
+): number[] =>
+  Array.from({ length: TRACE_SAMPLES }, (_, i) => {
+    const angle = (i * 2 * Math.PI) / TRACE_SAMPLES - Math.PI / 2
+    const dx = Math.cos(angle)
+    const dy = Math.sin(angle)
+    let lo = 0
+    let hi = 0.5
+    while (hi < maxRadius && inside(cx + dx * hi, cy + dy * hi)) {
+      lo = hi
+      hi += 0.5
+    }
+    for (let k = 0; k < 10; k++) {
+      const mid = (lo + hi) / 2
+      if (inside(cx + dx * mid, cy + dy * mid)) lo = mid
+      else hi = mid
+    }
+    return lo
+  })
+
+type Circle = readonly [x: number, y: number, r: number]
+type Capsule = readonly [ax: number, ay: number, bx: number, by: number, r: number]
+
+const inCircles =
+  (circles: Circle[]) =>
+  (x: number, y: number): boolean =>
+    circles.some(([cx, cy, r]) => (x - cx) ** 2 + (y - cy) ** 2 <= r * r)
+
+const inCapsules =
+  (capsules: Capsule[]) =>
+  (x: number, y: number): boolean =>
+    capsules.some(([ax, ay, bx, by, r]) => {
+      const abx = bx - ax
+      const aby = by - ay
+      const t = Math.max(0, Math.min(1, ((x - ax) * abx + (y - ay) * aby) / (abx * abx + aby * aby)))
+      return (x - (ax + t * abx)) ** 2 + (y - (ay + t * aby)) ** 2 <= r * r
+    })
+
+const inPolygon =
+  (poly: [number, number][]) =>
+  (x: number, y: number): boolean => {
+    let inside = false
+    for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+      const [xi, yi] = poly[i]
+      const [xj, yj] = poly[j]
+      if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) inside = !inside
+    }
+    return inside
+  }
+
+// Shapes below are measured off the reference artwork (pixel units, centred on the
+// shape's own bounding box) — only their proportions matter, `buildVisual` rescales.
+
+/** Two triangles meeting at a narrow waist. */
+const HOURGLASS = traceOutline(
+  inPolygon([
+    [-87, -63],
+    [87, -63],
+    [26, 0],
+    [87, 63],
+    [-87, 63],
+    [-26, 0],
+  ]),
+  0,
+  0,
+  120,
+)
+
+/** A lumpy cloud: four bumps on top, a heavy lobe bottom-left tapering off to the right. */
+const CLOUD = traceOutline(
+  inCircles([
+    [-46, -37, 26],
+    [4, -40, 24],
+    [41, -39, 22],
+    [65, -26, 22],
+    [-66, -8, 22],
+    [-68, 24, 20],
+    [-42, 38, 26],
+    [-10, 22, 32],
+    [24, 0, 38],
+    [58, -6, 22],
+    [-24, -10, 38],
+    [22, -22, 32],
+    [-38, 12, 34],
+  ]),
+  0,
+  0,
+  120,
+)
+
+/** A cluster of overlapping circles. */
+const SHAKY_CLUSTER = traceOutline(
+  inCircles([
+    [-6, -48, 26],
+    [-57, -23, 27],
+    [-30, -30, 24],
+    [-59, 9, 27],
+    [-26, 40, 32],
+    [16, 49, 26],
+    [26, 4, 26],
+    [62, 30, 26],
+    [-7, 7, 35],
+    [10, -25, 30],
+    [30, 34, 30],
+    [-20, -12, 34],
+  ]),
+  0,
+  0,
+  120,
+)
+
+/** A rectangle whose short sides are scooped inward by big circular arcs. */
+const TIGHT_BAND = traceOutline(
+  (x, y) =>
+    Math.abs(x) <= 126 &&
+    Math.abs(y) <= 92 &&
+    (x - 197.5) ** 2 + y * y >= 116.5 ** 2 &&
+    (x + 197.5) ** 2 + y * y >= 116.5 ** 2,
+  0,
+  0,
+  170,
+)
+
+/** A circle with a fine, even ripple all the way round. */
+const ACHY_RIPPLE = Array.from(
+  { length: TRACE_SAMPLES },
+  (_, i) => 1 + 0.04 * Math.cos((i * 2 * Math.PI * 22) / TRACE_SAMPLES),
+)
+
+/** A 16-point star with straight-edged points, all the same length. */
+const TINGLING_STAR = (() => {
+  const points = 16
+  const valley = 0.52
+  const halfStep = Math.PI / points
+  // edge from a tip (1, 0) to the next valley, intersected with each ray in between
+  const [dx, dy] = [valley * Math.cos(halfStep) - 1, valley * Math.sin(halfStep)]
+  return Array.from({ length: TRACE_SAMPLES }, (_, i) => {
+    const perPoint = TRACE_SAMPLES / points
+    const k = i % perPoint
+    const phi = ((k <= perPoint / 2 ? k : perPoint - k) / perPoint) * 2 * Math.PI / points
+    // ray at angle phi from the tip: t = cross(P0, d) / cross(u, d), with P0 = (1, 0)
+    return dy / (Math.cos(phi) * dy - Math.sin(phi) * dx)
+  })
+})()
+
+/** Four tilted pills stacked in a tapering pile, ending in a round drop. */
+const DIZZY_STACK = traceOutline(
+  (x, y) =>
+    inCapsules([
+      [-123, -56, 118, -86, 34],
+      [-75, -4, 91, -24, 33],
+      [-29, 46, 35, 38, 33],
+    ])(x, y) || inCircles([[57, 86, 39]])(x, y),
+  0,
+  0,
+  200,
+)
+
 /** One silhouette + color per word card, extracted directly from the BAB
  * word-card reference deck's source SVG (each word's fill color and outline
  * ray-cast from its own centroid into an evenly-spaced radius profile). */
@@ -120,16 +290,8 @@ const WORD_VISUALS: Record<string, { path: string; calmPath: string; color: stri
     true,
     '#005050',
   ),
-  achy: buildVisual(
-    [63.0, 47.939, 50.325, 43.001, 49.804, 43.528, 48.8, 50.233, 63.0, 53.744, 44.033, 49.384, 43.21, 50.112, 42.873, 56.504, 63.0, 56.504, 42.873, 50.112, 43.21, 49.384, 44.033, 53.744, 63.0, 50.233, 48.8, 43.528, 49.804, 43.001, 50.325, 47.939],
-    true,
-    '#B7EA15',
-  ),
-  tight: buildVisual(
-    [34.868, 35.869, 39.078, 45.224, 56.03, 52.191, 35.113, 29.609, 28.114, 29.622, 35.039, 52.085, 56.051, 45.242, 39.093, 35.884, 34.882, 35.884, 39.093, 45.242, 56.051, 52.134, 34.981, 29.558, 28.048, 29.542, 35.051, 52.243, 56.03, 45.224, 39.078, 35.869],
-    false,
-    '#005050',
-  ),
+  achy: buildVisual(ACHY_RIPPLE, true, '#B7EA15'),
+  tight: buildVisual(TIGHT_BAND, false, '#005050'),
   stiff: buildVisual(
     [13.538, 39.212, 50.754, 57.038, 59.548, 58.486, 54.12, 50.98, 50.0, 50.98, 54.12, 58.486, 59.548, 57.038, 50.754, 39.212, 13.538, 39.212, 50.754, 57.038, 59.548, 58.486, 54.12, 50.98, 50.0, 50.98, 54.12, 58.486, 59.548, 57.038, 50.754, 39.212],
     true,
@@ -167,11 +329,7 @@ const WORD_VISUALS: Record<string, { path: string; calmPath: string; color: stri
     true,
     '#F87C64',
   ),
-  tingling: buildVisual(
-    [58.0, 25.0, 19.0, 25.0, 58.0, 25.0, 19.0, 25.0, 58.0, 25.0, 19.0, 25.0, 58.0, 25.0, 19.0, 25.0, 58.0, 25.0, 19.0, 25.0, 58.0, 25.0, 19.0, 25.0, 58.0, 25.0, 19.0, 25.0, 58.0, 25.0, 19.0, 25.0],
-    false,
-    '#B7EA15',
-  ),
+  tingling: buildVisual(TINGLING_STAR, false, '#B7EA15'),
   numb: buildVisual(
     [47.438, 48.001, 48.938, 49.438, 49.417, 49.71, 50.333, 49.864, 49.57, 49.658, 49.757, 49.851, 49.683, 47.88, 46.645, 48.271, 50.327, 50.423, 50.493, 50.34, 48.132, 47.007, 48.685, 50.403, 50.423, 49.812, 48.604, 49.935, 49.987, 49.869, 49.757, 48.579],
     true,
@@ -211,26 +369,10 @@ const WORD_VISUALS: Record<string, { path: string; calmPath: string; color: stri
     true,
     '#005050',
   ),
-  dizzy: buildVisual(
-    [22.0, 22.397, 23.048, 23.848, 24.765, 25.779, 26.878, 28.053, 29.297, 30.605, 31.973, 33.396, 34.873, 36.399, 37.974, 39.593, 41.257, 42.963, 44.709, 46.495, 48.319, 50.179, 52.075, 54.007, 55.972, 57.97, 60.0, 45.532, 38.071, 32.031, 26.762, 22.0],
-    true,
-    '#B7EA15',
-  ),
-  headachy: buildVisual(
-    [36.5, 37.215, 39.507, 35.996, 56.0, 40.15, 24.994, 19.808, 9.0, 19.808, 24.994, 48.964, 51.619, 43.898, 39.507, 37.215, 36.5, 37.215, 39.507, 35.996, 56.0, 40.15, 24.994, 19.808, 9.0, 19.808, 24.994, 48.964, 51.619, 43.898, 39.507, 37.215],
-    false,
-    '#FE2A3B',
-  ),
-  foggy: buildVisual(
-    [33.9, 34.474, 33.255, 40.974, 44.953, 50.513, 54.021, 51.742, 44.211, 44.072, 43.755, 9.069, 36.925, 36.118, 37.483, 38.603, 37.757, 34.94, 35.02, 44.046, 47.023, 47.073, 50.019, 49.532, 43.764, 44.118, 43.063, 43.795, 44.577, 41.759, 34.036, 31.53],
-    true,
-    '#EEE6FF',
-  ),
-  shaky: buildVisual(
-    [45.016, 42.62, 35.746, 28.673, 26.542, 28.89, 32.66, 38.242, 45.943, 51.934, 52.414, 48.191, 43.556, 41.35, 40.079, 37.651, 35.484, 35.655, 37.069, 37.43, 36.77, 37.511, 40.642, 43.52, 44.212, 44.579, 46.045, 46.486, 44.008, 40.783, 40.522, 43.195],
-    true,
-    '#B7EA15',
-  ),
+  dizzy: buildVisual(DIZZY_STACK, true, '#B7EA15'),
+  headachy: buildVisual(HOURGLASS, false, '#FE2A3B'),
+  foggy: buildVisual(CLOUD, true, '#EEE6FF'),
+  shaky: buildVisual(SHAKY_CLUSTER, true, '#B7EA15'),
 }
 
 for (const card of WORD_CARDS) {

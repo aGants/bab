@@ -20,6 +20,10 @@
   font-weight: 800;
 }
 
+.word-detail-title {
+  color: var(--color-ink);
+}
+
 .word-cards-section-label {
   margin: 12px 16px 10px 16px;
   color: var(--color-ink);

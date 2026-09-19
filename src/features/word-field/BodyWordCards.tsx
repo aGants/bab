@@ -1,6 +1,5 @@
 import { useEffect, useState, type CSSProperties } from 'react'
-import { CATEGORIES, GRID_COLS, WORD_CARDS, type WordCard } from './bodyWordsData'
-import { wordColor, wordLabelColor } from './helpers/shapes'
+import { GRID_COLS, WORD_CARDS, type WordCard } from './bodyWordsData'
 import { WordCardButton } from './WordCardButton'
 import { useScrollToSelected } from './helpers/useScrollToSelected'
 import { Link, useSearchParams } from 'react-router-dom'
@@ -66,7 +65,7 @@ const BodyWordCards = () => {
           >
             ✕
           </button>
-          <strong className="word-detail-title" style={{ background: wordColor(selected.id), color: wordLabelColor(selected.id) }}>
+          <strong className="word-detail-title">
             {selected.word}
           </strong>
           <div className="word-detail-body">
