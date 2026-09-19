@@ -416,7 +416,7 @@ msgstr "Impostazioni"
 
 #: src/features/avatar/labels.ts:27
 msgid "Sleepy"
-msgstr "Assonnato"
+msgstr "Assonnata"
 
 #: src/features/avatar/labels.ts:41
 msgid "Sparkles"
@@ -436,7 +436,7 @@ msgstr "Riepilogo"
 
 #: src/features/avatar/labels.ts:28
 msgid "Surprised"
-msgstr "Sorpreso"
+msgstr "Sorpresa"
 
 #: src/features/settings/SettingsPage.tsx:114
 msgid "Tap “Add”."
@@ -472,7 +472,7 @@ msgstr "Hai preso un antidolorifico oggi?"
 
 #: src/features/calendar/DayLogDialog.tsx:94
 msgid "Unknown"
-msgstr "Sconosciuto"
+msgstr "Sconosciuta"
 
 #: src/features/check-in-flow/CheckInFlowPage.tsx:46
 msgid "Unknown word."
@@ -492,7 +492,7 @@ msgstr "Cosa può aiutare adesso?"
 
 #: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:78
 msgid "When do you notice it?"
-msgstr "Quando lo noti?"
+msgstr "Quando la noti?"
 
 #: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:12
 msgid "When I move it"
@@ -504,7 +504,7 @@ msgstr "Quando premo sulla zona"
 
 #: src/features/check-in-flow/steps/BodyLocationStep/BodyLocationStep.tsx:24
 msgid "Where do you feel it?"
-msgstr "Dove lo senti?"
+msgstr "Dove la senti?"
 
 #: src/features/avatar/labels.ts:29
 msgid "Wink"

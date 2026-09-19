@@ -1,9 +1,10 @@
 import type { CategoryId, WordId } from '@/entities/word'
 import type { WordText } from '../../types'
 
-// Traduzione italiana, rivolta a te con il "tu". Le parole-sensazione stanno al maschile
-// singolare (o sono nomi) perché compaiono anche da sole, ad esempio in "Sensazione: …";
-// le frasi evitano gli accordi al genere di chi legge.
+// Traduzione italiana, rivolta a te con il "tu". L'app è pensata solo per ragazze, quindi
+// tutto ciò che si accorda con chi legge sta al femminile ("ti sei scaldata"). Le parole-sensazione
+// stanno al femminile singolare (o sono nomi), perché compaiono anche da sole, ad esempio in
+// "Sensazione: …"; "la zona" è il riferimento per i pronomi ("quando la muovi").
 
 export const categories: Record<CategoryId, string> = {
   muscle: 'Segnali muscolari',
@@ -26,7 +27,7 @@ export const words: Record<WordId, WordText> = {
       'Il tuo corpo è pronto. Riscaldati bene e goditi l’allenamento. Ricorda questa sensazione per confrontarla con i giorni più duri.',
   },
   light: {
-    word: 'leggero',
+    word: 'leggera',
     tagline: 'Nota quanto sono fluidi i tuoi movimenti',
     metaphor: 'Come se la gravità avesse mollato la presa.',
     description:
@@ -37,12 +38,12 @@ export const words: Record<WordId, WordText> = {
       'Ottimo segno: il recupero è andato bene. È un buon giorno per la velocità, per il lavoro tecnico o per qualsiasi cosa richieda freschezza.',
   },
   sore: {
-    word: 'indolenzito',
+    word: 'indolenzita',
     tagline: 'Nota quanto è sensibile',
     metaphor: 'Il conto del giorno dopo.',
     description:
-      'Il conto che i muscoli presentano 24–48 ore dopo un lavoro nuovo o più intenso. Una sensazione profonda, persistente e difficile da localizzare, come un fastidio costante e diffuso. Spesso riguarda più di una parte del corpo. Si estende a tutto il muscolo, di solito da entrambi i lati, peggio al primo movimento e meglio quando ti sei scaldato.',
-    feelsLike: 'Più sensibile e dolente del solito quando lo tocchi, lo muovi o lo usi.',
+      'Il conto che i muscoli presentano 24–48 ore dopo un lavoro nuovo o più intenso. Una sensazione profonda, persistente e difficile da localizzare, come un fastidio costante e diffuso. Spesso riguarda più di una parte del corpo. Si estende a tutto il muscolo, di solito da entrambi i lati, peggio al primo movimento e meglio quando ti sei scaldata.',
+    feelsLike: 'Più sensibile e dolente del solito quando la tocchi, la muovi o la usi.',
     recommendation:
       'Normale dopo un lavoro intenso o nuovo. Aiutano movimento leggero, stretching e foam roller. Se è da un lato solo o dura più di 3 giorni, parlane con il tuo allenatore, il medico, un genitore o chi si prende cura di te.',
   },
@@ -58,8 +59,8 @@ export const words: Record<WordId, WordText> = {
       'I tuoi muscoli stanno elaborando molto. Fai stretching, bevi, mangia bene e dormi a sufficienza. Se continua a tornare, confronta il tuo recupero con il tuo allenatore.',
   },
   tight: {
-    word: 'teso',
-    tagline: 'Nota cosa succede quando lo muovi',
+    word: 'tesa',
+    tagline: 'Nota cosa succede quando la muovi',
     metaphor: 'Come un muscolo tirato e accorciato.',
     description:
       'Una sensazione di tensione può far sentire una parte del corpo contratta, limitata, come se non avesse la sua solita libertà di movimento.',
@@ -69,7 +70,7 @@ export const words: Record<WordId, WordText> = {
       'Oggi fai stretching e riscaldamento un po’ più a lungo. Se la tensione è sempre nello stesso punto, parlane con il tuo allenatore o fisioterapista.',
   },
   stiff: {
-    word: 'rigido',
+    word: 'rigida',
     tagline: 'Dagli il tempo di sciogliersi',
     metaphor: 'Una cerniera incastrata.',
     description:
@@ -114,11 +115,11 @@ export const words: Record<WordId, WordText> = {
       'Qualcosa si contrae per proteggere una zona. Non forzare. Riposa, applica calore leggero e, se non passa in un giorno o due, chiedi aiuto.',
   },
   sharp: {
-    word: 'acuto',
-    tagline: 'Riesci a indicare esattamente dove lo senti?',
+    word: 'acuta',
+    tagline: 'Riesci a indicare esattamente dove la senti?',
     metaphor: 'Un taglietto di carta.',
     description:
-      'Improvviso e preciso: puoi indicare con un dito il punto esatto. Può arrivare in un momento specifico del movimento. Una sensazione acuta ti fa cambiare quello che stai facendo.',
+      'Improvvisa e precisa: puoi indicare con un dito il punto esatto. Può arrivare in un momento specifico del movimento. Una sensazione acuta ti fa cambiare quello che stai facendo.',
     feelsLike: 'Una sensazione rapida e appuntita che ti fa notare subito quel punto.',
     recommendation:
       'Interrompi il movimento che l’ha causato. Se riesci a indicare il punto esatto con un dito, è un’informazione importante. Non rimetterlo alla prova: segnalalo al tuo allenatore e chiedi aiuto se ritorna.',
@@ -152,12 +153,12 @@ export const words: Record<WordId, WordText> = {
     description:
       'Spesso è un nervo schiacciato o irritato. Alcune ragazze possono avvertire formicolio a mani o piedi prima del ciclo.',
     feelsLike:
-      'Il piede “addormentato” quando ci resti seduto sopra troppo a lungo. Una sensazione frizzante che corre lungo una linea.',
+      'Il piede “addormentato” quando ci resti seduta sopra troppo a lungo. Una sensazione frizzante che corre lungo una linea.',
     recommendation:
       'Spesso è un nervo schiacciato. Cambia posizione e allenta ciò che stringe (scarpe, lacci, cinghie). Se succede sempre nello stesso punto, parlane con il tuo staff o con i tuoi genitori.',
   },
   numb: {
-    word: 'intorpidito',
+    word: 'intorpidita',
     tagline: 'Nota cosa è cambiato',
     metaphor: 'Il volume portato a zero.',
     description:
@@ -169,7 +170,7 @@ export const words: Record<WordId, WordText> = {
   },
   // Ciclo e ormoni
   bloated: {
-    word: 'gonfio',
+    word: 'gonfia',
     tagline: 'Nota se viene da dentro',
     metaphor: 'Un palloncino che si gonfia lentamente.',
     description:
@@ -190,7 +191,7 @@ export const words: Record<WordId, WordText> = {
       'La sensibilità senza infortunio può essere comune prima del ciclo. Indossa abiti che sostengono.',
   },
   nauseous: {
-    word: 'nauseato',
+    word: 'nauseata',
     tagline: 'Nota se arriva a ondate',
     metaphor: 'Una barca che dondola.',
     description: 'Una sensazione di nausea e disagio che può andare e venire a ondate.',
@@ -200,7 +201,7 @@ export const words: Record<WordId, WordText> = {
       'Bevi acqua a piccoli sorsi. Mangia qualcosa di leggero e semplice. Non allenarti a stomaco vuoto. Se succede spesso insieme a giramenti di testa o tremori, controlla come ti alimenti.',
   },
   swollen: {
-    word: 'tumefatto',
+    word: 'tumefatta',
     tagline: 'Nota il cambiamento',
     metaphor: 'Un palloncino d’acqua sotto la pelle.',
     description:
@@ -210,7 +211,7 @@ export const words: Record<WordId, WordText> = {
       'Se è da entrambi i lati e intorno al ciclo: normale ritenzione di liquidi. Se è da un lato solo e dopo un infortunio: ghiaccio, tieni la parte sollevata e chiedi aiuto.',
   },
   hot: {
-    word: 'caldo',
+    word: 'calda',
     tagline: 'Caldo da dentro o da fuori?',
     metaphor: 'Il retro di un portatile acceso da tanto.',
     description:
@@ -232,7 +233,7 @@ export const words: Record<WordId, WordText> = {
       'Oggi tutto costa più fatica. Il tuo corpo potrebbe aver bisogno di più carburante, sonno o recupero. Prova ad andarci piano e osserva cosa succede. Se questa sensazione si presenta spesso, parlane con il tuo allenatore.',
   },
   dizzy: {
-    word: 'stordito',
+    word: 'stordita',
     tagline: 'Fermati. Lascia che il mondo ti raggiunga',
     metaphor: 'Una trottola che rallenta.',
     description:
@@ -254,7 +255,7 @@ export const words: Record<WordId, WordText> = {
       'Bevi acqua, riposa in un posto tranquillo e, se puoi, stai lontano dagli schermi. Può essere comune anche intorno al ciclo.',
   },
   foggy: {
-    word: 'annebbiato',
+    word: 'annebbiata',
     tagline: 'Nota se i pensieri sono più lenti',
     metaphor: 'Una finestra appannata.',
     description:
