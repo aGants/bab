@@ -60,9 +60,6 @@
 }
 
 .summary-step__recommendation {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
     padding: 14px 16px;
     border-radius: 16px;
     background: var(--color-surface-raised);
@@ -76,14 +73,7 @@
     background: color-mix(in srgb, var(--color-signals) 20%, var(--color-surface-raised));
 }
 
-.summary-step__recommendation-signal {
-    font-size: 18px;
-    line-height: 1.5;
-}
-
 .summary-step__recommendation-text {
-    flex: 1;
-    min-width: 0;
     margin: 0;
     color: var(--color-ink);
     font-size: 14px;

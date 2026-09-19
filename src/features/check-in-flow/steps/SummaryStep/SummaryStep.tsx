@@ -1,4 +1,4 @@
-import { SIGNAL_EMOJI, type WordCard } from '@/features/word-field/bodyWordsData'
+import type { WordCard } from '@/features/word-field/bodyWordsData'
 import { WordShape } from '@/features/word-field/WordShape'
 import type { BodyZone, CheckInIntensity } from '@/entities/check-in/types'
 import { bodyZoneLabel } from '../BodyLocationStep/bodyZoneMap'
@@ -41,9 +41,6 @@ export const SummaryStep = ({
 
     <h3 className="summary-step__help-heading">What can help right now?</h3>
     <div className={`summary-step__recommendation summary-step__recommendation--${word.signal}`}>
-      <span className="summary-step__recommendation-signal" aria-hidden="true">
-        {SIGNAL_EMOJI[word.signal]}
-      </span>
       <p className="summary-step__recommendation-text">{word.recommendation}</p>
     </div>
   </div>

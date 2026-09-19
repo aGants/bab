@@ -20,12 +20,6 @@ export const CATEGORIES: Record<CategoryId, Category> = {
 /** 🟢 normal — 🟡 monitor / pay attention — 🔴 stop / seek support */
 export type Signal = 'green' | 'yellow' | 'red'
 
-export const SIGNAL_EMOJI: Record<Signal, string> = {
-  green: '🟢',
-  yellow: '🟡',
-  red: '🔴',
-}
-
 export interface WordCard {
   id: string
   category: CategoryId
@@ -77,7 +71,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     intensity: 0,
     signal: 'green',
     recommendation:
-      "Great sign — you're well recovered. A good day for speed, skill work, or anything that needs freshness.",
+      "Great sign: you're well recovered. A good day for speed, skill work, or anything that needs freshness.",
   },
   {
     id: 'sore',
@@ -91,7 +85,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     intensity: 1,
     signal: 'green',
     recommendation:
-      "Normal after hard or new work (DOMS). Gentle movement, stretching, and foam rolling help. If it's one-sided or lasts more than 3 days, tell your coach.",
+      "Normal after hard or new work. Gentle movement, stretching, and foam rolling help. If it's one-sided or lasts more than 3 days, tell your coach/healthcare provider/parent/carer.",
   },
   {
     id: 'achy',
@@ -106,7 +100,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     intensity: 1,
     signal: 'green',
     recommendation:
-      'Your muscles are processing a lot. Stretch, hydrate, eat well, and sleep enough. If it keeps coming back, check your recovery with your coach.',
+      'Your muscles are processing a lot. Stretch, hydrate, fuel well, and get some good sleep. If it keeps coming back, check your recovery with your coach.',
   },
   {
     id: 'tight',
@@ -166,7 +160,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     feelsLike:
       'Making a fist, holding it tight for a moment, then letting it open, except the squeezing is happening inside your body.',
     intensity: 1,
-    signal: 'green',
+    signal: 'yellow',
     recommendation:
       "A squeezing that comes in waves. If it's in your belly and around your period, gentle movement and warmth can help. If it's in a muscle (like your calf or foot), stop, stretch it gently, and drink water. Muscle cramps often mean you're dehydrated or your muscles are fatigued. If cramps regularly stop you from training, talk to a doctor/coach/carer.",
   },
@@ -183,7 +177,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     intensity: 2,
     signal: 'yellow',
     recommendation:
-      "Something is clenching to protect an area. Don't force through it. Rest, apply gentle heat, and if it doesn't ease in a day or two, get it checked.",
+      "Something is clenching to protect an area. Don't force through it. Rest, apply gentle heat, and if it doesn't ease in a day or two, seek support.",
   },
   {
     id: 'sharp',
@@ -197,7 +191,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     intensity: 2,
     signal: 'red',
     recommendation:
-      "Stop the movement that caused it. If you can point to the exact spot with one finger, that's important information. Don't test it again — tell your coach and seek support if it returns.",
+      "Stop the movement that caused it. If you can point to the exact spot with one finger, that's important information. Don't test it again; flag it to your coach and seek support if it returns.",
   },
   {
     id: 'stabbing',
@@ -227,7 +221,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     intensity: 1,
     signal: 'green',
     recommendation:
-      "Normal during hard effort — it should fade within minutes of stopping. If it doesn't fade, or it happens at low intensity or at rest, stop and get it checked.",
+      "Common sensation during hard effort, which should fade within minutes of stopping. If it doesn't fade, or it happens at low intensity or at rest, stop and flag it to your coach.",
   },
   {
     id: 'tingling',
@@ -242,7 +236,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     intensity: 1,
     signal: 'yellow',
     recommendation:
-      'Often a nerve being squeezed. Change position, loosen anything tight (shoes, straps). If it keeps happening in the same spot, mention it to a healthcare provider.',
+      'Often a nerve being squeezed. Change position, loosen anything tight (shoes, straps). If it keeps happening in the same spot, mention it to your staff or parents.',
   },
   {
     id: 'numb',
@@ -257,7 +251,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     intensity: 0,
     signal: 'red',
     recommendation:
-      "If brief and from position, just move. If it happens during exercise, is spreading, or doesn't go away — stop and seek assessment. Numbness during sport is always worth checking.",
+      "If brief and from holding position for long time, move gently until it goes. If it happens during exercise, is spreading, or doesn't go away, then stop and seek assessment. Numbness during sport is always worth checking.",
   },
 
   // Cycle & hormones
@@ -274,7 +268,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     intensity: 1,
     signal: 'green',
     recommendation:
-      'Very common around your period. Drink water (it helps!), eat smaller meals, wear comfortable clothing. It will pass.',
+      'Very common around your period. Make sure to drink a lot of water (it helps!) and wear comfortable clothing.',
   },
   {
     id: 'tender',
@@ -288,7 +282,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     intensity: 1,
     signal: 'green',
     recommendation:
-      "Sensitivity without injury is common before your period. Wear supportive clothing. It's not a sign something is wrong.",
+      'Sensitivity without injury can be common before your period. Wear supportive clothing.',
   },
   {
     id: 'nauseous',
@@ -316,7 +310,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     intensity: 2,
     signal: 'green',
     recommendation:
-      'If both sides and around your period: normal fluid retention. If one side and after an injury: ice, elevate, and seek assessment.',
+      'If both sides and around your period: normal fluid retention. If one side and after an injury: ice, elevate the body part, and seek support.',
   },
   {
     id: 'hot',
@@ -330,7 +324,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     intensity: 1,
     signal: 'green',
     recommendation:
-      "Drink more water to stay hydrated and take breaks in shade (if you're under the sun). If you feel very hot with dizziness, confusion, or you stopped sweating — seek help immediately.",
+      "Drink more water to stay hydrated and take breaks in shade (if you're under the sun). If you feel very hot with dizziness, confusion, or you stopped sweating, seek help immediately.",
   },
 
   // Energy & fuel
@@ -347,7 +341,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     intensity: 2,
     signal: 'green',
     recommendation:
-      'Everything costs more effort today. Your body needs fuel, sleep, or recovery. Go lighter. If this happens often, review your eating and rest.',
+      'Everything costs more effort today. Your body may need additional fuel, sleep, or recovery. Try to take it easier and notice what happens. If this sensation occurs often, tell your coach about it.',
   },
   {
     id: 'dizzy',
@@ -362,7 +356,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     intensity: 2,
     signal: 'yellow',
     recommendation:
-      "Stop and sit down. Drink water, eat something. Don't return to training until it fully passes. If it keeps happening, talk to a healthcare provider.",
+      'Stop and sit down. Drink water and eat something. Wait to return to training until it fully passes. If it keeps happening, talk to a healthcare provider.',
   },
   {
     id: 'headachy',
@@ -377,7 +371,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     intensity: 1,
     signal: 'green',
     recommendation:
-      "Drink water first — dehydration is the most common cause. Eat if you've skipped a meal. Rest in a quiet spot. Common around your period too.",
+      'Make sure to drink water, get some rest in a quiet spot and stay away from screens if possible. It can also be common around your period.',
   },
   {
     id: 'foggy',
@@ -392,7 +386,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     intensity: 0,
     signal: 'yellow',
     recommendation:
-      'Your brain needs fuel or sleep. Eat, hydrate, and keep training simple today. If it happens a lot, check your sleep and eating patterns.',
+      'Your brain may need additional fuel, water or sleep. If it happens a lot, tell your support system about it.',
   },
   {
     id: 'shaky',
@@ -406,7 +400,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     intensity: 2,
     signal: 'yellow',
     recommendation:
-      'Your body needs energy. Eat something now — a banana, a cereal bar, a sports drink. Always eat before training. If this keeps happening, you may not be eating enough overall.',
+      'Your body may need additional energy to keep you. Remember to fuel before and after training, especially if this sensation keeps showing up.',
   },
 ]
 
