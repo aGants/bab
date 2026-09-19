@@ -206,11 +206,20 @@
   animation-timing-function: ease-in-out;
 }
 
+/* Reduced motion: keep the shapes alive, but only with the calm drift — slower,
+   smaller, and none of the pulse / spike-breathe / jitter that read as fast or jarring. */
 @media (prefers-reduced-motion: reduce) {
   .word-shape,
   .word-shape--pulse,
   .word-shape--spike,
-  .word-shape--jitter,
+  .word-shape--jitter {
+    --float-amp: 1;
+    --float-amp-boost: 1;
+    --float-scale: 1.5;
+    animation: shape-drift calc(var(--float-dur, 6s) * 2) ease-in-out infinite;
+    animation-delay: var(--float-delay, 0s);
+  }
+
   .word-shape--spike .word-shape-path {
     animation: none;
   }

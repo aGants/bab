@@ -70,9 +70,9 @@
   --rdp-accent-color: var(--color-ink);
   --rdp-accent-background-color: var(--color-surface-raised);
   --rdp-day-width: var(--calendar-day-size);
-  --rdp-day-height: 56px;
-  --rdp-day_button-width: calc(var(--calendar-day-size) * 0.72);
-  --rdp-day_button-height: 52px;
+  --rdp-day-height: 60px;
+  --rdp-day_button-width: calc(var(--calendar-day-size) * 0.94);
+  --rdp-day_button-height: 56px;
   --rdp-day_button-border-radius: 12px;
   --rdp-day_button-border: 0;
   --rdp-selected-border: 0;
@@ -132,15 +132,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 3px;
-  height: 12px;
+  gap: 2px;
+  height: 16px;
 }
 
 .calendar-day-mood {
   position: relative;
   flex-shrink: 0;
-  width: clamp(9px, calc(var(--calendar-day-size) * 0.22), 12px);
-  height: clamp(9px, calc(var(--calendar-day-size) * 0.22), 12px);
+  width: clamp(11px, calc(var(--calendar-day-size) * 0.28), 16px);
+  height: clamp(11px, calc(var(--calendar-day-size) * 0.28), 16px);
 }
 
 /* Calendar cells can show several feelings at once; the drift/pulse/spike
@@ -154,13 +154,13 @@
 }
 
 .calendar-day-mood-more {
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1;
   color: var(--color-ink-muted);
 }
 
 .calendar-day-period {
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
 }
 
