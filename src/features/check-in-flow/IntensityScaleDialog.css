@@ -21,7 +21,7 @@
 .intensity-scale {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 24px;
     width: 100%;
     max-height: 100%;
     padding: 20px;
@@ -30,7 +30,7 @@
     background: var(--color-surface);
     color: var(--color-ink);
     font-family: var(--font-body);
-    box-shadow: 0 10px 30px rgb(0 0 0 / 18%);
+    box-shadow: 0 12px 16px rgb(0 0 0 / 10%);
 }
 
 .intensity-scale__header {
@@ -41,20 +41,21 @@
 
 .intensity-scale__title {
     margin: 0;
-    font-family: var(--font-display);
-    font-size: 17px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
 }
 
 .intensity-scale__close {
-    width: 32px;
-    height: 32px;
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
     padding: 0;
     border: none;
     border-radius: 999px;
     background: transparent;
     color: var(--color-ink);
-    font-size: 16px;
     cursor: pointer;
 }
 
@@ -62,11 +63,23 @@
     display: flex;
     justify-content: space-between;
     margin: 0;
-    padding: 0 0 8px;
+    padding: 0 0 12px;
     list-style: none;
-    border-bottom: 3px solid var(--color-energy);
-    font-weight: 700;
-    font-size: 14px;
+    /* 4px rounded rule under the numbers, as in the design */
+    position: relative;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.intensity-scale__numbers::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--color-energy);
 }
 
 .intensity-scale__number {
@@ -83,17 +96,22 @@
 .intensity-scale__levels {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 16px;
     flex: 1;
     min-height: 0;
-    margin: 0;
-    padding: 0;
+    /* room for the current level's 2px outline, which the scroll box would clip */
+    margin: -2px;
+    padding: 2px;
     overflow-y: auto;
     list-style: none;
 }
 
 .intensity-scale__level {
-    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+    border: 1px solid var(--color-border);
     border-radius: 12px;
     background: var(--color-surface-raised);
     outline: 2px solid transparent;
@@ -105,23 +123,26 @@
 
 .intensity-scale__level-head {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 8px;
-    margin: 0 0 4px;
+    margin: 0;
 }
 
 .intensity-scale__level-number {
-    font-weight: 700;
-    font-size: 15px;
+    font-weight: 600;
+    font-size: 16px;
 }
 
 .intensity-scale__level-label {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--color-ink-muted);
 }
 
 .intensity-scale__level-description {
     margin: 0;
-    font-size: 13px;
-    line-height: 1.4;
+    font-size: 14px;
+}
+
+.intensity-scale__footer {
+    padding-top: 8px;
 }

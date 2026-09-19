@@ -40,7 +40,7 @@ const BodyWordCards = () => {
         </h1>
       </header>
       <p className="word-cards-section-label">
-        <Trans>Body sensations</Trans>
+        <Trans>Bodily Signals</Trans>
       </p>
 
       <div className={`word-grid-viewport${selected ? ' has-detail' : ''}`} ref={viewportRef}>
@@ -67,21 +67,34 @@ const BodyWordCards = () => {
           >
             ✕
           </button>
-          <strong className="word-detail-title">
-            {selected.word}
-          </strong>
           <div className="word-detail-body">
             <div className="word-detail-text">
+              <strong className="word-detail-title">{selected.word}</strong>
               <p className="word-detail-tagline">{selected.tagline}</p>
-              <p className="word-detail-cue">{selected.metaphor}</p>
-              <p className="word-detail-feels">{selected.feelsLike}</p>
+              <div className="word-detail-copy">
+                <p>{selected.metaphor}</p>
+                <p>{selected.feelsLike}</p>
+              </div>
             </div>
             <Link
               className="word-detail-check-in"
               to={checkInFlowPath(selected.id, date, entryId)}
               aria-label={t`Continue`}
             >
-              →
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                style={{ transform: 'scaleX(-1)' }}
+              >
+                <path d="M19 12H5M12 5L5 12L12 19" />
+              </svg>
             </Link>
           </div>
         </div>

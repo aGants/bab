@@ -71,7 +71,6 @@ export const CheckInFlowPage = () => {
 
   return (
     <PageFrame>
-      {/* <Greeting /> */}
       <CheckInFlow
         word={word}
         date={date}

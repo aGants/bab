@@ -1,19 +1,26 @@
+/* Fixed light fills from the design (pale purple, not --color-cycle): they
+   don't change with the theme, so the ink on them must not either. */
 .summary-step {
+    --summary-step-fill: #e4d9fc;
+    --summary-step-rule: #e3e1de;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding: 4px 0 12px;
+    gap: 24px;
+    /* no header pill above on this screen, so keep the same top margin it gave */
+    padding-top: 4px;
 }
 
-.summary-step__stage {
-    width: 100%;
-    /* No fixed/max height: the shape's box is now sized directly off
-       intensity (see SummaryStep.tsx), so this stage just grows to fit it
-       instead of clipping or overlapping the text below at high intensity. */
-    margin-top: 20px;
+.summary-step__hero {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    min-height: 334px;
+    padding: 16px;
+    border: 2px solid var(--summary-step-fill);
+    border-radius: 12px;
+    background: var(--summary-step-fill);
 }
 
 .summary-step__shape {
@@ -26,78 +33,63 @@
     height: 100%;
 }
 
-.summary-step__heading {
-    margin: 8px 0 0;
-    font-family: var(--font-display);
-    color: var(--color-ink);
-}
-
-.summary-step__word-pill {
-    align-self: flex-start;
-    padding: 6px 16px;
-    border-radius: 999px;
-    background: var(--color-cycle);
-    color: var(--color-ink-on-light);
-    font-weight: 700;
-    font-size: 14px;
+.summary-step__intro {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
 .summary-step__description {
-    margin: 4px 0 0;
-    color: var(--color-ink-muted);
-    line-height: var(--body-line-height);
-}
-
-.summary-step__location {
-    margin: 0;
-    color: var(--color-ink-muted);
-    font-size: 14px;
-}
-
-.summary-step__vas-heading {
-    margin: 12px 0 0;
-    font-family: var(--font-display);
+    display: flex;
+    flex-direction: column;
+    gap: 1.2em;
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.2;
     color: var(--color-ink);
 }
 
-.summary-step__vas {
+.summary-step__description p {
     margin: 0;
-    padding: 12px 16px;
-    border-radius: 16px;
-    background: var(--color-surface-raised);
-    color: var(--color-ink-muted);
-    font-size: 14px;
-    line-height: var(--body-line-height);
 }
 
-.summary-step__vas-label {
-    font-weight: 700;
-    color: var(--color-ink);
+.summary-step__help {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .summary-step__help-heading {
-    margin: 12px 0 0;
-    font-family: var(--font-display);
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: -0.4px;
     color: var(--color-ink);
 }
 
 .summary-step__recommendation {
-    padding: 14px 16px;
-    border-radius: 16px;
-    background: var(--color-surface-raised);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-sizing: border-box;
+    min-height: 70px;
+    padding: 16px;
+    border: 1px solid var(--summary-step-rule);
+    border-radius: 12px;
+    background: var(--summary-step-fill);
 }
 
-.summary-step__recommendation--yellow {
-    background: color-mix(in srgb, var(--color-energy) 20%, var(--color-surface-raised));
-}
-
-.summary-step__recommendation--red {
-    background: color-mix(in srgb, var(--color-signals) 20%, var(--color-surface-raised));
+.summary-step__recommendation img {
+    flex-shrink: 0;
 }
 
 .summary-step__recommendation-text {
     margin: 0;
-    color: var(--color-ink);
-    font-size: 14px;
-    line-height: var(--body-line-height);
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    color: var(--color-ink-on-light);
 }

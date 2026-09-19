@@ -15,7 +15,7 @@ export const Greeting = ({ welcome = false }: { welcome?: boolean }) => {
       <div className="app-greeting app-greeting--welcome">
         <div className="app-greeting-copy">
           <p className="app-greeting-hello">
-            <Trans>Good morning,</Trans>
+            <Trans>Hi,</Trans>
           </p>
           <p className="app-greeting-name">{displayName}</p>
         </div>
@@ -27,7 +27,7 @@ export const Greeting = ({ welcome = false }: { welcome?: boolean }) => {
   return (
     <div className="app-greeting">
       <p className="app-greeting-text">
-        <Trans>Good morning, {displayName}</Trans>
+        <Trans>Hi, {displayName}</Trans>
       </p>
       <HeadMascot className="app-greeting-cloud" hatId={hatId} width={39} height={24.529} />
     </div>

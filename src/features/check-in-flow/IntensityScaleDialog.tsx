@@ -50,7 +50,19 @@ export const IntensityScaleDialog = ({
             <Trans>Intensity scale</Trans>
           </h3>
           <button type="button" className="intensity-scale__close" aria-label={t`Close`} onClick={onClose}>
-            ✕
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.75"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
           </button>
         </div>
 
@@ -79,9 +91,11 @@ export const IntensityScaleDialog = ({
           ))}
         </ul>
 
-        <Button onClick={onClose}>
-          <Trans>Got it</Trans>
-        </Button>
+        <div className="intensity-scale__footer">
+          <Button onClick={onClose}>
+            <Trans>Got it</Trans>
+          </Button>
+        </div>
       </div>
     </div>
   )

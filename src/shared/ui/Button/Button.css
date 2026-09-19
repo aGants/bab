@@ -1,14 +1,18 @@
 .button {
     width: 100%;
-    padding: 16px;
+    height: 56px;
+    padding: 0 16px;
     border: none;
-    border-radius: 999px;
+    border-radius: 28px;
     background: var(--color-anchor);
-    /* fixed cream, not the theme surface: the anchor fill is the same in both themes */
-    color: var(--color-ground);
+    /* fixed white, not the theme surface: the anchor fill is the same in both themes */
+    color: #fff;
     font-family: var(--font-body);
-    font-size: 17px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: -0.2px;
+    box-shadow: 0 8px 10px rgb(0 0 0 / 8%);
     cursor: pointer;
 }
 

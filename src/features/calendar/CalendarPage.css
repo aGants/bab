@@ -1,9 +1,8 @@
 .calendar-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 28px;
-  padding: var(--padding);
-  padding-top: var(--gap-after-greeting);
+  gap: 24px;
+  padding: 8px 20px 16px;
   flex: 1;
   min-height: 0;
   overflow-y: auto;
@@ -17,37 +16,45 @@
 }
 
 .calendar-title {
-  font-size: 28px;
   margin: 0;
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 36px;
+  letter-spacing: -0.64px;
+  color: var(--color-ink);
 }
 
 .calendar-month {
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 24px;
 }
 
 .calendar-month-nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 20px;
 }
 
 .calendar-month-title {
   margin: 0;
   font-family: var(--font-body);
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 500;
-  letter-spacing: -0.01em;
+  line-height: normal;
 }
 
+/* 24px glyph in a 32px tap target; the 4px gap on each side of the title
+   adds up to the design's 8px between glyph and month name */
 .calendar-month-nav-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   padding: 0;
   border: none;
   border-radius: 999px;
@@ -56,29 +63,30 @@
   cursor: pointer;
 }
 
-/* Day cells are a number with a single row of feeling shapes underneath. The
-   picked day gets a soft lavender pill narrower than its column. The day size
-   shrinks to fit 7 columns within the viewport (minus the page padding) so the
-   grid never overflows on narrow phone screens; it caps at 56px, the size the
-   desktop-mimicking frame was designed around. */
+/* Day cells are a number with a single row of feeling dots underneath. The
+   picked day gets a soft lavender pill. Columns sit on an 8px gutter and rows
+   on a 4px one: --calendar-day-size is the column pitch (cell + gutter), sized
+   so 7 columns fit inside the page gutter (20px) plus the grid's own 16px
+   inset, so the grid never overflows on narrow phone screens; capped so the
+   desktop-mimicking frame doesn't stretch it. */
 .calendar-picker {
   --calendar-day-size: clamp(
     38px,
-    calc((100vw - (var(--padding) * 2) - 4px) / 7),
-    56px
+    calc((100vw - 72px + 8px) / 7),
+    54px
   );
   --rdp-accent-color: var(--color-ink);
   --rdp-accent-background-color: var(--color-surface-raised);
   --rdp-day-width: var(--calendar-day-size);
-  --rdp-day-height: 60px;
-  --rdp-day_button-width: calc(var(--calendar-day-size) * 0.94);
-  --rdp-day_button-height: 56px;
+  --rdp-day-height: 56px;
+  --rdp-day_button-width: calc(var(--calendar-day-size) - 8px);
+  --rdp-day_button-height: 52px;
   --rdp-day_button-border-radius: 12px;
   --rdp-day_button-border: 0;
   --rdp-selected-border: 0;
   --rdp-today-color: var(--color-signals);
   --rdp-weekday-opacity: 1;
-  --rdp-weekday-padding: 0 0 14px;
+  --rdp-weekday-padding: 8px 0 32px;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -94,7 +102,7 @@
 .calendar-picker .rdp-weekday {
   color: color-mix(in srgb, var(--color-ink) 40%, transparent);
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .calendar-picker .rdp-today:not(.rdp-outside) {
@@ -117,30 +125,31 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding-top: 6px;
+  justify-content: center;
   gap: 4px;
   font-family: var(--font-body);
+  font-weight: 500;
 }
 
 .calendar-day-number {
   font-size: 16px;
-  line-height: 20px;
+  line-height: normal;
 }
 
+/* keeps the row's height even on a day with nothing logged, so numbers line up */
 .calendar-day-marks {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2px;
-  height: 16px;
+  gap: 3px;
+  height: 10px;
 }
 
 .calendar-day-mood {
   position: relative;
   flex-shrink: 0;
-  width: clamp(11px, calc(var(--calendar-day-size) * 0.28), 16px);
-  height: clamp(11px, calc(var(--calendar-day-size) * 0.28), 16px);
+  width: 10px;
+  height: 10px;
 }
 
 /* Calendar cells can show several feelings at once; the drift/pulse/spike
@@ -149,12 +158,13 @@
 .calendar-day-mood .word-shape--pulse,
 .calendar-day-mood .word-shape--spike,
 .calendar-day-mood .word-shape--jitter,
+.calendar-day-mood .word-shape--rise,
 .calendar-day-mood .word-shape--spike .word-shape-path {
   animation: none;
 }
 
 .calendar-day-mood-more {
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1;
   color: var(--color-ink-muted);
 }
@@ -167,21 +177,25 @@
 /* Sits between the scrolling month and the tab bar so "add" is always in reach. */
 .calendar-cta {
   flex-shrink: 0;
-  padding: 12px var(--padding) 16px;
+  padding: 0 20px 24px;
 }
 
 .calendar-add-button {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-sizing: border-box;
   width: 100%;
-  padding: 14px 16px;
-  border-radius: 999px;
+  height: 56px;
+  padding: 0 16px;
+  border-radius: 28px;
   background: var(--color-anchor);
-  /* fixed cream, not the theme surface: the anchor fill is the same in both themes */
-  color: var(--color-ground);
-  font-size: 18px;
+  /* fixed white, not the theme surface: the anchor fill is the same in both themes */
+  color: #fff;
+  font-size: 20px;
   font-weight: 500;
-  text-align: center;
+  line-height: 24px;
+  letter-spacing: -0.2px;
   text-decoration: none;
-  box-shadow: 0 6px 16px rgb(0 0 0 / 14%);
+  box-shadow: 0 8px 10px rgb(0 0 0 / 8%);
 }

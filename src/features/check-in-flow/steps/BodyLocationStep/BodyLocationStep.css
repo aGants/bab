@@ -18,11 +18,13 @@
     --body-selected: color-mix(in srgb, var(--color-signals) 80%, var(--color-surface));
 }
 
-.body-location-step > p {
+.body-location-step__hint {
+    margin: 12px 0 0;
     font-family: var(--font-body);
     font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
     color: var(--color-ink-muted);
-    margin: 0;
 }
 
 /* One grid cell shared by the body silhouette and the Front/Back toggle: the

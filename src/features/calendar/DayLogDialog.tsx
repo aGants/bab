@@ -74,67 +74,69 @@ export const DayLogDialog = ({
           </div>
         )}
 
-        {entries.length > 0 ? (
-          <>
-            <p className="day-log__count">
-              <ListIcon />
-              <Trans>Logged sensations ({count})</Trans>
-            </p>
-            <ul className="day-log__list">
-              {entries.map((entry) => {
-                const word = WORD_CARDS.find((card) => card.id === entry.wordId)
-                const wordName = word?.word
-                return (
-                  <li key={entry.id} className="day-log__card">
-                    <div className="day-log__card-top">
-                      <span className="day-log__shape" aria-hidden="true">
-                        {word && <WordShape card={word} expressive />}
-                      </span>
-                      <strong className="day-log__word">{wordName ?? t`Unknown`}</strong>
-                      <Link
-                        className="day-log__edit"
-                        to={wordsPath(entry.date, entry.id)}
-                        aria-label={wordName ? t`Edit ${wordName}` : t`Edit check-in`}
+        <div className="day-log__entries">
+          {entries.length > 0 ? (
+            <>
+              <p className="day-log__count">
+                <ListIcon />
+                <Trans>Logged sensations ({count})</Trans>
+              </p>
+              <ul className="day-log__list">
+                {entries.map((entry) => {
+                  const word = WORD_CARDS.find((card) => card.id === entry.wordId)
+                  const wordName = word?.word
+                  return (
+                    <li key={entry.id} className="day-log__card">
+                      <div className="day-log__card-top">
+                        <span className="day-log__shape" aria-hidden="true">
+                          {word && <WordShape card={word} expressive />}
+                        </span>
+                        <strong className="day-log__word">{wordName ?? t`Unknown`}</strong>
+                        <Link
+                          className="day-log__edit"
+                          to={wordsPath(entry.date, entry.id)}
+                          aria-label={wordName ? t`Edit ${wordName}` : t`Edit check-in`}
+                        >
+                          <EditIcon />
+                        </Link>
+                      </div>
+                      <div className="day-log__card-bottom">
+                        <span className="day-log__zones">
+                          {entry.bodyZones.map((zone) => (
+                            <span key={zone} className="day-log__zone">
+                              {bodyZoneShortLabel(zone)}
+                            </span>
+                          ))}
+                        </span>
+                        <span className="day-log__time">
+                          <ClockIcon />
+                          {i18n.date(new Date(entry.createdAt), { hour: 'numeric', minute: '2-digit' })}
+                        </span>
+                      </div>
+                      {entry.note && <p className="day-log__note">{entry.note}</p>}
+                      <button
+                        type="button"
+                        className="day-log__delete"
+                        onClick={() => onDelete(entry.id)}
                       >
-                        <EditIcon />
-                      </Link>
-                    </div>
-                    <div className="day-log__card-bottom">
-                      <span className="day-log__zones">
-                        {entry.bodyZones.map((zone) => (
-                          <span key={zone} className="day-log__zone">
-                            {bodyZoneShortLabel(zone)}
-                          </span>
-                        ))}
-                      </span>
-                      <span className="day-log__time">
-                        <ClockIcon />
-                        {i18n.date(new Date(entry.createdAt), { hour: 'numeric', minute: '2-digit' })}
-                      </span>
-                    </div>
-                    {entry.note && <p className="day-log__note">{entry.note}</p>}
-                    <button
-                      type="button"
-                      className="day-log__delete"
-                      onClick={() => onDelete(entry.id)}
-                    >
-                      <Trans>Delete</Trans>
-                    </button>
-                  </li>
-                )
-              })}
-            </ul>
-          </>
-        ) : (
-          <p className="day-log__empty">
-            <Trans>No check-ins this day.</Trans>
-          </p>
-        )}
+                        <Trans>Delete</Trans>
+                      </button>
+                    </li>
+                  )
+                })}
+              </ul>
+            </>
+          ) : (
+            <p className="day-log__empty">
+              <Trans>No check-ins this day.</Trans>
+            </p>
+          )}
 
-        <Link className="day-log__add" to={wordsPath(dateKey)}>
-          <PlusIcon />
-          {entries.length > 0 ? t`Log another sensation` : t`Log a sensation`}
-        </Link>
+          <Link className="day-log__add" to={wordsPath(dateKey)}>
+            <PlusIcon />
+            {entries.length > 0 ? t`Log another sensation` : t`Log a sensation`}
+          </Link>
+        </div>
       </div>
     </div>
   )

@@ -1,10 +1,12 @@
+import type { CSSProperties } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { DEFAULT_ENERGY, type Energy } from '@/entities/check-in/types'
 import { useDailyLog } from '@/entities/daily-log/useDailyLog'
 import { todayKey } from '@/shared/lib/dateKey'
 import './NotesStep.css'
 
-const ENERGY_LEVELS: Energy[] = [1, 2, 3, 4, 5, 6, 7]
+const MIN_ENERGY = 1
+const MAX_ENERGY = 7
 
 export const NotesStep = ({
   energy,
@@ -26,6 +28,35 @@ export const NotesStep = ({
     date ?? todayKey(),
   )
   const energyLevel = energy ?? DEFAULT_ENERGY
+  const energyProgress = (energyLevel - MIN_ENERGY) / (MAX_ENERGY - MIN_ENERGY)
+
+  const binaryQuestion = (
+    label: string,
+    answer: boolean | null | undefined,
+    onAnswer: (value: boolean) => void,
+  ) => (
+    <div className="notes-step__field">
+      <p className="notes-step__label">{label}</p>
+      <div className="notes-step__binary">
+        <button
+          type="button"
+          className="notes-step__pill"
+          aria-pressed={answer === true}
+          onClick={() => onAnswer(true)}
+        >
+          <Trans>Yes</Trans>
+        </button>
+        <button
+          type="button"
+          className="notes-step__pill"
+          aria-pressed={answer === false}
+          onClick={() => onAnswer(false)}
+        >
+          <Trans>No</Trans>
+        </button>
+      </div>
+    </div>
+  )
 
   return (
     <div className="notes-step">
@@ -33,84 +64,50 @@ export const NotesStep = ({
         <Trans>Anything else you want to share?</Trans>
       </h2>
 
-      <p className="notes-step__label">
-        <Trans>Energy</Trans>
-      </p>
-      <div className="notes-step__energy-scale">
+      <div className="notes-step__field">
+        <p className="notes-step__label">
+          <Trans>Energy level</Trans>
+        </p>
         <input
           type="range"
           className="notes-step__energy-slider"
-          min={1}
-          max={7}
+          min={MIN_ENERGY}
+          max={MAX_ENERGY}
           step={1}
           value={energyLevel}
+          style={{ '--slider-progress': energyProgress } as CSSProperties}
           onChange={(event) => onEnergyChange(Number(event.target.value) as Energy)}
           aria-label={t`Energy level`}
         />
-        <div className="notes-step__energy-numbers">
-          {ENERGY_LEVELS.map((level) => (
-            <span
-              key={level}
-              className="notes-step__energy-number"
-              data-active={level === energyLevel}
-            >
-              {level}
-            </span>
-          ))}
+        <div className="notes-step__energy-ends">
+          <span>
+            <Trans>Low</Trans>
+          </span>
+          <span>
+            <Trans>High</Trans>
+          </span>
         </div>
       </div>
 
-      <p className="notes-step__label">{isToday ? t`On period today?` : t`On period that day?`}</p>
-      <div className="notes-step__energy">
-        <button
-          type="button"
-          className="notes-step__energy-pill"
-          aria-pressed={hadPeriod === true}
-          onClick={() => setHadPeriod(true)}
-        >
-          <Trans>Yes</Trans>
-        </button>
-        <button
-          type="button"
-          className="notes-step__energy-pill"
-          aria-pressed={hadPeriod === false}
-          onClick={() => setHadPeriod(false)}
-        >
-          <Trans>No</Trans>
-        </button>
-      </div>
+      {binaryQuestion(isToday ? t`On period today?` : t`On period that day?`, hadPeriod, setHadPeriod)}
+      {binaryQuestion(
+        isToday ? t`Took a painkiller today?` : t`Took a painkiller that day?`,
+        tookPainkiller,
+        setTookPainkiller,
+      )}
 
-      <p className="notes-step__label">
-        {isToday ? t`Took a painkiller today?` : t`Took a painkiller that day?`}
-      </p>
-      <div className="notes-step__energy">
-        <button
-          type="button"
-          className="notes-step__energy-pill"
-          aria-pressed={tookPainkiller === true}
-          onClick={() => setTookPainkiller(true)}
-        >
-          <Trans>Yes</Trans>
-        </button>
-        <button
-          type="button"
-          className="notes-step__energy-pill"
-          aria-pressed={tookPainkiller === false}
-          onClick={() => setTookPainkiller(false)}
-        >
-          <Trans>No</Trans>
-        </button>
+      <div className="notes-step__field notes-step__field--grow">
+        <label className="notes-step__label" htmlFor="notes-step-textarea">
+          <Trans>Additional Notes</Trans>
+        </label>
+        <textarea
+          id="notes-step-textarea"
+          className="notes-step__textarea"
+          value={note}
+          onChange={(event) => onNoteChange(event.target.value)}
+          placeholder={t`Anything you want to remember about this…`}
+        />
       </div>
-
-      <p className="notes-step__label">
-        <Trans>Additional Notes</Trans>
-      </p>
-      <textarea
-        className="notes-step__textarea"
-        value={note}
-        onChange={(event) => onNoteChange(event.target.value)}
-        placeholder={t`Anything you want to remember about this…`}
-      />
     </div>
   )
 }

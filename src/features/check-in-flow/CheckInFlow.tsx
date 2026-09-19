@@ -58,19 +58,13 @@ export const CheckInFlow = ({
 
   return (
     <div className="check-in-flow" role="dialog" aria-label={t`Check in: ${wordName}`}>
-      <CheckInStepHeader
-        title={i18n._(STEP_TITLES[step])}
-        onBack={step === 'intensity' ? onCancel : () => setStep(PREVIOUS_STEP[step])}
-        onForward={
-          step === 'intensity'
-            ? () => setStep('location')
-            : step === 'location' && draft.bodyZones.length > 0
-              ? () => setStep('notes')
-              : step === 'notes'
-                ? () => setStep('confirm')
-                : undefined
-        }
-      />
+      {/* the design's summary screen is the finished result, so it has no step header */}
+      {step !== 'confirm' && (
+        <CheckInStepHeader
+          title={i18n._(STEP_TITLES[step])}
+          onBack={step === 'intensity' ? onCancel : () => setStep(PREVIOUS_STEP[step])}
+        />
+      )}
       <div className="check-in-flow-content">
         {step === 'intensity' && (
           <IntensityStep
@@ -98,7 +92,7 @@ export const CheckInFlow = ({
         )}
 
         {step === 'confirm' && draft.bodyZones.length > 0 && (
-          <SummaryStep word={word} bodyZones={draft.bodyZones} intensity={draft.intensity} />
+          <SummaryStep word={word} intensity={draft.intensity} />
         )}
       </div>
 
