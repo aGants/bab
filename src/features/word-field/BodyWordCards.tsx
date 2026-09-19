@@ -2,6 +2,7 @@ import { useEffect, useState, type CSSProperties } from 'react'
 import { GRID_COLS, GRID_WORDS, type GridWord } from './wordGrid'
 import { WordCardButton } from './WordCardButton'
 import { useScrollToSelected } from './useScrollToSelected'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { Link, useSearchParams } from 'react-router-dom'
 import { checkInFlowPath } from '@/routes/paths'
 import { PageFrame } from '@/shared/layout'
@@ -10,6 +11,7 @@ import { checkInRepository } from '@/entities/check-in/checkInRepository'
 import './BodyWordCards.css'
 
 const BodyWordCards = () => {
+  const { t } = useLingui()
   const [selected, setSelected] = useState<GridWord | null>(null)
   const { viewportRef, detailRef, registerCard } = useScrollToSelected(selected)
   const [searchParams] = useSearchParams()
@@ -33,9 +35,13 @@ const BodyWordCards = () => {
     <PageFrame>
       {/* <Greeting /> */}
       <header className="word-cards-header">
-        <h1>How is your body feeling today?</h1>
+        <h1>
+          <Trans>How is your body feeling today?</Trans>
+        </h1>
       </header>
-      <p className="word-cards-section-label">Body sensations</p>
+      <p className="word-cards-section-label">
+        <Trans>Body sensations</Trans>
+      </p>
 
       <div className={`word-grid-viewport${selected ? ' has-detail' : ''}`} ref={viewportRef}>
         <div className="word-grid" style={{ '--grid-cols': GRID_COLS } as CSSProperties}>
@@ -57,7 +63,7 @@ const BodyWordCards = () => {
             type="button"
             className="word-detail-close"
             onClick={() => setSelected(null)}
-            aria-label="Close detail"
+            aria-label={t`Close detail`}
           >
             ✕
           </button>
@@ -73,7 +79,7 @@ const BodyWordCards = () => {
             <Link
               className="word-detail-check-in"
               to={checkInFlowPath(selected.id, date, entryId)}
-              aria-label="Continue"
+              aria-label={t`Continue`}
             >
               →
             </Link>

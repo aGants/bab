@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { VAS_SCALE } from '@/i18n'
 import type { CheckInIntensity } from '@/entities/check-in/types'
 import { Button } from '@/shared/ui'
@@ -20,6 +21,7 @@ export const IntensityScaleDialog = ({
   level: CheckInIntensity
   onClose: () => void
 }) => {
+  const { t } = useLingui()
   const currentRef = useRef<HTMLLIElement>(null)
 
   useEffect(() => {
@@ -45,9 +47,9 @@ export const IntensityScaleDialog = ({
       >
         <div className="intensity-scale__header">
           <h3 id="intensity-scale-title" className="intensity-scale__title">
-            Intensity scale
+            <Trans>Intensity scale</Trans>
           </h3>
-          <button type="button" className="intensity-scale__close" aria-label="Close" onClick={onClose}>
+          <button type="button" className="intensity-scale__close" aria-label={t`Close`} onClick={onClose}>
             ✕
           </button>
         </div>
@@ -77,7 +79,9 @@ export const IntensityScaleDialog = ({
           ))}
         </ul>
 
-        <Button onClick={onClose}>Got it</Button>
+        <Button onClick={onClose}>
+          <Trans>Got it</Trans>
+        </Button>
       </div>
     </div>
   )

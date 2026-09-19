@@ -1,3 +1,4 @@
+import { Trans, useLingui } from '@lingui/react/macro'
 import { DEFAULT_ENERGY, type Energy } from '@/entities/check-in/types'
 import { useDailyLog } from '@/entities/daily-log/useDailyLog'
 import { todayKey } from '@/shared/lib/dateKey'
@@ -19,6 +20,7 @@ export const NotesStep = ({
   /** day this check-in belongs to — defaults to today when editing a past day's entry */
   date?: string
 }) => {
+  const { t } = useLingui()
   const isToday = (date ?? todayKey()) === todayKey()
   const { hadPeriod, tookPainkiller, setHadPeriod, setTookPainkiller } = useDailyLog(
     date ?? todayKey(),
@@ -27,9 +29,13 @@ export const NotesStep = ({
 
   return (
     <div className="notes-step">
-      <h2>Anything else you want to share?</h2>
+      <h2>
+        <Trans>Anything else you want to share?</Trans>
+      </h2>
 
-      <p className="notes-step__label">Energy</p>
+      <p className="notes-step__label">
+        <Trans>Energy</Trans>
+      </p>
       <div className="notes-step__energy-scale">
         <input
           type="range"
@@ -39,7 +45,7 @@ export const NotesStep = ({
           step={1}
           value={energyLevel}
           onChange={(event) => onEnergyChange(Number(event.target.value) as Energy)}
-          aria-label="Energy level"
+          aria-label={t`Energy level`}
         />
         <div className="notes-step__energy-numbers">
           {ENERGY_LEVELS.map((level) => (
@@ -54,7 +60,7 @@ export const NotesStep = ({
         </div>
       </div>
 
-      <p className="notes-step__label">{isToday ? 'On period today?' : 'On period that day?'}</p>
+      <p className="notes-step__label">{isToday ? t`On period today?` : t`On period that day?`}</p>
       <div className="notes-step__energy">
         <button
           type="button"
@@ -62,7 +68,7 @@ export const NotesStep = ({
           aria-pressed={hadPeriod === true}
           onClick={() => setHadPeriod(true)}
         >
-          Yes
+          <Trans>Yes</Trans>
         </button>
         <button
           type="button"
@@ -70,12 +76,12 @@ export const NotesStep = ({
           aria-pressed={hadPeriod === false}
           onClick={() => setHadPeriod(false)}
         >
-          No
+          <Trans>No</Trans>
         </button>
       </div>
 
       <p className="notes-step__label">
-        {isToday ? 'Took a painkiller today?' : 'Took a painkiller that day?'}
+        {isToday ? t`Took a painkiller today?` : t`Took a painkiller that day?`}
       </p>
       <div className="notes-step__energy">
         <button
@@ -84,7 +90,7 @@ export const NotesStep = ({
           aria-pressed={tookPainkiller === true}
           onClick={() => setTookPainkiller(true)}
         >
-          Yes
+          <Trans>Yes</Trans>
         </button>
         <button
           type="button"
@@ -92,16 +98,18 @@ export const NotesStep = ({
           aria-pressed={tookPainkiller === false}
           onClick={() => setTookPainkiller(false)}
         >
-          No
+          <Trans>No</Trans>
         </button>
       </div>
 
-      <p className="notes-step__label">Additional Notes</p>
+      <p className="notes-step__label">
+        <Trans>Additional Notes</Trans>
+      </p>
       <textarea
         className="notes-step__textarea"
         value={note}
         onChange={(event) => onNoteChange(event.target.value)}
-        placeholder="Anything you want to remember about this…"
+        placeholder={t`Anything you want to remember about this…`}
       />
     </div>
   )

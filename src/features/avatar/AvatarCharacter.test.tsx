@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render } from '@/test/render'
 import { describe, expect, it } from 'vitest'
 import { WORD_CARDS } from '@/i18n'
 import { defaultAvatar } from '@/entities/avatar/avatarModel'

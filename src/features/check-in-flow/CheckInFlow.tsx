@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import type { MessageDescriptor } from '@lingui/core'
+import { msg } from '@lingui/core/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
 import type { WordCard } from '@/i18n'
 import type { CheckInEntry } from '@/entities/check-in/types'
 import { useCheckInDraft } from './useCheckInDraft'
@@ -10,11 +13,11 @@ import './CheckInFlow.css'
 
 type Step = 'location' | 'intensity' | 'notes' | 'confirm'
 
-const STEP_TITLES: Record<Step, string> = {
-  location: 'Body Map',
-  intensity: 'Intensity',
-  notes: 'Notes',
-  confirm: 'Summary',
+const STEP_TITLES: Record<Step, MessageDescriptor> = {
+  location: msg`Body Map`,
+  intensity: msg`Intensity`,
+  notes: msg`Notes`,
+  confirm: msg`Summary`,
 }
 
 const PREVIOUS_STEP: Record<Step, Step> = {
@@ -41,9 +44,12 @@ export const CheckInFlow = ({
   onDone: () => void
   onCancel: () => void
 }) => {
+  const { t, i18n } = useLingui()
   const [step, setStep] = useState<Step>('intensity')
   const [intensityScaleOpen, setIntensityScaleOpen] = useState(false)
   const draft = useCheckInDraft(word, date, editing)
+
+  const wordName = word.word
 
   const handleSave = async () => {
     const entry = await draft.commit()
@@ -51,9 +57,9 @@ export const CheckInFlow = ({
   }
 
   return (
-    <div className="check-in-flow" role="dialog" aria-label={`Check in: ${word.word}`}>
+    <div className="check-in-flow" role="dialog" aria-label={t`Check in: ${wordName}`}>
       <CheckInStepHeader
-        title={STEP_TITLES[step]}
+        title={i18n._(STEP_TITLES[step])}
         onBack={step === 'intensity' ? onCancel : () => setStep(PREVIOUS_STEP[step])}
         onForward={
           step === 'intensity'
@@ -103,17 +109,23 @@ export const CheckInFlow = ({
           keeps it visible and reliably tappable regardless of step length. */}
       <div className="check-in-flow-footer">
         {step === 'intensity' && (
-          <Button onClick={() => setStep('location')}>Next</Button>
+          <Button onClick={() => setStep('location')}>
+            <Trans>Next</Trans>
+          </Button>
         )}
         {step === 'location' && (
           <Button disabled={draft.bodyZones.length === 0} onClick={() => setStep('notes')}>
-            Next
+            <Trans>Next</Trans>
           </Button>
         )}
-        {step === 'notes' && <Button onClick={() => setStep('confirm')}>Next</Button>}
+        {step === 'notes' && (
+          <Button onClick={() => setStep('confirm')}>
+            <Trans>Next</Trans>
+          </Button>
+        )}
         {step === 'confirm' && draft.bodyZones.length > 0 && (
           <Button disabled={draft.saving} onClick={handleSave}>
-            {draft.saving ? 'Saving…' : editing ? 'Update check-in' : 'Save check-in'}
+            {draft.saving ? t`Saving…` : editing ? t`Update check-in` : t`Save check-in`}
           </Button>
         )}
       </div>

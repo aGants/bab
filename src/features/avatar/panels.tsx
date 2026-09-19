@@ -1,6 +1,7 @@
+import { Trans, useLingui } from '@lingui/react/macro'
 import { wordColor, wordPath } from '@/entities/word'
 import { WORD_CARDS } from '@/i18n'
-import { ACCESSORIES, BODIES, BODY_COLORS, FACES } from '@/entities/avatar/catalog'
+import { BODY_COLORS } from '@/entities/avatar/catalog'
 import {
   ACCESSORY_IDS,
   BODY_COLOR_IDS,
@@ -13,6 +14,7 @@ import {
   type FaceId,
 } from '@/entities/avatar/types'
 import { AvatarCharacter } from './AvatarCharacter'
+import { ACCESSORY_LABELS, BODY_COLOR_LABELS, BODY_LABELS, FACE_LABELS } from './labels'
 import { OptionButton } from './OptionButton'
 import './panels.css'
 
@@ -33,11 +35,12 @@ export const FeelingPanel = ({
   onPick: (wordId: string) => void
 }) => {
   const latest = latestWordId ? WORD_CARDS.find((card) => card.id === latestWordId) : undefined
+  const latestName = latest?.word
   return (
     <div className="avatar-panel">
       {latest && latest.id !== avatar.headWordId && (
         <button type="button" className="avatar-panel__shortcut" onClick={() => onPick(latest.id)}>
-          Use my latest feeling: {latest.word}
+          <Trans>Use my latest feeling: {latestName}</Trans>
         </button>
       )}
       <div className="avatar-panel__grid avatar-panel__grid--feelings">
@@ -66,42 +69,58 @@ export const BodyPanel = ({
   avatar: AvatarConfig
   onPickBody: (id: BodyId) => void
   onPickColor: (id: BodyColorId) => void
-}) => (
-  <div className="avatar-panel">
-    <div className="avatar-panel__grid">
-      {BODY_IDS.map((id) => (
-        <OptionButton key={id} label={BODIES[id].label} selected={id === avatar.bodyId} onSelect={() => onPickBody(id)}>
-          {preview(avatar, { bodyId: id })}
-        </OptionButton>
-      ))}
+}) => {
+  const { t, i18n } = useLingui()
+  return (
+    <div className="avatar-panel">
+      <div className="avatar-panel__grid">
+        {BODY_IDS.map((id) => (
+          <OptionButton
+            key={id}
+            label={i18n._(BODY_LABELS[id])}
+            selected={id === avatar.bodyId}
+            onSelect={() => onPickBody(id)}
+          >
+            {preview(avatar, { bodyId: id })}
+          </OptionButton>
+        ))}
+      </div>
+      <div className="avatar-panel__swatches" role="group" aria-label={t`Body colour`}>
+        {BODY_COLOR_IDS.map((id) => (
+          <button
+            key={id}
+            type="button"
+            className={`avatar-swatch${id === avatar.bodyColor ? ' avatar-swatch--selected' : ''}`}
+            style={{ background: BODY_COLORS[id].hex }}
+            aria-label={i18n._(BODY_COLOR_LABELS[id])}
+            aria-pressed={id === avatar.bodyColor}
+            onClick={() => onPickColor(id)}
+          />
+        ))}
+      </div>
     </div>
-    <div className="avatar-panel__swatches" role="group" aria-label="Body colour">
-      {BODY_COLOR_IDS.map((id) => (
-        <button
-          key={id}
-          type="button"
-          className={`avatar-swatch${id === avatar.bodyColor ? ' avatar-swatch--selected' : ''}`}
-          style={{ background: BODY_COLORS[id].hex }}
-          aria-label={BODY_COLORS[id].label}
-          aria-pressed={id === avatar.bodyColor}
-          onClick={() => onPickColor(id)}
-        />
-      ))}
-    </div>
-  </div>
-)
+  )
+}
 
-export const FacePanel = ({ avatar, onPick }: { avatar: AvatarConfig; onPick: (id: FaceId) => void }) => (
-  <div className="avatar-panel">
-    <div className="avatar-panel__grid">
-      {FACE_IDS.map((id) => (
-        <OptionButton key={id} label={FACES[id].label} selected={id === avatar.faceId} onSelect={() => onPick(id)}>
-          {preview(avatar, { faceId: id })}
-        </OptionButton>
-      ))}
+export const FacePanel = ({ avatar, onPick }: { avatar: AvatarConfig; onPick: (id: FaceId) => void }) => {
+  const { i18n } = useLingui()
+  return (
+    <div className="avatar-panel">
+      <div className="avatar-panel__grid">
+        {FACE_IDS.map((id) => (
+          <OptionButton
+            key={id}
+            label={i18n._(FACE_LABELS[id])}
+            selected={id === avatar.faceId}
+            onSelect={() => onPick(id)}
+          >
+            {preview(avatar, { faceId: id })}
+          </OptionButton>
+        ))}
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 export const ExtrasPanel = ({
   avatar,
@@ -109,19 +128,22 @@ export const ExtrasPanel = ({
 }: {
   avatar: AvatarConfig
   onToggle: (id: AccessoryId) => void
-}) => (
-  <div className="avatar-panel">
-    <div className="avatar-panel__grid">
-      {ACCESSORY_IDS.map((id) => (
-        <OptionButton
-          key={id}
-          label={ACCESSORIES[id].label}
-          selected={avatar.accessoryIds.includes(id)}
-          onSelect={() => onToggle(id)}
-        >
-          {preview({ ...avatar, accessoryIds: [] }, { accessoryIds: [id] })}
-        </OptionButton>
-      ))}
+}) => {
+  const { i18n } = useLingui()
+  return (
+    <div className="avatar-panel">
+      <div className="avatar-panel__grid">
+        {ACCESSORY_IDS.map((id) => (
+          <OptionButton
+            key={id}
+            label={i18n._(ACCESSORY_LABELS[id])}
+            selected={avatar.accessoryIds.includes(id)}
+            onSelect={() => onToggle(id)}
+          >
+            {preview({ ...avatar, accessoryIds: [] }, { accessoryIds: [id] })}
+          </OptionButton>
+        ))}
+      </div>
     </div>
-  </div>
-)
+  )
+}

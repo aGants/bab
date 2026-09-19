@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { msg } from '@lingui/core/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { WORD_CARDS } from '@/i18n'
 import { FALLBACK_HEAD_WORD_ID } from '@/entities/avatar/avatarModel'
 import { useAvatar } from '@/entities/avatar/useAvatar'
@@ -10,15 +12,16 @@ import { useLatestFeeling } from './useLatestFeeling'
 import './AvatarPage.css'
 
 const TABS = [
-  { id: 'feeling', label: 'Feeling' },
-  { id: 'body', label: 'Body' },
-  { id: 'face', label: 'Face' },
-  { id: 'extras', label: 'Extras' },
+  { id: 'feeling', label: msg`Feeling` },
+  { id: 'body', label: msg`Body` },
+  { id: 'face', label: msg`Face` },
+  { id: 'extras', label: msg`Extras` },
 ] as const
 
 type TabId = (typeof TABS)[number]['id']
 
 export const AvatarPage = () => {
+  const { t, i18n } = useLingui()
   const latest = useLatestFeeling()
   const { avatar, loaded, setHead, setBody, setBodyColor, setFace, toggleAccessory, reset } = useAvatar(
     latest.wordId ?? FALLBACK_HEAD_WORD_ID,
@@ -28,6 +31,7 @@ export const AvatarPage = () => {
   // wait for both stores so the character doesn't flash the wrong head first
   const ready = loaded && latest.loaded
   const feeling = WORD_CARDS.find((card) => card.id === avatar.headWordId)
+  const feelingName = feeling?.word
 
   return (
     <PageFrame>
@@ -36,11 +40,15 @@ export const AvatarPage = () => {
         <>
           <div className="avatar-page__stage">
             <AvatarCharacter config={avatar} animated className="avatar-page__character" />
-            {feeling && <p className="avatar-page__feeling">Feeling {feeling.word}</p>}
+            {feeling && (
+              <p className="avatar-page__feeling">
+                <Trans>Feeling {feelingName}</Trans>
+              </p>
+            )}
           </div>
 
           <div className="avatar-page__editor">
-            <div className="avatar-page__tabs" role="tablist" aria-label="Customize">
+            <div className="avatar-page__tabs" role="tablist" aria-label={t`Customize`}>
               {TABS.map(({ id, label }) => (
                 <button
                   key={id}
@@ -52,7 +60,7 @@ export const AvatarPage = () => {
                   className={`avatar-page__tab${tab === id ? ' avatar-page__tab--active' : ''}`}
                   onClick={() => setTab(id)}
                 >
-                  {label}
+                  {i18n._(label)}
                 </button>
               ))}
             </div>
@@ -72,7 +80,7 @@ export const AvatarPage = () => {
               {tab === 'face' && <FacePanel avatar={avatar} onPick={setFace} />}
               {tab === 'extras' && <ExtrasPanel avatar={avatar} onToggle={toggleAccessory} />}
               <button type="button" className="avatar-page__reset" onClick={reset}>
-                Reset character
+                <Trans>Reset character</Trans>
               </button>
             </div>
           </div>

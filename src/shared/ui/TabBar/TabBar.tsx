@@ -1,4 +1,7 @@
 import type { ReactNode } from 'react'
+import type { MessageDescriptor } from '@lingui/core'
+import { msg } from '@lingui/core/macro'
+import { useLingui } from '@lingui/react/macro'
 import { NavLink } from 'react-router-dom'
 import { ROUTES } from '@/routes/paths'
 import './TabBar.css'
@@ -43,27 +46,30 @@ const SettingsIcon = () => (
   </svg>
 )
 
-const TABS: { to: string; label: string; icon: () => ReactNode }[] = [
-  { to: ROUTES.checkIn, label: 'Home', icon: HomeIcon },
-  { to: ROUTES.calendar, label: 'Journal', icon: CalendarIcon },
-  // { to: ROUTES.avatar, label: 'Avatar', icon: AvatarIcon },
-  { to: ROUTES.settings, label: 'Settings', icon: SettingsIcon },
+const TABS: { to: string; label: MessageDescriptor; icon: () => ReactNode }[] = [
+  { to: ROUTES.checkIn, label: msg`Home`, icon: HomeIcon },
+  { to: ROUTES.calendar, label: msg`Journal`, icon: CalendarIcon },
+  // { to: ROUTES.avatar, label: msg`Avatar`, icon: AvatarIcon },
+  { to: ROUTES.settings, label: msg`Settings`, icon: SettingsIcon },
 ]
 
-export const TabBar = () => (
-  <nav className="tab-bar" aria-label="Primary">
-    {TABS.map((tab) => (
-      <NavLink
-        key={tab.to}
-        to={tab.to}
-        end
-        className={({ isActive }) => `tab-bar-item${isActive ? ' tab-bar-item-active' : ''}`}
-      >
-        <span className="tab-bar-icon" aria-hidden="true">
-          {tab.icon()}
-        </span>
-        <span className="tab-bar-label">{tab.label}</span>
-      </NavLink>
-    ))}
-  </nav>
-)
+export const TabBar = () => {
+  const { t, i18n } = useLingui()
+  return (
+    <nav className="tab-bar" aria-label={t`Primary`}>
+      {TABS.map((tab) => (
+        <NavLink
+          key={tab.to}
+          to={tab.to}
+          end
+          className={({ isActive }) => `tab-bar-item${isActive ? ' tab-bar-item-active' : ''}`}
+        >
+          <span className="tab-bar-icon" aria-hidden="true">
+            {tab.icon()}
+          </span>
+          <span className="tab-bar-label">{i18n._(tab.label)}</span>
+        </NavLink>
+      ))}
+    </nav>
+  )
+}

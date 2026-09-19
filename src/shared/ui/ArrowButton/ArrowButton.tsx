@@ -1,4 +1,5 @@
 import type { ButtonHTMLAttributes } from 'react'
+import { useLingui } from '@lingui/react/macro'
 import './ArrowButton.css'
 
 type Direction = 'left' | 'right'
@@ -14,13 +15,16 @@ export const ArrowButton = ({
   ...props
 }: {
   direction: Direction
-} & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'>) => (
-  <button
-    type="button"
-    className="arrow-button"
-    aria-label={ariaLabel ?? (direction === 'left' ? 'Back' : 'Forward')}
-    {...props}
-  >
-    {ARROW_GLYPH[direction]}
-  </button>
-)
+} & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'>) => {
+  const { t } = useLingui()
+  return (
+    <button
+      type="button"
+      className="arrow-button"
+      aria-label={ariaLabel ?? (direction === 'left' ? t`Back` : t`Forward`)}
+      {...props}
+    >
+      {ARROW_GLYPH[direction]}
+    </button>
+  )
+}

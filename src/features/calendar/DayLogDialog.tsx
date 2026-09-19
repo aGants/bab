@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { format } from 'date-fns'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { WordShape } from '@/entities/word'
 import { WORD_CARDS, bodyZoneShortLabel } from '@/i18n'
 import { wordsPath } from '@/routes/paths'
@@ -25,6 +25,8 @@ export const DayLogDialog = ({
   onClose: () => void
   onDelete: (id: string) => void
 }) => {
+  const { t, i18n } = useLingui()
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onClose()
@@ -34,6 +36,7 @@ export const DayLogDialog = ({
   }, [onClose])
 
   const dateKey = toDateKey(date)
+  const count = entries.length
 
   return (
     <div className="day-log-backdrop" onClick={onClose}>
@@ -45,21 +48,29 @@ export const DayLogDialog = ({
         onClick={(event) => event.stopPropagation()}
       >
         <div className="day-log__header">
-          <button type="button" className="day-log__icon-button" aria-label="Back" onClick={onClose}>
+          <button type="button" className="day-log__icon-button" aria-label={t`Back`} onClick={onClose}>
             <BackIcon />
           </button>
           <h2 id="day-log-title" className="day-log__title">
-            {format(date, 'MMMM d, yyyy')}
+            {i18n.date(date, { month: 'long', day: 'numeric', year: 'numeric' })}
           </h2>
-          <button type="button" className="day-log__icon-button" aria-label="Close" onClick={onClose}>
+          <button type="button" className="day-log__icon-button" aria-label={t`Close`} onClick={onClose}>
             <CloseIcon />
           </button>
         </div>
 
         {(dailyLog?.hadPeriod || dailyLog?.tookPainkiller) && (
           <div className="day-log__flags">
-            {dailyLog.hadPeriod && <span className="day-log__flag">🩸 On period</span>}
-            {dailyLog.tookPainkiller && <span className="day-log__flag">💊 Took a painkiller</span>}
+            {dailyLog.hadPeriod && (
+              <span className="day-log__flag">
+                <Trans>🩸 On period</Trans>
+              </span>
+            )}
+            {dailyLog.tookPainkiller && (
+              <span className="day-log__flag">
+                <Trans>💊 Took a painkiller</Trans>
+              </span>
+            )}
           </div>
         )}
 
@@ -67,22 +78,23 @@ export const DayLogDialog = ({
           <>
             <p className="day-log__count">
               <ListIcon />
-              Logged sensations ({entries.length})
+              <Trans>Logged sensations ({count})</Trans>
             </p>
             <ul className="day-log__list">
               {entries.map((entry) => {
                 const word = WORD_CARDS.find((card) => card.id === entry.wordId)
+                const wordName = word?.word
                 return (
                   <li key={entry.id} className="day-log__card">
                     <div className="day-log__card-top">
                       <span className="day-log__shape" aria-hidden="true">
                         {word && <WordShape card={word} expressive />}
                       </span>
-                      <strong className="day-log__word">{word?.word ?? 'Unknown'}</strong>
+                      <strong className="day-log__word">{wordName ?? t`Unknown`}</strong>
                       <Link
                         className="day-log__edit"
                         to={wordsPath(entry.date, entry.id)}
-                        aria-label={`Edit ${word?.word ?? 'check-in'}`}
+                        aria-label={wordName ? t`Edit ${wordName}` : t`Edit check-in`}
                       >
                         <EditIcon />
                       </Link>
@@ -97,7 +109,7 @@ export const DayLogDialog = ({
                       </span>
                       <span className="day-log__time">
                         <ClockIcon />
-                        {format(new Date(entry.createdAt), 'h:mm a')}
+                        {i18n.date(new Date(entry.createdAt), { hour: 'numeric', minute: '2-digit' })}
                       </span>
                     </div>
                     {entry.note && <p className="day-log__note">{entry.note}</p>}
@@ -106,7 +118,7 @@ export const DayLogDialog = ({
                       className="day-log__delete"
                       onClick={() => onDelete(entry.id)}
                     >
-                      Delete
+                      <Trans>Delete</Trans>
                     </button>
                   </li>
                 )
@@ -114,12 +126,14 @@ export const DayLogDialog = ({
             </ul>
           </>
         ) : (
-          <p className="day-log__empty">No check-ins this day.</p>
+          <p className="day-log__empty">
+            <Trans>No check-ins this day.</Trans>
+          </p>
         )}
 
         <Link className="day-log__add" to={wordsPath(dateKey)}>
           <PlusIcon />
-          {entries.length > 0 ? 'Log another sensation' : 'Log a sensation'}
+          {entries.length > 0 ? t`Log another sensation` : t`Log a sensation`}
         </Link>
       </div>
     </div>

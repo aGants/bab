@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Trans } from '@lingui/react/macro'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { WORD_CARDS } from '@/i18n'
 import { checkInRepository } from '@/entities/check-in/checkInRepository'
@@ -40,9 +41,11 @@ export const CheckInFlowPage = () => {
   if (!word) {
     return (
       <PageFrame>
-        <p>Unknown word.</p>
+        <p>
+          <Trans>Unknown word.</Trans>
+        </p>
         <button type="button" onClick={() => navigate(wordsPath(date))}>
-          Back to words
+          <Trans>Back to words</Trans>
         </button>
       </PageFrame>
     )
@@ -51,7 +54,9 @@ export const CheckInFlowPage = () => {
   if (editing === undefined) {
     return (
       <PageFrame>
-        <p>Loading…</p>
+        <p>
+          <Trans>Loading…</Trans>
+        </p>
       </PageFrame>
     )
   }

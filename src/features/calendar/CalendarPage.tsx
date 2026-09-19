@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { DayPicker, type DayButtonProps } from 'react-day-picker'
-import { addMonths, format } from 'date-fns'
+import { addMonths } from 'date-fns'
+import { Trans, useLingui } from '@lingui/react/macro'
 import 'react-day-picker/style.css'
 import { Link, useSearchParams } from 'react-router-dom'
 import { PageFrame } from '@/shared/layout'
@@ -33,6 +34,7 @@ const parseDateKey = (key: string | null): Date | undefined => {
 }
 
 export const CalendarPage = () => {
+  const { t, i18n } = useLingui()
   const [searchParams] = useSearchParams()
   const initialDate = useMemo(() => parseDateKey(searchParams.get('date')), [searchParams])
 
@@ -45,7 +47,7 @@ export const CalendarPage = () => {
   const selectedLog = selectedKey ? dailyLogsByDate[selectedKey] : undefined
 
   const handleDelete = async (id: string) => {
-    if (!window.confirm('Delete this check-in?')) return
+    if (!window.confirm(t`Delete this check-in?`)) return
     await checkInRepository.remove(id)
     refetch()
   }
@@ -57,6 +59,7 @@ export const CalendarPage = () => {
     // counter each take one of these slots instead of wrapping to a second line
     const MARK_SLOTS = 3
     const DayButton = ({ day, modifiers: _modifiers, className, ...props }: DayButtonProps) => {
+      const { t } = useLingui()
       const dateKey = toDateKey(day.date)
       const dayEntries = entriesByDate[dateKey]
       // one icon per distinct feeling logged that day, most recent first —
@@ -86,12 +89,12 @@ export const CalendarPage = () => {
               </span>
             ))}
             {extraMoodCount > 0 && (
-              <span className="calendar-day-mood-more" title={`+${extraMoodCount} more`}>
+              <span className="calendar-day-mood-more" title={t`+${extraMoodCount} more`}>
                 +{extraMoodCount}
               </span>
             )}
             {hadPeriod && (
-              <span className="calendar-day-period" aria-label="On period">
+              <span className="calendar-day-period" aria-label={t`On period`}>
                 🩸
               </span>
             )}
@@ -107,7 +110,9 @@ export const CalendarPage = () => {
       <Greeting />
       <div className="calendar-wrapper">
         <div className="calendar-header">
-          <h1 className="text-display calendar-title">How is your journey?</h1>
+          <h1 className="text-display calendar-title">
+            <Trans>How is your journey?</Trans>
+          </h1>
         </div>
 
         <div className="calendar-month">
@@ -116,18 +121,18 @@ export const CalendarPage = () => {
               type="button"
               className="calendar-month-nav-button"
               onClick={() => setMonth((current) => addMonths(current, -1))}
-              aria-label="Previous month"
+              aria-label={t`Previous month`}
             >
               <MonthChevron direction="left" />
             </button>
             <h2 className="calendar-month-title" aria-live="polite">
-              {format(month, 'LLLL yyyy')}
+              {i18n.date(month, { month: 'long', year: 'numeric' })}
             </h2>
             <button
               type="button"
               className="calendar-month-nav-button"
               onClick={() => setMonth((current) => addMonths(current, 1))}
-              aria-label="Next month"
+              aria-label={t`Next month`}
             >
               <MonthChevron direction="right" />
             </button>
@@ -148,7 +153,7 @@ export const CalendarPage = () => {
       </div>
       <div className="calendar-cta">
         <Link className="calendar-add-button" to={wordsPath()}>
-          Add new sensation
+          <Trans>Add new sensation</Trans>
         </Link>
       </div>
 

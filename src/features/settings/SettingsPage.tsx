@@ -1,3 +1,4 @@
+import { Trans, useLingui } from '@lingui/react/macro'
 import { PageFrame } from '@/shared/layout'
 import { Button, Greeting, TabBar, ToggleSwitch } from '@/shared/ui'
 import { useTheme } from '@/features/theme/useTheme'
@@ -6,27 +7,29 @@ import { DEFAULT_NAME } from '@/entities/user-profile/userProfileRepository'
 import { useUserProfile } from '@/entities/user-profile/useUserProfile'
 import './SettingsPage.css'
 
-const THEME_OPTIONS = [
-  { value: 'light', label: 'Light' },
-  { value: 'dark', label: 'Dark' },
-] as const
-
 export const SettingsPage = () => {
+  const { t } = useLingui()
   const { theme, setTheme } = useTheme()
   const { name, setName } = useUserProfile()
   const { status: installStatus, install } = useInstallApp()
+  const themeOptions = [
+    { value: 'light', label: t`Light` },
+    { value: 'dark', label: t`Dark` },
+  ] as const
 
   return (
     <PageFrame>
       <Greeting />
       <div className="settings-wrapper">
         <div className="settings-header">
-          <h1 className="text-display settings-title">Settings</h1>
+          <h1 className="text-display settings-title">
+            <Trans>Settings</Trans>
+          </h1>
         </div>
 
         <div className="settings-section">
           <label className="settings-label" htmlFor="settings-name">
-            Your name
+            <Trans>Your name</Trans>
           </label>
           <input
             id="settings-name"
@@ -41,33 +44,53 @@ export const SettingsPage = () => {
         </div>
 
         <div className="settings-section">
-          <span className="settings-label">Theme</span>
-          <ToggleSwitch options={THEME_OPTIONS} value={theme} onChange={setTheme} />
+          <span className="settings-label">
+            <Trans>Theme</Trans>
+          </span>
+          <ToggleSwitch options={themeOptions} value={theme} onChange={setTheme} />
         </div>
 
         <div className="settings-section">
-          <span className="settings-label">Install app</span>
+          <span className="settings-label">
+            <Trans>Install app</Trans>
+          </span>
           {installStatus === 'installed' && (
-            <p className="settings-hint">The app is installed on this device.</p>
+            <p className="settings-hint">
+              <Trans>The app is installed on this device.</Trans>
+            </p>
           )}
-          {installStatus === 'prompt' && <Button onClick={install}>Install app</Button>}
+          {installStatus === 'prompt' && (
+            <Button onClick={install}>
+              <Trans>Install app</Trans>
+            </Button>
+          )}
           {installStatus === 'ios-safari' && (
             <ol className="settings-hint settings-steps">
-              <li>Tap the Share button in Safari's toolbar.</li>
-              <li>Choose “Add to Home Screen”.</li>
-              <li>Tap “Add”.</li>
+              <li>
+                <Trans>Tap the Share button in Safari's toolbar.</Trans>
+              </li>
+              <li>
+                <Trans>Choose “Add to Home Screen”.</Trans>
+              </li>
+              <li>
+                <Trans>Tap “Add”.</Trans>
+              </li>
             </ol>
           )}
           {installStatus === 'ios-other-browser' && (
             <p className="settings-hint">
-              On iPhone and iPad the app can only be installed from Safari. Open this page in
-              Safari, then tap Share → “Add to Home Screen”.
+              <Trans>
+                On iPhone and iPad the app can only be installed from Safari. Open this page in
+                Safari, then tap Share → “Add to Home Screen”.
+              </Trans>
             </p>
           )}
           {installStatus === 'manual' && (
             <p className="settings-hint">
-              Open your browser menu and choose “Install app” (or “Add to Dock” in Safari on
-              Mac).
+              <Trans>
+                Open your browser menu and choose “Install app” (or “Add to Dock” in Safari on
+                Mac).
+              </Trans>
             </p>
           )}
         </div>

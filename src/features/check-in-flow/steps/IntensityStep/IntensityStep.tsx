@@ -1,3 +1,6 @@
+import type { MessageDescriptor } from '@lingui/core'
+import { msg } from '@lingui/core/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
 import type { CheckInIntensity, Trigger } from '@/entities/check-in/types'
 import { usesPainScale } from '@/entities/check-in/vasScale'
 import { WordShape } from '@/entities/word'
@@ -5,10 +8,10 @@ import type { WordCard } from '@/i18n'
 import { MAX_INTENSITY, MIN_INTENSITY, scaleForIntensity } from '../../intensityScale'
 import './IntensityStep.css'
 
-const TRIGGER_OPTIONS: { value: Trigger; label: string }[] = [
-  { value: 'movement', label: 'When I move it' },
-  { value: 'pressure', label: 'When I press it' },
-  { value: 'stillness', label: 'Standing still' },
+const TRIGGER_OPTIONS: { value: Trigger; label: MessageDescriptor }[] = [
+  { value: 'movement', label: msg`When I move it` },
+  { value: 'pressure', label: msg`When I press it` },
+  { value: 'stillness', label: msg`Standing still` },
 ]
 
 export const IntensityStep = ({
@@ -26,17 +29,20 @@ export const IntensityStep = ({
   onTriggerChange: (trigger: Trigger) => void
   onOpenInfo: () => void
 }) => {
+  const { t, i18n } = useLingui()
   return (
     <div className="intensity-step">
       <div className="intensity-step__heading">
-        <h2 className="intensity-step__title">How intense is it?</h2>
+        <h2 className="intensity-step__title">
+          <Trans>How intense is it?</Trans>
+        </h2>
         <p className="intensity-step__hint">
-          Adjust the size as you feel
+          <Trans>Adjust the size as you feel</Trans>
           {usesPainScale(word.id) && (
             <button
               type="button"
               className="intensity-step__info"
-              aria-label="About the intensity scale"
+              aria-label={t`About the intensity scale`}
               onClick={onOpenInfo}
             >
               <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
@@ -65,10 +71,12 @@ export const IntensityStep = ({
         step={1}
         value={value}
         onChange={(event) => onSelect(Number(event.target.value) as CheckInIntensity)}
-        aria-label="How big is it"
+        aria-label={t`How big is it`}
       />
 
-      <p className="intensity-step__label">When do you notice it?</p>
+      <p className="intensity-step__label">
+        <Trans>When do you notice it?</Trans>
+      </p>
       <div className="intensity-step__trigger-options">
         {TRIGGER_OPTIONS.map((option) => (
           <button
@@ -78,7 +86,7 @@ export const IntensityStep = ({
             aria-pressed={trigger === option.value}
             onClick={() => onTriggerChange(option.value)}
           >
-            {option.label}
+            {i18n._(option.label)}
           </button>
         ))}
       </div>
