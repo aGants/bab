@@ -31,8 +31,21 @@
    out of reach, and sits outside the container-query box above so its own
    tap target isn't affected by that box's size containment. */
 .check-in-flow-footer {
+    position: relative;
     flex-shrink: 0;
-    padding: 0 20px 24px;
+    padding: 12px 20px 24px;
+    background: var(--color-surface);
+}
+
+/* Fade for scrolled content instead of a hard cut right at the button's edge
+   (the button is a solid, saturated block, so a clipped card looks broken). */
+.check-in-flow-footer::before {
+    content: '';
+    position: absolute;
+    inset: auto 0 100% 0;
+    height: 24px;
+    background: linear-gradient(to bottom, transparent, var(--color-surface));
+    pointer-events: none;
 }
 
 /* Step prompt: the large display heading shared by every flow step. */

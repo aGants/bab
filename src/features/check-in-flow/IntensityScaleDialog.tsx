@@ -13,12 +13,14 @@ const LEVELS = Array.from(
 
 /** Explains every level of the intensity scale (1–10, matching the slider — level 0
  * only exists on the summary for non-pain words). Uses the same VAS text the summary shows,
- * and highlights the one currently picked on the intensity slider. */
+ * and highlights the one currently picked on the intensity slider. Tapping a card picks that level. */
 export const IntensityScaleDialog = ({
   level,
+  onSelect,
   onClose,
 }: {
   level: CheckInIntensity
+  onSelect: (intensity: CheckInIntensity) => void
   onClose: () => void
 }) => {
   const { t } = useLingui()
@@ -77,17 +79,19 @@ export const IntensityScaleDialog = ({
 
         <ul className="intensity-scale__levels">
           {LEVELS.map((n) => (
-            <li
-              key={n}
-              ref={n === level ? currentRef : undefined}
-              className="intensity-scale__level"
-              aria-current={n === level}
-            >
-              <p className="intensity-scale__level-head">
-                <span className="intensity-scale__level-number">{n}</span>
-                <span className="intensity-scale__level-label">{vasScale[n].label}</span>
-              </p>
-              <p className="intensity-scale__level-description">{vasScale[n].description}</p>
+            <li key={n} ref={n === level ? currentRef : undefined}>
+              <button
+                type="button"
+                className="intensity-scale__level"
+                aria-pressed={n === level}
+                onClick={() => onSelect(n)}
+              >
+                <span className="intensity-scale__level-head">
+                  <span className="intensity-scale__level-number">{n}</span>
+                  <span className="intensity-scale__level-label">{vasScale[n].label}</span>
+                </span>
+                <span className="intensity-scale__level-description">{vasScale[n].description}</span>
+              </button>
             </li>
           ))}
         </ul>
