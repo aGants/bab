@@ -29,7 +29,7 @@ export const IntensityStep = ({
   return (
     <div className="intensity-step">
       <div className="intensity-step__heading">
-        <h2 className="intensity-step__title">How big is it?</h2>
+        <h2 className="intensity-step__title">How intense is it?</h2>
         <p className="intensity-step__hint">
           Adjust the size as you feel
           {usesPainScale(word.id) && (
