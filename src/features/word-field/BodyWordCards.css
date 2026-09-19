@@ -86,6 +86,11 @@
   filter: brightness(1.18);
 }
 
+/* pale fills would only wash out further against the light page, so they darken instead */
+:root:not([data-theme='dark']) .word-card--pale.is-selected .word-shape {
+  filter: brightness(0.78);
+}
+
 .word-card-label {
   position: relative;
   z-index: 1;
@@ -96,6 +101,7 @@
   text-align: center;
   padding: 0 6px;
   display: inline-block;
+  color: var(--label-color);
 }
 
 /* Title case is an English convention; other languages capitalise only the first letter ("Mal di testa"). */
@@ -107,8 +113,21 @@
   text-transform: capitalize;
 }
 
-.word-card.is-selected .word-card-label {
-  text-decoration: underline;
+/* On the dark page a dark label ends up over black wherever the shape doesn't cover
+   it — for the spiky words (sharp, stabbing, tingling) that's most of the time, as
+   their points draw in and out, and for everyone once the shape unfolds. Blending the
+   label with `difference` against a colour derived from the fill (see
+   wordLabelColorOffShape) keeps it the usual dark colour over the shape and turns it
+   into a light shade of the fill wherever it spills past the outline. The card is its
+   own stacking context, so the blend only ever sees the shape and transparent. */
+:root[data-theme='dark'] .word-card-label--blend {
+  color: var(--label-color-off-shape);
+  mix-blend-mode: difference;
+}
+
+/* a selected shape is drawn brighter, so it needs its own colour for the same maths */
+:root[data-theme='dark'] .word-card.is-selected .word-card-label--blend {
+  color: var(--label-color-off-shape-selected);
 }
 
 /* Floats as its own card above the tab bar, inside the page's 20px gutters. */

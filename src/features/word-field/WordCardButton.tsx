@@ -1,5 +1,5 @@
-import { useMemo } from 'react'
-import { WordShape, wordLabelColor } from '@/entities/word'
+import { useMemo, type CSSProperties } from 'react'
+import { WordShape, wordIsPale, wordLabelColor, wordLabelColorOffShape } from '@/entities/word'
 import type { GridWord } from './wordGrid'
 
 /** How many grid steps out a neighbour still gets pushed, and how far (in px)
@@ -23,6 +23,8 @@ export const WordCardButton = ({
   cardRef: (el: HTMLButtonElement | null) => void
 }) => {
   const isSelected = selected?.id === card.id
+  const offShapeColor = wordLabelColorOffShape(card.id, false)
+  const offShapeColorSelected = wordLabelColorOffShape(card.id, true)
 
   const push = useMemo(() => {
     if (!selected || isSelected) return null
@@ -39,7 +41,7 @@ export const WordCardButton = ({
       type="button"
       ref={cardRef}
       data-word-id={card.id}
-      className={`word-card${isSelected ? ' is-selected' : ''}`}
+      className={`word-card${isSelected ? ' is-selected' : ''}${wordIsPale(card.id) ? ' word-card--pale' : ''}`}
       style={{
         gridColumn: card.col + 1,
         gridRow: card.row + 1,
@@ -49,7 +51,16 @@ export const WordCardButton = ({
       aria-pressed={isSelected}
     >
       <WordShape card={card} expressive={isSelected} />
-      <span className="word-card-label" style={{ color: wordLabelColor(card.id) }}>
+      <span
+        className={`word-card-label${offShapeColor ? ' word-card-label--blend' : ''}`}
+        style={
+          {
+            '--label-color': wordLabelColor(card.id),
+            '--label-color-off-shape': offShapeColor ?? undefined,
+            '--label-color-off-shape-selected': offShapeColorSelected ?? undefined,
+          } as CSSProperties
+        }
+      >
         {card.word}
       </span>
     </button>

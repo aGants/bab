@@ -399,6 +399,31 @@ const relativeLuminance = (hex: string): number => {
 export const wordLabelColor = (id: string): string =>
   relativeLuminance(wordColor(id)) > 0.18 ? '#141413' : '#ffffff'
 
+/** Fills so pale they nearly vanish against the light theme's page (the lavender of
+ * foggy and unstable) — those get darkened, not brightened, when selected there. */
+export const wordIsPale = (id: string): boolean => relativeLuminance(wordColor(id)) > 0.75
+
+/** Brightness boost a selected shape is drawn with (see .is-selected in
+ * BodyWordCards.css), so the label's colour maths matches what's on screen. */
+const SELECTED_BRIGHTNESS = 1.18
+
+const channelsOf = (hex: string): number[] => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16))
+
+/** For words with a dark label: the colour that, drawn with `mix-blend-mode:
+ * difference`, comes out as the usual dark label colour over the shape
+ * (|X - fill| = ink) yet stays X — a lighter shade of the fill itself — wherever
+ * the label spills past the shape onto the dark page. Null for white labels, which
+ * already read on both. Selected shapes are brightened, so they need their own X. */
+export const wordLabelColorOffShape = (id: string, selected: boolean): string | null => {
+  const ink = wordLabelColor(id)
+  if (ink === '#ffffff') return null
+  const inkChannels = channelsOf(ink)
+  const boost = selected ? SELECTED_BRIGHTNESS : 1
+  const shown = channelsOf(wordColor(id)).map((c) => Math.min(255, Math.round(c * boost)))
+  const channels = shown.map((c, i) => Math.max(0, c - inkChannels[i]))
+  return `rgb(${channels.join(' ')})`
+}
+
 /** Words whose sensation is a rhythmic squeeze — tension building, holding, then
  * releasing — get a looping pulse instead of the default gentle drift. */
 const PULSE_WORDS = new Set(['tight', 'crampy', 'gripping', 'bloated', 'swollen', 'headachy'])
