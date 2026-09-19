@@ -47,30 +47,3 @@ const HAT_WIDTH = 122
 export const HeadHat = ({ id }: { id: HatId }) => (
   <WornHat id={id} x={HAT_X} restY={HAT_REST_Y} width={HAT_WIDTH} />
 )
-
-/** The head on its own as a small icon (the header mascot). The svg doesn't
- * clip, so a hat can rise above the box without changing its size. */
-export const HeadMascot = ({
-  hatId,
-  width,
-  height,
-  className,
-}: {
-  hatId: HatId | null
-  width: number
-  height: number
-  className?: string
-}) => (
-  <svg
-    viewBox="0 0 199.856 125.697"
-    width={width}
-    height={height}
-    className={className}
-    style={{ overflow: 'visible' }}
-    aria-hidden="true"
-    focusable="false"
-  >
-    <CloudHead />
-    {hatId && <HeadHat id={hatId} />}
-  </svg>
-)

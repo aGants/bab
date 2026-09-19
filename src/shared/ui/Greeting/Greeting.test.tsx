@@ -24,3 +24,19 @@ describe('Greeting', () => {
     expect(wornHat(container)).toBeTruthy()
   })
 })
+
+describe('Greeting head', () => {
+  const cloud = (container: HTMLElement) => container.querySelector('.app-greeting-cloud path[fill="#FFA7AA"]')
+
+  it('shows the cloud until a feeling has been chosen', () => {
+    const { container } = render(<Greeting />)
+    expect(cloud(container)).toBeTruthy()
+  })
+
+  it('swaps the cloud for the character’s feeling', () => {
+    window.localStorage.setItem('world-head-word', 'sharp')
+    const { container } = render(<Greeting />)
+    expect(cloud(container)).toBeNull()
+    expect(container.querySelector('.app-greeting-cloud path')).toBeTruthy()
+  })
+})

@@ -53,7 +53,7 @@ msgstr "Anything you feel like adding…"
 msgid "Arch"
 msgstr "Arch"
 
-#: src/features/avatar/AvatarPage.tsx:27
+#: src/features/avatar/AvatarPage.tsx:29
 msgid "Avatar"
 msgstr "Avatar"
 
@@ -95,7 +95,7 @@ msgstr "Bodily Signals"
 msgid "Body colour"
 msgstr "Body colour"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:17
+#: src/features/check-in-flow/CheckInFlow.tsx:18
 msgid "Body Map"
 msgstr "Body Map"
 
@@ -123,7 +123,7 @@ msgstr "Calm"
 msgid "Cap"
 msgstr "Cap"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:60
+#: src/features/check-in-flow/CheckInFlow.tsx:67
 msgid "Check in: {wordName}"
 msgstr "Check in: {wordName}"
 
@@ -156,7 +156,7 @@ msgstr "Coral"
 msgid "Crown"
 msgstr "Crown"
 
-#: src/features/avatar/AvatarPage.tsx:42
+#: src/features/avatar/AvatarPage.tsx:44
 msgid "Customize"
 msgstr "Customize"
 
@@ -226,11 +226,11 @@ msgstr "Hats"
 msgid "Head & neck"
 msgstr "Head & neck"
 
-#: src/shared/ui/Greeting/Greeting.tsx:18
+#: src/shared/ui/Greeting/Greeting.tsx:20
 msgid "Hi,"
 msgstr "Hi,"
 
-#: src/shared/ui/Greeting/Greeting.tsx:30
+#: src/shared/ui/Greeting/Greeting.tsx:32
 msgid "Hi, {displayName}"
 msgstr "Hi, {displayName}"
 
@@ -264,7 +264,7 @@ msgstr "How is your journey?"
 msgid "Install app"
 msgstr "Install app"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:18
+#: src/features/check-in-flow/CheckInFlow.tsx:19
 msgid "Intensity"
 msgstr "Intensity"
 
@@ -316,9 +316,9 @@ msgstr "Necklace"
 msgid "New sticker unlocked!"
 msgstr "New sticker unlocked!"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:107
-#: src/features/check-in-flow/CheckInFlow.tsx:112
-#: src/features/check-in-flow/CheckInFlow.tsx:117
+#: src/features/check-in-flow/CheckInFlow.tsx:114
+#: src/features/check-in-flow/CheckInFlow.tsx:119
+#: src/features/check-in-flow/CheckInFlow.tsx:124
 msgid "Next"
 msgstr "Next"
 
@@ -334,7 +334,7 @@ msgstr "No"
 msgid "No check-ins this day."
 msgstr "No check-ins this day."
 
-#: src/features/check-in-flow/CheckInFlow.tsx:19
+#: src/features/check-in-flow/CheckInFlow.tsx:20
 msgid "Notes"
 msgstr "Notes"
 
@@ -386,11 +386,11 @@ msgstr "Round"
 msgid "Sad"
 msgstr "Sad"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:122
+#: src/features/check-in-flow/CheckInFlow.tsx:129
 msgid "Save check-in"
 msgstr "Save check-in"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:122
+#: src/features/check-in-flow/CheckInFlow.tsx:129
 msgid "Saving…"
 msgstr "Saving…"
 
@@ -423,11 +423,11 @@ msgstr "Standing still"
 msgid "Start a check-in"
 msgstr "Start a check-in"
 
-#: src/features/avatar/AvatarPage.tsx:31
+#: src/features/avatar/AvatarPage.tsx:33
 msgid "Stickers"
 msgstr "Stickers"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:20
+#: src/features/check-in-flow/CheckInFlow.tsx:21
 msgid "Summary"
 msgstr "Summary"
 
@@ -475,7 +475,7 @@ msgstr "Unknown"
 msgid "Unknown word."
 msgstr "Unknown word."
 
-#: src/features/check-in-flow/CheckInFlow.tsx:122
+#: src/features/check-in-flow/CheckInFlow.tsx:129
 msgid "Update check-in"
 msgstr "Update check-in"
 
@@ -483,11 +483,11 @@ msgstr "Update check-in"
 msgid "Use my latest feeling: {latestName}"
 msgstr "Use my latest feeling: {latestName}"
 
-#: src/features/check-in-flow/steps/SummaryStep/SummaryStep.tsx:30
+#: src/features/check-in-flow/steps/SummaryStep/SummaryStep.tsx:33
 msgid "What can help right now?"
 msgstr "What can help right now?"
 
-#: src/features/avatar/AvatarPage.tsx:22
+#: src/features/avatar/AvatarPage.tsx:24
 msgid "What’s new?"
 msgstr "What’s new?"
 
@@ -523,12 +523,12 @@ msgstr "World"
 msgid "Yes"
 msgstr "Yes"
 
-#: src/features/avatar/WorldCharacter.tsx:73
+#: src/features/avatar/WorldCharacter.tsx:35
 msgid "Your character"
 msgstr "Your character"
 
 #: src/features/avatar/AvatarCharacter.tsx:35
-#: src/features/avatar/WorldCharacter.tsx:70
+#: src/features/avatar/WorldCharacter.tsx:32
 msgid "Your character, feeling {word}"
 msgstr "Your character, feeling {word}"
 
@@ -536,7 +536,11 @@ msgstr "Your character, feeling {word}"
 msgid "Your character, feeling {word}, wearing {worn}"
 msgstr "Your character, feeling {word}, wearing {worn}"
 
-#: src/features/avatar/WorldCharacter.tsx:72
+#: src/features/avatar/WorldCharacter.tsx:30
+msgid "Your character, feeling {word}, wearing a {hat}"
+msgstr "Your character, feeling {word}, wearing a {hat}"
+
+#: src/features/avatar/WorldCharacter.tsx:34
 msgid "Your character, wearing a {hat}"
 msgstr "Your character, wearing a {hat}"
 

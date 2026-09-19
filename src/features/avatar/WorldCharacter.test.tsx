@@ -23,4 +23,11 @@ describe('WorldCharacter', () => {
     const { container } = render(<WorldCharacter headWordId="gone" />)
     expect(container.innerHTML).toBe(cloud)
   })
+
+  it('puts the hat on a feeling head too', () => {
+    const bare = render(<WorldCharacter headWordId="sharp" />).container
+    const { container } = render(<WorldCharacter headWordId="sharp" hatId="cap" />)
+    expect(label(container)).toBe('Your character, feeling sharp, wearing a cap')
+    expect(container.querySelectorAll('path').length).toBeGreaterThan(bare.querySelectorAll('path').length)
+  })
 })

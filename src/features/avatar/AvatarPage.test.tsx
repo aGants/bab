@@ -21,6 +21,12 @@ describe('AvatarPage', () => {
     expect(screen.getByRole('button', { name: 'Customize' })).toBeTruthy()
   })
 
+  it('shows the feeling from the last check-in as the head', () => {
+    window.localStorage.setItem('world-head-word', 'sharp')
+    renderPage()
+    expect(character().getAttribute('aria-label')).toBe('Your character, feeling sharp')
+  })
+
   it('has Avatar selected and Stickers dimmed because it is not built yet', () => {
     renderPage()
     expect(screen.getByRole('button', { name: 'Avatar' }).getAttribute('aria-pressed')).toBe('true')
