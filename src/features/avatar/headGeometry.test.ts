@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { WORD_CARDS } from '@/features/word-field/bodyWordsData'
+import { WORD_CARDS } from '@/features/word-field'
 import { HEAD_CENTER, headTopY } from './headGeometry'
 
 describe('headTopY', () => {

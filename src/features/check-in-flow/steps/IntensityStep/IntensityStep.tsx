@@ -1,14 +1,7 @@
-import {
-  DEFAULT_CHECK_IN_INTENSITY,
-  type CheckInIntensity,
-  type Trigger,
-} from '@/entities/check-in/types'
-import type { WordCard } from '@/features/word-field/bodyWordsData'
-import { WordShape } from '@/features/word-field/WordShape'
+import type { CheckInIntensity, Trigger } from '@/entities/check-in/types'
+import { type WordCard, WordShape } from '@/features/word-field'
+import { MAX_INTENSITY, MIN_INTENSITY, scaleForIntensity } from '../../intensityScale'
 import './IntensityStep.css'
-
-const MIN_INTENSITY = 1
-const MAX_INTENSITY = 10
 
 const TRIGGER_OPTIONS: { value: Trigger; label: string }[] = [
   { value: 'movement', label: 'When I move it' },
@@ -16,49 +9,57 @@ const TRIGGER_OPTIONS: { value: Trigger; label: string }[] = [
   { value: 'stillness', label: 'Standing still' },
 ]
 
-/** Maps intensity (1..10) to a visual size multiplier for the shape — tiny at 1,
- * dramatically larger at 10, so "how big is it" reads literally and viscerally.
- * Exported so the summary step can render the same word shape at the size the
- * user actually picked, instead of re-deriving its own scale. */
-export const scaleForIntensity = (intensity: number): number => {
-  const t = (intensity - MIN_INTENSITY) / (MAX_INTENSITY - MIN_INTENSITY)
-  return 0.35 + t * 1.85
-}
-
 export const IntensityStep = ({
   word,
   value,
   onSelect,
   trigger,
   onTriggerChange,
+  onOpenInfo,
 }: {
   word: WordCard
-  value: CheckInIntensity | null
+  value: CheckInIntensity
   onSelect: (intensity: CheckInIntensity) => void
   trigger: Trigger | null
   onTriggerChange: (trigger: Trigger) => void
+  onOpenInfo: () => void
 }) => {
-  const level = value ?? DEFAULT_CHECK_IN_INTENSITY
-
   return (
     <div className="intensity-step">
-      <h2 className="intensity-step__title">How big is it?</h2>
+      <div className="intensity-step__heading">
+        <h2 className="intensity-step__title">How big is it?</h2>
+        <p className="intensity-step__hint">
+          Adjust the size as you feel
+          <button
+            type="button"
+            className="intensity-step__info"
+            aria-label="About the intensity scale"
+            onClick={onOpenInfo}
+          >
+            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+              <circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" strokeWidth="1.2" />
+              <circle cx="8" cy="5" r="0.9" fill="currentColor" />
+              <path d="M8 7.4v4.2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+            </svg>
+          </button>
+        </p>
+      </div>
       <div className="intensity-step__stage">
         <div
           className="intensity-step__shape"
-          style={{ transform: `scale(${scaleForIntensity(level)})` }}
+          style={{ transform: `scale(${scaleForIntensity(value)})` }}
         >
           <WordShape card={word} expressive />
         </div>
       </div>
 
-            <input
+      <input
         type="range"
         className="intensity-step__slider"
         min={MIN_INTENSITY}
         max={MAX_INTENSITY}
         step={1}
-        value={level}
+        value={value}
         onChange={(event) => onSelect(Number(event.target.value) as CheckInIntensity)}
         aria-label="How big is it"
       />

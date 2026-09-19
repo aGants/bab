@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
-import { WORD_CARDS } from '@/features/word-field/bodyWordsData'
+import { WORD_CARDS } from '@/features/word-field'
 import { checkInRepository } from '@/entities/check-in/checkInRepository'
 import type { CheckInEntry } from '@/entities/check-in/types'
 import { ROUTES, calendarPath, wordsPath } from '@/routes/paths'

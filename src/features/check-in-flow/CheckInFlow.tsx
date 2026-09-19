@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import type { WordCard } from '@/features/word-field/bodyWordsData'
+import type { WordCard } from '@/features/word-field'
 import type { CheckInEntry } from '@/entities/check-in/types'
 import { useCheckInDraft } from './useCheckInDraft'
 import { BodyLocationStep, IntensityStep, NotesStep, SummaryStep } from './steps'
 import { CheckInStepHeader } from './CheckInStepHeader'
+import { IntensityScaleDialog } from './IntensityScaleDialog'
 import { Button } from '@/shared/ui'
 import './CheckInFlow.css'
 
@@ -41,6 +42,7 @@ export const CheckInFlow = ({
   onCancel: () => void
 }) => {
   const [step, setStep] = useState<Step>('intensity')
+  const [intensityScaleOpen, setIntensityScaleOpen] = useState(false)
   const draft = useCheckInDraft(word, date, editing)
 
   const handleSave = async () => {
@@ -54,7 +56,7 @@ export const CheckInFlow = ({
         title={STEP_TITLES[step]}
         onBack={step === 'intensity' ? onCancel : () => setStep(PREVIOUS_STEP[step])}
         onForward={
-          step === 'intensity' && draft.intensity !== null
+          step === 'intensity'
             ? () => setStep('location')
             : step === 'location' && draft.bodyZones.length > 0
               ? () => setStep('notes')
@@ -71,6 +73,7 @@ export const CheckInFlow = ({
             onSelect={draft.setIntensity}
             trigger={draft.trigger}
             onTriggerChange={draft.setTrigger}
+            onOpenInfo={() => setIntensityScaleOpen(true)}
           />
         )}
 
@@ -88,7 +91,7 @@ export const CheckInFlow = ({
           />
         )}
 
-        {step === 'confirm' && draft.bodyZones.length > 0 && draft.intensity !== null && (
+        {step === 'confirm' && draft.bodyZones.length > 0 && (
           <SummaryStep word={word} bodyZones={draft.bodyZones} intensity={draft.intensity} />
         )}
       </div>
@@ -100,9 +103,7 @@ export const CheckInFlow = ({
           keeps it visible and reliably tappable regardless of step length. */}
       <div className="check-in-flow-footer">
         {step === 'intensity' && (
-          <Button disabled={draft.intensity === null} onClick={() => setStep('location')}>
-            Next
-          </Button>
+          <Button onClick={() => setStep('location')}>Next</Button>
         )}
         {step === 'location' && (
           <Button disabled={draft.bodyZones.length === 0} onClick={() => setStep('notes')}>
@@ -110,12 +111,19 @@ export const CheckInFlow = ({
           </Button>
         )}
         {step === 'notes' && <Button onClick={() => setStep('confirm')}>Next</Button>}
-        {step === 'confirm' && draft.bodyZones.length > 0 && draft.intensity !== null && (
+        {step === 'confirm' && draft.bodyZones.length > 0 && (
           <Button disabled={draft.saving} onClick={handleSave}>
             {draft.saving ? 'Saving…' : editing ? 'Update check-in' : 'Save check-in'}
           </Button>
         )}
       </div>
+
+      {intensityScaleOpen && (
+        <IntensityScaleDialog
+          level={draft.intensity}
+          onClose={() => setIntensityScaleOpen(false)}
+        />
+      )}
     </div>
   )
 }

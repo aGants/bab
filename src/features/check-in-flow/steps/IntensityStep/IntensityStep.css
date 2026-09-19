@@ -15,6 +15,34 @@
     padding: 4px 0;
 }
 
+.intensity-step__heading {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.intensity-step__hint {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--color-ink-muted);
+}
+
+.intensity-step__info {
+    display: grid;
+    place-items: center;
+    /* 16px glyph, padded out to a comfortable tap target without shifting the layout */
+    padding: 8px;
+    margin: -8px;
+    border: none;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+
 /* Same size/weight as every other step's heading (`.check-in-flow-content h2`) —
    only overriding alignment here, since this step's flex column otherwise
    centers it along with the shape/slider/pills below it. */

@@ -62,3 +62,12 @@ export const VAS_SCALE: Record<CheckInIntensity, VasLevel> = {
     description: 'The worst pain you can imagine. Your body is asking for immediate support and attention.',
   },
 }
+
+/** These words describe how ready/light the body feels, not pain — the intensity
+ * slider still applies (how strong/light), but the VAS scale itself doesn't,
+ * so they always get the "nothing at all, pain-free" level regardless of the
+ * value picked. */
+const NON_PAIN_WORD_IDS = new Set(['strong', 'light'])
+
+export const vasLevelFor = (wordId: string, intensity: CheckInIntensity): VasLevel =>
+  NON_PAIN_WORD_IDS.has(wordId) ? VAS_SCALE[0] : VAS_SCALE[intensity]

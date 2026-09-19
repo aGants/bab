@@ -1,4 +1,4 @@
-import { wordPath } from '@/features/word-field/helpers/shapes'
+import { wordPath } from '@/features/word-field'
 
 /** Where the head sits inside the character's 200×260 canvas. Word shapes are
  * drawn in a 100×100 box around (50, 50), so this scale/centre maps them over. */

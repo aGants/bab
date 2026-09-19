@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { WordCard } from '@/features/word-field/bodyWordsData'
+import type { WordCard } from '@/features/word-field'
 import {
   DEFAULT_CHECK_IN_INTENSITY,
   DEFAULT_ENERGY,
@@ -18,7 +18,7 @@ import { checkInRepository } from '@/entities/check-in/checkInRepository'
  * instead of creating a new one. */
 export const useCheckInDraft = (word: WordCard, date?: string, editing?: CheckInEntry) => {
   const [bodyZones, setBodyZones] = useState<BodyZone[]>(editing?.bodyZones ?? [])
-  const [intensity, setIntensity] = useState<CheckInIntensity | null>(
+  const [intensity, setIntensity] = useState<CheckInIntensity>(
     editing?.intensity ?? DEFAULT_CHECK_IN_INTENSITY,
   )
   const [energy, setEnergy] = useState<Energy | null>(editing?.energy ?? DEFAULT_ENERGY)
@@ -33,7 +33,7 @@ export const useCheckInDraft = (word: WordCard, date?: string, editing?: CheckIn
   }
 
   const commit = async (): Promise<CheckInEntry | null> => {
-    if (bodyZones.length === 0 || intensity === null) return null
+    if (bodyZones.length === 0) return null
     setSaving(true)
     try {
       const payload = {

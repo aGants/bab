@@ -1,5 +1,4 @@
-import { WORD_CARDS } from '@/features/word-field/bodyWordsData'
-import { wordColor, wordLabelColor, wordPath } from '@/features/word-field/helpers/shapes'
+import { WORD_CARDS, wordColor, wordLabelColor, wordPath } from '@/features/word-field'
 import { ACCESSORIES } from '@/entities/avatar/catalog'
 import { FALLBACK_HEAD_WORD_ID } from '@/entities/avatar/avatarModel'
 import type { AvatarConfig } from '@/entities/avatar/types'

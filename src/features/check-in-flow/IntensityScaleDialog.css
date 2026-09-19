@@ -1,0 +1,127 @@
+/* Same theme-invariant ink as IntensityStep: text on --color-energy needs its
+   own dark ink since --color-ink flips in dark mode. */
+:root {
+    --intensity-scale-ink-on-accent: color-mix(in srgb, var(--color-ground) 8%, black);
+}
+
+/* Sits inside .page-frame (the nearest positioned ancestor), stopping above the
+   tab bar so navigation stays visible behind the dimmed screen. */
+.intensity-scale-backdrop {
+    position: absolute;
+    inset: 0 0 var(--tab-bar-height) 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+    background: rgb(0 0 0 / 40%);
+}
+
+.intensity-scale {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    max-height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 24px;
+    background: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    box-shadow: 0 10px 30px rgb(0 0 0 / 18%);
+}
+
+.intensity-scale__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.intensity-scale__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.intensity-scale__close {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--color-ink);
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.intensity-scale__numbers {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0 0 8px;
+    list-style: none;
+    border-bottom: 3px solid var(--color-energy);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.intensity-scale__number {
+    min-width: 1.6em;
+    text-align: center;
+    border-radius: 999px;
+}
+
+.intensity-scale__number[aria-current='true'] {
+    background: var(--color-energy);
+    color: var(--intensity-scale-ink-on-accent);
+}
+
+.intensity-scale__levels {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    list-style: none;
+}
+
+.intensity-scale__level {
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--color-surface-raised);
+    outline: 2px solid transparent;
+}
+
+.intensity-scale__level[aria-current='true'] {
+    outline-color: var(--color-energy);
+}
+
+.intensity-scale__level-head {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin: 0 0 4px;
+}
+
+.intensity-scale__level-number {
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.intensity-scale__level-label {
+    font-size: 13px;
+    color: var(--color-ink-muted);
+}
+
+.intensity-scale__level-description {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.4;
+}
