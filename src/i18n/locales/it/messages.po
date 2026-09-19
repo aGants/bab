@@ -87,10 +87,6 @@ msgstr "Basco"
 msgid "Blush"
 msgstr "Rossore"
 
-#: src/features/word-field/BodyWordCards.tsx:46
-msgid "Bodily Signals"
-msgstr "Segnali del corpo"
-
 #: src/features/avatar/panels.tsx:89
 msgid "Body colour"
 msgstr "Colore del corpo"
@@ -98,6 +94,10 @@ msgstr "Colore del corpo"
 #: src/features/check-in-flow/CheckInFlow.tsx:18
 msgid "Body Map"
 msgstr "Mappa del corpo"
+
+#: src/features/word-field/BodyWordCards.tsx:45
+msgid "Body Signals"
+msgstr "Segnali del corpo"
 
 #: src/features/check-in-flow/steps/BodyLocationStep/FemaleBodyBack.tsx:59
 msgid "Body, back view"
@@ -140,11 +140,11 @@ msgstr "Ritira il tuo premio settimanale"
 msgid "Close"
 msgstr "Chiudi"
 
-#: src/features/word-field/BodyWordCards.tsx:69
+#: src/features/word-field/BodyWordCards.tsx:68
 msgid "Close detail"
 msgstr "Chiudi i dettagli"
 
-#: src/features/word-field/BodyWordCards.tsx:85
+#: src/features/word-field/BodyWordCards.tsx:84
 msgid "Continue"
 msgstr "Continua"
 
@@ -261,7 +261,7 @@ msgid "How intense is it?"
 msgstr "Quanto è intenso?"
 
 #: src/features/check-in/CheckIn.tsx:36
-#: src/features/word-field/BodyWordCards.tsx:42
+#: src/features/word-field/BodyWordCards.tsx:41
 msgid "How is your body feeling today?"
 msgstr "Come si sente oggi il tuo corpo?"
 

@@ -87,10 +87,6 @@ msgstr "Beret"
 msgid "Blush"
 msgstr "Blush"
 
-#: src/features/word-field/BodyWordCards.tsx:46
-msgid "Bodily Signals"
-msgstr "Bodily Signals"
-
 #: src/features/avatar/panels.tsx:89
 msgid "Body colour"
 msgstr "Body colour"
@@ -98,6 +94,10 @@ msgstr "Body colour"
 #: src/features/check-in-flow/CheckInFlow.tsx:18
 msgid "Body Map"
 msgstr "Body Map"
+
+#: src/features/word-field/BodyWordCards.tsx:45
+msgid "Body Signals"
+msgstr "Body Signals"
 
 #: src/features/check-in-flow/steps/BodyLocationStep/FemaleBodyBack.tsx:59
 msgid "Body, back view"
@@ -140,11 +140,11 @@ msgstr "Claim your weekly reward"
 msgid "Close"
 msgstr "Close"
 
-#: src/features/word-field/BodyWordCards.tsx:69
+#: src/features/word-field/BodyWordCards.tsx:68
 msgid "Close detail"
 msgstr "Close detail"
 
-#: src/features/word-field/BodyWordCards.tsx:85
+#: src/features/word-field/BodyWordCards.tsx:84
 msgid "Continue"
 msgstr "Continue"
 
@@ -261,7 +261,7 @@ msgid "How intense is it?"
 msgstr "How intense is it?"
 
 #: src/features/check-in/CheckIn.tsx:36
-#: src/features/word-field/BodyWordCards.tsx:42
+#: src/features/word-field/BodyWordCards.tsx:41
 msgid "How is your body feeling today?"
 msgstr "How is your body feeling today?"
 
