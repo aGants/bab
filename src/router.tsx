@@ -4,20 +4,32 @@ import { ROUTES } from '@/routes/paths'
 import { PageFrame } from '@/shared/layout'
 import { ErrorPage } from './features/error/ErrorPage'
 
-const BodyWordCards = lazy(() => import('./features/word-field/BodyWordCards'))
-const CheckIn = lazy(() => import('./features/check-in/CheckIn').then((m) => ({ default: m.CheckIn })))
-const CheckInFlowPage = lazy(() =>
-  import('./features/check-in-flow/CheckInFlowPage').then((m) => ({ default: m.CheckInFlowPage })),
-)
-const CalendarPage = lazy(() =>
-  import('./features/calendar/CalendarPage').then((m) => ({ default: m.CalendarPage })),
-)
-const AvatarPage = lazy(() =>
-  import('./features/avatar/AvatarPage').then((m) => ({ default: m.AvatarPage })),
-)
-const SettingsPage = lazy(() =>
-  import('./features/settings/SettingsPage').then((m) => ({ default: m.SettingsPage })),
-)
+const loadBodyWordCards = () => import('./features/word-field/BodyWordCards')
+const loadCheckIn = () => import('./features/check-in/CheckIn').then((m) => ({ default: m.CheckIn }))
+const loadCheckInFlowPage = () =>
+  import('./features/check-in-flow/CheckInFlowPage').then((m) => ({ default: m.CheckInFlowPage }))
+const loadCalendarPage = () =>
+  import('./features/calendar/CalendarPage').then((m) => ({ default: m.CalendarPage }))
+const loadAvatarPage = () =>
+  import('./features/avatar/AvatarPage').then((m) => ({ default: m.AvatarPage }))
+const loadSettingsPage = () =>
+  import('./features/settings/SettingsPage').then((m) => ({ default: m.SettingsPage }))
+
+const BodyWordCards = lazy(loadBodyWordCards)
+const CheckIn = lazy(loadCheckIn)
+const CheckInFlowPage = lazy(loadCheckInFlowPage)
+const CalendarPage = lazy(loadCalendarPage)
+const AvatarPage = lazy(loadAvatarPage)
+const SettingsPage = lazy(loadSettingsPage)
+
+/** Downloads every route's chunk in the background so a first visit to a page opens
+ * instantly instead of waiting on the network. Failures are ignored: the route just
+ * loads on demand as before. */
+export const preloadRoutes = (): void => {
+  ;[loadCheckIn, loadBodyWordCards, loadCalendarPage, loadAvatarPage, loadSettingsPage, loadCheckInFlowPage].forEach(
+    (load) => load().catch(() => {}),
+  )
+}
 
 // Keeps the shared page shell in place while a route's chunk loads, instead
 // of flashing to a blank screen between routes.

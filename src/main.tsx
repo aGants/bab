@@ -5,7 +5,7 @@ import { I18nProvider } from '@lingui/react'
 import { RouterProvider } from 'react-router-dom'
 import './styles/tokens.css'
 import './index.css'
-import { router } from './router.tsx'
+import { preloadRoutes, router } from './router.tsx'
 import { DEFAULT_LOCALE } from './i18n'
 import { activateLocale, getInitialLocale } from './i18n/runtime'
 import { applyTheme, getInitialTheme } from './features/theme/theme'
@@ -28,4 +28,7 @@ activateLocale(getInitialLocale())
         </I18nProvider>
       </StrictMode>,
     )
+    // once the first screen is up and the browser is idle, fetch the other screens
+    if ('requestIdleCallback' in window) window.requestIdleCallback(preloadRoutes)
+    else setTimeout(preloadRoutes, 1000)
   })
