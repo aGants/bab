@@ -5,7 +5,7 @@ import { checkInRepository } from '@/entities/check-in/checkInRepository'
 import type { CheckInEntry } from '@/entities/check-in/types'
 import { ROUTES, calendarPath, wordsPath } from '@/routes/paths'
 import { PageFrame } from '@/shared/layout'
-import { Greeting, TabBar } from '@/shared/ui'
+import { TabBar } from '@/shared/ui'
 import { CheckInFlow } from './CheckInFlow'
 
 /** Full-screen route for the check-in wizard — its own PageFrame, its own URL,
