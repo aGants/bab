@@ -7,7 +7,9 @@
 
 .summary-step__stage {
     width: 100%;
-    max-height: 150px;
+    /* No fixed/max height: the shape's box is now sized directly off
+       intensity (see SummaryStep.tsx), so this stage just grows to fit it
+       instead of clipping or overlapping the text below at high intensity. */
     margin-top: 20px;
     display: flex;
     align-items: center;
@@ -15,8 +17,7 @@
 }
 
 .summary-step__shape {
-    width: 90px;
-    height: 90px;
+    flex-shrink: 0;
 }
 
 .summary-step__shape .word-shape {
@@ -53,51 +54,44 @@
     font-size: 14px;
 }
 
+.summary-step__vas {
+    margin: 4px 0 0;
+    padding: 12px 16px;
+    border-radius: 16px;
+    background: var(--color-surface-raised);
+    color: var(--color-ink-muted);
+    font-size: 14px;
+    line-height: var(--body-line-height);
+}
+
+.summary-step__vas-label {
+    font-weight: 700;
+    color: var(--color-ink);
+}
+
 .summary-step__help-heading {
     margin: 12px 0 0;
     font-family: var(--font-display);
     color: var(--color-ink);
 }
 
-.summary-step__help-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.summary-step__help-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+.summary-step__recommendation {
     padding: 14px 16px;
     border-radius: 16px;
     background: var(--color-surface-raised);
 }
 
-.summary-step__help-icon {
-    font-size: 20px;
-    line-height: 1;
+.summary-step__recommendation--yellow {
+    background: color-mix(in srgb, var(--color-energy) 20%, var(--color-surface-raised));
 }
 
-.summary-step__help-text {
-    flex: 1;
-    min-width: 0;
+.summary-step__recommendation--red {
+    background: color-mix(in srgb, var(--color-signals) 20%, var(--color-surface-raised));
 }
 
-.summary-step__help-title {
+.summary-step__recommendation-text {
     margin: 0;
-    font-weight: 700;
     color: var(--color-ink);
-    font-size: 15px;
-}
-
-.summary-step__help-subtitle {
-    margin: 2px 0 0;
-    color: var(--color-ink-muted);
-    font-size: 13px;
-}
-
-.summary-step__help-chevron {
-    color: var(--color-ink-muted);
-    font-size: 20px;
+    font-size: 14px;
+    line-height: var(--body-line-height);
 }

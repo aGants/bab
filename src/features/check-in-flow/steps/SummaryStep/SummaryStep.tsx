@@ -1,17 +1,26 @@
 import type { WordCard } from '@/features/word-field/bodyWordsData'
 import { WordShape } from '@/features/word-field/WordShape'
 import type { BodyZone, CheckInIntensity } from '@/entities/check-in/types'
+import { VAS_SCALE } from '@/entities/check-in/vasScale'
 import { bodyZoneLabel } from '../BodyLocationStep/bodyZoneMap'
 import { scaleForIntensity } from '../IntensityStep/IntensityStep'
 import './SummaryStep.css'
 
-/** Placeholder relief suggestions — real recommendations (picked per word +
- * zone) land here later; for now every check-in gets the same generic set. */
-const HELP_PLACEHOLDERS = [
-  { icon: '💧', title: 'Take a water break', subtitle: 'Hydrate and have something to eat.' },
-  { icon: '🙂', title: 'Gentle movement', subtitle: 'Try a 3-min stretch.' },
-  { icon: '📖', title: 'Learn more', subtitle: 'Why this can happen and what to do.' },
-]
+/** These describe how ready/light the body feels, not pain — the intensity
+ * slider still applies (how strong/light), but the VAS scale itself doesn't,
+ * so they always get the "nothing at all, pain-free" level regardless of the
+ * value picked. */
+const NON_PAIN_WORD_IDS = new Set(['strong', 'light'])
+
+const vasLevelFor = (word: WordCard, intensity: CheckInIntensity) =>
+  NON_PAIN_WORD_IDS.has(word.id) ? VAS_SCALE[0] : VAS_SCALE[intensity]
+
+/** Shape's footprint at the smallest intensity — scaleForIntensity multiplies this
+ * directly (rather than via CSS transform) so the stage actually reserves enough
+ * room for the shape at high intensity instead of letting it overflow visually.
+ * Bigger than the word-cloud/detail shapes on purpose: this is the summary's
+ * hero visual, so "how big is it" should read at a glance even at max intensity. */
+const SHAPE_BASE_SIZE = 130
 
 const capitalize = (word: string): string => word.charAt(0).toUpperCase() + word.slice(1)
 
@@ -30,39 +39,38 @@ export const SummaryStep = ({
   word: WordCard
   bodyZones: BodyZone[]
   intensity: CheckInIntensity
-}) => (
-  <div className="summary-step">
-    <div className="summary-step__stage">
-      <div
-        className="summary-step__shape"
-        style={{ transform: `scale(${scaleForIntensity(intensity)})` }}
-      >
-        <WordShape card={word} expressive />
+}) => {
+  const vasLevel = vasLevelFor(word, intensity)
+
+  return (
+    <div className="summary-step">
+      <div className="summary-step__stage">
+        <div
+          className="summary-step__shape"
+          style={{
+            width: `${SHAPE_BASE_SIZE * scaleForIntensity(intensity)}px`,
+            height: `${SHAPE_BASE_SIZE * scaleForIntensity(intensity)}px`,
+          }}
+        >
+          <WordShape card={word} expressive />
+        </div>
+      </div>
+
+      <h3 className="summary-step__heading">Your body says…</h3>
+      <span className="summary-step__word-pill">{capitalize(word.word)}</span>
+
+      <p className="summary-step__description">{word.description}</p>
+      <p className="summary-step__location">Felt in {joinBodyZoneLabels(bodyZones)}.</p>
+
+      <div className="summary-step__vas">
+        <span className="summary-step__vas-label">{vasLevel.label}.</span>{' '}
+        {vasLevel.description}
+      </div>
+
+      <h3 className="summary-step__help-heading">What can help right now?</h3>
+      <div className={`summary-step__recommendation summary-step__recommendation--${word.signal}`}>
+        <p className="summary-step__recommendation-text">{word.recommendation}</p>
       </div>
     </div>
-
-    <h3 className="summary-step__heading">Your body says…</h3>
-    <span className="summary-step__word-pill">{capitalize(word.word)}</span>
-
-    <p className="summary-step__description">{word.description}</p>
-    <p className="summary-step__location">Felt in {joinBodyZoneLabels(bodyZones)}.</p>
-
-    <h3 className="summary-step__help-heading">What can help right now?</h3>
-    <div className="summary-step__help-list">
-      {HELP_PLACEHOLDERS.map((item) => (
-        <div className="summary-step__help-item" key={item.title}>
-          <span className="summary-step__help-icon" aria-hidden="true">
-            {item.icon}
-          </span>
-          <div className="summary-step__help-text">
-            <p className="summary-step__help-title">{item.title}</p>
-            <p className="summary-step__help-subtitle">{item.subtitle}</p>
-          </div>
-          <span className="summary-step__help-chevron" aria-hidden="true">
-            ›
-          </span>
-        </div>
-      ))}
-    </div>
-  </div>
-)
+  )
+}
