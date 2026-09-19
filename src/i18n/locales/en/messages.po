@@ -483,7 +483,7 @@ msgstr "Update check-in"
 msgid "Use my latest feeling: {latestName}"
 msgstr "Use my latest feeling: {latestName}"
 
-#: src/features/check-in-flow/steps/SummaryStep/SummaryStep.tsx:49
+#: src/features/check-in-flow/steps/SummaryStep/SummaryStep.tsx:30
 msgid "What can help right now?"
 msgstr "What can help right now?"
 
@@ -523,11 +523,12 @@ msgstr "World"
 msgid "Yes"
 msgstr "Yes"
 
-#: src/features/avatar/WorldCharacter.tsx:26
+#: src/features/avatar/WorldCharacter.tsx:73
 msgid "Your character"
 msgstr "Your character"
 
 #: src/features/avatar/AvatarCharacter.tsx:35
+#: src/features/avatar/WorldCharacter.tsx:70
 msgid "Your character, feeling {word}"
 msgstr "Your character, feeling {word}"
 
@@ -535,7 +536,7 @@ msgstr "Your character, feeling {word}"
 msgid "Your character, feeling {word}, wearing {worn}"
 msgstr "Your character, feeling {word}, wearing {worn}"
 
-#: src/features/avatar/WorldCharacter.tsx:26
+#: src/features/avatar/WorldCharacter.tsx:72
 msgid "Your character, wearing a {hat}"
 msgstr "Your character, wearing a {hat}"
 

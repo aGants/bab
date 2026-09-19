@@ -1,35 +1,16 @@
 import { Trans } from '@lingui/react/macro'
-import { WordShape } from '@/entities/word'
-import type { CheckInIntensity } from '@/entities/check-in/types'
 import type { WordCard } from '@/i18n'
-import { scaleForIntensity } from '../../intensityScale'
+import { WorldCharacter } from '@/features/avatar/WorldCharacter'
 import checkHeart from './assets/check-heart.svg'
 import './SummaryStep.css'
 
-/** Shape's footprint at the smallest intensity — scaleForIntensity multiplies this
- * directly (rather than via CSS transform) so the card actually reserves enough
- * room for the shape at high intensity instead of letting it overflow visually.
- * Bigger than the word-cloud/detail shapes on purpose: this is the summary's
- * hero visual, so "how big is it" should read at a glance even at max intensity. */
-const SHAPE_BASE_SIZE = 130
-
 const capitalize = (word: string): string => word.charAt(0).toUpperCase() + word.slice(1)
 
-export const SummaryStep = ({
-  word,
-  intensity,
-}: {
-  word: WordCard
-  intensity: CheckInIntensity
-}) => {
-  const shapeSize = `${SHAPE_BASE_SIZE * scaleForIntensity(intensity)}px`
-
+export const SummaryStep = ({ word }: { word: WordCard }) => {
   return (
     <div className="summary-step">
       <div className="summary-step__hero">
-        <div className="summary-step__shape" style={{ width: shapeSize, height: shapeSize }}>
-          <WordShape card={word} expressive />
-        </div>
+        <WorldCharacter headWordId={word.id} animated className="summary-step__character" />
       </div>
 
       <div className="summary-step__intro">

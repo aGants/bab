@@ -92,7 +92,7 @@ export const CheckInFlow = ({
         )}
 
         {step === 'confirm' && draft.bodyZones.length > 0 && (
-          <SummaryStep word={word} intensity={draft.intensity} />
+          <SummaryStep word={word} />
         )}
       </div>
 

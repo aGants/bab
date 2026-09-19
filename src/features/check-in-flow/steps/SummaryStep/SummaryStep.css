@@ -23,14 +23,10 @@
     background: var(--summary-step-fill);
 }
 
-.summary-step__shape {
+.summary-step__character {
     flex-shrink: 0;
-}
-
-.summary-step__shape .word-shape {
-    position: static;
-    width: 100%;
-    height: 100%;
+    height: 270px;
+    width: auto;
 }
 
 .summary-step__intro {
