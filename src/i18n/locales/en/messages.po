@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/features/calendar/CalendarPage.tsx:93
+#: src/features/calendar/CalendarPage.tsx:89
 msgid "+{extraMoodCount} more"
 msgstr "+{extraMoodCount} more"
 
@@ -29,7 +29,7 @@ msgstr "🩸 On period"
 msgid "About the intensity scale"
 msgstr "About the intensity scale"
 
-#: src/features/calendar/CalendarPage.tsx:158
+#: src/features/calendar/CalendarPage.tsx:186
 msgid "Add new sensation"
 msgstr "Add new sensation"
 
@@ -53,7 +53,7 @@ msgstr "Anything you feel like adding…"
 msgid "Arch"
 msgstr "Arch"
 
-#: src/features/avatar/AvatarPage.tsx:46
+#: src/features/avatar/AvatarPage.tsx:60
 msgid "Avatar"
 msgstr "Avatar"
 
@@ -87,6 +87,7 @@ msgstr "Beret"
 msgid "Blush"
 msgstr "Blush"
 
+#: src/features/avatar/BodyColorPicker.tsx:17
 #: src/features/avatar/panels.tsx:89
 msgid "Body colour"
 msgstr "Body colour"
@@ -127,7 +128,7 @@ msgstr "Cap"
 msgid "Check in: {wordName}"
 msgstr "Check in: {wordName}"
 
-#: src/features/settings/SettingsPage.tsx:76
+#: src/features/settings/SettingsPage.tsx:77
 msgid "Choose “Add to Home Screen”."
 msgstr "Choose “Add to Home Screen”."
 
@@ -144,7 +145,7 @@ msgstr "Close"
 msgid "Close detail"
 msgstr "Close detail"
 
-#: src/shared/ui/ComingSoon/useComingSoon.tsx:29
+#: src/shared/ui/ComingSoon/useComingSoon.tsx:32
 msgid "Coming soon"
 msgstr "Coming soon"
 
@@ -164,7 +165,7 @@ msgstr "Couldn't load this language. Check your connection and try again."
 msgid "Crown"
 msgstr "Crown"
 
-#: src/features/avatar/AvatarPage.tsx:69
+#: src/features/avatar/AvatarPage.tsx:91
 msgid "Customize"
 msgstr "Customize"
 
@@ -176,7 +177,7 @@ msgstr "Dark"
 msgid "Delete"
 msgstr "Delete"
 
-#: src/features/calendar/CalendarPage.tsx:51
+#: src/features/calendar/CalendarPage.tsx:121
 msgid "Delete this check-in?"
 msgstr "Delete this check-in?"
 
@@ -228,11 +229,11 @@ msgstr "Hands"
 msgid "Happy"
 msgstr "Happy"
 
-#: src/features/avatar/AccessoryPicker.tsx:60
+#: src/features/avatar/AccessoryPicker.tsx:63
 msgid "Hat"
 msgstr "Hat"
 
-#: src/features/avatar/AccessoryPicker.tsx:82
+#: src/features/avatar/AccessoryPicker.tsx:86
 msgid "Hats"
 msgstr "Hats"
 
@@ -269,12 +270,12 @@ msgstr "How intense is it?"
 msgid "How is your body feeling today?"
 msgstr "How is your body feeling today?"
 
-#: src/features/calendar/CalendarPage.tsx:115
+#: src/features/calendar/CalendarPage.tsx:141
 msgid "How is your journey?"
 msgstr "How is your journey?"
 
-#: src/features/settings/SettingsPage.tsx:58
-#: src/features/settings/SettingsPage.tsx:67
+#: src/features/settings/SettingsPage.tsx:59
+#: src/features/settings/SettingsPage.tsx:68
 msgid "Install app"
 msgstr "Install app"
 
@@ -326,7 +327,7 @@ msgstr "Logged sensations ({count})"
 msgid "Low"
 msgstr "Low"
 
-#: src/features/avatar/AccessoryPicker.tsx:61
+#: src/features/avatar/AccessoryPicker.tsx:64
 msgid "Necklace"
 msgstr "Necklace"
 
@@ -340,7 +341,7 @@ msgstr "New sticker unlocked!"
 msgid "Next"
 msgstr "Next"
 
-#: src/features/calendar/CalendarPage.tsx:136
+#: src/features/calendar/CalendarPage.tsx:162
 msgid "Next month"
 msgstr "Next month"
 
@@ -356,11 +357,11 @@ msgstr "No check-ins this day."
 msgid "Notes"
 msgstr "Notes"
 
-#: src/features/settings/SettingsPage.tsx:85
+#: src/features/settings/SettingsPage.tsx:86
 msgid "On iPhone and iPad the app can only be installed from Safari. Open this page in Safari, then tap Share → “Add to Home Screen”."
 msgstr "On iPhone and iPad the app can only be installed from Safari. Open this page in Safari, then tap Share → “Add to Home Screen”."
 
-#: src/features/calendar/CalendarPage.tsx:98
+#: src/features/calendar/CalendarPage.tsx:94
 msgid "On period"
 msgstr "On period"
 
@@ -372,7 +373,7 @@ msgstr "On period that day?"
 msgid "On period today?"
 msgstr "On period today?"
 
-#: src/features/settings/SettingsPage.tsx:93
+#: src/features/settings/SettingsPage.tsx:94
 msgid "Open your browser menu and choose “Install app” (or “Add to Dock” in Safari on Mac)."
 msgstr "Open your browser menu and choose “Install app” (or “Add to Dock” in Safari on Mac)."
 
@@ -384,7 +385,7 @@ msgstr "Pear"
 msgid "Pink"
 msgstr "Pink"
 
-#: src/features/calendar/CalendarPage.tsx:125
+#: src/features/calendar/CalendarPage.tsx:151
 msgid "Previous month"
 msgstr "Previous month"
 
@@ -408,7 +409,7 @@ msgstr "Sad"
 msgid "Save check-in"
 msgstr "Save check-in"
 
-#: src/features/avatar/AvatarPage.tsx:66
+#: src/features/avatar/AvatarPage.tsx:88
 msgid "Saved"
 msgstr "Saved"
 
@@ -425,7 +426,7 @@ msgstr "Scarf"
 msgid "Settings"
 msgstr "Settings"
 
-#: src/features/avatar/AccessoryPicker.tsx:62
+#: src/features/avatar/AccessoryPicker.tsx:65
 msgid "Shoes"
 msgstr "Shoes"
 
@@ -445,7 +446,7 @@ msgstr "Standing still"
 msgid "Start a check-in"
 msgstr "Start a check-in"
 
-#: src/features/avatar/AvatarPage.tsx:50
+#: src/features/avatar/AvatarPage.tsx:70
 msgid "Stickers"
 msgstr "Stickers"
 
@@ -457,7 +458,7 @@ msgstr "Summary"
 msgid "Surprised"
 msgstr "Surprised"
 
-#: src/features/settings/SettingsPage.tsx:79
+#: src/features/settings/SettingsPage.tsx:80
 msgid "Tap “Add”."
 msgstr "Tap “Add”."
 
@@ -465,7 +466,7 @@ msgstr "Tap “Add”."
 msgid "Tap the areas on your body. Tap again to remove."
 msgstr "Tap the areas on your body. Tap again to remove."
 
-#: src/features/settings/SettingsPage.tsx:73
+#: src/features/settings/SettingsPage.tsx:74
 msgid "Tap the Share button in Safari's toolbar."
 msgstr "Tap the Share button in Safari's toolbar."
 
@@ -473,7 +474,7 @@ msgstr "Tap the Share button in Safari's toolbar."
 msgid "Teal"
 msgstr "Teal"
 
-#: src/features/settings/SettingsPage.tsx:62
+#: src/features/settings/SettingsPage.tsx:63
 msgid "The app is installed on this device."
 msgstr "The app is installed on this device."
 
@@ -505,11 +506,11 @@ msgstr "Update check-in"
 msgid "Use my latest feeling: {latestName}"
 msgstr "Use my latest feeling: {latestName}"
 
-#: src/features/check-in-flow/steps/SummaryStep/SummaryStep.tsx:33
+#: src/features/check-in-flow/steps/SummaryStep/SummaryStep.tsx:35
 msgid "What can help right now?"
 msgstr "What can help right now?"
 
-#: src/features/avatar/AvatarPage.tsx:41
+#: src/features/avatar/AvatarPage.tsx:55
 msgid "What’s new?"
 msgstr "What’s new?"
 
@@ -545,12 +546,12 @@ msgstr "World"
 msgid "Yes"
 msgstr "Yes"
 
-#: src/features/avatar/WorldCharacter.tsx:36
+#: src/features/avatar/WorldCharacter.tsx:45
 msgid "Your character"
 msgstr "Your character"
 
 #: src/features/avatar/AvatarCharacter.tsx:36
-#: src/features/avatar/WorldCharacter.tsx:33
+#: src/features/avatar/WorldCharacter.tsx:42
 msgid "Your character, feeling {word}"
 msgstr "Your character, feeling {word}"
 
@@ -558,11 +559,11 @@ msgstr "Your character, feeling {word}"
 msgid "Your character, feeling {word}, wearing {worn}"
 msgstr "Your character, feeling {word}, wearing {worn}"
 
-#: src/features/avatar/WorldCharacter.tsx:31
+#: src/features/avatar/WorldCharacter.tsx:40
 msgid "Your character, feeling {word}, wearing a {hat}"
 msgstr "Your character, feeling {word}, wearing a {hat}"
 
-#: src/features/avatar/WorldCharacter.tsx:35
+#: src/features/avatar/WorldCharacter.tsx:44
 msgid "Your character, wearing a {hat}"
 msgstr "Your character, wearing a {hat}"
 

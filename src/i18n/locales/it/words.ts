@@ -17,262 +17,269 @@ export const words: Record<WordId, WordText> = {
   // Segnali muscolari
   strong: {
     word: 'forte',
-    tagline: 'Nota quanta carica hai',
-    metaphor: 'Il tuo corpo ha potenza da dare.',
+    tagline: 'Nota quanto ti senti pronta',
+    metaphor: 'Il tuo corpo ha forza da dare.',
     description:
-      'Una sensazione di forza può voler dire che i muscoli si sentono potenti, capaci e pronti a dare il massimo.',
+      'Senti i muscoli potenti, solidi, capaci di spingere.',
     feelsLike:
-      'Le gambe prima di uno scatto, quando le senti solide, potenti e pronte a spingerti in avanti.',
+      'Le tue gambe prima di uno sprint, quando le senti solide, potenti e pronte a spingerti in avanti.',
     recommendation:
-      'Il tuo corpo è pronto. Riscaldati bene e goditi l’allenamento. Ricorda questa sensazione per confrontarla con i giorni più duri.',
+      'Il tuo corpo è pronto. Scaldati bene e goditi la sessione. Ricorda questa sensazione per confrontarla nei giorni più difficili.',
   },
   light: {
-    word: 'leggera',
-    tagline: 'Nota quanto sono fluidi i tuoi movimenti',
-    metaphor: 'Come se la gravità avesse mollato la presa.',
+    word: 'leggero',
+    tagline: 'Nota quanto sono fluidi i movimenti',
+    metaphor: 'La gravità che non ha più presa.',
     description:
-      'Il tuo corpo si sente agile, fluido e libero di muoversi. Senza tensione, come se la gravità avesse mollato la presa.',
+      'Il corpo si sente agile, fluido e libero nei movimenti. Senza tensioni, come se la gravità non avesse più presa.',
     feelsLike:
-      'Saltellare sulle punte dei piedi e sentire il corpo muoversi con facilità: fresco, fluido ed elastico.',
+      'Saltellare sulla punta dei piedi e sentire che il corpo si muove facilmente: fresco, fluido e scattante.',
     recommendation:
-      'Ottimo segno: il recupero è andato bene. È un buon giorno per la velocità, per il lavoro tecnico o per qualsiasi cosa richieda freschezza.',
+      'Ottimo segno: hai recuperato bene. Una buona giornata per darci dentro.',
   },
   sore: {
-    word: 'indolenzita',
-    tagline: 'Nota quanto è sensibile',
-    metaphor: 'Il conto del giorno dopo.',
+    word: 'indolenzito',
+    tagline: 'Controlla se è dolente al tatto',
+    metaphor: 'Il conto che arriva il giorno dopo.',
     description:
-      'Il conto che i muscoli presentano 24–48 ore dopo un lavoro nuovo o più intenso. Una sensazione profonda, persistente e difficile da localizzare, come un fastidio costante e diffuso. Spesso riguarda più di una parte del corpo. Si estende a tutto il muscolo, di solito da entrambi i lati, peggio al primo movimento e meglio quando ti sei scaldata.',
-    feelsLike: 'Più sensibile e dolente del solito quando la tocchi, la muovi o la usi.',
+      'Il conto che il corpo ti presenta 24–48 ore dopo un allenamento nuovo o più intenso del solito. Più evidente con i primi movimenti, tende a diminuire una volta che ti sei scaldata.',
+    feelsLike:
+      'Una zona che senti più sensibile e dolente del solito quando la tocchi, la muovi o la usi.',
     recommendation:
-      'Normale dopo un lavoro intenso o nuovo. Aiutano movimento leggero, stretching e foam roller. Se è da un lato solo o dura più di 3 giorni, parlane con il tuo allenatore, il medico, un genitore o chi si prende cura di te.',
+      'Normale dopo un allenamento intenso o nuovo. Movimento leggero, stretching e foam rolling aiutano. Se è unilaterale o dura più di 3 giorni, parlane con il tuo allenatore/medico/genitore o tutore.',
   },
   achy: {
-    word: 'dolorante',
-    tagline: 'Nota quanto è profondo',
-    metaphor: 'Il ronzio di una radio che non riesci a spegnere.',
+    word: 'dolore sordo',
+    tagline: 'Nota quanto è profondo e diffuso',
+    metaphor: 'Un ronzio che non riesci a spegnere.',
     description:
-      'Una sensazione profonda e un po’ pesante, diffusa nei muscoli più che in un punto preciso. Sorda e vaga, senza contorni netti. Spesso riguarda più parti del corpo insieme.',
+      'Una sensazione profonda, continua e poco definita, che si presenta come un fastidio costante e diffuso. Spesso coinvolge più parti del corpo.',
     feelsLike:
-      'Una sensazione sorda e profonda che non se ne va. Un muscolo che dice: “Oggi ho fatto tanto e voglio che tu lo sappia.”',
+      'Se quella parte del corpo dicesse: «oggi ho lavorato tanto e voglio fartelo sapere».',
     recommendation:
-      'I tuoi muscoli stanno elaborando molto. Fai stretching, bevi, mangia bene e dormi a sufficienza. Se continua a tornare, confronta il tuo recupero con il tuo allenatore.',
+      'I tuoi muscoli stanno facendo gli straordinari.. Fai stretching, idratati, nutriti bene e dormi a sufficienza. Se continua a ripresentarsi, parlane con il tuo allenatore e controllate insieme come stai recuperando.',
   },
   tight: {
-    word: 'tesa',
-    tagline: 'Nota cosa succede quando la muovi',
-    metaphor: 'Come un muscolo tirato e accorciato.',
+    word: 'teso',
+    tagline: 'Nota cosa succede quando lo muovi',
+    metaphor: 'Come se un muscolo si fosse accorciate',
     description:
-      'Una sensazione di tensione può far sentire una parte del corpo contratta, limitata, come se non avesse la sua solita libertà di movimento.',
+      'Una sensazione di tensione può far sentire una parte del corpo contratta, limitata o meno libera di muoversi come al solito.',
     feelsLike:
-      'Qualcosa di teso che limita il movimento e ti trattiene. Come cercare di allungare un elastico che non vuole più allungarsi.',
+      'Qualcosa che ti trattiene e che limita alcuni movimenti. Come provare a tirare un elastico che non vuole più allungarsi.',
     recommendation:
-      'Oggi fai stretching e riscaldamento un po’ più a lungo. Se la tensione è sempre nello stesso punto, parlane con il tuo allenatore o fisioterapista.',
+      'Oggi fai stretching e riscaldati un po\' più a lungo. Se la tensione è sempre nello stesso punto, parlane con il tuo allenatore o fisioterapista.',
   },
   stiff: {
-    word: 'rigida',
+    word: 'rigido',
     tagline: 'Dagli il tempo di sciogliersi',
-    metaphor: 'Una cerniera incastrata.',
+    metaphor: 'Come una cerniera inceppata.',
     description:
-      'Una parte del corpo rigida può essere più difficile da muovere o da estendere del tutto rispetto al solito. Può peggiorare nei primi minuti del mattino o dopo un po’ di immobilità, e sciogliersi con movimenti dolci, riscaldamento o cambiando posizione.',
+      'Più difficile da muovere o da distendere completamente del solito. Può farsi sentire di più più al mattino o dopo essere rimasta ferma a lungo, e diminuire quando inizi a muoverti delicatamente, ti riscaldi o cambi posizione.',
     feelsLike:
-      'Un blocco che si apre con un movimento dolce. Le gambe quando scendi dal letto dopo aver dormito a lungo nella stessa posizione.',
+      'Un blocco che più lo muovi, più si scioglie. Come le gambe quando ti alzi dal letto dopo aver dormito a lungo nella stessa posizione.',
     recommendation:
-      'Normale, soprattutto al mattino o dopo un po’ di immobilità. Di solito passa con movimenti dolci e riscaldamento.',
+      'Normale, specialmente al mattino o dopo essere rimasta a lungo nella stessa posizione. Di solito si scioglie con un po’ di movimento leggero e dopo il riscaldamento.',
   },
   unstable: {
     word: 'instabile',
-    tagline: 'Evita di forzare',
+    tagline: 'Fai attenzione',
     metaphor: 'La gamba traballante di un tavolo.',
     description:
-      'Una parte del corpo sembra traballante, tremante o meno sicura del solito. I muscoli che la tengono stabile non stanno al passo con quello che chiedi, di solito con la stanchezza, negli atterraggi o nei cambi di direzione. Potrebbe cedere e non essere affidabile sotto carico.',
+      'Una parte del corpo può sentirsi instabile, tremolante o meno sicura del solito. I muscoli che la tengono stabile possono non riuscire a stare al passo con quello che stai chiedendo loro, per esempio quando sei stanca, atterri o cambi direzione.',
     feelsLike:
-      'Non ti fidi del tutto che ti sostenga o si muova come ti aspetti. Come salire su una sedia con una gamba allentata.',
+      'Se possa cedere o non essere affidabile sotto carico. Come salire su una sedia con una gamba lenta. Non è rotta, ma non ti fidi.',
     recommendation:
-      'In questo momento il tuo corpo non riesce a fidarsi del tutto di questa zona. Non forzare. Riduci il carico e avvisa il tuo allenatore. Se cede, fatti valutare.',
+      'Il tuo corpo al momento non si fida pienamente di questa parte. Non sforzarla. Riduci il carico e parlane con il tuo allenatore. Se cede, richiedi una valutazione medica.',
   },
   // Tipi di dolore
   crampy: {
-    word: 'crampi',
+    word: 'crampo',
     tagline: 'Nota il ritmo',
-    metaphor: 'Come se qualcosa dentro si stringesse e si rilassasse.',
+    metaphor: 'Lo schermo che s\'impalla per qualche secondo',
     description:
-      'Una sensazione di crampi spesso arriva a ondate, con una stretta che cresce, resta per un paio di secondi, si allenta e può tornare.',
+      'Una sensazione di crampo di solito arriva a ondate: qualcosa si stringe o si contrae, aumenta, rimane così per un paio di secondi, poi si allenta e può tornare di nuovo.',
     feelsLike:
-      'Chiudere il pugno, tenerlo stretto per un momento, poi lasciarlo aprire, solo che la stretta è dentro il tuo corpo.',
+      'Stringi forte il pugno, lo tieni stretto per un momento e poi lo riapri.',
     recommendation:
-      'Una stretta che arriva a ondate. Se è nella pancia e intorno al ciclo, movimento leggero e calore possono aiutare. Se è in un muscolo (come il polpaccio o il piede), fermati, allungalo dolcemente e bevi acqua. I crampi muscolari spesso indicano disidratazione o muscoli affaticati. Se i crampi ti fermano spesso dall’allenamento, parlane con un medico, con l’allenatore o con chi si prende cura di te.',
+      'Se è nella pancia e il ciclo è dietro l\'angolo, il movimento leggero e il calore possono aiutare. Se è in un muscolo (come il polpaccio o il piede), fermati, allungalo delicatamente e bevi acqua. I crampi muscolari spesso indicano disidratazione o affaticamento muscolare. Se i crampi ti impediscono regolarmente di allenarti, parlane con un medico/allenatore/tutore.',
   },
   gripping: {
     word: 'a morsa',
-    tagline: 'Nota quanto dura',
-    metaphor: 'Una mano che non molla.',
+    tagline: 'Notane la durata',
+    metaphor: 'Come una mano che non molla la presa.',
     description:
-      'Una stretta costante in un punto preciso. Ti costringe a mantenere una certa posizione e ti ritrovi a proteggerlo. Spesso è un muscolo che protegge qualcosa.',
+      'Una sensazione di forte contrazione, concentrata in un punto preciso. Può costringerti a tenere una certa posizione. A volte è il modo in cui un muscolo cerca di proteggere un\'altra parte del corpo.',
     feelsLike:
-      'Una forte sensazione di stretta, come se qualcosa dentro il tuo corpo afferrasse o serrasse.',
+      'Una stretta forte e salda, come se qualcosa ti stesse afferrando o stringendo da dentro.',
     recommendation:
-      'Qualcosa si contrae per proteggere una zona. Non forzare. Riposa, applica calore leggero e, se non passa in un giorno o due, chiedi aiuto.',
+      'Qualcosa si sta contraendo per proteggere un\'area. Non sforzarla. Prova a recuperare e ad applicare del calore, come una borsa dell\'acqua calda. Se non si allevia in uno o due giorni, chiedi supporto.',
   },
   sharp: {
-    word: 'acuta',
-    tagline: 'Riesci a indicare esattamente dove la senti?',
-    metaphor: 'Un taglietto di carta.',
+    word: 'pungente',
+    tagline: 'Riesci a indicare esattamente dove lo senti?',
+    metaphor: 'Un taglio con la carta, non un livido',
     description:
-      'Improvvisa e precisa: puoi indicare con un dito il punto esatto. Può arrivare in un momento specifico del movimento. Una sensazione acuta ti fa cambiare quello che stai facendo.',
-    feelsLike: 'Una sensazione rapida e appuntita che ti fa notare subito quel punto.',
+      'È una sensazione rapida e improvvisa, che può comparire in un momento preciso di un movimento. Riesci ad indicare con un dito il punto esatto in cui la percepisci e può farti cambiare il modo in cui ti stai muovendo.',
+    feelsLike:
+      'In modo rapido, puntiforme, e inaspettato. Come un piccolo ago che riesci a localizzare immediatamente',
     recommendation:
-      'Interrompi il movimento che l’ha causato. Se riesci a indicare il punto esatto con un dito, è un’informazione importante. Non rimetterlo alla prova: segnalalo al tuo allenatore e chiedi aiuto se ritorna.',
+      'Interrompi il movimento che l\'ha causata. Se riesci a indicare il punto esatto con un dito, è un\'informazione importante. Segnalalo al tuo allenatore e chiedi supporto se ritorna.',
   },
   stabbing: {
-    word: 'lancinante',
-    tagline: 'Fermati e ascolta',
-    metaphor: 'Una fitta improvvisa come un ago.',
+    word: 'trafittivo',
+    tagline: 'Fermati e presta attenzione',
+    metaphor: 'Come una fitta improvvisa.',
     description:
-      'Una sensazione lancinante è appuntita e penetrante, come se qualcosa ti avesse punto o infilzato per un attimo da dentro. Se “acuto” dice “non così”, lancinante dice “per niente”.',
+      'È una fitta profonda, intensa e penetrante, come se venissi trafitta da un oggetto appuntito.',
     feelsLike:
-      'Una fitta rapida come un ago che ti fa fermare e notare esattamente dove è successo.',
+      'Un dolore che ti lascia "senza fiato" o che ti costringe ad interrompere ciò che stavi facendo.',
     recommendation:
-      'È il segnale di stop più forte del tuo corpo. Ferma ogni attività su quella zona. Avvisa il tuo allenatore e un adulto di fiducia. Fatti valutare da un fisioterapista o da un medico: non provare a tirare dritto.',
+      'Questo è il segnale di stop più forte del tuo corpo. Interrompi ogni attività che coinvolge quell\'area. Parlane con il tuo allenatore o con un adulto di fiducia.',
   },
   burning: {
     word: 'bruciante',
-    tagline: 'Nota se svanisce',
+    tagline: 'Nota se si attenua',
     metaphor: 'Un fiammifero, non un incendio.',
     description:
-      'Una sensazione calda e pungente dentro un muscolo, che può crescere durante uno sforzo intenso. Quando dipende dall’aver lavorato duro, di solito passa poco dopo che rallenti o ti fermi.',
+      'Una sensazione calda e pungente, come un bruciore, che può aumentare durante uno sforzo intenso. Quando è legata al lavoro muscolare, di solito passa poco dopo che rallenti o ti fermi.',
     feelsLike:
-      'Le cosce su una lunga rampa di scale. Cresce mentre sali e si calma quando arrivi in cima.',
+      'Le cosce dopo una lunga rampa di scale. Il bruciore aumenta mentre sali e si attenua poco dopo che hai raggiunto la cima.',
     recommendation:
-      'Sensazione comune durante uno sforzo intenso, che dovrebbe svanire nel giro di qualche minuto dopo che ti fermi. Se non svanisce, o compare a bassa intensità o a riposo, fermati e segnalalo al tuo allenatore.',
+      'Sensazione comune durante uno sforzo intenso, che dovrebbe attenuarsi entro pochi minuti dall\'aver smesso. Se non si attenua, o si presenta a bassa intensità o a riposo, segnalalo al tuo allenatore.',
   },
   tingling: {
-    word: 'formicolio',
-    tagline: 'Osserva le piccole scintille',
-    metaphor: 'Una bibita frizzante sotto la pelle.',
+    word: 'formicolante',
+    tagline: 'Facci caso con attenzione',
+    metaphor: 'Tante formichine che ballano.',
     description:
-      'Spesso è un nervo schiacciato o irritato. Alcune ragazze possono avvertire formicolio a mani o piedi prima del ciclo.',
+      'Un pizzichio spesso dovuto a un nervo schiacciato o irritato. Ad alcune ragazze capita di sentire formicolio a mani o piedi prima del ciclo.',
     feelsLike:
-      'Il piede “addormentato” quando ci resti seduta sopra troppo a lungo. Una sensazione frizzante che corre lungo una linea.',
+      'Il piede dopo che ci sei stata seduta sopra troppo. Una sensazione frizzante che corre lungo una linea.',
     recommendation:
-      'Spesso è un nervo schiacciato. Cambia posizione e allenta ciò che stringe (scarpe, lacci, cinghie). Se succede sempre nello stesso punto, parlane con il tuo staff o con i tuoi genitori.',
+      'Spesso può essere dovuta a un nervo schiacciato. Prova a cambiare posizione e allenta tutto ciò che è stretto (scarpe, cinghie). Se continua a ripresentarsi nello stesso punto, parlane con lo staff o con i tuoi genitori.',
   },
   numb: {
-    word: 'intorpidita',
+    word: 'intorpidito',
     tagline: 'Nota cosa è cambiato',
-    metaphor: 'Il volume portato a zero.',
+    metaphor: 'Come se il volume fosse a zero.',
     description:
-      'L’intorpidimento significa che senti meno del solito, o quasi niente. Tatto, pressione o temperatura possono sembrare attutiti o lontani.',
+      'Quando una parte del corpo è intorpidita, senti meno del solito o quasi niente. Il tatto, la pressione o la temperatura possono sembrarti attenuati o lontani.',
     feelsLike:
-      'Come se una parte del corpo fosse andata in silenzio. Capisci che la stai toccando, ma solo debolmente, come la pelle dietro un guanto o uno strato di vestiti.',
+      'Se una parte del corpo fosse diventata silenziosa. Sai che la stai toccando, ma la senti solo debolmente, quasi come se indossassi un guanto.',
     recommendation:
-      'Se è breve e dovuto a una posizione mantenuta a lungo, muoviti piano finché passa. Se succede durante l’esercizio, si estende o non passa, fermati e fatti valutare. L’intorpidimento durante lo sport merita sempre un controllo.',
+      'Se è breve e dovuto al mantenere una posizione a lungo, muoviti delicatamente finché non passa. Se accade durante l\'esercizio, si diffonde o non passa, fermati e richiedi una valutazione. L\'intorpidimento durante lo sport vale sempre la pena di essere controllato.',
   },
   // Ciclo e ormoni
   bloated: {
-    word: 'gonfia',
+    word: 'gonfiore addominale',
     tagline: 'Nota se viene da dentro',
     metaphor: 'Un palloncino che si gonfia lentamente.',
     description:
-      'Una sensazione di pienezza, pressione o tensione dall’interno. La parte del corpo può sembrare più tesa o gonfia senza che nulla cambi in modo visibile.',
+      'Una sensazione di pienezza, pressione o tensione dall\'interno. Quella parte del corpo può sembrare più tesa o gonfia senza che nulla cambi visibilmente.',
     feelsLike:
-      'Come se la pancia si fosse gonfiata dall’interno. Una sensazione di tensione e pressione che la posizione seduta può peggiorare.',
+      'Come se lo stomaco si fosse gonfiato dall\'interno.',
     recommendation:
-      'Molto comune intorno al ciclo. Bevi tanta acqua (aiuta!) e indossa vestiti comodi.',
+      'Può essere molto comune vicino al ciclo. Assicurati di bere molta acqua (aiuta!) e indossa abiti comodi.',
   },
   tender: {
     word: 'sensibile',
-    tagline: 'Nota se il tocco peggiora la sensazione',
+    tagline: 'Nota se il tocco lo peggiora',
     metaphor: 'Un livido che non si vede.',
     description:
-      'Una parte del corpo è più sensibile o dolorante del solito quando viene toccata, premuta o urtata, anche se non c’è stato nessun infortunio.',
-    feelsLike: 'La manopola della sensibilità del tuo corpo è stata alzata.',
+      'Una parte del corpo si sente più sensibile o dolorante del solito quando viene toccata, premuta o urtata, anche se non ti sei fatta male.',
+    feelsLike:
+      'Come se la manopola della sensibilità del tuo corpo fosse stata alzata.',
     recommendation:
-      'La sensibilità senza infortunio può essere comune prima del ciclo. Indossa abiti che sostengono.',
+      'La sensibilità non dovuta a lividi o infortuni può essere comune prima del ciclo. Indossa capi che offrano un buon sostegno.',
   },
   nauseous: {
-    word: 'nauseata',
-    tagline: 'Nota se arriva a ondate',
+    word: 'nausea',
+    tagline: 'Nota se va e viene a ondate',
     metaphor: 'Una barca che dondola.',
-    description: 'Una sensazione di nausea e disagio che può andare e venire a ondate.',
+    description:
+      'Una sensazione di malessere e agitazione allo stomaco, che può andare e venire a ondate.',
     feelsLike:
-      'Quella sensazione ondeggiante e sgradevole in un lungo viaggio in auto, in cui tutto sembra muoversi un po’ troppo.',
+      'Quella sensazione ondeggiante e sgradevole durante un lungo viaggio in macchina, dove tutto sembra muoversi un po\' troppo.',
     recommendation:
-      'Bevi acqua a piccoli sorsi e prova a mangiare qualcosa di leggero e semplice. Cerca di non allenarti a stomaco vuoto. Se succede spesso insieme a giramenti di testa o tremori, chiedi supporto.',
+      'Bevi acqua a piccoli sorsi. Mangia qualcosa di leggero e semplice, e cerca di evitare di allenarti a stomaco vuoto. Se succede spesso insieme a vertigini o tremori, fallo presente.',
   },
   swollen: {
-    word: 'tumefatta',
-    tagline: 'Nota il cambiamento',
-    metaphor: 'Un palloncino d’acqua sotto la pelle.',
+    word: 'gonfiore',
+    tagline: 'Nota cosa è cambiato',
+    metaphor: 'Come un palloncino d’acqua sotto la pelle.',
     description:
-      'Come se ci fosse più spazio occupato. Una zona gonfia può sembrare più piena, più tesa o più pesante del solito. A volte la differenza si vede; a volte la senti soprattutto.',
-    feelsLike: 'Un dito quando l’anello che porti è diventato all’improvviso troppo stretto.',
+      'Una zona gonfia può sembrare più piena, più tonda, più tesa o più pesante del solito. A volte la differenza si vede; a volte si sente e basta.',
+    feelsLike:
+      'Un dito dopo aver tenuto un anello che all’improvviso è diventato troppo stretto.',
     recommendation:
-      'Se è da entrambi i lati e intorno al ciclo: normale ritenzione di liquidi. Se è da un lato solo e dopo un infortunio: ghiaccio, tieni la parte sollevata e chiedi aiuto.',
+      'Se riguarda entrambi i lati ed è vicino al ciclo: è normale ritenzione idrica. Se riguarda un solo lato e segue un infortunio: applica ghiaccio, solleva la parte del corpo e chiedi supporto.',
   },
   hot: {
-    word: 'calda',
-    tagline: 'Caldo da dentro o da fuori?',
-    metaphor: 'Il retro di un portatile acceso da tanto.',
+    word: 'caldo',
+    tagline: 'Il calore viene da dentro o da fuori?',
+    metaphor: 'Come il retro di un computer che è rimasto acceso a lungo.',
     description:
-      'Una sensazione di calore può essere superficiale, come una pelle più calda del solito al tatto, o più profonda dentro il corpo. Il dolore caldo è una sensazione di bruciore profondo che si diffonde nei tessuti come un liquido bollente.',
-    feelsLike: 'Un fuoco sordo e pesante che sembra sciogliere i muscoli da dentro.',
+      'Una sensazione di caldo può essere superficiale, come la pelle che al tatto è più calda del solito, oppure più in profondità nel corpo. Il dolore caldo è una sensazione di bruciore profondo che si espande nei tessuti come un liquido rovente.',
+    feelsLike:
+      'Un fuoco sordo e denso che sembra sciogliere i muscoli dall\'interno.',
     recommendation:
-      'Bevi più acqua per idratarti e fai pause all’ombra (se sei al sole). Se hai molto caldo insieme a giramenti di testa, confusione, o hai smesso di sudare, chiedi aiuto subito.',
+      'Bevi più acqua per rimanere idratata e fai delle pause all\'ombra (se sei sotto il sole). Se ti senti molto calda con vertigini, confusione, o hai smesso di sudare, chiedi aiuto immediatamente.',
   },
   // Energia e carburante
   heavy: {
     word: 'pesante',
-    tagline: 'Nota quanta fatica richiede ogni cosa',
-    metaphor: 'La gravità è stata alzata.',
+    tagline: 'Nota quanto sforzo richiede ogni cosa',
+    metaphor: 'La gravità è aumentata.',
     description:
-      'Tutto il corpo si sente appesantito, pigro e lento a rispondere. Ogni movimento costa più fatica del solito, come se la gravità fosse stata aumentata.',
+      'Il corpo si sente appesantito, lento e poco reattivo. Ogni movimento ti costa più fatica del solito.',
     feelsLike:
-      'Muoversi nell’acqua fino alla vita. Gambe, braccia e persino la testa sembrano fatte di qualcosa di più pesante del solito.',
+      'Muoversi in mare con l\'acqua fino alla vita.',
     recommendation:
-      'Oggi tutto costa più fatica. Il tuo corpo potrebbe aver bisogno di più carburante, sonno o recupero. Prova ad andarci piano e osserva cosa succede. Se questa sensazione si presenta spesso, parlane con il tuo allenatore.',
+      'Il tuo corpo potrebbe aver bisogno di più energia, sonno o recupero. Cerca di prendertela con calma e osserva cosa succede. Se questa sensazione si presenta spesso, parlane con il tuo allenatore.',
   },
   dizzy: {
-    word: 'stordita',
+    word: 'stordito',
     tagline: 'Fermati. Lascia che il mondo ti raggiunga',
     metaphor: 'Una trottola che rallenta.',
     description:
-      'La stanza si inclina, l’equilibrio vacilla o tutto sembra leggermente fuori asse. Può arrivare all’improvviso, in un lampo.',
+      'La stanza si inclina, l\'equilibrio vacilla, o tutto sembra leggermente fuori asse. Può arrivare all\'improvviso, in un lampo.',
     feelsLike:
-      'Alzarti di scatto dal letto e vedere il pavimento inclinarsi per un secondo o due.',
+      'Ti alzi troppo velocemente dopo essere stata sdraiata e senti il pavimento inclinarsi per un secondo o due.',
     recommendation:
-      'Fermati e siediti. Bevi acqua e mangia qualcosa. Aspetta che passi del tutto prima di tornare ad allenarti. Se continua a succedere, parlane con un medico.',
+      'Fermati e siediti. Prova a bere dell\'acqua e mangiare qualcosina. Aspetta che passi completamente prima di tornare all\'allenamento. Se continua a succedere, parlane con un medico.',
   },
   headachy: {
     word: 'mal di testa',
-    tagline: 'Nota dove si trova la pressione',
-    metaphor: 'Una fascia troppo stretta.',
+    tagline: 'Nota dove si concentra la pressione',
+    metaphor: 'Una fascia troppo stretta in testa.',
     description:
       'Pressione, pulsazioni o dolore intorno alla fronte, alle tempie o alla nuca.',
     feelsLike:
-      'Una fascia di pressione che ti stringe la testa, o un tonfo sordo dietro gli occhi che si fa più forte quando ti pieghi in avanti.',
+      'Una fascia che stringe intorno alla testa, o un tonfo sordo dietro gli occhi che diventa più forte quando ti pieghi in avanti.',
     recommendation:
-      'Bevi acqua, riposa in un posto tranquillo e, se puoi, stai lontano dagli schermi. Può essere comune anche intorno al ciclo.',
+      'Assicurati di bere acqua, riposa in un luogo tranquillo e, se possibile, stai lontana dagli schermi. Può anche essere comune vicino al ciclo.',
   },
   foggy: {
-    word: 'annebbiata',
-    tagline: 'Nota se i pensieri sono più lenti',
-    metaphor: 'Una finestra appannata.',
+    word: 'offuscato',
+    tagline: 'Nota se i pensieri sembrano più lenti',
+    metaphor: 'Un finestrino appannato.',
     description:
-      'Il cervello sembra confuso, lento o scollegato. Decisioni che di solito sono istantanee richiedono più tempo, perdi segnali che di solito cogli, o ti ritrovi a fissare il vuoto.',
+      'Il cervello si sente annebbiato, lento o distaccato. Le decisioni che normalmente prendi all\'istante richiedono più tempo, ti sfuggono segnali che di solito noteresti, oppure ti ritrovi a fissare il vuoto.',
     feelsLike:
-      'Leggere la stessa frase tre volte senza riuscire a capirla. Conoscere la risposta ma non riuscire a raggiungerla.',
+      'Leggere la stessa frase tre volte senza riuscire a capirla. Conoscere la risposta ma non riuscire a ricordarla.',
     recommendation:
-      'Il tuo cervello potrebbe aver bisogno di più carburante, acqua o sonno. Se succede spesso, parlane con chi ti sostiene.',
+      'Il tuo cervello potrebbe aver bisogno di più energia, acqua o sonno. Se ti capita spesso, parlane con le persone che ti supportano.',
   },
   shaky: {
     word: 'tremante',
-    tagline: 'Nota se il tuo corpo ha bisogno di carburante',
+    tagline: 'Nota se il tuo corpo ha bisogno di energia',
     metaphor: 'Un telefono al 3% di batteria.',
     description:
-      'Un tremore interno o una sensazione di instabilità: il tuo sistema ti dice che sta finendo le energie.',
-    feelsLike: 'La sensazione tremolante e vuota che ti fa sentire debole e instabile',
+      'Un tremore interno o un senso di instabilità, il tuo corpo che ti dice che le energie stanno finendo.',
+    feelsLike:
+      'Quella sensazione tremolante e vuota che ti fa sentire debole e instabile',
     recommendation:
-      'Il tuo corpo potrebbe aver bisogno di più energia per sostenerti. Ricordati di fare il pieno di carburante prima e dopo l’allenamento, soprattutto se questa sensazione continua a presentarsi.',
+      'Il tuo corpo potrebbe aver bisogno di più energia. Ricorda di nutrirti prima e dopo l\'allenamento, soprattutto se questa sensazione continua a presentarsi.',
   },
 }

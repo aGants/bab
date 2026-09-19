@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "i18n:extract": "lingui extract --clean",
+    "i18n:compile": "lingui compile --typescript",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest"
