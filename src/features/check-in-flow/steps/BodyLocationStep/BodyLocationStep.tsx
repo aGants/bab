@@ -22,8 +22,6 @@ export const BodyLocationStep = ({
       <p>Tap the areas on your body. Tap again to remove.</p>
 
       <div className="body-location-step__stage">
-        <div className="body-location-step__spacer" aria-hidden="true" />
-
         <div className="body-location-step__body-wrap">
           {facing === 'front' ? (
             <FemaleBodyFront value={value} onToggle={onToggle} />

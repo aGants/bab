@@ -80,6 +80,13 @@
     /* Layers on top of whatever amplitude the word's own motif already sets
        (see motifFor in entities/word/shapes.ts) — this is the hero of the step, so its
        idle motion should read at a glance instead of needing a close look to notice. */
+    --float-amp-boost: 4;
+}
+
+/* Jittery and spiky words already move a lot on their own (wider amp plus a
+   faster or morphing loop), so they keep the gentler boost. */
+.intensity-step__shape .word-shape--jitter,
+.intensity-step__shape .word-shape--spike {
     --float-amp-boost: 1.8;
 }
 
@@ -122,16 +129,6 @@
     border: none;
     border-radius: 999px;
     background: var(--color-energy);
-}
-
-.intensity-step__scale-labels {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    font-family: var(--font-body);
-    color: var(--color-ink-muted);
-    font-size: 13px;
 }
 
 .intensity-step__value {

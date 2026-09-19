@@ -70,6 +70,6 @@ export const FemaleBodyFront = ({
         }}
       />
     ))}
-    <path d={BODY_OUTLINE_PATH} fill="var(--color-ink)" fillRule="evenodd" pointerEvents="none" />
+    <path d={BODY_OUTLINE_PATH} fill="var(--body-outline)" fillRule="evenodd" pointerEvents="none" />
   </svg>
 )

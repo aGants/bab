@@ -38,7 +38,12 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
-  padding: 16px 16px 260px;
+  padding: 16px;
+}
+
+/* extra room at the end so a selected card can scroll up above the detail sheet */
+.word-grid-viewport.has-detail {
+  padding-bottom: 260px;
 }
 
 .word-grid {

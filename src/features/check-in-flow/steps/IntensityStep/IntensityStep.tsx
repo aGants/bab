@@ -1,4 +1,5 @@
 import type { CheckInIntensity, Trigger } from '@/entities/check-in/types'
+import { usesPainScale } from '@/entities/check-in/vasScale'
 import { WordShape } from '@/entities/word'
 import type { WordCard } from '@/i18n'
 import { MAX_INTENSITY, MIN_INTENSITY, scaleForIntensity } from '../../intensityScale'
@@ -31,18 +32,20 @@ export const IntensityStep = ({
         <h2 className="intensity-step__title">How big is it?</h2>
         <p className="intensity-step__hint">
           Adjust the size as you feel
-          <button
-            type="button"
-            className="intensity-step__info"
-            aria-label="About the intensity scale"
-            onClick={onOpenInfo}
-          >
-            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
-              <circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" strokeWidth="1.2" />
-              <circle cx="8" cy="5" r="0.9" fill="currentColor" />
-              <path d="M8 7.4v4.2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-            </svg>
-          </button>
+          {usesPainScale(word.id) && (
+            <button
+              type="button"
+              className="intensity-step__info"
+              aria-label="About the intensity scale"
+              onClick={onOpenInfo}
+            >
+              <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+                <circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" strokeWidth="1.2" />
+                <circle cx="8" cy="5" r="0.9" fill="currentColor" />
+                <path d="M8 7.4v4.2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+              </svg>
+            </button>
+          )}
         </p>
       </div>
       <div className="intensity-step__stage">
@@ -64,11 +67,6 @@ export const IntensityStep = ({
         onChange={(event) => onSelect(Number(event.target.value) as CheckInIntensity)}
         aria-label="How big is it"
       />
-
-      <div className="intensity-step__scale-labels">
-        <span>no pain</span>
-        <span>worst possible pain</span>
-      </div>
 
       <p className="intensity-step__label">When do you notice it?</p>
       <div className="intensity-step__trigger-options">

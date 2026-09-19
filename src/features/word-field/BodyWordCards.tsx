@@ -37,7 +37,7 @@ const BodyWordCards = () => {
       </header>
       <p className="word-cards-section-label">Body sensations</p>
 
-      <div className="word-grid-viewport" ref={viewportRef}>
+      <div className={`word-grid-viewport${selected ? ' has-detail' : ''}`} ref={viewportRef}>
         <div className="word-grid" style={{ '--grid-cols': GRID_COLS } as CSSProperties}>
           {GRID_WORDS.map((card) => (
             <WordCardButton

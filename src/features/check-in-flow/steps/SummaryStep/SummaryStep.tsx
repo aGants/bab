@@ -52,6 +52,7 @@ export const SummaryStep = ({
       <p className="summary-step__description">{word.description}</p>
       <p className="summary-step__location">Felt in {joinBodyZoneLabels(bodyZones)}.</p>
 
+      <h3 className="summary-step__vas-heading">Intensity scale</h3>
       <div className="summary-step__vas">
         <span className="summary-step__vas-label">{vasLevel.label}.</span>{' '}
         {vasLevel.description}
