@@ -7,7 +7,9 @@
 
 .summary-step__stage {
     width: 100%;
-    max-height: 150px;
+    /* No fixed/max height: the shape's box is now sized directly off
+       intensity (see SummaryStep.tsx), so this stage just grows to fit it
+       instead of clipping or overlapping the text below at high intensity. */
     margin-top: 20px;
     display: flex;
     align-items: center;
@@ -15,8 +17,7 @@
 }
 
 .summary-step__shape {
-    width: 90px;
-    height: 90px;
+    flex-shrink: 0;
 }
 
 .summary-step__shape .word-shape {

@@ -5,6 +5,11 @@ import { bodyZoneLabel } from '../BodyLocationStep/bodyZoneMap'
 import { scaleForIntensity } from '../IntensityStep/IntensityStep'
 import './SummaryStep.css'
 
+/** Shape's footprint at the smallest intensity — scaleForIntensity multiplies this
+ * directly (rather than via CSS transform) so the stage actually reserves enough
+ * room for the shape at high intensity instead of letting it overflow visually. */
+const SHAPE_BASE_SIZE = 90
+
 const capitalize = (word: string): string => word.charAt(0).toUpperCase() + word.slice(1)
 
 /** Joins zone phrases into a sentence-friendly list, e.g. "your left knee and your right knee". */
@@ -27,7 +32,10 @@ export const SummaryStep = ({
     <div className="summary-step__stage">
       <div
         className="summary-step__shape"
-        style={{ transform: `scale(${scaleForIntensity(intensity)})` }}
+        style={{
+          width: `${SHAPE_BASE_SIZE * scaleForIntensity(intensity)}px`,
+          height: `${SHAPE_BASE_SIZE * scaleForIntensity(intensity)}px`,
+        }}
       >
         <WordShape card={word} expressive />
       </div>
