@@ -1,0 +1,45 @@
+.avatar-character {
+  display: block;
+  overflow: visible;
+}
+
+.avatar-character--animated .avatar-character__bob {
+  animation: avatar-bob 3.6s ease-in-out infinite;
+  transform-origin: 50% 100%;
+  transform-box: fill-box;
+}
+
+.avatar-sparkle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: avatar-twinkle 2.4s ease-in-out infinite;
+}
+
+@keyframes avatar-bob {
+  0%,
+  100% {
+    transform: translateY(0) scaleY(1);
+  }
+  50% {
+    transform: translateY(-4px) scaleY(1.015);
+  }
+}
+
+@keyframes avatar-twinkle {
+  0%,
+  100% {
+    transform: scale(0.7);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .avatar-character--animated .avatar-character__bob,
+  .avatar-sparkle {
+    animation: none;
+  }
+}

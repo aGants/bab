@@ -1,0 +1,44 @@
+.option-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 4px;
+  border: 2px solid transparent;
+  border-radius: 16px;
+  background: var(--color-surface-raised);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+.option-button--selected {
+  border-color: var(--color-anchor);
+  background: var(--color-cycle);
+  /* the lavender fill doesn't flip with the theme, so neither can the text on it */
+  color: var(--color-ink-on-light);
+}
+
+.option-button:focus-visible {
+  outline: 2px solid var(--color-anchor);
+  outline-offset: 2px;
+}
+
+.option-button__thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 56px;
+}
+
+.option-button__thumb svg {
+  width: auto;
+  height: 100%;
+}
+
+.option-button__label {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+}

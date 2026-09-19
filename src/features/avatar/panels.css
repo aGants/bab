@@ -1,0 +1,52 @@
+.avatar-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.avatar-panel__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.avatar-panel__grid--feelings {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.avatar-panel__shortcut {
+  padding: 12px 16px;
+  border: none;
+  border-radius: 999px;
+  background: var(--color-cycle);
+  color: var(--color-ink-on-light);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.avatar-panel__swatches {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.avatar-swatch {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 3px solid var(--color-surface);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--color-overlay);
+  cursor: pointer;
+}
+
+.avatar-swatch--selected {
+  box-shadow: 0 0 0 3px var(--color-anchor);
+}
+
+.avatar-swatch:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+}

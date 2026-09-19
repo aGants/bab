@@ -1,4 +1,4 @@
-const CACHE = 'app-v2'
+const CACHE = 'app-v3'
 const SHELL = ['/', '/index.html', '/manifest.webmanifest', '/favicon.png', '/icon-192.png', '/icon-512.png']
 
 self.addEventListener('install', (event) => {

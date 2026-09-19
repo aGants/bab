@@ -3,6 +3,7 @@ export const ROUTES = {
   words: '/words',
   checkInFlow: '/words/:wordId/check-in',
   calendar: '/calendar',
+  avatar: '/avatar',
   settings: '/settings',
 } as const
 

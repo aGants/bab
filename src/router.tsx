@@ -11,6 +11,9 @@ const CheckInFlowPage = lazy(() =>
 const CalendarPage = lazy(() =>
   import('./features/calendar/CalendarPage').then((m) => ({ default: m.CalendarPage })),
 )
+const AvatarPage = lazy(() =>
+  import('./features/avatar/AvatarPage').then((m) => ({ default: m.AvatarPage })),
+)
 const SettingsPage = lazy(() =>
   import('./features/settings/SettingsPage').then((m) => ({ default: m.SettingsPage })),
 )
@@ -26,5 +29,6 @@ export const router = createBrowserRouter([
   { path: ROUTES.words, element: withSuspense(<BodyWordCards />) },
   { path: ROUTES.checkInFlow, element: withSuspense(<CheckInFlowPage />) },
   { path: ROUTES.calendar, element: withSuspense(<CalendarPage />) },
+  { path: ROUTES.avatar, element: withSuspense(<AvatarPage />) },
   { path: ROUTES.settings, element: withSuspense(<SettingsPage />) },
 ])

@@ -1,0 +1,91 @@
+.avatar-page__stage {
+  flex: 1 1 0;
+  min-height: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 var(--padding);
+}
+
+.avatar-page__character {
+  flex: 1 1 0;
+  min-height: 0;
+  width: auto;
+  max-width: 100%;
+}
+
+.avatar-page__feeling {
+  flex-shrink: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-ink-muted);
+}
+
+.avatar-page__editor {
+  /* fixed share of the screen so switching tabs doesn't make the character jump */
+  flex: 0 0 46%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  padding: 14px var(--padding) 0;
+  border-radius: 24px 24px 0 0;
+  background: var(--color-surface-raised);
+}
+
+.avatar-page__tabs {
+  display: flex;
+  flex-shrink: 0;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--color-overlay);
+}
+
+.avatar-page__tab {
+  flex: 1;
+  padding: 9px 0;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-ink-muted);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.avatar-page__tab--active {
+  background: var(--color-anchor);
+  /* fixed cream, not the theme surface: the anchor fill is the same in both themes */
+  color: var(--color-ground);
+}
+
+.avatar-page__tab:focus-visible {
+  outline: 2px solid var(--color-anchor);
+  outline-offset: 2px;
+}
+
+.avatar-page__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+  overflow-y: auto;
+  padding-bottom: 14px;
+}
+
+.avatar-page__reset {
+  align-self: center;
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  color: var(--color-ink-muted);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
