@@ -6,7 +6,7 @@ import type { BodyColorId } from '@/entities/avatar/types'
 import { useWornHat } from '@/entities/avatar/wornHat'
 import { useWornBodyColor } from '@/entities/avatar/worldBodyColor'
 import { PageFrame } from '@/shared/layout'
-import { Button, Greeting, TabBar } from '@/shared/ui'
+import { Button, Greeting, TabBar, useComingSoon } from '@/shared/ui'
 import { AccessoryPicker } from './AccessoryPicker'
 import { BodyColorPicker } from './BodyColorPicker'
 import { WorldCharacter } from './WorldCharacter'
@@ -18,6 +18,7 @@ export const AvatarPage = () => {
   const { hatId: savedHatId, saveHat } = useWornHat()
   const { bodyColorId: savedBodyColorId, saveBodyColor } = useWornBodyColor()
   const { headWordId } = useHeadWord()
+  const { comingSoonNotice, showComingSoon } = useComingSoon()
   // what's being tried on: shown on the big character right away, but only
   // reaches the header and storage once Customize is pressed
   const [draftHatId, setDraftHatId] = useState<HatId | null>(savedHatId)
@@ -58,8 +59,14 @@ export const AvatarPage = () => {
           <button type="button" className="avatar-page__switch-option avatar-page__switch-option--active" aria-pressed>
             <Trans>Avatar</Trans>
           </button>
-          {/* not built yet: dimmed so it reads as unavailable */}
-          <button type="button" className="avatar-page__switch-option" aria-pressed={false} disabled>
+          {/* not built yet: dimmed, and tapping says so (aria-disabled, not disabled, or a tap never fires) */}
+          <button
+            type="button"
+            className="avatar-page__switch-option avatar-page__switch-option--soon"
+            aria-pressed={false}
+            aria-disabled
+            onClick={showComingSoon}
+          >
             <Trans>Stickers</Trans>
           </button>
         </div>
@@ -70,7 +77,7 @@ export const AvatarPage = () => {
 
         <BodyColorPicker bodyColorId={draftBodyColorId} onPick={pickBodyColor} />
 
-        <AccessoryPicker hatId={draftHatId} onToggleHat={toggleDraftHat} />
+        <AccessoryPicker hatId={draftHatId} onToggleHat={toggleDraftHat} onUnavailable={showComingSoon} />
 
         <Button onClick={save} data-saved={justSaved || undefined}>
           {justSaved ? (
@@ -85,6 +92,7 @@ export const AvatarPage = () => {
           )}
         </Button>
       </div>
+      {comingSoonNotice}
       <TabBar />
     </PageFrame>
   )

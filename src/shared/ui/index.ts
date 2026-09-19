@@ -1,5 +1,6 @@
 export { ArrowButton } from './ArrowButton/ArrowButton'
 export { Button } from './Button/Button'
+export { useComingSoon } from './ComingSoon/useComingSoon'
 export { Greeting } from './Greeting/Greeting'
 export { Slider } from './Slider/Slider'
 export { TabBar } from './TabBar/TabBar'

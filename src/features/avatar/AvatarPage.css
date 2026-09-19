@@ -4,16 +4,17 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  /* 20px gap under the greeting bar + the design's 8px top padding */
-  padding: 28px 20px 16px;
+  /* same top offset as the journal, so the title sits at the same height */
+  padding: 8px 20px 16px;
   overflow-y: auto;
 }
 
 .avatar-page__title {
   flex-shrink: 0;
   font-family: var(--font-display);
+  margin: 0;
   font-size: 32px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 36px;
   letter-spacing: -0.64px;
   color: var(--color-ink);
@@ -47,7 +48,7 @@
   color: var(--color-ink-on-light);
 }
 
-.avatar-page__switch-option:disabled {
+.avatar-page__switch-option--soon {
   /* grey pill (the page fill itself would be invisible), same dimming as the unavailable accessory categories */
   background: var(--color-surface-raised);
   opacity: 0.4;
@@ -87,11 +88,6 @@
 @media (max-height: 720px) {
   .avatar-page__content {
     gap: 12px;
-    padding-top: 12px;
-  }
-
-  .avatar-page__title {
-    margin: 0;
   }
 
   .avatar-page__stage {

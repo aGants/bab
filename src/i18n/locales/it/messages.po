@@ -144,6 +144,10 @@ msgstr "Chiudi"
 msgid "Close detail"
 msgstr "Chiudi i dettagli"
 
+#: src/shared/ui/ComingSoon/useComingSoon.tsx:29
+msgid "Coming soon"
+msgstr "In arrivo presto"
+
 #: src/features/word-field/BodyWordCards.tsx:84
 msgid "Continue"
 msgstr "Continua"

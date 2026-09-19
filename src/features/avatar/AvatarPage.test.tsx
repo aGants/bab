@@ -31,14 +31,29 @@ describe('AvatarPage', () => {
   it('has Avatar selected and Stickers dimmed because it is not built yet', () => {
     renderPage()
     expect(screen.getByRole('button', { name: 'Avatar' }).getAttribute('aria-pressed')).toBe('true')
-    expect((screen.getByRole('button', { name: 'Stickers' }) as HTMLButtonElement).disabled).toBe(true)
+    expect(screen.getByRole('button', { name: 'Stickers' }).getAttribute('aria-disabled')).toBe('true')
   })
 
   it('dims Necklace and Shoes because only hats exist so far', () => {
     renderPage()
-    expect((screen.getByRole('button', { name: 'Hat' }) as HTMLButtonElement).disabled).toBe(false)
-    expect((screen.getByRole('button', { name: 'Necklace' }) as HTMLButtonElement).disabled).toBe(true)
-    expect((screen.getByRole('button', { name: 'Shoes' }) as HTMLButtonElement).disabled).toBe(true)
+    expect(screen.getByRole('button', { name: 'Hat' }).getAttribute('aria-disabled')).toBeNull()
+    expect(screen.getByRole('button', { name: 'Necklace' }).getAttribute('aria-disabled')).toBe('true')
+    expect(screen.getByRole('button', { name: 'Shoes' }).getAttribute('aria-disabled')).toBe('true')
+  })
+
+  it.each(['Stickers', 'Necklace', 'Shoes'])('says coming soon when the unbuilt %s is tapped', async (name) => {
+    renderPage()
+    expect(screen.queryByText('Coming soon')).toBeNull()
+    await userEvent.click(screen.getByRole('button', { name }))
+    expect(screen.getByText('Coming soon')).toBeTruthy()
+  })
+
+  it('hides coming soon as soon as something else is tapped', async () => {
+    renderPage()
+    await userEvent.click(screen.getByRole('button', { name: 'Stickers' }))
+    expect(screen.getByText('Coming soon')).toBeTruthy()
+    await userEvent.click(screen.getByRole('button', { name: 'Customize' }))
+    expect(screen.queryByText('Coming soon')).toBeNull()
   })
 
   it('offers every hat and starts with none on', () => {

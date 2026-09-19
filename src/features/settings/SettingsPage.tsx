@@ -23,7 +23,7 @@ export const SettingsPage = () => {
       <Greeting />
       <div className="settings-wrapper">
         <div className="settings-header">
-          <h1 className="text-display settings-title">
+          <h1 className="settings-title">
             <Trans>Settings</Trans>
           </h1>
         </div>

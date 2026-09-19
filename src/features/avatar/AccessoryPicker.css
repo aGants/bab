@@ -38,7 +38,7 @@
 }
 
 /* not built yet: dimmed so it reads as unavailable */
-.accessory-picker__category:disabled {
+.accessory-picker__category--soon {
   opacity: 0.4;
   cursor: not-allowed;
 }

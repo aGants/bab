@@ -47,13 +47,16 @@ const ShoeIcon = () => (
 type Category = { id: string; label: ReactNode; icon: ReactNode; available: boolean }
 
 /** Category pills over a grid of hats. Only hats exist so far — the other
- * pills are shown dimmed and can't be picked. */
+ * pills are shown dimmed and tapping one says it's coming soon. */
 export const AccessoryPicker = ({
   hatId,
   onToggleHat,
+  onUnavailable,
 }: {
   hatId: HatId | null
   onToggleHat: (id: HatId) => void
+  /** a category that isn't built yet was tapped */
+  onUnavailable: () => void
 }) => {
   const { t, i18n } = useLingui()
   const categories: Category[] = [
@@ -69,9 +72,10 @@ export const AccessoryPicker = ({
           <button
             key={id}
             type="button"
-            className={`accessory-picker__category${available ? ' accessory-picker__category--active' : ''}`}
+            className={`accessory-picker__category${available ? ' accessory-picker__category--active' : ' accessory-picker__category--soon'}`}
             aria-pressed={available}
-            disabled={!available}
+            aria-disabled={!available || undefined}
+            onClick={available ? undefined : onUnavailable}
           >
             {icon}
             {label}
