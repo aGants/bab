@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { createContext, useContext, useMemo, useState } from 'react'
 import { DayPicker, type DayButtonProps } from 'react-day-picker'
 import { addMonths } from 'date-fns'
 import { Trans, useLingui } from '@lingui/react/macro'
@@ -11,6 +11,8 @@ import { WordShape } from '@/entities/word'
 import { useContent, type WordCard } from '@/i18n'
 import { wordsPath } from '@/routes/paths'
 import { checkInRepository } from '@/entities/check-in/checkInRepository'
+import type { CheckInEntry } from '@/entities/check-in/types'
+import type { DailyLog } from '@/entities/daily-log/types'
 import { DayLogDialog } from './DayLogDialog'
 import { useCalendarMonthData } from './useCalendarMonthData'
 import './CalendarPage.css'
@@ -33,6 +35,74 @@ const parseDateKey = (key: string | null): Date | undefined => {
   return Number.isNaN(parsed.getTime()) ? undefined : parsed
 }
 
+// A day's marks stay on a single row, so the period drop and the "+N" counter
+// each take one of these slots instead of wrapping to a second line.
+const MARK_SLOTS = 3
+
+type DayMarks = {
+  entriesByDate: Record<string, CheckInEntry[]>
+  dailyLogsByDate: Record<string, DailyLog>
+  wordCardsById: Map<string, WordCard>
+}
+
+// The day button has to be a stable component: if it were rebuilt whenever a month's
+// data loads, React would throw away and re-mount every day cell. It reads the
+// entries/logs from context instead.
+const DayMarksContext = createContext<DayMarks>({
+  entriesByDate: {},
+  dailyLogsByDate: {},
+  wordCardsById: new Map(),
+})
+
+const CalendarDayButton = ({ day, modifiers: _modifiers, className, ...props }: DayButtonProps) => {
+  const { t } = useLingui()
+  const { entriesByDate, dailyLogsByDate, wordCardsById } = useContext(DayMarksContext)
+  const dateKey = toDateKey(day.date)
+  const dayEntries = entriesByDate[dateKey]
+  // one icon per distinct feeling logged that day, most recent first —
+  // walk entries newest-to-oldest so a repeated word keeps its latest slot
+  const dayWords: WordCard[] = []
+  const seenWordIds = new Set<string>()
+  for (let i = (dayEntries?.length ?? 0) - 1; i >= 0; i--) {
+    const entry = dayEntries![i]
+    if (seenWordIds.has(entry.wordId)) continue
+    seenWordIds.add(entry.wordId)
+    const card = wordCardsById.get(entry.wordId)
+    if (card) dayWords.push(card)
+  }
+  const hadPeriod = dailyLogsByDate[dateKey]?.hadPeriod
+  const slots = hadPeriod ? MARK_SLOTS - 1 : MARK_SLOTS
+  // when the words don't all fit, the last slot turns into the "+N" counter
+  const visibleWords = dayWords.slice(0, dayWords.length > slots ? slots - 1 : slots)
+  const extraMoodCount = dayWords.length - visibleWords.length
+
+  return (
+    <button {...props} className={`${className ?? ''} calendar-day-button`}>
+      <span className="calendar-day-number">{day.date.getDate()}</span>
+      <span className="calendar-day-marks">
+        {visibleWords.map((word) => (
+          <span key={word.id} className="calendar-day-mood" title={word.word}>
+            <WordShape card={word} expressive />
+          </span>
+        ))}
+        {extraMoodCount > 0 && (
+          <span className="calendar-day-mood-more" title={t`+${extraMoodCount} more`}>
+            +{extraMoodCount}
+          </span>
+        )}
+        {hadPeriod && (
+          <span className="calendar-day-period" aria-label={t`On period`}>
+            🩸
+          </span>
+        )}
+      </span>
+    </button>
+  )
+}
+
+// hoisted so DayPicker always receives the same object and doesn't rebuild its day cells
+const DAY_PICKER_COMPONENTS = { DayButton: CalendarDayButton }
+
 export const CalendarPage = () => {
   const { t, i18n } = useLingui()
   const { wordCards, dateLocale } = useContent()
@@ -53,58 +123,14 @@ export const CalendarPage = () => {
     refetch()
   }
 
-  // Recreated whenever a month's data loads, so each day button closes over
-  // fresh entries/logs without needing a separate context provider.
-  const CalendarDayButton = useMemo(() => {
-    // a day's marks stay on a single row, so the period drop and the "+N"
-    // counter each take one of these slots instead of wrapping to a second line
-    const MARK_SLOTS = 3
-    const DayButton = ({ day, modifiers: _modifiers, className, ...props }: DayButtonProps) => {
-      const { t } = useLingui()
-      const dateKey = toDateKey(day.date)
-      const dayEntries = entriesByDate[dateKey]
-      // one icon per distinct feeling logged that day, most recent first —
-      // walk entries newest-to-oldest so a repeated word keeps its latest slot
-      const dayWords: WordCard[] = []
-      const seenWordIds = new Set<string>()
-      for (let i = (dayEntries?.length ?? 0) - 1; i >= 0; i--) {
-        const entry = dayEntries![i]
-        if (seenWordIds.has(entry.wordId)) continue
-        seenWordIds.add(entry.wordId)
-        const card = wordCards.find((c) => c.id === entry.wordId)
-        if (card) dayWords.push(card)
-      }
-      const hadPeriod = dailyLogsByDate[dateKey]?.hadPeriod
-      const slots = hadPeriod ? MARK_SLOTS - 1 : MARK_SLOTS
-      // when the words don't all fit, the last slot turns into the "+N" counter
-      const visibleWords = dayWords.slice(0, dayWords.length > slots ? slots - 1 : slots)
-      const extraMoodCount = dayWords.length - visibleWords.length
-
-      return (
-        <button {...props} className={`${className ?? ''} calendar-day-button`}>
-          <span className="calendar-day-number">{day.date.getDate()}</span>
-          <span className="calendar-day-marks">
-            {visibleWords.map((word) => (
-              <span key={word.id} className="calendar-day-mood" title={word.word}>
-                <WordShape card={word} expressive />
-              </span>
-            ))}
-            {extraMoodCount > 0 && (
-              <span className="calendar-day-mood-more" title={t`+${extraMoodCount} more`}>
-                +{extraMoodCount}
-              </span>
-            )}
-            {hadPeriod && (
-              <span className="calendar-day-period" aria-label={t`On period`}>
-                🩸
-              </span>
-            )}
-          </span>
-        </button>
-      )
-    }
-    return DayButton
-  }, [entriesByDate, dailyLogsByDate, wordCards])
+  const dayMarks = useMemo(
+    () => ({
+      entriesByDate,
+      dailyLogsByDate,
+      wordCardsById: new Map(wordCards.map((card) => [card.id, card])),
+    }),
+    [entriesByDate, dailyLogsByDate, wordCards],
+  )
 
   return (
     <PageFrame>
@@ -139,18 +165,20 @@ export const CalendarPage = () => {
             </button>
           </div>
 
-          <DayPicker
-            mode="single"
-            month={month}
-            onMonthChange={setMonth}
-            selected={selectedDate}
-            onSelect={setSelectedDate}
-            weekStartsOn={1}
-            locale={dateLocale}
-            hideNavigation
-            components={{ DayButton: CalendarDayButton }}
-            className="calendar-picker"
-          />
+          <DayMarksContext.Provider value={dayMarks}>
+            <DayPicker
+              mode="single"
+              month={month}
+              onMonthChange={setMonth}
+              selected={selectedDate}
+              onSelect={setSelectedDate}
+              weekStartsOn={1}
+              locale={dateLocale}
+              hideNavigation
+              components={DAY_PICKER_COMPONENTS}
+              className="calendar-picker"
+            />
+          </DayMarksContext.Provider>
         </div>
       </div>
       <div className="calendar-cta">
