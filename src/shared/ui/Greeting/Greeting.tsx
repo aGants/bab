@@ -5,6 +5,10 @@ import { useWornHat } from '@/entities/avatar/wornHat'
 import { useUserProfile } from '@/entities/user-profile/useUserProfile'
 import './Greeting.css'
 
+// one mascot size for both greeting layouts, so the bar is the same height everywhere
+const MASCOT_WIDTH = 80
+const MASCOT_HEIGHT = 50.3
+
 export const Greeting = ({ welcome = false }: { welcome?: boolean }) => {
   const { t } = useLingui()
   const { name } = useUserProfile()
@@ -23,7 +27,7 @@ export const Greeting = ({ welcome = false }: { welcome?: boolean }) => {
           </p>
           <p className="app-greeting-name">{displayName}</p>
         </div>
-        <HeadMascot className="app-greeting-cloud" hatId={hatId} wordId={headWordId} width={68} height={43} />
+        <HeadMascot className="app-greeting-cloud" hatId={hatId} wordId={headWordId} width={MASCOT_WIDTH} height={MASCOT_HEIGHT} />
       </div>
     )
   }
@@ -33,7 +37,7 @@ export const Greeting = ({ welcome = false }: { welcome?: boolean }) => {
       <p className="app-greeting-text">
         <Trans>Hi, {displayName}</Trans>
       </p>
-      <HeadMascot className="app-greeting-cloud" hatId={hatId} wordId={headWordId} width={39} height={24.529} />
+      <HeadMascot className="app-greeting-cloud" hatId={hatId} wordId={headWordId} width={MASCOT_WIDTH} height={MASCOT_HEIGHT} />
     </div>
   )
 }
