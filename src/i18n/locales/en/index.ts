@@ -1,6 +1,7 @@
 import type { Messages } from '../../types'
 import { bodyZones } from './bodyZones'
+import { errorScreen } from './errorScreen'
 import { vas } from './vas'
 import { categories, words } from './words'
 
-export const en: Messages = { words, categories, vas, bodyZones }
+export const en: Messages = { words, categories, vas, bodyZones, errorScreen }

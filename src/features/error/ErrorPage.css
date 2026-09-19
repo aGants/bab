@@ -1,0 +1,22 @@
+.error-page {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: var(--padding);
+  text-align: center;
+}
+
+.error-page-title {
+  margin: 0;
+  font-size: 28px;
+}
+
+.error-page-message {
+  margin: 0 0 16px;
+  color: var(--color-ink-muted);
+  font-size: 17px;
+  line-height: 1.4;
+}

@@ -34,6 +34,14 @@ export interface BodyZoneText {
   short: string
 }
 
+/** Copy for the screen shown when the app hits an unexpected error. */
+export interface ErrorScreenText {
+  title: string
+  message: string
+  /** label of the button that returns to the start screen */
+  action: string
+}
+
 /** Everything one language has to provide. Every domain is an exhaustive `Record`,
  * so a missing translation is a compile error rather than a runtime gap. */
 export interface Messages {
@@ -41,4 +49,5 @@ export interface Messages {
   categories: Record<CategoryId, string>
   vas: Record<CheckInIntensity, VasLevel>
   bodyZones: Record<BodyZone, BodyZoneText>
+  errorScreen: ErrorScreenText
 }

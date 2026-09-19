@@ -2,6 +2,7 @@ import { lazy, Suspense, type ReactNode } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import { ROUTES } from '@/routes/paths'
 import { PageFrame } from '@/shared/layout'
+import { ErrorPage } from './features/error/ErrorPage'
 
 const BodyWordCards = lazy(() => import('./features/word-field/BodyWordCards'))
 const CheckIn = lazy(() => import('./features/check-in/CheckIn').then((m) => ({ default: m.CheckIn })))
@@ -24,11 +25,14 @@ const withSuspense = (element: ReactNode) => (
   <Suspense fallback={<PageFrame>{null}</PageFrame>}>{element}</Suspense>
 )
 
+// Imported statically (not lazy): it must render even when a route chunk fails to load.
+const errorElement = <ErrorPage />
+
 export const router = createBrowserRouter([
-  { path: ROUTES.checkIn, element: withSuspense(<CheckIn />) },
-  { path: ROUTES.words, element: withSuspense(<BodyWordCards />) },
-  { path: ROUTES.checkInFlow, element: withSuspense(<CheckInFlowPage />) },
-  { path: ROUTES.calendar, element: withSuspense(<CalendarPage />) },
-  { path: ROUTES.avatar, element: withSuspense(<AvatarPage />) },
-  { path: ROUTES.settings, element: withSuspense(<SettingsPage />) },
+  { path: ROUTES.checkIn, element: withSuspense(<CheckIn />), errorElement },
+  { path: ROUTES.words, element: withSuspense(<BodyWordCards />), errorElement },
+  { path: ROUTES.checkInFlow, element: withSuspense(<CheckInFlowPage />), errorElement },
+  { path: ROUTES.calendar, element: withSuspense(<CalendarPage />), errorElement },
+  { path: ROUTES.avatar, element: withSuspense(<AvatarPage />), errorElement },
+  { path: ROUTES.settings, element: withSuspense(<SettingsPage />), errorElement },
 ])

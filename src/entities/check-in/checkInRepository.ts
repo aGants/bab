@@ -26,10 +26,27 @@ const STORAGE_KEY = 'check-ins'
 type StoredCheckInEntry = (CheckInEntry | (Omit<CheckInEntry, 'bodyZones'> & { bodyZone: BodyZone })) &
   Partial<Pick<CheckInEntry, 'bodyZones'>>
 
+/** Zone ids from earlier versions of the body map, mapped to their current
+ * equivalents. Without this, old entries point at zones that no longer exist. */
+const LEGACY_ZONES: Record<string, BodyZone[]> = {
+  chest: ['chestLeft', 'chestRight'],
+  upperBack: ['upperBackLeft', 'upperBackRight'],
+  lowerBack: ['lowerBackLeft', 'lowerBackRight'],
+  abdomen: ['absLeft', 'absRight'],
+  armLeft: ['upperArmLeft'],
+  armRight: ['upperArmRight'],
+  thighLeft: ['quadLeft'],
+  thighRight: ['quadRight'],
+}
+
+const migrateZones = (zones: BodyZone[]): BodyZone[] => [
+  ...new Set(zones.flatMap((zone) => LEGACY_ZONES[zone] ?? [zone])),
+]
+
 const normalizeEntry = (entry: StoredCheckInEntry): CheckInEntry => {
-  if (entry.bodyZones) return entry as CheckInEntry
+  if (entry.bodyZones) return { ...entry, bodyZones: migrateZones(entry.bodyZones) } as CheckInEntry
   const { bodyZone, ...rest } = entry as Omit<CheckInEntry, 'bodyZones'> & { bodyZone: BodyZone }
-  return { ...rest, bodyZones: [bodyZone] }
+  return { ...rest, bodyZones: migrateZones([bodyZone]) }
 }
 
 const readAll = (): CheckInEntry[] => {
