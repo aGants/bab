@@ -4,6 +4,7 @@ import { msg } from '@lingui/core/macro'
 import { Trans, useLingui } from '@lingui/react/macro'
 import type { WordCard } from '@/i18n'
 import type { CheckInEntry } from '@/entities/check-in/types'
+import { useHeadWord } from '@/entities/avatar/headWord'
 import { useCheckInDraft } from './useCheckInDraft'
 import { BodyLocationStep, IntensityStep, NotesStep, SummaryStep } from './steps'
 import { CheckInStepHeader } from './CheckInStepHeader'
@@ -48,29 +49,29 @@ export const CheckInFlow = ({
   const [step, setStep] = useState<Step>('intensity')
   const [intensityScaleOpen, setIntensityScaleOpen] = useState(false)
   const draft = useCheckInDraft(word, date, editing)
+  const { saveHeadWord } = useHeadWord()
 
   const wordName = word.word
 
   const handleSave = async () => {
     const entry = await draft.commit()
-    if (entry) onDone()
+    if (entry) {
+      // a check-in for today puts its feeling on the character's head; logging an
+      // earlier day or fixing an old entry says nothing about the present
+      if (!date && !editing) saveHeadWord(word.id)
+      onDone()
+    }
   }
 
   return (
     <div className="check-in-flow" role="dialog" aria-label={t`Check in: ${wordName}`}>
-      <CheckInStepHeader
-        title={i18n._(STEP_TITLES[step])}
-        onBack={step === 'intensity' ? onCancel : () => setStep(PREVIOUS_STEP[step])}
-        onForward={
-          step === 'intensity'
-            ? () => setStep('location')
-            : step === 'location' && draft.bodyZones.length > 0
-              ? () => setStep('notes')
-              : step === 'notes'
-                ? () => setStep('confirm')
-                : undefined
-        }
-      />
+      {/* the design's summary screen is the finished result, so it has no step header */}
+      {step !== 'confirm' && (
+        <CheckInStepHeader
+          title={i18n._(STEP_TITLES[step])}
+          onBack={step === 'intensity' ? onCancel : () => setStep(PREVIOUS_STEP[step])}
+        />
+      )}
       <div className="check-in-flow-content">
         {step === 'intensity' && (
           <IntensityStep
@@ -98,7 +99,7 @@ export const CheckInFlow = ({
         )}
 
         {step === 'confirm' && draft.bodyZones.length > 0 && (
-          <SummaryStep word={word} bodyZones={draft.bodyZones} intensity={draft.intensity} />
+          <SummaryStep word={word} />
         )}
       </div>
 

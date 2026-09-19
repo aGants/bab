@@ -33,6 +33,6 @@ export const router = createBrowserRouter([
   { path: ROUTES.words, element: withSuspense(<BodyWordCards />), errorElement },
   { path: ROUTES.checkInFlow, element: withSuspense(<CheckInFlowPage />), errorElement },
   { path: ROUTES.calendar, element: withSuspense(<CalendarPage />), errorElement },
-  { path: ROUTES.avatar, element: withSuspense(<AvatarPage />), errorElement },
   { path: ROUTES.settings, element: withSuspense(<SettingsPage />), errorElement },
+  { path: ROUTES.world, element: withSuspense(<AvatarPage />), errorElement },
 ])

@@ -11,134 +11,82 @@
     flex-direction: column;
     flex: 1;
     min-height: 0;
-    /* Bigger gap when the flow has real room (desktop frame), tighter on a
-       short mobile screen so everything still fits without scrolling. */
-    gap: clamp(6px, 3cqh, 20px);
+    gap: 24px;
 }
 
-/* Spacing now comes from `.notes-step`'s gap instead of margins — margins on
-   flex children don't collapse the way they do in normal block flow, so
-   keeping both would double up the space between sections. */
+/* A label with the control(s) under it. */
+.notes-step__field {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* The notes box takes whatever room is left, but never shrinks below the
+   design's 112px box (label + gap on top of that). */
+.notes-step__field--grow {
+    flex: 1;
+}
+
 .notes-step__label {
-    font-family: var(--font-body);
-    font-weight: 600;
-    color: var(--color-ink);
     margin: 0;
-}
-
-.notes-step__energy {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.notes-step__energy-pill {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 999px;
-    background: var(--color-surface-raised);
-    color: var(--color-ink);
     font-family: var(--font-body);
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.notes-step__energy-pill[aria-pressed='true'] {
-    background: var(--color-energy);
-    color: var(--notes-step-ink-on-accent);
-    font-weight: 700;
-}
-
-.notes-step__energy-scale {
-    width: 100%;
-    max-width: 320px;
-}
-
-.notes-step__energy-slider {
-    width: 100%;
-    height: 28px;
-    margin: 0;
-    -webkit-appearance: none;
-    appearance: none;
-    background: transparent;
-    cursor: pointer;
-}
-
-/* Thin green-to-red gradient track (low energy -> high energy) using the two
-   palette colors that already sit at that hue range, instead of introducing
-   new one-off colors. The thumb below is taller than this track so it sits
-   on top of it rather than filling it. */
-.notes-step__energy-slider::-webkit-slider-runnable-track {
-    height: 8px;
-    border-radius: 999px;
-    background: linear-gradient(to right, var(--color-energy), var(--color-signals));
-}
-
-.notes-step__energy-slider::-moz-range-track {
-    height: 8px;
-    border-radius: 999px;
-    background: linear-gradient(to right, var(--color-energy), var(--color-signals));
-}
-
-.notes-step__energy-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 28px;
-    height: 28px;
-    margin-top: -10px;
-    border: 3px solid var(--color-energy);
-    border-radius: 999px;
-    background: var(--color-ground);
-    box-shadow: 0 1px 4px rgb(0 0 0 / 25%);
-}
-
-.notes-step__energy-slider::-moz-range-thumb {
-    width: 28px;
-    height: 28px;
-    border: 3px solid var(--color-energy);
-    border-radius: 999px;
-    background: var(--color-ground);
-    box-shadow: 0 1px 4px rgb(0 0 0 / 25%);
-}
-
-.notes-step__energy-numbers {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 6px;
-}
-
-.notes-step__energy-number {
-    width: 24px;
-    text-align: center;
-    font-family: var(--font-body);
-    font-size: var(--body-font-size);
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
     color: var(--color-ink-muted);
 }
 
-.notes-step__energy-number[data-active='true'] {
-    color: var(--color-ink);
-    font-weight: 700;
+.notes-step__binary {
+    display: flex;
+    gap: 12px;
 }
 
-/* Grows to use whatever room the flexible notes-step column has left (same
-   idea as the Intensity shape) — small min so it still fits a short screen,
-   capped so it doesn't balloon absurdly tall on a big one. */
+.notes-step__pill {
+    flex: 1 0 0;
+    min-width: 1px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid var(--color-energy);
+    border-radius: 22px;
+    background: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    cursor: pointer;
+}
+
+.notes-step__pill[aria-pressed='true'] {
+    background: var(--color-energy);
+    color: var(--notes-step-ink-on-accent);
+}
+
+.notes-step__energy-ends {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    color: var(--color-ink-muted);
+}
+
 .notes-step__textarea {
     display: block;
     width: 100%;
     flex: 1;
-    min-height: 70px;
+    min-height: 112px;
     max-height: 280px;
     padding: 16px;
-    border: none;
-    border-radius: 20px;
-    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    background: var(--color-surface);
     color: var(--color-ink);
     font-family: var(--font-body);
-    font-size: 16px;
-    line-height: var(--body-line-height);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
     resize: vertical;
     box-sizing: border-box;
 }
@@ -149,4 +97,21 @@
 
 .notes-step__textarea:focus {
     outline: none;
+    border-color: var(--color-energy);
+}
+
+/* Desktop: the phone-sized frame is viewed from further away, so the small
+   14px/12px text steps up a little. */
+@media (min-width: 700px) {
+    .notes-step__label,
+    .notes-step__pill,
+    .notes-step__textarea {
+        font-size: 16px;
+        line-height: 22px;
+    }
+
+    .notes-step__energy-ends {
+        font-size: 14px;
+        line-height: 18px;
+    }
 }

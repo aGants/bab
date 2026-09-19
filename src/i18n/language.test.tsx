@@ -28,11 +28,11 @@ describe('changing the language', () => {
         <TabBar />
       </MemoryRouter>,
     )
-    expect(screen.getByRole('navigation', { name: 'Primary' }).textContent).toBe('HomeJournalSettings')
+    expect(screen.getByRole('navigation', { name: 'Primary' }).textContent).toBe('HomeJournalWorldSettings')
 
     await switchTo('it')
 
-    expect(screen.getByRole('navigation', { name: 'Principale' }).textContent).toBe('HomeDiarioImpostazioni')
+    expect(screen.getByRole('navigation', { name: 'Principale' }).textContent).toBe('HomeDiarioMondoImpostazioni')
   })
 
   it('serves domain content in the active language', async () => {

@@ -1,142 +1,129 @@
-import { render, screen, waitFor, within } from '@/test/render'
+import { render, screen } from '@/test/render'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it } from 'vitest'
-import { checkInRepository } from '@/entities/check-in/checkInRepository'
 import { AvatarPage } from './AvatarPage'
 
-const renderPage = async () => {
-  const utils = render(
+const renderPage = () =>
+  render(
     <MemoryRouter>
       <AvatarPage />
     </MemoryRouter>,
   )
-  // the page renders the character only once both stores have answered
-  await screen.findByRole('img', { name: /Your character/ })
-  return utils
-}
 
 const character = () => screen.getByRole('img', { name: /Your character/ })
-const stored = () => JSON.parse(window.localStorage.getItem('avatar') ?? 'null')
-
-const checkIn = (wordId: string, date?: string) =>
-  checkInRepository.save({ wordId, bodyZones: ['whole'], intensity: 5 }, date)
 
 describe('AvatarPage', () => {
-  it('starts with a default character and stores nothing yet', async () => {
-    await renderPage()
-    expect(character().getAttribute('aria-label')).toBe('Your character, feeling light')
-    expect(stored()).toBeNull()
+  it('shows the title, the character and the customize button', () => {
+    renderPage()
+    expect(screen.getByRole('heading', { name: 'What’s new?' })).toBeTruthy()
+    expect(character().getAttribute('aria-label')).toBe('Your character')
+    expect(screen.getByRole('button', { name: 'Customize' })).toBeTruthy()
   })
 
-  it("takes its head from the latest check-in's feeling", async () => {
-    await checkIn('sore', '2026-09-01')
-    await new Promise((resolve) => setTimeout(resolve, 5))
-    await checkIn('foggy', '2026-09-02')
-    await renderPage()
-    expect(character().getAttribute('aria-label')).toBe('Your character, feeling foggy')
-    expect(stored()).toBeNull()
+  it('shows the feeling from the last check-in as the head', () => {
+    window.localStorage.setItem('world-head-word', 'sharp')
+    renderPage()
+    expect(character().getAttribute('aria-label')).toBe('Your character, feeling sharp')
   })
 
-  it('picking a feeling changes the head and is saved', async () => {
+  it('has Avatar selected and Stickers dimmed because it is not built yet', () => {
+    renderPage()
+    expect(screen.getByRole('button', { name: 'Avatar' }).getAttribute('aria-pressed')).toBe('true')
+    expect((screen.getByRole('button', { name: 'Stickers' }) as HTMLButtonElement).disabled).toBe(true)
+  })
+
+  it('dims Necklace and Shoes because only hats exist so far', () => {
+    renderPage()
+    expect((screen.getByRole('button', { name: 'Hat' }) as HTMLButtonElement).disabled).toBe(false)
+    expect((screen.getByRole('button', { name: 'Necklace' }) as HTMLButtonElement).disabled).toBe(true)
+    expect((screen.getByRole('button', { name: 'Shoes' }) as HTMLButtonElement).disabled).toBe(true)
+  })
+
+  it('offers every hat and starts with none on', () => {
+    renderPage()
+    for (const name of ['Bucket hat', 'Beanie', 'Cap', 'Beret', 'Wide-brim hat']) {
+      expect(screen.getByRole('button', { name }).getAttribute('aria-pressed')).toBe('false')
+    }
+  })
+
+  it('puts a picked hat on the character and takes it off when picked again', async () => {
     const user = userEvent.setup()
-    await renderPage()
-    await user.click(screen.getByRole('button', { name: 'burning' }))
-    expect(character().getAttribute('aria-label')).toBe('Your character, feeling burning')
-    expect(screen.getByText('Feeling burning')).toBeTruthy()
-    expect(stored().headWordId).toBe('burning')
+    renderPage()
+
+    await user.click(screen.getByRole('button', { name: 'Beanie' }))
+    expect(screen.getByRole('button', { name: 'Beanie' }).getAttribute('aria-pressed')).toBe('true')
+    expect(character().getAttribute('aria-label')).toBe('Your character, wearing a beanie')
+
+    await user.click(screen.getByRole('button', { name: 'Beanie' }))
+    expect(screen.getByRole('button', { name: 'Beanie' }).getAttribute('aria-pressed')).toBe('false')
+    expect(character().getAttribute('aria-label')).toBe('Your character')
   })
 
-  it('offers the latest feeling as a shortcut only when it differs from the current head', async () => {
+  it('leaves the header mascot and storage alone until Customize is pressed', async () => {
     const user = userEvent.setup()
-    await checkIn('numb')
-    await renderPage()
-    expect(screen.queryByRole('button', { name: /Use my latest feeling/ })).toBeNull()
+    const { container } = renderPage()
+    const mascotHat = () => container.querySelector('.app-greeting-cloud g')
 
-    await user.click(screen.getByRole('button', { name: 'tight' }))
-    const shortcut = screen.getByRole('button', { name: 'Use my latest feeling: numb' })
-    await user.click(shortcut)
-    expect(character().getAttribute('aria-label')).toBe('Your character, feeling numb')
-    expect(screen.queryByRole('button', { name: /Use my latest feeling/ })).toBeNull()
+    await user.click(screen.getByRole('button', { name: 'Beret' }))
+    // the big character shows it, nothing else does
+    expect(character().getAttribute('aria-label')).toBe('Your character, wearing a beret')
+    expect(mascotHat()).toBeNull()
+    expect(window.localStorage.getItem('world-hat')).toBeNull()
+
+    await user.click(screen.getByRole('button', { name: 'Customize' }))
+    expect(mascotHat()).toBeTruthy()
+    expect(window.localStorage.getItem('world-hat')).toBe('beret')
   })
 
-  it('changes body, colour and face from their tabs', async () => {
+  it('takes the hat off the header mascot when Customize is pressed with none picked', async () => {
     const user = userEvent.setup()
-    await renderPage()
+    window.localStorage.setItem('world-hat', 'cap')
+    const { container } = renderPage()
+    const mascotHat = () => container.querySelector('.app-greeting-cloud g')
+    expect(mascotHat()).toBeTruthy()
 
-    await user.click(screen.getByRole('tab', { name: 'Body' }))
-    await user.click(screen.getByRole('button', { name: 'Pear' }))
-    await user.click(screen.getByRole('button', { name: 'Teal' }))
-    expect(screen.getByRole('button', { name: 'Pear' }).getAttribute('aria-pressed')).toBe('true')
-    expect(screen.getByRole('button', { name: 'Teal' }).getAttribute('aria-pressed')).toBe('true')
+    await user.click(screen.getByRole('button', { name: 'Cap' }))
+    expect(mascotHat()).toBeTruthy()
 
-    await user.click(screen.getByRole('tab', { name: 'Face' }))
-    await user.click(screen.getByRole('button', { name: 'Sleepy' }))
-
-    expect(stored()).toMatchObject({ bodyId: 'pear', bodyColor: 'teal', faceId: 'sleepy' })
+    await user.click(screen.getByRole('button', { name: 'Customize' }))
+    expect(mascotHat()).toBeNull()
+    expect(window.localStorage.getItem('world-hat')).toBe('')
   })
 
-  it('toggles accessories, with one hat at a time', async () => {
+  it('swaps one hat for another', async () => {
     const user = userEvent.setup()
-    await renderPage()
-    await user.click(screen.getByRole('tab', { name: 'Extras' }))
-
-    await user.click(screen.getByRole('button', { name: 'Crown' }))
-    await user.click(screen.getByRole('button', { name: 'Glasses' }))
-    expect(character().getAttribute('aria-label')).toContain('wearing crown, glasses')
-
-    await user.click(screen.getByRole('button', { name: 'Bow' }))
-    expect(character().getAttribute('aria-label')).toContain('wearing glasses, bow')
-    expect(screen.getByRole('button', { name: 'Crown' }).getAttribute('aria-pressed')).toBe('false')
-
-    await user.click(screen.getByRole('button', { name: 'Glasses' }))
-    expect(stored().accessoryIds).toEqual(['bow'])
+    renderPage()
+    await user.click(screen.getByRole('button', { name: 'Cap' }))
+    await user.click(screen.getByRole('button', { name: 'Beret' }))
+    expect(screen.getByRole('button', { name: 'Cap' }).getAttribute('aria-pressed')).toBe('false')
+    expect(character().getAttribute('aria-label')).toBe('Your character, wearing a beret')
   })
 
-  it('keeps what was picked when the page is opened again', async () => {
+  it('keeps the hat after Customize, leaving and coming back', async () => {
     const user = userEvent.setup()
-    const first = await renderPage()
-    await user.click(screen.getByRole('button', { name: 'stabbing' }))
-    await user.click(screen.getByRole('tab', { name: 'Extras' }))
-    await user.click(screen.getByRole('button', { name: 'Scarf' }))
+    const first = renderPage()
+    await user.click(screen.getByRole('button', { name: 'Wide-brim hat' }))
+    await user.click(screen.getByRole('button', { name: 'Customize' }))
     first.unmount()
 
-    // a newer check-in must not override the head the user chose
-    await checkIn('hot')
-    await renderPage()
-    expect(character().getAttribute('aria-label')).toBe('Your character, feeling stabbing, wearing scarf')
+    renderPage()
+    expect(character().getAttribute('aria-label')).toBe('Your character, wearing a wide-brim hat')
   })
 
-  it('resets the look but keeps the feeling', async () => {
+  it('drops a hat that was picked but never saved', async () => {
     const user = userEvent.setup()
-    await renderPage()
-    await user.click(screen.getByRole('button', { name: 'dizzy' }))
-    await user.click(screen.getByRole('tab', { name: 'Extras' }))
-    await user.click(screen.getByRole('button', { name: 'Sparkles' }))
-    await user.click(screen.getByRole('tab', { name: 'Face' }))
-    await user.click(screen.getByRole('button', { name: 'Sad' }))
+    const first = renderPage()
+    await user.click(screen.getByRole('button', { name: 'Wide-brim hat' }))
+    first.unmount()
 
-    await user.click(screen.getByRole('button', { name: 'Reset character' }))
-    expect(character().getAttribute('aria-label')).toBe('Your character, feeling dizzy')
-    expect(stored()).toMatchObject({ headWordId: 'dizzy', faceId: 'happy', accessoryIds: [] })
+    renderPage()
+    expect(character().getAttribute('aria-label')).toBe('Your character')
   })
 
-  it('handles two quick edits in a row without losing the first', async () => {
-    const user = userEvent.setup()
-    await renderPage()
-    await user.click(screen.getByRole('tab', { name: 'Extras' }))
-    const scarf = screen.getByRole('button', { name: 'Scarf' })
-    const hands = screen.getByRole('button', { name: 'Hands' })
-    await user.click(scarf)
-    await user.click(hands)
-    await waitFor(() => expect(stored().accessoryIds).toEqual(['scarf', 'hands']))
-  })
-
-  it('exposes the customise tabs as an accessible tablist', async () => {
-    await renderPage()
-    const tabs = within(screen.getByRole('tablist')).getAllByRole('tab')
-    expect(tabs.map((tab) => tab.textContent)).toEqual(['Feeling', 'Body', 'Face', 'Extras'])
-    expect(tabs[0].getAttribute('aria-selected')).toBe('true')
-    expect(screen.getByRole('tabpanel').getAttribute('aria-labelledby')).toBe('avatar-tab-feeling')
+  it('ignores a stored hat that no longer exists', () => {
+    window.localStorage.setItem('world-hat', 'top-hat')
+    renderPage()
+    expect(character().getAttribute('aria-label')).toBe('Your character')
   })
 })

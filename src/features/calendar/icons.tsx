@@ -29,7 +29,7 @@ export const CloseIcon = () => (
 )
 
 export const ListIcon = () => (
-  <Icon size={16}>
+  <Icon size={20}>
     <path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01" strokeWidth="2.4" />
   </Icon>
 )
@@ -42,14 +42,14 @@ export const ClockIcon = () => (
 )
 
 export const EditIcon = () => (
-  <Icon size={22}>
+  <Icon size={24}>
     <path d="M11 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-5" />
     <path d="M18.4 3.6a1.9 1.9 0 0 1 2.7 2.7L12 15.4 8 16l.6-4z" />
   </Icon>
 )
 
 export const PlusIcon = () => (
-  <Icon size={18}>
+  <Icon size={20}>
     <path d="M12 5v14M5 12h14" />
   </Icon>
 )

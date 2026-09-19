@@ -23,7 +23,7 @@ export const BodyLocationStep = ({
       <h2>
         <Trans>Where do you feel it?</Trans>
       </h2>
-      <p>
+      <p className="body-location-step__hint">
         <Trans>Tap the areas on your body. Tap again to remove.</Trans>
       </p>
 

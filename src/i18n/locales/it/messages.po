@@ -13,10 +13,6 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/features/check-in-flow/steps/SummaryStep/SummaryStep.tsx:37
-msgid "{leading} and {last}"
-msgstr "{leading} e {last}"
-
 #: src/features/calendar/CalendarPage.tsx:93
 msgid "+{extraMoodCount} more"
 msgstr "+{extraMoodCount} altre"
@@ -29,7 +25,7 @@ msgstr "💊 Ho preso un antidolorifico"
 msgid "🩸 On period"
 msgstr "🩸 Ciclo in corso"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:45
+#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:47
 msgid "About the intensity scale"
 msgstr "Informazioni sulla scala di intensità"
 
@@ -37,28 +33,32 @@ msgstr "Informazioni sulla scala di intensità"
 msgid "Add new sensation"
 msgstr "Aggiungi una nuova sensazione"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:106
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:96
 msgid "Additional Notes"
 msgstr "Note aggiuntive"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:40
+#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:42
 msgid "Adjust the size as you feel"
 msgstr "Regola la dimensione in base a come ti senti"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:33
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:63
 msgid "Anything else you want to share?"
 msgstr "C’è altro che vuoi condividere?"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:112
-msgid "Anything you want to remember about this…"
-msgstr "Qualcosa che vuoi ricordare su questo…"
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:103
+msgid "Anything you feel like adding…"
+msgstr "Qualcosa che ti va di aggiungere…"
 
 #: src/features/avatar/labels.ts:9
 msgid "Arch"
 msgstr "Arco"
 
+#: src/features/avatar/AvatarPage.tsx:29
+msgid "Avatar"
+msgstr "Avatar"
+
 #: src/features/calendar/DayLogDialog.tsx:52
-#: src/shared/ui/ArrowButton/ArrowButton.tsx:24
+#: src/shared/ui/ArrowButton/ArrowButton.tsx:19
 msgid "Back"
 msgstr "Indietro"
 
@@ -75,25 +75,29 @@ msgstr "Torna alle parole"
 msgid "Bean"
 msgstr "Fagiolo"
 
+#: src/entities/avatar/hatCatalog.ts:18
+msgid "Beanie"
+msgstr "Berretto di lana"
+
+#: src/entities/avatar/hatCatalog.ts:20
+msgid "Beret"
+msgstr "Basco"
+
 #: src/features/avatar/labels.ts:38
 msgid "Blush"
 msgstr "Rossore"
 
-#: src/features/avatar/AvatarPage.tsx:16
-msgid "Body"
-msgstr "Corpo"
+#: src/features/word-field/BodyWordCards.tsx:46
+msgid "Bodily Signals"
+msgstr "Segnali del corpo"
 
 #: src/features/avatar/panels.tsx:89
 msgid "Body colour"
 msgstr "Colore del corpo"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:17
+#: src/features/check-in-flow/CheckInFlow.tsx:18
 msgid "Body Map"
 msgstr "Mappa del corpo"
-
-#: src/features/word-field/BodyWordCards.tsx:46
-msgid "Body sensations"
-msgstr "Sensazioni del corpo"
 
 #: src/features/check-in-flow/steps/BodyLocationStep/FemaleBodyBack.tsx:59
 msgid "Body, back view"
@@ -107,15 +111,23 @@ msgstr "Corpo, vista frontale"
 msgid "Bow"
 msgstr "Fiocco"
 
+#: src/entities/avatar/hatCatalog.ts:17
+msgid "Bucket hat"
+msgstr "Cappello a secchiello"
+
 #: src/features/avatar/labels.ts:26
 msgid "Calm"
 msgstr "Calma"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:60
+#: src/entities/avatar/hatCatalog.ts:19
+msgid "Cap"
+msgstr "Cappellino"
+
+#: src/features/check-in-flow/CheckInFlow.tsx:67
 msgid "Check in: {wordName}"
 msgstr "Check-in: {wordName}"
 
-#: src/features/settings/SettingsPage.tsx:111
+#: src/features/settings/SettingsPage.tsx:76
 msgid "Choose “Add to Home Screen”."
 msgstr "Scegli “Aggiungi alla schermata Home”."
 
@@ -140,7 +152,7 @@ msgstr "Continua"
 msgid "Coral"
 msgstr "Corallo"
 
-#: src/features/settings/SettingsPage.tsx:79
+#: src/features/settings/LanguagePicker.tsx:41
 msgid "Couldn't load this language. Check your connection and try again."
 msgstr "Impossibile caricare questa lingua. Controlla la connessione e riprova."
 
@@ -148,15 +160,15 @@ msgstr "Impossibile caricare questa lingua. Controlla la connessione e riprova."
 msgid "Crown"
 msgstr "Corona"
 
-#: src/features/avatar/AvatarPage.tsx:52
+#: src/features/avatar/AvatarPage.tsx:44
 msgid "Customize"
 msgstr "Personalizza"
 
-#: src/features/settings/SettingsPage.tsx:21
+#: src/features/settings/SettingsPage.tsx:18
 msgid "Dark"
 msgstr "Scuro"
 
-#: src/features/calendar/DayLogDialog.tsx:122
+#: src/features/calendar/DayLogDialog.tsx:123
 msgid "Delete"
 msgstr "Elimina"
 
@@ -164,47 +176,24 @@ msgstr "Elimina"
 msgid "Delete this check-in?"
 msgstr "Eliminare questo check-in?"
 
-#: src/features/calendar/DayLogDialog.tsx:98
+#: src/features/calendar/DayLogDialog.tsx:99
 msgid "Edit {wordName}"
 msgstr "Modifica {wordName}"
 
-#: src/features/calendar/DayLogDialog.tsx:98
+#: src/features/calendar/DayLogDialog.tsx:99
 msgid "Edit check-in"
 msgstr "Modifica check-in"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:37
-msgid "Energy"
-msgstr "Energia"
-
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:48
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:68
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:75
 msgid "Energy level"
 msgstr "Livello di energia"
-
-#: src/features/avatar/AvatarPage.tsx:18
-msgid "Extras"
-msgstr "Extra"
-
-#: src/features/avatar/AvatarPage.tsx:17
-msgid "Face"
-msgstr "Viso"
-
-#: src/features/avatar/AvatarPage.tsx:15
-msgid "Feeling"
-msgstr "Sensazione"
-
-#: src/features/avatar/AvatarPage.tsx:46
-msgid "Feeling {feelingName}"
-msgstr "Sensazione: {feelingName}"
-
-#: src/features/check-in-flow/steps/SummaryStep/SummaryStep.tsx:62
-msgid "Felt in {zonesText}."
-msgstr "Zone interessate: {zonesText}."
 
 #: src/features/avatar/labels.ts:36
 msgid "Flower"
 msgstr "Fiore"
 
-#: src/shared/ui/ArrowButton/ArrowButton.tsx:24
+#: src/shared/ui/ArrowButton/ArrowButton.tsx:19
 msgid "Forward"
 msgstr "Avanti"
 
@@ -214,8 +203,8 @@ msgid "Front"
 msgstr "Davanti"
 
 #. Friendly name the greeting uses until the user enters their own
-#: src/features/settings/SettingsPage.tsx:56
-#: src/shared/ui/Greeting/Greeting.tsx:12
+#: src/features/settings/SettingsPage.tsx:42
+#: src/shared/ui/Greeting/Greeting.tsx:13
 msgid "Girl"
 msgstr "Ragazza"
 
@@ -223,15 +212,7 @@ msgstr "Ragazza"
 msgid "Glasses"
 msgstr "Occhiali"
 
-#: src/shared/ui/Greeting/Greeting.tsx:19
-msgid "Good morning,"
-msgstr "Buongiorno,"
-
-#: src/shared/ui/Greeting/Greeting.tsx:31
-msgid "Good morning, {displayName}"
-msgstr "Buongiorno, {displayName}"
-
-#: src/features/check-in-flow/IntensityScaleDialog.tsx:84
+#: src/features/check-in-flow/IntensityScaleDialog.tsx:97
 msgid "Got it"
 msgstr "Ho capito"
 
@@ -243,19 +224,39 @@ msgstr "Mani"
 msgid "Happy"
 msgstr "Felice"
 
+#: src/features/avatar/AccessoryPicker.tsx:60
+msgid "Hat"
+msgstr "Cappello"
+
+#: src/features/avatar/AccessoryPicker.tsx:82
+msgid "Hats"
+msgstr "Cappelli"
+
 #: src/features/check-in-flow/steps/BodyLocationStep/useRegionLabel.ts:10
 msgid "Head & neck"
 msgstr "Testa e collo"
 
-#: src/shared/ui/TabBar/TabBar.tsx:50
+#: src/shared/ui/Greeting/Greeting.tsx:22
+msgid "Hi,"
+msgstr "Ciao,"
+
+#: src/shared/ui/Greeting/Greeting.tsx:34
+msgid "Hi, {displayName}"
+msgstr "Ciao, {displayName}"
+
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:82
+msgid "High"
+msgstr "Alta"
+
+#: src/shared/ui/TabBar/TabBar.tsx:49
 msgid "Home"
 msgstr "Home"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:74
+#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:78
 msgid "How big is it"
 msgstr "Quanto è grande"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:37
+#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:39
 msgid "How intense is it?"
 msgstr "Quanto è intenso?"
 
@@ -268,25 +269,24 @@ msgstr "Come si sente oggi il tuo corpo?"
 msgid "How is your journey?"
 msgstr "Com’è il tuo percorso?"
 
-#: src/features/settings/SettingsPage.tsx:93
-#: src/features/settings/SettingsPage.tsx:102
+#: src/features/settings/SettingsPage.tsx:58
+#: src/features/settings/SettingsPage.tsx:67
 msgid "Install app"
 msgstr "Installa l’app"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:18
+#: src/features/check-in-flow/CheckInFlow.tsx:19
 msgid "Intensity"
 msgstr "Intensità"
 
 #: src/features/check-in-flow/IntensityScaleDialog.tsx:51
-#: src/features/check-in-flow/steps/SummaryStep/SummaryStep.tsx:66
 msgid "Intensity scale"
 msgstr "Scala di intensità"
 
-#: src/shared/ui/TabBar/TabBar.tsx:51
+#: src/shared/ui/TabBar/TabBar.tsx:50
 msgid "Journal"
 msgstr "Diario"
 
-#: src/features/settings/SettingsPage.tsx:63
+#: src/features/settings/LanguagePicker.tsx:25
 msgid "Language"
 msgstr "Lingua"
 
@@ -294,7 +294,7 @@ msgstr "Lingua"
 msgid "Lavender"
 msgstr "Lavanda"
 
-#: src/features/settings/SettingsPage.tsx:20
+#: src/features/settings/SettingsPage.tsx:17
 msgid "Light"
 msgstr "Chiaro"
 
@@ -306,25 +306,33 @@ msgstr "Lime"
 msgid "Loading…"
 msgstr "Caricamento…"
 
-#: src/features/calendar/DayLogDialog.tsx:137
+#: src/features/calendar/DayLogDialog.tsx:138
 msgid "Log a sensation"
 msgstr "Registra una sensazione"
 
-#: src/features/calendar/DayLogDialog.tsx:137
+#: src/features/calendar/DayLogDialog.tsx:138
 msgid "Log another sensation"
 msgstr "Registra un’altra sensazione"
 
-#: src/features/calendar/DayLogDialog.tsx:82
+#: src/features/calendar/DayLogDialog.tsx:83
 msgid "Logged sensations ({count})"
 msgstr "Sensazioni registrate ({count})"
+
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:79
+msgid "Low"
+msgstr "Bassa"
+
+#: src/features/avatar/AccessoryPicker.tsx:61
+msgid "Necklace"
+msgstr "Collana"
 
 #: src/features/check-in/CheckIn.tsx:27
 msgid "New sticker unlocked!"
 msgstr "Nuovo sticker sbloccato!"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:113
-#: src/features/check-in-flow/CheckInFlow.tsx:118
-#: src/features/check-in-flow/CheckInFlow.tsx:123
+#: src/features/check-in-flow/CheckInFlow.tsx:114
+#: src/features/check-in-flow/CheckInFlow.tsx:119
+#: src/features/check-in-flow/CheckInFlow.tsx:124
 msgid "Next"
 msgstr "Avanti"
 
@@ -332,20 +340,19 @@ msgstr "Avanti"
 msgid "Next month"
 msgstr "Mese successivo"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:79
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:101
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:54
 msgid "No"
 msgstr "No"
 
-#: src/features/calendar/DayLogDialog.tsx:131
+#: src/features/calendar/DayLogDialog.tsx:132
 msgid "No check-ins this day."
 msgstr "Nessun check-in in questo giorno."
 
-#: src/features/check-in-flow/CheckInFlow.tsx:19
+#: src/features/check-in-flow/CheckInFlow.tsx:20
 msgid "Notes"
 msgstr "Note"
 
-#: src/features/settings/SettingsPage.tsx:120
+#: src/features/settings/SettingsPage.tsx:85
 msgid "On iPhone and iPad the app can only be installed from Safari. Open this page in Safari, then tap Share → “Add to Home Screen”."
 msgstr "Su iPhone e iPad l’app si può installare solo da Safari. Apri questa pagina in Safari, poi tocca Condividi → “Aggiungi alla schermata Home”."
 
@@ -353,15 +360,15 @@ msgstr "Su iPhone e iPad l’app si può installare solo da Safari. Apri questa 
 msgid "On period"
 msgstr "Ciclo in corso"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:63
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:87
 msgid "On period that day?"
 msgstr "Avevi il ciclo quel giorno?"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:63
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:87
 msgid "On period today?"
 msgstr "Hai il ciclo oggi?"
 
-#: src/features/settings/SettingsPage.tsx:128
+#: src/features/settings/SettingsPage.tsx:93
 msgid "Open your browser menu and choose “Install app” (or “Add to Dock” in Safari on Mac)."
 msgstr "Apri il menu del browser e scegli “Installa l’app” (o “Aggiungi al Dock” in Safari su Mac)."
 
@@ -377,17 +384,13 @@ msgstr "Rosa"
 msgid "Previous month"
 msgstr "Mese precedente"
 
-#: src/shared/ui/TabBar/TabBar.tsx:59
+#: src/shared/ui/TabBar/TabBar.tsx:58
 msgid "Primary"
 msgstr "Principale"
 
 #: src/features/avatar/labels.ts:21
 msgid "Red"
 msgstr "Rosso"
-
-#: src/features/avatar/AvatarPage.tsx:84
-msgid "Reset character"
-msgstr "Reimposta il personaggio"
 
 #: src/features/avatar/labels.ts:12
 msgid "Round"
@@ -397,11 +400,11 @@ msgstr "Tondo"
 msgid "Sad"
 msgstr "Triste"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:128
+#: src/features/check-in-flow/CheckInFlow.tsx:129
 msgid "Save check-in"
 msgstr "Salva check-in"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:128
+#: src/features/check-in-flow/CheckInFlow.tsx:129
 msgid "Saving…"
 msgstr "Salvataggio…"
 
@@ -409,10 +412,14 @@ msgstr "Salvataggio…"
 msgid "Scarf"
 msgstr "Sciarpa"
 
-#: src/features/settings/SettingsPage.tsx:41
-#: src/shared/ui/TabBar/TabBar.tsx:53
+#: src/features/settings/SettingsPage.tsx:27
+#: src/shared/ui/TabBar/TabBar.tsx:52
 msgid "Settings"
 msgstr "Impostazioni"
+
+#: src/features/avatar/AccessoryPicker.tsx:62
+msgid "Shoes"
+msgstr "Scarpe"
 
 #: src/features/avatar/labels.ts:27
 msgid "Sleepy"
@@ -422,7 +429,7 @@ msgstr "Assonnata"
 msgid "Sparkles"
 msgstr "Scintille"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:14
+#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:16
 msgid "Standing still"
 msgstr "A riposo"
 
@@ -430,7 +437,11 @@ msgstr "A riposo"
 msgid "Start a check-in"
 msgstr "Inizia un check-in"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:20
+#: src/features/avatar/AvatarPage.tsx:33
+msgid "Stickers"
+msgstr "Sticker"
+
+#: src/features/check-in-flow/CheckInFlow.tsx:21
 msgid "Summary"
 msgstr "Riepilogo"
 
@@ -438,7 +449,7 @@ msgstr "Riepilogo"
 msgid "Surprised"
 msgstr "Sorpresa"
 
-#: src/features/settings/SettingsPage.tsx:114
+#: src/features/settings/SettingsPage.tsx:79
 msgid "Tap “Add”."
 msgstr "Tocca “Aggiungi”."
 
@@ -446,7 +457,7 @@ msgstr "Tocca “Aggiungi”."
 msgid "Tap the areas on your body. Tap again to remove."
 msgstr "Tocca le zone del tuo corpo. Tocca di nuovo per rimuovere."
 
-#: src/features/settings/SettingsPage.tsx:108
+#: src/features/settings/SettingsPage.tsx:73
 msgid "Tap the Share button in Safari's toolbar."
 msgstr "Tocca il pulsante Condividi nella barra degli strumenti di Safari."
 
@@ -454,23 +465,23 @@ msgstr "Tocca il pulsante Condividi nella barra degli strumenti di Safari."
 msgid "Teal"
 msgstr "Verde petrolio"
 
-#: src/features/settings/SettingsPage.tsx:97
+#: src/features/settings/SettingsPage.tsx:62
 msgid "The app is installed on this device."
 msgstr "L’app è installata su questo dispositivo."
 
-#: src/features/settings/SettingsPage.tsx:86
+#: src/features/settings/SettingsPage.tsx:51
 msgid "Theme"
 msgstr "Tema"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:84
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:89
 msgid "Took a painkiller that day?"
 msgstr "Hai preso un antidolorifico quel giorno?"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:84
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:89
 msgid "Took a painkiller today?"
 msgstr "Hai preso un antidolorifico oggi?"
 
-#: src/features/calendar/DayLogDialog.tsx:94
+#: src/features/calendar/DayLogDialog.tsx:95
 msgid "Unknown"
 msgstr "Sconosciuta"
 
@@ -478,7 +489,7 @@ msgstr "Sconosciuta"
 msgid "Unknown word."
 msgstr "Parola sconosciuta."
 
-#: src/features/check-in-flow/CheckInFlow.tsx:128
+#: src/features/check-in-flow/CheckInFlow.tsx:129
 msgid "Update check-in"
 msgstr "Aggiorna check-in"
 
@@ -486,19 +497,23 @@ msgstr "Aggiorna check-in"
 msgid "Use my latest feeling: {latestName}"
 msgstr "Usa la mia ultima sensazione: {latestName}"
 
-#: src/features/check-in-flow/steps/SummaryStep/SummaryStep.tsx:74
+#: src/features/check-in-flow/steps/SummaryStep/SummaryStep.tsx:33
 msgid "What can help right now?"
 msgstr "Cosa può aiutare adesso?"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:78
+#: src/features/avatar/AvatarPage.tsx:24
+msgid "What’s new?"
+msgstr "Cosa c’è di nuovo?"
+
+#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:83
 msgid "When do you notice it?"
 msgstr "Quando la noti?"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:12
+#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:14
 msgid "When I move it"
 msgstr "Quando muovo la zona"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:13
+#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:15
 msgid "When I press it"
 msgstr "Quando premo sulla zona"
 
@@ -506,20 +521,28 @@ msgstr "Quando premo sulla zona"
 msgid "Where do you feel it?"
 msgstr "Dove la senti?"
 
+#: src/entities/avatar/hatCatalog.ts:21
+msgid "Wide-brim hat"
+msgstr "Cappello a tesa larga"
+
 #: src/features/avatar/labels.ts:29
 msgid "Wink"
 msgstr "Occhiolino"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:71
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:93
+#: src/shared/ui/TabBar/TabBar.tsx:51
+msgid "World"
+msgstr "Mondo"
+
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:46
 msgid "Yes"
 msgstr "Sì"
 
-#: src/features/check-in-flow/steps/SummaryStep/SummaryStep.tsx:56
-msgid "Your body says…"
-msgstr "Il tuo corpo dice…"
+#: src/features/avatar/WorldCharacter.tsx:36
+msgid "Your character"
+msgstr "Il tuo personaggio"
 
 #: src/features/avatar/AvatarCharacter.tsx:36
+#: src/features/avatar/WorldCharacter.tsx:33
 msgid "Your character, feeling {word}"
 msgstr "Il tuo personaggio, sensazione: {word}"
 
@@ -527,6 +550,14 @@ msgstr "Il tuo personaggio, sensazione: {word}"
 msgid "Your character, feeling {word}, wearing {worn}"
 msgstr "Il tuo personaggio, sensazione: {word}, con {worn}"
 
-#: src/features/settings/SettingsPage.tsx:47
+#: src/features/avatar/WorldCharacter.tsx:31
+msgid "Your character, feeling {word}, wearing a {hat}"
+msgstr "Il tuo personaggio, sensazione: {word}, con {hat}"
+
+#: src/features/avatar/WorldCharacter.tsx:35
+msgid "Your character, wearing a {hat}"
+msgstr "Il tuo personaggio, con {hat}"
+
+#: src/features/settings/SettingsPage.tsx:33
 msgid "Your name"
 msgstr "Il tuo nome"

@@ -79,6 +79,26 @@
   animation-delay: var(--float-delay, 0s), var(--float-delay, 0s);
 }
 
+/* Weightless words (light) lift a little and settle back. Uses the individual
+   `translate` property so it stacks with the drift's `transform`. The percentage
+   scales with --float-scale like the drift, so it's visible in ~100px phone cells. */
+@keyframes rise-lift {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 calc(-3% * var(--float-scale, 1));
+  }
+}
+
+.word-shape--rise {
+  animation:
+    shape-drift var(--float-dur, 6s) ease-in-out infinite,
+    rise-lift 4.5s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s), var(--float-delay, 0s);
+}
+
 /* Spiky words (sharp/stabbing/tingling) breathe between their full jagged
    silhouette and their own calm near-circle — the points visibly draw in and
    jab back out, on top of a wider drift range. Reuses the same calm/full paths
@@ -212,7 +232,8 @@
   .word-shape,
   .word-shape--pulse,
   .word-shape--spike,
-  .word-shape--jitter {
+  .word-shape--jitter,
+  .word-shape--rise {
     --float-amp: 1;
     --float-amp-boost: 1;
     --float-scale: 1.5;

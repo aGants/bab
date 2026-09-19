@@ -21,10 +21,6 @@
   font-weight: 400;
 }
 
-.word-detail-title {
-  color: var(--color-ink);
-}
-
 .word-cards-section-label {
   margin: 12px 20px;
   color: var(--color-ink);
@@ -115,92 +111,57 @@
   text-decoration: underline;
 }
 
+/* Floats as its own card above the tab bar, inside the page's 20px gutters. */
 .word-detail {
-  /* floats as its own card above the tab bar, with side gutters, rather than
-     a full-bleed sheet docked to the screen edge */
   position: absolute;
-  left: 16px;
-  right: 16px;
+  left: 20px;
+  right: 20px;
   bottom: calc(var(--tab-bar-height) + 12px);
   z-index: 3;
   max-height: 62%;
   overflow-y: auto;
+  box-sizing: border-box;
+  min-height: 184px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  border: 1px solid var(--color-surface-raised);
+  border-radius: 12px;
   background: var(--color-surface-raised);
-  border-radius: 20px;
-  padding: 20px 20px 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 2px 2px rgb(0 0 0 / 15%);
 }
 
 .word-detail-close {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  /* above the skewed title, whose transform would otherwise paint over
-     (and swallow taps on) the middle of the button */
+  top: 8px;
+  right: 8px;
   z-index: 1;
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   padding: 0;
   display: grid;
   place-items: center;
   border-radius: 999px;
   border: none;
-  background: var(--color-overlay);
-  color: var(--color-ink);
-  cursor: pointer;
-}
-
-.word-detail-shape {
-  position: relative;
-  width: 72px;
-  height: 72px;
-  margin-bottom: 8px;
-}
-
-.word-detail-shape .word-shape {
-  position: static;
-}
-
-.word-detail-pill {
-  display: inline-block;
-  margin-bottom: 10px;
-  padding: 4px 12px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--color-signals) 30%, var(--color-surface-raised));
-  color: var(--color-ink);
+  background: transparent;
+  color: var(--color-ink-muted);
   font-size: 12px;
-  font-weight: 700;
-}
-
-.word-detail-title {
-  display: block;
-  margin-bottom: 12px;
-  padding-right: 40px;
-  font-size: 32px;
-  font-family: var(--font-display);
-  font-weight: var(--display-weight);
-  font-style: var(--display-style);
-  letter-spacing: var(--display-tracking);
-  transform: skewX(var(--display-skew));
+  cursor: pointer;
 }
 
 .word-detail-body {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 13px;
 }
 
 .word-detail-text {
+  display: flex;
   flex: 1;
+  flex-direction: column;
+  gap: 12px;
   min-width: 0;
-}
-
-.word-detail-cue,
-.word-detail-feels {
-  margin: 0;
-  color: var(--color-ink);
-  line-height: 1.5;
-  font-size: 15px;
 }
 
 /* the "Notice …" cue reads as a label pill: tinted fill, leading dot, dotted
@@ -212,7 +173,7 @@
   gap: 8px;
   width: fit-content;
   max-width: 100%;
-  margin: 0 0 12px;
+  margin: 0;
   padding: 7px 14px;
   border-radius: 18px;
   background: color-mix(in srgb, var(--tagline-color) 12%, var(--color-surface-raised));
@@ -238,8 +199,27 @@
   --tagline-color: var(--color-energy);
 }
 
-.word-detail-cue {
-  margin-bottom: 10px;
+.word-detail-title {
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-transform: capitalize;
+}
+
+.word-detail-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.word-detail-copy p {
+  margin: 0;
 }
 
 .word-detail-check-in {
@@ -247,11 +227,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border-radius: 999px;
   background: var(--color-energy);
-  color: var(--color-ink);
-  font-size: 20px;
+  /* --color-ink flips in dark mode, but the yellow fill doesn't */
+  color: var(--color-ink-on-light);
+  box-shadow: 0 2px 2px rgb(0 0 0 / 15%);
   text-decoration: none;
 }

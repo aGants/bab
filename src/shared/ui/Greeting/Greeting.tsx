@@ -1,7 +1,8 @@
 import { Trans, useLingui } from '@lingui/react/macro'
+import { HeadMascot } from '@/entities/avatar/Head'
+import { useHeadWord } from '@/entities/avatar/headWord'
+import { useWornHat } from '@/entities/avatar/wornHat'
 import { useUserProfile } from '@/entities/user-profile/useUserProfile'
-import cloud from './assets/cloud.svg'
-import cloudSmall from './assets/cloud-small.svg'
 import './Greeting.css'
 
 export const Greeting = ({ welcome = false }: { welcome?: boolean }) => {
@@ -10,17 +11,19 @@ export const Greeting = ({ welcome = false }: { welcome?: boolean }) => {
   const displayName =
     name.trim() ||
     t({ message: 'Girl', comment: 'Friendly name the greeting uses until the user enters their own' })
+  const { hatId } = useWornHat()
+  const { headWordId } = useHeadWord()
 
   if (welcome) {
     return (
       <div className="app-greeting app-greeting--welcome">
         <div className="app-greeting-copy">
           <p className="app-greeting-hello">
-            <Trans>Good morning,</Trans>
+            <Trans>Hi,</Trans>
           </p>
           <p className="app-greeting-name">{displayName}</p>
         </div>
-        <img className="app-greeting-cloud" src={cloud} width={68} height={43} alt="" aria-hidden="true" />
+        <HeadMascot className="app-greeting-cloud" hatId={hatId} wordId={headWordId} width={68} height={43} />
       </div>
     )
   }
@@ -28,9 +31,9 @@ export const Greeting = ({ welcome = false }: { welcome?: boolean }) => {
   return (
     <div className="app-greeting">
       <p className="app-greeting-text">
-        <Trans>Good morning, {displayName}</Trans>
+        <Trans>Hi, {displayName}</Trans>
       </p>
-      <img className="app-greeting-cloud" src={cloudSmall} width={39} height={24.529} alt="" aria-hidden="true" />
+      <HeadMascot className="app-greeting-cloud" hatId={hatId} wordId={headWordId} width={39} height={24.529} />
     </div>
   )
 }

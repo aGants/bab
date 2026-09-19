@@ -17,6 +17,7 @@
   --color-surface: var(--color-ground);
   --color-surface-raised: color-mix(in srgb, var(--color-ground) 96%, black);
   --color-overlay: rgb(0 0 0 / 8%);
+  --color-border: #e8e2da;
 
   /* Text on the fixed light fills (cycle lavender, pale signals pink): those
      fills don't change with the theme, so the text on them must not either. */
@@ -68,4 +69,5 @@
   --color-surface: color-mix(in srgb, var(--color-ground) 8%, black);
   --color-surface-raised: color-mix(in srgb, var(--color-ground) 14%, black);
   --color-overlay: rgb(255 255 255 / 12%);
+  --color-border: rgb(255 255 255 / 14%);
 }

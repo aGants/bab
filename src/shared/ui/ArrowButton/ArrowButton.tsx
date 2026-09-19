@@ -4,11 +4,6 @@ import './ArrowButton.css'
 
 type Direction = 'left' | 'right'
 
-const ARROW_GLYPH: Record<Direction, string> = {
-  left: '←',
-  right: '→',
-}
-
 export const ArrowButton = ({
   direction,
   'aria-label': ariaLabel,
@@ -24,7 +19,20 @@ export const ArrowButton = ({
       aria-label={ariaLabel ?? (direction === 'left' ? t`Back` : t`Forward`)}
       {...props}
     >
-      {ARROW_GLYPH[direction]}
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+        style={direction === 'right' ? { transform: 'scaleX(-1)' } : undefined}
+      >
+        <path d="M19 12H5M12 5L5 12L12 19" />
+      </svg>
     </button>
   )
 }

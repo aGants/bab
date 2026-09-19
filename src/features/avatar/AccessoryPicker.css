@@ -1,0 +1,78 @@
+/* lime tints of the fixed energy colour: same in both themes, like the fill they come from */
+.accessory-picker {
+  --accessory-lime: color-mix(in srgb, var(--color-energy) 62%, white);
+  --accessory-lime-soft: color-mix(in srgb, var(--color-energy) 30%, white);
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px;
+}
+
+.accessory-picker__categories {
+  display: flex;
+  gap: 8px;
+}
+
+.accessory-picker__category {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  border: none;
+  border-radius: 999px;
+  background: var(--color-surface-raised);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.accessory-picker__category--active {
+  background: var(--accessory-lime);
+  color: var(--color-ink-on-light);
+}
+
+/* not built yet: dimmed so it reads as unavailable */
+.accessory-picker__category:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.accessory-picker__items {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.accessory-picker__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 72px;
+  padding: 2px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: var(--color-surface-raised);
+  cursor: pointer;
+}
+
+.accessory-picker__item svg {
+  width: 100%;
+  height: 100%;
+}
+
+.accessory-picker__item--selected {
+  border-color: var(--accessory-lime);
+  background: var(--accessory-lime-soft);
+}
+
+.accessory-picker__category:focus-visible,
+.accessory-picker__item:focus-visible {
+  outline: 2px solid var(--color-anchor);
+  outline-offset: 2px;
+}

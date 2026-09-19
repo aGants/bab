@@ -411,9 +411,14 @@ const SPIKE_WORDS = new Set(['sharp', 'stabbing', 'tingling'])
  * touch wider so it reads as wobbly rather than calm. */
 const JITTER_WORDS = new Set(['shaky', 'dizzy', 'unstable'])
 
-export const motifFor = (id: string): 'pulse' | 'spike' | 'jitter' | 'drift' => {
+/** Words describing something weightless — the shape keeps its calm drift and
+ * also lifts a little, rising and settling back on a loop. */
+const RISE_WORDS = new Set(['light'])
+
+export const motifFor = (id: string): 'pulse' | 'spike' | 'jitter' | 'rise' | 'drift' => {
   if (PULSE_WORDS.has(id)) return 'pulse'
   if (SPIKE_WORDS.has(id)) return 'spike'
   if (JITTER_WORDS.has(id)) return 'jitter'
+  if (RISE_WORDS.has(id)) return 'rise'
   return 'drift'
 }

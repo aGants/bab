@@ -16,11 +16,11 @@ import { useCalendarMonthData } from './useCalendarMonthData'
 import './CalendarPage.css'
 
 const MonthChevron = ({ direction }: { direction: 'left' | 'right' }) => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
     <path
-      d={direction === 'left' ? 'M12.5 4.5 7 10l5.5 5.5' : 'M7.5 4.5 13 10l-5.5 5.5'}
+      d={direction === 'left' ? 'M15 18 9 12l6-6' : 'M9 6l6 6-6 6'}
       stroke="currentColor"
-      strokeWidth="1.8"
+      strokeWidth="1.75"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
@@ -111,7 +111,7 @@ export const CalendarPage = () => {
       <Greeting />
       <div className="calendar-wrapper">
         <div className="calendar-header">
-          <h1 className="text-display calendar-title">
+          <h1 className="calendar-title">
             <Trans>How is your journey?</Trans>
           </h1>
         </div>

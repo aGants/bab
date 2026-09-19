@@ -3,10 +3,12 @@
     flex-direction: column;
     flex: 1;
     min-height: 0;
-    padding: var(--padding);
-    padding-top: var(--gap-after-greeting);
-    padding-bottom: 0;
     box-sizing: border-box;
+}
+
+.check-in-flow > .check-in-step-header {
+    /* the header pill sits inside the flow's 20px gutters */
+    margin: 16px 20px 12px;
 }
 
 .check-in-flow-content {
@@ -16,7 +18,7 @@
     flex: 1;
     min-height: 0;
     overflow-y: auto;
-    padding-bottom: var(--padding);
+    padding: 12px 20px 24px;
     /* Lets a step's own row spacing (see .intensity-step / .notes-step) query
        this box's real, laid-out height via cqh — unlike vh/dvh, that stays
        correct even when this sits inside the shorter, capped phone-frame the
@@ -30,14 +32,18 @@
    tap target isn't affected by that box's size containment. */
 .check-in-flow-footer {
     flex-shrink: 0;
-    padding-bottom: var(--padding);
+    padding: 0 20px 24px;
 }
 
+/* Step prompt: the large display heading shared by every flow step. */
 .check-in-flow-content h2 {
+    margin: 0;
     font-family: var(--font-display);
     font-style: normal;
-    font-weight: 800;
-    font-size: 19px;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 36px;
+    letter-spacing: -0.64px;
+    text-align: left;
+    color: var(--color-ink);
 }
