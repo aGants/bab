@@ -13,7 +13,7 @@ export const SummaryStep = ({ word }: { word: WordCard }) => {
   return (
     <div className="summary-step">
       <div className="summary-step__hero">
-        <WorldCharacter headWordId={word.id} hatId={hatId} animated className="summary-step__character" />
+        <WorldCharacter headWordId={word.id} hatId={hatId} className="summary-step__character" />
       </div>
 
       <div className="summary-step__intro">
