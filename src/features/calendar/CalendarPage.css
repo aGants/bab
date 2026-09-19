@@ -159,6 +159,8 @@
 .calendar-day-mood .word-shape--spike,
 .calendar-day-mood .word-shape--jitter,
 .calendar-day-mood .word-shape--rise,
+.calendar-day-mood .word-shape--heat,
+.calendar-day-mood .word-shape--heat .word-shape-path,
 .calendar-day-mood .word-shape--spike .word-shape-path {
   animation: none;
 }

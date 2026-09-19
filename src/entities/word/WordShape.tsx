@@ -8,6 +8,7 @@ const MOTIF_CLASS: Record<ReturnType<typeof motifFor>, string> = {
   spike: ' word-shape--spike',
   jitter: ' word-shape--jitter',
   rise: ' word-shape--rise',
+  heat: ' word-shape--heat',
   drift: '',
 }
 

@@ -440,8 +440,13 @@ const JITTER_WORDS = new Set(['shaky', 'dizzy', 'unstable'])
  * also lifts a little, rising and settling back on a loop. */
 const RISE_WORDS = new Set(['light'])
 
-export const motifFor = (id: string): 'pulse' | 'spike' | 'jitter' | 'rise' | 'drift' => {
+/** Words describing heat — the shape keeps its outline but throbs, rises like
+ * warm air and glows on a loop, so it seems to burn. */
+const HEAT_WORDS = new Set(['hot'])
+
+export const motifFor = (id: string): 'pulse' | 'spike' | 'jitter' | 'rise' | 'heat' | 'drift' => {
   if (PULSE_WORDS.has(id)) return 'pulse'
+  if (HEAT_WORDS.has(id)) return 'heat'
   if (SPIKE_WORDS.has(id)) return 'spike'
   if (JITTER_WORDS.has(id)) return 'jitter'
   if (RISE_WORDS.has(id)) return 'rise'

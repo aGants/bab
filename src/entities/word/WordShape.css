@@ -145,6 +145,55 @@
   }
 }
 
+/* Hot words burn: the shape throbs in a double beat (a pulse racing), stretching
+   upward and lifting like warm air, while a red glow flares and fades in step with
+   it. The outline itself stays put. Uses the individual `scale` / `translate`
+   properties so they stack with the drift's `transform`; the lift scales with
+   --float-scale like the drift so it shows in ~100px phone cells. */
+@keyframes heat-throb {
+  0%,
+  30%,
+  100% {
+    scale: 1 1;
+    translate: 0 0;
+  }
+  12% {
+    scale: 1.06 1.11;
+    translate: 0 calc(-2% * var(--float-scale, 1));
+  }
+  42% {
+    scale: 0.98 1.06;
+    translate: 0 calc(-1% * var(--float-scale, 1));
+  }
+}
+
+@keyframes heat-glow {
+  0%,
+  30%,
+  100% {
+    filter: brightness(1) drop-shadow(0 0 0 rgb(254 42 59 / 0));
+  }
+  12% {
+    filter: brightness(1.25) drop-shadow(0 0 4px rgb(254 42 59 / 0.85));
+  }
+  42% {
+    filter: brightness(1.12) drop-shadow(0 0 2px rgb(254 42 59 / 0.5));
+  }
+}
+
+.word-shape--heat {
+  --float-amp: 1.4;
+  animation:
+    shape-drift var(--float-dur, 6s) ease-in-out infinite,
+    heat-throb 1.8s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s), var(--float-delay, 0s);
+}
+
+.word-shape--heat .word-shape-path {
+  animation: heat-glow 1.8s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+}
+
 /* Wobbly/erratic words (shaky, dizzy, unstable) get their own keyframes with
    irregular, asymmetric offsets instead of the calm drift's even back-and-forth
    — still eased smoothly between points, just quicker and less predictable,
@@ -233,7 +282,8 @@
   .word-shape--pulse,
   .word-shape--spike,
   .word-shape--jitter,
-  .word-shape--rise {
+  .word-shape--rise,
+  .word-shape--heat {
     --float-amp: 1;
     --float-amp-boost: 1;
     --float-scale: 1.5;
@@ -241,7 +291,8 @@
     animation-delay: var(--float-delay, 0s);
   }
 
-  .word-shape--spike .word-shape-path {
+  .word-shape--spike .word-shape-path,
+  .word-shape--heat .word-shape-path {
     animation: none;
   }
 }

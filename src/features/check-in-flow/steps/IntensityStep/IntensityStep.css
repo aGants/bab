@@ -94,10 +94,11 @@
     --float-amp-boost: 4;
 }
 
-/* Jittery and spiky words already move a lot on their own (wider amp plus a
+/* Jittery, spiky and hot words already move a lot on their own (wider amp plus a
    faster or morphing loop), so they keep the gentler boost. */
 .intensity-step__shape .word-shape--jitter,
-.intensity-step__shape .word-shape--spike {
+.intensity-step__shape .word-shape--spike,
+.intensity-step__shape .word-shape--heat {
     --float-amp-boost: 1.8;
 }
 
