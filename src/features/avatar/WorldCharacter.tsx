@@ -13,11 +13,14 @@ export const WorldCharacter = ({
   hatId = null,
   headWordId,
   animated = false,
+  hatEntrance = false,
   className,
 }: {
   hatId?: HatId | null
   headWordId?: string
   animated?: boolean
+  /** the hat drops on with a little bounce each time it changes */
+  hatEntrance?: boolean
   className?: string
 }) => {
   const { t, i18n } = useLingui()
@@ -49,7 +52,7 @@ export const WorldCharacter = ({
         />
         <rect fill="#FF383C" x="9.79467" y="122.432" width="180.967" height="107.974" rx="45" />
 
-        <Head wordId={headCard?.id} hatId={hatId} />
+        <Head wordId={headCard?.id} hatId={hatId} hatClassName={hatEntrance ? 'avatar-hat-enter' : undefined} />
 
         {/* hands on the chest */}
         <g fill="none" stroke="#000" strokeWidth="2.03165">

@@ -120,6 +120,16 @@ describe('AvatarPage', () => {
     }
   })
 
+  it('drops a hat on with an animation only once one is picked, not for an already saved hat', async () => {
+    const user = userEvent.setup()
+    window.localStorage.setItem('world-hat', 'cap')
+    const { container } = renderPage()
+    expect(container.querySelector('.avatar-hat-enter')).toBeNull()
+
+    await user.click(screen.getByRole('button', { name: 'Beret' }))
+    expect(container.querySelector('.avatar-hat-enter')).toBeTruthy()
+  })
+
   it('swaps one hat for another', async () => {
     const user = userEvent.setup()
     renderPage()

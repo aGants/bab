@@ -25,8 +25,11 @@ export const AvatarPage = () => {
     const timer = window.setTimeout(() => setJustSaved(false), SAVED_FEEDBACK_MS)
     return () => window.clearTimeout(timer)
   }, [justSaved])
+  // a hat already saved shouldn't drop in again on opening the page
+  const [triedOn, setTriedOn] = useState(false)
   const toggleDraftHat = (id: HatId) => {
     setJustSaved(false)
+    setTriedOn(true)
     setDraftHatId((current) => (current === id ? null : id))
   }
   const save = () => {
@@ -52,7 +55,7 @@ export const AvatarPage = () => {
         </div>
 
         <div className={justSaved ? 'avatar-page__stage avatar-page__stage--saved' : 'avatar-page__stage'}>
-          <WorldCharacter hatId={draftHatId} headWordId={headWordId ?? undefined} animated className="avatar-page__character" />
+          <WorldCharacter hatId={draftHatId} headWordId={headWordId ?? undefined} animated hatEntrance={triedOn} className="avatar-page__character" />
         </div>
 
         <AccessoryPicker hatId={draftHatId} onToggleHat={toggleDraftHat} />

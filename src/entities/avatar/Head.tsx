@@ -48,13 +48,27 @@ const wordHeadLayout = (wordId: string) => {
 
 /** The character's head on its canvas: the cloud, or the shape of the feeling
  * `wordId` (an unknown word is the cloud too), with the face and the hat on it.
- * Pass the hat here so it sits right on whichever head is worn. */
-export const Head = ({ wordId, hatId }: { wordId?: string | null; hatId?: HatId | null }) => {
+ * Pass the hat here so it sits right on whichever head is worn. `hatClassName`
+ * goes on a group around the hat, keyed by hat so a swap remounts it (that's
+ * what lets a CSS animation replay when another hat goes on). */
+export const Head = ({
+  wordId,
+  hatId,
+  hatClassName,
+}: {
+  wordId?: string | null
+  hatId?: HatId | null
+  hatClassName?: string
+}) => {
   if (!isWordId(wordId)) {
     return (
       <>
         <CloudHead />
-        {hatId && <HeadHat id={hatId} />}
+        {hatId && (
+          <g key={hatId} className={hatClassName}>
+            <HeadHat id={hatId} />
+          </g>
+        )}
       </>
     )
   }
@@ -65,7 +79,11 @@ export const Head = ({ wordId, hatId }: { wordId?: string | null; hatId?: HatId 
       <g transform={faceTransform}>
         <HeadFace cheeks={false} />
       </g>
-      {hatId && <WornHat id={hatId} {...hat} />}
+      {hatId && (
+        <g key={hatId} className={hatClassName}>
+          <WornHat id={hatId} {...hat} />
+        </g>
+      )}
     </>
   )
 }
