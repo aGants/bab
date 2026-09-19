@@ -45,3 +45,14 @@
   outline: 2px solid var(--color-anchor);
   outline-offset: 2px;
 }
+
+.settings-hint {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--color-ink-muted);
+}
+
+.settings-steps {
+  padding-left: 20px;
+}

@@ -5,8 +5,12 @@ import './styles/tokens.css'
 import './index.css'
 import { router } from './router.tsx'
 import { applyTheme, getInitialTheme } from './features/theme/theme'
+import { registerServiceWorker } from './features/pwa/registerServiceWorker'
+import { listenForInstallPrompt } from './features/pwa/installPrompt'
 
 applyTheme(getInitialTheme())
+registerServiceWorker()
+listenForInstallPrompt()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
