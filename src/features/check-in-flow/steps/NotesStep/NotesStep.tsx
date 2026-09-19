@@ -100,7 +100,7 @@ export const NotesStep = ({
           className="notes-step__textarea"
           value={note}
           onChange={(event) => onNoteChange(event.target.value)}
-          placeholder={t`Anything you want to remember about this…`}
+          placeholder={t`Anything you feel like adding…`}
         />
       </div>
     </div>
