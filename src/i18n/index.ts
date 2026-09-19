@@ -11,6 +11,13 @@ export {
   wordCardsFor,
 } from './content'
 export { DATE_FNS_LOCALES } from './dateLocale'
-export { DEFAULT_LOCALE, LOCALES, LOCALE_NAMES, isLocale, type Locale } from './locales'
+export {
+  DEFAULT_LOCALE,
+  LANGUAGE_SELECTION_ENABLED,
+  LOCALES,
+  LOCALE_NAMES,
+  isLocale,
+  type Locale,
+} from './locales'
 export type { BodyZoneText, Category, ErrorScreenText, Messages, VasLevel, WordCard, WordText } from './types'
 export { useContent, useLocale } from './useContent'

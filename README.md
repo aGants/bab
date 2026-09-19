@@ -40,6 +40,10 @@ Two kinds of copy, two mechanisms:
 
 A release build (`npm run build`) fails if any language has untranslated UI strings; `npm run dev` and the tests fall back to English.
 
+### Turning languages on
+
+Italian is in the codebase but not yet offered to users. `LANGUAGE_SELECTION_ENABLED` in `src/i18n/locales/index.ts` is `false`, which hides the language picker in Settings and stops the app from picking up the browser's language, so everyone gets English. Set it to `true` when a second language is ready to ship. To try Italian meanwhile, run `localStorage.setItem('locale', 'it')` in the browser console and reload.
+
 ### Adding a language
 
 1. Add the code to `locales` in `lingui.config.ts` and run `npm run i18n:extract`; translate the new `messages.po`.

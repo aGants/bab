@@ -10,6 +10,12 @@ export type Locale = keyof typeof LOCALES
 
 export const DEFAULT_LOCALE: Locale = 'en'
 
+/** Switch for everything that lets a user end up in a language other than English: the
+ * picker in Settings and picking the language up from the browser. Off until a second
+ * language is ready to ship, so everyone keeps getting English. To try another language
+ * meanwhile, run `localStorage.setItem('locale', 'it')` in the browser console. */
+export const LANGUAGE_SELECTION_ENABLED = false
+
 /** Each language's own name, as shown in the language picker. */
 export const LOCALE_NAMES: Record<Locale, string> = {
   en: 'English',

@@ -1,13 +1,15 @@
 import { i18n, type Messages } from '@lingui/core'
 import { safeStorage } from '@/shared/lib/safeStorage'
-import { DEFAULT_LOCALE, isLocale, type Locale } from './locales'
+import { DEFAULT_LOCALE, LANGUAGE_SELECTION_ENABLED, isLocale, type Locale } from './locales'
 
 const STORAGE_KEY = 'locale'
 
-/** The language the app opens in: the one chosen in settings, else the browser's, else the default. */
+/** The language the app opens in: the one chosen in settings, else the browser's, else the default.
+ * The browser's language only counts once language selection is enabled. */
 export const getInitialLocale = (): Locale => {
   const stored = safeStorage.getItem(STORAGE_KEY)
   if (isLocale(stored)) return stored
+  if (!LANGUAGE_SELECTION_ENABLED) return DEFAULT_LOCALE
   const preferred = navigator.languages
     ?.map((tag) => tag.split('-')[0])
     .find((code): code is Locale => isLocale(code))
