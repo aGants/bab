@@ -6,7 +6,7 @@ import { Trans, useLingui } from '@lingui/react/macro'
 import { Link, useSearchParams } from 'react-router-dom'
 import { checkInFlowPath } from '@/routes/paths'
 import { PageFrame } from '@/shared/layout'
-import { Greeting, TabBar } from '@/shared/ui'
+import { TabBar } from '@/shared/ui'
 import { checkInRepository } from '@/entities/check-in/checkInRepository'
 import { useContent } from '@/i18n'
 import './BodyWordCards.css'
@@ -36,14 +36,13 @@ const BodyWordCards = () => {
 
   return (
     <PageFrame>
-      <Greeting />
       <header className="word-cards-header">
         <h1>
           <Trans>How is your body feeling today?</Trans>
         </h1>
       </header>
       <p className="word-cards-section-label">
-        <Trans>Bodily Signals</Trans>
+        <Trans>Body Signals</Trans>
       </p>
 
       <div className={`word-grid-viewport${selected ? ' has-detail' : ''}`} ref={viewportRef}>
