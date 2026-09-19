@@ -7,8 +7,10 @@ import './SummaryStep.css'
 
 /** Shape's footprint at the smallest intensity — scaleForIntensity multiplies this
  * directly (rather than via CSS transform) so the stage actually reserves enough
- * room for the shape at high intensity instead of letting it overflow visually. */
-const SHAPE_BASE_SIZE = 90
+ * room for the shape at high intensity instead of letting it overflow visually.
+ * Bigger than the word-cloud/detail shapes on purpose: this is the summary's
+ * hero visual, so "how big is it" should read at a glance even at max intensity. */
+const SHAPE_BASE_SIZE = 130
 
 const capitalize = (word: string): string => word.charAt(0).toUpperCase() + word.slice(1)
 
