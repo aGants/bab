@@ -99,3 +99,19 @@
     outline: none;
     border-color: var(--color-energy);
 }
+
+/* Desktop: the phone-sized frame is viewed from further away, so the small
+   14px/12px text steps up a little. */
+@media (min-width: 700px) {
+    .notes-step__label,
+    .notes-step__pill,
+    .notes-step__textarea {
+        font-size: 16px;
+        line-height: 22px;
+    }
+
+    .notes-step__energy-ends {
+        font-size: 14px;
+        line-height: 18px;
+    }
+}
