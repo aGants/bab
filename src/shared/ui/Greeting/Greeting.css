@@ -10,6 +10,7 @@
   width: 100%;
   margin: 0;
   padding: 12px 20px;
+  min-height: 80px;
   overflow: hidden;
   background: var(--color-surface);
 }
@@ -25,11 +26,6 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.app-greeting--welcome {
-  min-height: 89px;
-  padding: 12px 20px;
 }
 
 .app-greeting-copy {
