@@ -6,9 +6,9 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { PageFrame } from '@/shared/layout'
 import { Greeting, TabBar } from '@/shared/ui'
 import { toDateKey } from '@/shared/lib/dateKey'
-import { WordShape, CATEGORIES, WORD_CARDS, type WordCard, wordColor } from '@/features/word-field'
+import { WordShape, wordColor } from '@/entities/word'
+import { CATEGORIES, WORD_CARDS, bodyZoneShortLabel, type WordCard } from '@/i18n'
 import { wordsPath } from '@/routes/paths'
-import { bodyZoneLabel } from '@/entities/check-in/bodyZoneLabel'
 import { checkInRepository } from '@/entities/check-in/checkInRepository'
 import type { BodyZone } from '@/entities/check-in/types'
 import { useCalendarMonthData } from './useCalendarMonthData'
@@ -16,7 +16,7 @@ import './CalendarPage.css'
 
 /** "left quad, right knee" — zone phrases without the "your" lead-in, for compact meta lines. */
 const formatZones = (zones: BodyZone[]): string =>
-  zones.map((zone) => bodyZoneLabel(zone).replace(/^your /, '')).join(', ')
+  zones.map((zone) => bodyZoneShortLabel(zone)).join(', ')
 
 const parseDateKey = (key: string | null): Date | undefined => {
   if (!key) return undefined

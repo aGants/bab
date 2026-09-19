@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { WordCard } from '@/features/word-field'
+import type { WordCard } from '@/i18n'
 import type { CheckInEntry } from '@/entities/check-in/types'
 import { useCheckInDraft } from './useCheckInDraft'
 import { BodyLocationStep, IntensityStep, NotesStep, SummaryStep } from './steps'

@@ -14,7 +14,7 @@ export type AccessoryId = (typeof ACCESSORY_IDS)[number]
 export type AccessorySlot = 'hat' | 'eyes' | 'cheeks' | 'neck' | 'hands' | 'aura'
 
 export interface AvatarConfig {
-  /** references WordCard.id from word-field/bodyWordsData — the feeling that shapes the head */
+  /** references WordDefinition.id from entities/word — the feeling that shapes the head */
   headWordId: string
   bodyId: BodyId
   bodyColor: BodyColorId

@@ -1,12 +1,12 @@
 import { useLayoutEffect, useRef } from 'react'
-import type { WordCard } from '../bodyWordsData'
+import type { GridWord } from './wordGrid'
 
 /**
  * Keeps a DOM ref per card so that whichever one gets selected can be
  * scrolled into the viewport space left above the detail sheet, instead of
  * staying wherever it happened to be when clicked.
  */
-export const useScrollToSelected = (selected: WordCard | null) => {
+export const useScrollToSelected = (selected: GridWord | null) => {
   const viewportRef = useRef<HTMLDivElement>(null)
   const detailRef = useRef<HTMLDivElement>(null)
   const cardRefs = useRef<Record<string, HTMLButtonElement | null>>({})

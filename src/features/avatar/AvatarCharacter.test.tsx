@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { WORD_CARDS } from '@/features/word-field'
+import { WORD_CARDS } from '@/i18n'
 import { defaultAvatar } from '@/entities/avatar/avatarModel'
 import { ACCESSORY_IDS, BODY_COLOR_IDS, BODY_IDS, FACE_IDS } from '@/entities/avatar/types'
 import { AvatarCharacter } from './AvatarCharacter'

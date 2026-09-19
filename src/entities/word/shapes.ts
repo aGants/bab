@@ -1,4 +1,4 @@
-import { WORD_CARDS } from '../bodyWordsData'
+import { WORDS } from './words'
 
 export const hashSeed = (str: string): number => {
   let h = 0
@@ -375,8 +375,8 @@ const WORD_VISUALS: Record<string, { path: string; calmPath: string; color: stri
   shaky: buildVisual(SHAKY_CLUSTER, true, '#B7EA15'),
 }
 
-for (const card of WORD_CARDS) {
-  if (!WORD_VISUALS[card.id]) throw new Error(`Missing word visual for "${card.id}"`)
+for (const word of WORDS) {
+  if (!WORD_VISUALS[word.id]) throw new Error(`Missing word visual for "${word.id}"`)
 }
 
 /** calm=true: settled near a circle, just barely hinting at the word's real shape.

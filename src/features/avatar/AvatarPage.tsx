@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { WORD_CARDS } from '@/features/word-field'
+import { WORD_CARDS } from '@/i18n'
 import { FALLBACK_HEAD_WORD_ID } from '@/entities/avatar/avatarModel'
 import { useAvatar } from '@/entities/avatar/useAvatar'
 import { PageFrame } from '@/shared/layout'

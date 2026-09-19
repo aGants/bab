@@ -1,4 +1,5 @@
-import { WORD_CARDS, wordColor, wordPath } from '@/features/word-field'
+import { wordColor, wordPath } from '@/entities/word'
+import { WORD_CARDS } from '@/i18n'
 import { ACCESSORIES, BODIES, BODY_COLORS, FACES } from '@/entities/avatar/catalog'
 import {
   ACCESSORY_IDS,

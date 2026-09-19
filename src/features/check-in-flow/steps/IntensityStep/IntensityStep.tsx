@@ -1,5 +1,6 @@
 import type { CheckInIntensity, Trigger } from '@/entities/check-in/types'
-import { type WordCard, WordShape } from '@/features/word-field'
+import { WordShape } from '@/entities/word'
+import type { WordCard } from '@/i18n'
 import { MAX_INTENSITY, MIN_INTENSITY, scaleForIntensity } from '../../intensityScale'
 import './IntensityStep.css'
 

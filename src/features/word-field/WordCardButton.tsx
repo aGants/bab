@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
-import type { WordCard } from './bodyWordsData'
-import { WordShape } from './WordShape'
-import { wordLabelColor } from './helpers/shapes'
+import { WordShape, wordLabelColor } from '@/entities/word'
+import type { GridWord } from './wordGrid'
 
 /** How many grid steps out a neighbour still gets pushed, and how far (in px)
  * the closest ones move — tapers to 0 at PUSH_RADIUS, so only cards actually
@@ -15,12 +14,12 @@ export const WordCardButton = ({
   onSelect,
   cardRef,
 }: {
-  card: WordCard
+  card: GridWord
   /** The single card selected across the whole field, or null — each button
    * figures out for itself whether that's this card, or a neighbour that
    * should retreat away from it. */
-  selected: WordCard | null
-  onSelect: (card: WordCard) => void
+  selected: GridWord | null
+  onSelect: (card: GridWord) => void
   cardRef: (el: HTMLButtonElement | null) => void
 }) => {
   const isSelected = selected?.id === card.id

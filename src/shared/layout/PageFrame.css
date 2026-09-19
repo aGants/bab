@@ -8,6 +8,7 @@
   color: var(--color-ink);
   font-family: var(--font-body);
   overflow: hidden;
+  padding-top: var(--padding);
   transition:
     background 0.2s ease,
     color 0.2s ease;

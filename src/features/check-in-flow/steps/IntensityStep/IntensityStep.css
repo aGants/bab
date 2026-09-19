@@ -78,7 +78,7 @@
     width: 100%;
     height: 100%;
     /* Layers on top of whatever amplitude the word's own motif already sets
-       (see motifFor in helpers/shapes.ts) — this is the hero of the step, so its
+       (see motifFor in entities/word/shapes.ts) — this is the hero of the step, so its
        idle motion should read at a glance instead of needing a close look to notice. */
     --float-amp-boost: 1.8;
 }

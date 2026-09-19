@@ -69,7 +69,7 @@ export const DEFAULT_ENERGY: Energy = 4
 export type Trigger = 'movement' | 'pressure' | 'stillness'
 
 export interface NewCheckInEntry {
-  /** references WordCard.id from word-field/bodyWordsData — content isn't duplicated here */
+  /** references WordDefinition.id from entities/word — content isn't duplicated here */
   wordId: string
   /** one or more zones tapped on the body map — non-empty once the location step is complete */
   bodyZones: BodyZone[]

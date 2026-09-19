@@ -1,6 +1,7 @@
 import { useMemo, type CSSProperties } from 'react'
-import type { WordCard } from './bodyWordsData'
-import { floatVars, motifFor, wordColor, wordPath } from './helpers/shapes'
+import type { WordDefinition } from './types'
+import { floatVars, motifFor, wordColor, wordPath } from './shapes'
+import './WordShape.css'
 
 const MOTIF_CLASS: Record<ReturnType<typeof motifFor>, string> = {
   pulse: ' word-shape--pulse',
@@ -15,7 +16,7 @@ const MOTIF_CLASS: Record<ReturnType<typeof motifFor>, string> = {
  * form. Both variants share point count and line style, so the browser morphs the
  * `d` attribute smoothly instead of jump-cutting between them.
  */
-export const WordShape = ({ card, expressive = false }: { card: WordCard; expressive?: boolean }) => {
+export const WordShape = ({ card, expressive = false }: { card: Pick<WordDefinition, 'id'>; expressive?: boolean }) => {
   const path = useMemo(() => wordPath(card.id, !expressive), [card.id, expressive])
   const color = wordColor(card.id)
   const motif = motifFor(card.id)

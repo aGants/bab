@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { WORD_CARDS } from '@/features/word-field'
+import { WORD_CARDS } from '@/i18n'
 import { checkInRepository } from '@/entities/check-in/checkInRepository'
 
 /** The word from the user's most recent check-in, or null if they've never

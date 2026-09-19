@@ -1,7 +1,7 @@
 import { useEffect, useState, type CSSProperties } from 'react'
-import { GRID_COLS, WORD_CARDS, type WordCard } from './bodyWordsData'
+import { GRID_COLS, GRID_WORDS, type GridWord } from './wordGrid'
 import { WordCardButton } from './WordCardButton'
-import { useScrollToSelected } from './helpers/useScrollToSelected'
+import { useScrollToSelected } from './useScrollToSelected'
 import { Link, useSearchParams } from 'react-router-dom'
 import { checkInFlowPath } from '@/routes/paths'
 import { PageFrame } from '@/shared/layout'
@@ -14,7 +14,7 @@ import './BodyWordCards.css'
 const joinSentences = (a: string, b: string): string => `${/[.!?]$/.test(a) ? a : `${a}.`} ${b}`
 
 const BodyWordCards = () => {
-  const [selected, setSelected] = useState<WordCard | null>(null)
+  const [selected, setSelected] = useState<GridWord | null>(null)
   const { viewportRef, detailRef, registerCard } = useScrollToSelected(selected)
   const [searchParams] = useSearchParams()
   // present when this is the first step of logging a check-in for a past day
@@ -28,14 +28,14 @@ const BodyWordCards = () => {
     if (!entryId) return
     checkInRepository.getById(entryId).then((entry) => {
       if (!entry) return
-      const word = WORD_CARDS.find((card) => card.id === entry.wordId)
+      const word = GRID_WORDS.find((card) => card.id === entry.wordId)
       if (word) setSelected(word)
     })
   }, [entryId])
 
   return (
     <PageFrame>
-      <Greeting />
+      {/* <Greeting /> */}
       <header className="word-cards-header">
         <h1>How is your body feeling today?</h1>
       </header>
@@ -43,7 +43,7 @@ const BodyWordCards = () => {
 
       <div className="word-grid-viewport" ref={viewportRef}>
         <div className="word-grid" style={{ '--grid-cols': GRID_COLS } as CSSProperties}>
-          {WORD_CARDS.map((card) => (
+          {GRID_WORDS.map((card) => (
             <WordCardButton
               key={card.id}
               card={card}

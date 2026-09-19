@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { WordCard } from '@/features/word-field'
+import type { WordCard } from '@/i18n'
 import {
   DEFAULT_CHECK_IN_INTENSITY,
   DEFAULT_ENERGY,

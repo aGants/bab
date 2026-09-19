@@ -1,7 +1,7 @@
-import { type WordCard, WordShape } from '@/features/word-field'
+import { WordShape } from '@/entities/word'
 import type { BodyZone, CheckInIntensity } from '@/entities/check-in/types'
-import { vasLevelFor } from '@/entities/check-in/vasScale'
-import { bodyZoneLabel } from '@/entities/check-in/bodyZoneLabel'
+import { vasScoreFor } from '@/entities/check-in/vasScale'
+import { VAS_SCALE, bodyZoneLabel, type WordCard } from '@/i18n'
 import { scaleForIntensity } from '../../intensityScale'
 import './SummaryStep.css'
 
@@ -30,7 +30,7 @@ export const SummaryStep = ({
   bodyZones: BodyZone[]
   intensity: CheckInIntensity
 }) => {
-  const vasLevel = vasLevelFor(word.id, intensity)
+  const vasLevel = VAS_SCALE[vasScoreFor(word.id, intensity)]
 
   return (
     <div className="summary-step">

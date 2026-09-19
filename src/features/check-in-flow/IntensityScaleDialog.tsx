@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { VAS_SCALE } from '@/entities/check-in/vasScale'
+import { VAS_SCALE } from '@/i18n'
 import type { CheckInIntensity } from '@/entities/check-in/types'
 import { Button } from '@/shared/ui'
 import { MAX_INTENSITY, MIN_INTENSITY } from './intensityScale'
