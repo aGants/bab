@@ -335,7 +335,12 @@
 
 .word-detail-title {
   display: block;
+  width: fit-content;
   margin-bottom: 12px;
+  /* sits on the word's own fill (set inline) — the fill is theme-independent,
+     so the title can't rely on the theme's ink/surface for contrast */
+  padding: 2px 16px 4px;
+  border-radius: 999px;
   font-size: 32px;
   font-family: var(--font-display);
   font-weight: var(--display-weight);

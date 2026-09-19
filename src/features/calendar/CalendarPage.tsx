@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { DayPicker, type DayButtonProps } from 'react-day-picker'
+import { format } from 'date-fns'
 import 'react-day-picker/style.css'
 import { Link, useSearchParams } from 'react-router-dom'
 import { PageFrame } from '@/shared/layout'
@@ -8,9 +9,15 @@ import { toDateKey } from '@/shared/lib/dateKey'
 import { WordShape } from '@/features/word-field/WordShape'
 import { CATEGORIES, WORD_CARDS, type WordCard } from '@/features/word-field/bodyWordsData'
 import { wordsPath } from '@/routes/paths'
+import { bodyZoneLabel } from '@/features/check-in-flow/steps/BodyLocationStep/bodyZoneMap'
 import { checkInRepository } from '@/entities/check-in/checkInRepository'
+import type { BodyZone } from '@/entities/check-in/types'
 import { useCalendarMonthData } from './useCalendarMonthData'
 import './CalendarPage.css'
+
+/** "left quad, right knee" — zone phrases without the "your" lead-in, for compact meta lines. */
+const formatZones = (zones: BodyZone[]): string =>
+  zones.map((zone) => bodyZoneLabel(zone).replace(/^your /, '')).join(', ')
 
 const parseDateKey = (key: string | null): Date | undefined => {
   if (!key) return undefined
@@ -29,6 +36,15 @@ export const CalendarPage = () => {
   const selectedKey = selectedDate ? toDateKey(selectedDate) : null
   const selectedEntries = selectedKey ? (entriesByDate[selectedKey] ?? []) : []
   const selectedLog = selectedKey ? dailyLogsByDate[selectedKey] : undefined
+
+  // the grid fills the whole screen, so the panel for a picked day starts
+  // below the fold — bring it into view instead of leaving it to be discovered
+  const detailRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (!selectedKey) return
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    detailRef.current?.scrollIntoView({ block: 'nearest', behavior: reduceMotion ? 'auto' : 'smooth' })
+  }, [selectedKey, selectedEntries.length])
 
   const handleDelete = async (id: string) => {
     if (!window.confirm('Delete this check-in?')) return
@@ -104,9 +120,9 @@ export const CalendarPage = () => {
         />
 
         {selectedKey && (
-          <div className="calendar-detail">
+          <div className="calendar-detail" ref={detailRef}>
             <div className="calendar-detail-heading">
-              <h2 className="calendar-detail-date">{selectedKey}</h2>
+              <h2 className="calendar-detail-date">{format(selectedDate!, 'EEE, MMM d')}</h2>
               <Link className="calendar-detail-add" to={wordsPath(selectedKey ?? undefined)}>
                 + Add check-in
               </Link>
@@ -135,7 +151,7 @@ export const CalendarPage = () => {
                       <div className="calendar-detail-log-details">
                         <strong>{word?.word ?? 'Unknown'}</strong>
                         <span className="calendar-detail-log-meta">
-                          {entry.bodyZones.join(', ')} · intensity {entry.intensity}
+                          {formatZones(entry.bodyZones)} · intensity {entry.intensity}
                         </span>
                         {entry.note && <p className="calendar-detail-log-note">{entry.note}</p>}
                       </div>

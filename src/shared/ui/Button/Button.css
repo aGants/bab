@@ -4,7 +4,8 @@
     border: none;
     border-radius: 999px;
     background: var(--color-anchor);
-    color: var(--color-surface);
+    /* fixed cream, not the theme surface: the anchor fill is the same in both themes */
+    color: var(--color-ground);
     font-family: var(--font-body);
     font-size: 17px;
     font-weight: 700;

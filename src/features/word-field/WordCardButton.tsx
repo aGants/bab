@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import type { WordCard } from './bodyWordsData'
 import { WordShape } from './WordShape'
+import { wordLabelColor } from './helpers/shapes'
 
 /** How many grid steps out a neighbour still gets pushed, and how far (in px)
  * the closest ones move — tapers to 0 at PUSH_RADIUS, so only cards actually
@@ -49,7 +50,9 @@ export const WordCardButton = ({
       aria-pressed={isSelected}
     >
       <WordShape card={card} expressive={isSelected} />
-      <span className="word-card-label">{card.word}</span>
+      <span className="word-card-label" style={{ color: wordLabelColor(card.id) }}>
+        {card.word}
+      </span>
     </button>
   )
 }

@@ -16,6 +16,11 @@
   --color-surface-raised: color-mix(in srgb, var(--color-ground) 96%, black);
   --color-overlay: rgb(0 0 0 / 8%);
 
+  /* Text on the fixed light fills (cycle lavender, pale signals pink): those
+     fills don't change with the theme, so the text on them must not either. */
+  --color-ink-on-light: color-mix(in srgb, var(--color-ground) 8%, black);
+  --color-ink-on-light-muted: color-mix(in srgb, var(--color-ground) 38%, black);
+
   /* Fonts */
   --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-body: 'DM Sans', system-ui, sans-serif;

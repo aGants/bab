@@ -1,9 +1,11 @@
+import { safeStorage } from '@/shared/lib/safeStorage'
+
 export type Theme = 'light' | 'dark'
 
 const STORAGE_KEY = 'theme'
 
 export const getInitialTheme = (): Theme => {
-  const stored = window.localStorage.getItem(STORAGE_KEY)
+  const stored = safeStorage.getItem(STORAGE_KEY)
   if (stored === 'light' || stored === 'dark') return stored
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
@@ -13,5 +15,5 @@ export const getInitialTheme = (): Theme => {
  * brand palette (anchor/energy/signals/cycle/ground) untouched. */
 export const applyTheme = (theme: Theme): void => {
   document.documentElement.dataset.theme = theme
-  window.localStorage.setItem(STORAGE_KEY, theme)
+  safeStorage.setItem(STORAGE_KEY, theme)
 }

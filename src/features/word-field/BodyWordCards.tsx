@@ -1,6 +1,6 @@
 import { useEffect, useState, type CSSProperties } from 'react'
 import { CATEGORIES, GRID_COLS, WORD_CARDS, type WordCard } from './bodyWordsData'
-import { wordColor } from './helpers/shapes'
+import { wordColor, wordLabelColor } from './helpers/shapes'
 import { WordCardButton } from './WordCardButton'
 import { useScrollToSelected } from './helpers/useScrollToSelected'
 import { Link, useSearchParams } from 'react-router-dom'
@@ -14,7 +14,7 @@ import './BodyWordCards.css'
 // end punctuation, so it can lead straight into the metaphor as one sentence pair
 const joinSentences = (a: string, b: string): string => `${/[.!?]$/.test(a) ? a : `${a}.`} ${b}`
 
-export default function BodyWordCards() {
+const BodyWordCards = () => {
   const [selected, setSelected] = useState<WordCard | null>(null)
   const { viewportRef, detailRef, registerCard } = useScrollToSelected(selected)
   const [searchParams] = useSearchParams()
@@ -67,7 +67,7 @@ export default function BodyWordCards() {
             ✕
           </button>
           <span className="word-detail-pill">{CATEGORIES[selected.category].label}</span>
-          <strong className="word-detail-title" style={{ color: wordColor(selected.id) }}>
+          <strong className="word-detail-title" style={{ background: wordColor(selected.id), color: wordLabelColor(selected.id) }}>
             {selected.word}
           </strong>
           <div className="word-detail-body">
@@ -89,3 +89,5 @@ export default function BodyWordCards() {
     </PageFrame>
   )
 }
+
+export default BodyWordCards

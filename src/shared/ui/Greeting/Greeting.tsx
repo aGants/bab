@@ -1,4 +1,5 @@
 import { useUserProfile } from '@/entities/user-profile/useUserProfile'
+import { DEFAULT_NAME } from '@/entities/user-profile/userProfileRepository'
 import './Greeting.css'
 import { SensationIcon } from './SensationIcon'
 
@@ -22,7 +23,7 @@ export const Greeting = ({ variant = 'default' }: GreetingProps) => {
   return (
     <div className={className}>
       <p className="app-greeting-text">
-        {getTimeBasedGreeting()}, {name}
+        {getTimeBasedGreeting()}, {name.trim() || DEFAULT_NAME}
       </p>
       <span className="app-greeting-icon">
         <SensationIcon />

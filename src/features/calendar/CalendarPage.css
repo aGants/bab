@@ -123,7 +123,7 @@
   padding: 6px 14px;
   border-radius: 999px;
   background: var(--color-ink);
-  color: var(--color-ground);
+  color: var(--color-surface);
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
@@ -140,7 +140,7 @@
   padding: 6px 14px;
   border-radius: 999px;
   background: var(--color-cycle);
-  color: color-mix(in srgb, var(--color-ground) 8%, black);
+  color: var(--color-ink-on-light);
   font-size: 13px;
   font-weight: 600;
 }
@@ -203,8 +203,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 36px;
+  height: 36px;
   border-radius: 999px;
   background: var(--color-surface-raised);
   border: none;

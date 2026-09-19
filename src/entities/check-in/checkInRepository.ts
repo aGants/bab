@@ -1,5 +1,6 @@
 import type { BodyZone, CheckInEntry, NewCheckInEntry } from './types'
 import { toDateKey } from '@/shared/lib/dateKey'
+import { safeStorage } from '@/shared/lib/safeStorage'
 
 /**
  * Written as if it already talks to a real API — every method is async even
@@ -32,7 +33,7 @@ const normalizeEntry = (entry: StoredCheckInEntry): CheckInEntry => {
 }
 
 const readAll = (): CheckInEntry[] => {
-  const raw = window.localStorage.getItem(STORAGE_KEY)
+  const raw = safeStorage.getItem(STORAGE_KEY)
   if (!raw) return []
   try {
     const parsed = JSON.parse(raw)
@@ -43,7 +44,7 @@ const readAll = (): CheckInEntry[] => {
 }
 
 const writeAll = (entries: CheckInEntry[]): void => {
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(entries))
+  safeStorage.setItem(STORAGE_KEY, JSON.stringify(entries))
 }
 
 export const createLocalStorageCheckInRepository = (): CheckInRepository => ({

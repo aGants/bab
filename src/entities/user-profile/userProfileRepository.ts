@@ -1,4 +1,5 @@
 import type { UserProfile } from './types'
+import { safeStorage } from '@/shared/lib/safeStorage'
 
 export const DEFAULT_NAME = 'Girl'
 
@@ -11,7 +12,7 @@ export interface UserProfileRepository {
 const STORAGE_KEY = 'user-profile'
 
 const read = (): UserProfile => {
-  const raw = window.localStorage.getItem(STORAGE_KEY)
+  const raw = safeStorage.getItem(STORAGE_KEY)
   if (!raw) return { name: DEFAULT_NAME }
   try {
     const parsed = JSON.parse(raw)
@@ -22,7 +23,7 @@ const read = (): UserProfile => {
 }
 
 const write = (profile: UserProfile): void => {
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(profile))
+  safeStorage.setItem(STORAGE_KEY, JSON.stringify(profile))
 }
 
 export const createLocalStorageUserProfileRepository = (): UserProfileRepository => ({

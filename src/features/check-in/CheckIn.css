@@ -28,18 +28,18 @@
 	margin: 0;
 	font-weight: 700;
 	font-size: 17px;
-	color: var(--color-ink);
+	color: var(--color-ink-on-light);
 }
 
 .check-in-banner__subtitle {
 	margin: 4px 0 0;
 	font-size: 14px;
-	color: var(--color-ink-muted);
+	color: var(--color-ink-on-light-muted);
 }
 
 .check-in-banner__chevron {
 	font-size: 24px;
-	color: var(--color-ink-muted);
+	color: var(--color-ink-on-light-muted);
 }
 
 .check-in-wrapper {
@@ -128,7 +128,7 @@
 	padding: 6px 14px;
 	border-radius: 999px;
 	background: var(--color-cycle);
-	color: color-mix(in srgb, var(--color-ground) 8%, black);
+	color: var(--color-ink-on-light);
 	font-size: 13px;
 	font-weight: 600;
 }

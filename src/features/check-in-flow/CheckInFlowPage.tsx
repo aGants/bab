@@ -19,23 +19,23 @@ export const CheckInFlowPage = () => {
   const date = searchParams.get('date') ?? undefined
   const entryId = searchParams.get('entryId') ?? undefined
 
-  // undefined = still loading the entry being edited; null = not editing one
-  const [editing, setEditing] = useState<CheckInEntry | null | undefined>(entryId ? undefined : null)
+  // The entry being edited, tagged with the id it was loaded for so a stale
+  // result never shows up under a different entryId.
+  const [loaded, setLoaded] = useState<{ id: string; entry: CheckInEntry | null } | null>(null)
 
   useEffect(() => {
-    if (!entryId) {
-      setEditing(null)
-      return
-    }
-    setEditing(undefined)
+    if (!entryId) return
     let cancelled = false
     checkInRepository.getById(entryId).then((found) => {
-      if (!cancelled) setEditing(found)
+      if (!cancelled) setLoaded({ id: entryId, entry: found })
     })
     return () => {
       cancelled = true
     }
   }, [entryId])
+
+  // undefined = still loading the entry being edited; null = not editing one
+  const editing = !entryId ? null : loaded?.id === entryId ? loaded.entry : undefined
 
   if (!word) {
     return (

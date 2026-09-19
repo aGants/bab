@@ -5,7 +5,7 @@ import { useCheckInDraft } from './useCheckInDraft'
 import { BodyLocationStep, IntensityStep, NotesStep, SummaryStep } from './steps'
 import { CheckInStepHeader } from './CheckInStepHeader'
 import { Button } from '@/shared/ui'
-import './CheckInFlow.css';
+import './CheckInFlow.css'
 
 type Step = 'location' | 'intensity' | 'notes' | 'confirm'
 

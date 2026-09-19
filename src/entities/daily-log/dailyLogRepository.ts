@@ -1,4 +1,5 @@
 import type { DailyLog } from './types'
+import { safeStorage } from '@/shared/lib/safeStorage'
 
 /**
  * One record per calendar day, independent of how many check-ins happen that
@@ -18,7 +19,7 @@ const STORAGE_KEY = 'daily-logs'
 const emptyLog = (date: string): DailyLog => ({ date, hadPeriod: null, tookPainkiller: null })
 
 const readAll = (): Record<string, DailyLog> => {
-  const raw = window.localStorage.getItem(STORAGE_KEY)
+  const raw = safeStorage.getItem(STORAGE_KEY)
   if (!raw) return {}
   try {
     const parsed = JSON.parse(raw)
@@ -29,7 +30,7 @@ const readAll = (): Record<string, DailyLog> => {
 }
 
 const writeAll = (logs: Record<string, DailyLog>): void => {
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(logs))
+  safeStorage.setItem(STORAGE_KEY, JSON.stringify(logs))
 }
 
 const upsert = (date: string, patch: Partial<Omit<DailyLog, 'date'>>): DailyLog => {
