@@ -19,7 +19,7 @@ export const CheckIn = () => {
   return (
     <PageFrame>
       <Greeting welcome />
-      <div className="check-in-banner">
+      <Link className="check-in-banner" to={ROUTES.world}>
         <span className="check-in-banner__icon">
           <img src={stickerTulip} width={35.245} height={50.201} alt="" aria-hidden="true" />
         </span>
@@ -28,7 +28,7 @@ export const CheckIn = () => {
           <p className="check-in-banner__subtitle"><Trans>Claim your weekly reward</Trans></p>
         </div>
         <img className="check-in-banner__chevron" src={chevronRight} width={16} height={16} alt="" aria-hidden="true" />
-      </div>
+      </Link>
       <div className="check-in-wrapper">
         <div className="check-in-card">
           <img className="check-in-card__shapes" src={decorativeShapes} alt="" aria-hidden="true" />
