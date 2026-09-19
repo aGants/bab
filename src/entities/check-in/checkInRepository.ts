@@ -1,4 +1,5 @@
 import type { BodyZone, CheckInEntry, NewCheckInEntry } from './types'
+import { createId } from '@/shared/lib/createId'
 import { toDateKey } from '@/shared/lib/dateKey'
 import { safeStorage } from '@/shared/lib/safeStorage'
 
@@ -69,7 +70,7 @@ export const createLocalStorageCheckInRepository = (): CheckInRepository => ({
     const now = new Date()
     const entry: CheckInEntry = {
       ...input,
-      id: crypto.randomUUID(),
+      id: createId(),
       date: date ?? toDateKey(now),
       createdAt: now.toISOString(),
     }

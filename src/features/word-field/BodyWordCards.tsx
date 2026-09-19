@@ -6,7 +6,7 @@ import { Trans, useLingui } from '@lingui/react/macro'
 import { Link, useSearchParams } from 'react-router-dom'
 import { checkInFlowPath } from '@/routes/paths'
 import { PageFrame } from '@/shared/layout'
-import { TabBar } from '@/shared/ui'
+import { Greeting, TabBar } from '@/shared/ui'
 import { checkInRepository } from '@/entities/check-in/checkInRepository'
 import './BodyWordCards.css'
 
@@ -33,7 +33,7 @@ const BodyWordCards = () => {
 
   return (
     <PageFrame>
-      {/* <Greeting /> */}
+      <Greeting />
       <header className="word-cards-header">
         <h1>
           <Trans>How is your body feeling today?</Trans>

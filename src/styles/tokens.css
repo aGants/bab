@@ -2,11 +2,13 @@
    Keep this file and tokens.ts in sync — see tokens.ts for the JS-side mirror. */
 :root {
   /* Palette */
-  --color-anchor: #114f4f;
-  --color-energy: #bce739;
+  --color-anchor: #004f50;
+  --color-energy: #b7e915;
   --color-signals: #e8836a;
-  --color-cycle: #ede6fe;
+  --color-cycle: #eee5ff;
   --color-ground: #fdfcf9;
+  /* Figma "pink": rewards card fill, matches the pink shapes in the banner art */
+  --color-pink: #ffa7aa;
 
   /* Neutral surfaces/text, theme-switchable — the 5 palette colors above
      never change between themes, only these black<->white roles do. */

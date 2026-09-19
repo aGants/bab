@@ -8,16 +8,17 @@
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  padding: var(--gap-after-greeting) var(--padding) 8px;
+  padding: 12px 20px 20px;
 }
 
 .word-cards-header h1 {
   margin: 0;
-  font-size: 28px;
-  line-height: 1.15;
+  font-size: 36px;
+  line-height: 36px;
+  letter-spacing: -0.72px;
   color: var(--color-ink);
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
 }
 
 .word-detail-title {
@@ -25,10 +26,12 @@
 }
 
 .word-cards-section-label {
-  margin: 12px 16px 10px 16px;
+  margin: 12px 20px 0;
   color: var(--color-ink);
-  font-weight: 700;
-  font-size: 15px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
 }
 
 .word-grid-viewport {
@@ -38,7 +41,7 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
-  padding: 16px;
+  padding: 12px 20px 20px;
 }
 
 /* extra room at the end so a selected card can scroll up above the detail sheet */
@@ -52,7 +55,7 @@
      downward, scrolled into view rather than panned to */
   display: grid;
   grid-template-columns: repeat(var(--grid-cols), 1fr);
-  gap: 0;
+  gap: 8px;
   width: 100%;
   margin: 0;
 }
@@ -90,14 +93,13 @@
 .word-card-label {
   position: relative;
   z-index: 1;
-  font-size: 12px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
   text-align: center;
+  text-transform: capitalize;
   padding: 0 6px;
-  font-family: var(--font-display);
-  font-weight: var(--display-weight);
-  font-style: var(--display-style);
-  letter-spacing: var(--display-tracking);
-  transform: skewX(var(--display-skew));
   display: inline-block;
 }
 

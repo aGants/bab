@@ -1,11 +1,12 @@
 /** Design tokens, mirrored from tokens.css for use in JS/TS (inline styles, canvas, SVG fills, etc). */
 
 export const COLORS = {
-  anchor: '#114F4F',
-  energy: '#BCE739',
+  anchor: '#004F50',
+  energy: '#B7E915',
   signals: '#E8836A',
-  cycle: '#EDE6FE',
+  cycle: '#EEE5FF',
   ground: '#FDFCF9',
+  pink: '#FFA7AA',
 } as const
 
 export type ColorToken = keyof typeof COLORS

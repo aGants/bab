@@ -119,7 +119,7 @@ msgstr "Check in: {wordName}"
 msgid "Choose “Add to Home Screen”."
 msgstr "Choose “Add to Home Screen”."
 
-#: src/features/check-in/CheckIn.tsx:18
+#: src/features/check-in/CheckIn.tsx:28
 msgid "Claim your weekly reward"
 msgstr "Claim your weekly reward"
 
@@ -213,6 +213,14 @@ msgstr "Front"
 msgid "Glasses"
 msgstr "Glasses"
 
+#: src/shared/ui/Greeting/Greeting.tsx:17
+msgid "Good morning,"
+msgstr "Good morning,"
+
+#: src/shared/ui/Greeting/Greeting.tsx:29
+msgid "Good morning, {displayName}"
+msgstr "Good morning, {displayName}"
+
 #: src/features/check-in-flow/IntensityScaleDialog.tsx:83
 msgid "Got it"
 msgstr "Got it"
@@ -229,10 +237,6 @@ msgstr "Happy"
 msgid "Head & neck"
 msgstr "Head & neck"
 
-#: src/shared/ui/Greeting/Greeting.tsx:13
-msgid "Hi, {displayName}"
-msgstr "Hi, {displayName}"
-
 #: src/shared/ui/TabBar/TabBar.tsx:50
 msgid "Home"
 msgstr "Home"
@@ -245,7 +249,7 @@ msgstr "How big is it"
 msgid "How intense is it?"
 msgstr "How intense is it?"
 
-#: src/features/check-in/CheckIn.tsx:26
+#: src/features/check-in/CheckIn.tsx:36
 #: src/features/word-field/BodyWordCards.tsx:39
 msgid "How is your body feeling today?"
 msgstr "How is your body feeling today?"
@@ -300,7 +304,7 @@ msgstr "Log another sensation"
 msgid "Logged sensations ({count})"
 msgstr "Logged sensations ({count})"
 
-#: src/features/check-in/CheckIn.tsx:17
+#: src/features/check-in/CheckIn.tsx:27
 msgid "New sticker unlocked!"
 msgstr "New sticker unlocked!"
 
@@ -408,7 +412,7 @@ msgstr "Sparkles"
 msgid "Standing still"
 msgstr "Standing still"
 
-#: src/features/check-in/CheckIn.tsx:27
+#: src/features/check-in/CheckIn.tsx:37
 msgid "Start a check-in"
 msgstr "Start a check-in"
 

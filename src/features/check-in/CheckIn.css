@@ -2,52 +2,59 @@
 	flex-shrink: 0;
 	display: flex;
 	align-items: center;
-	gap: 16px;
-	margin: 0 var(--padding);
-	padding: 20px 22px;
-	border-radius: 20px;
-	background: color-mix(in srgb, var(--color-signals) 30%, white);
+	gap: 12px;
+	box-sizing: border-box;
+	height: 96px;
+	margin: 24px 20px 0;
+	padding: 16px;
+	border-radius: 12px;
+	background: var(--color-pink);
+	filter: drop-shadow(0 2px 2px rgb(0 0 0 / 15%));
 }
 
 .check-in-banner__icon {
 	display: flex;
+	flex-shrink: 0;
 	align-items: center;
 	justify-content: center;
-	width: 48px;
-	height: 48px;
-	border-radius: 50%;
-	background: var(--color-ground);
-	font-size: 22px;
+	width: 60px;
+	height: 60px;
+}
+
+.check-in-banner__icon img {
+	transform: rotate(9.86deg);
 }
 
 .check-in-banner__text {
 	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
 	min-width: 0;
 }
 
 .check-in-banner__title {
-	margin: 0;
-	font-weight: 700;
-	font-size: 17px;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 20px;
 	color: var(--color-ink-on-light);
 }
 
 .check-in-banner__subtitle {
-	margin: 4px 0 0;
-	font-size: 14px;
-	color: var(--color-ink-on-light-muted);
+	font-size: 12px;
+	line-height: 16px;
+	color: var(--color-ink-on-light);
 }
 
 .check-in-banner__chevron {
-	font-size: 24px;
-	color: var(--color-ink-on-light-muted);
+	flex-shrink: 0;
 }
 
 .check-in-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: start;
-  padding: var(--padding);
+  padding: 28px 20px 24px;
   flex: 1;
   min-height: 0;
   overflow: hidden;
@@ -57,7 +64,7 @@
 .check-in-card {
 	position: relative;
 	overflow: hidden;
-	border-radius: 24px;
+	border-radius: 14px;
 	background: var(--color-anchor);
 	isolation: isolate;
 	flex: 1;
@@ -83,30 +90,33 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	gap: 24px;
-	padding: 0 32px;
+	gap: 20px;
+	padding: 0 16px;
 	min-height: 0;
 	text-align: center;
 }
 .check-in-content h1 {
-	font-style: italic;
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: 36px;
+	font-weight: 500;
+	line-height: 34px;
+	letter-spacing: -0.72px;
+	text-wrap: balance;
 	color: var(--color-energy);
-	font-size: 26px;
 }
 
 .plus-button {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 56px;
-	height: 56px;
+	width: 52px;
+	height: 52px;
 	border-radius: 50%;
-	background: var(--color-ground);
-	color: var(--color-anchor);
-	font-size: 32px;
-	line-height: 1;
+	background: #fff;
+	color: #1d1b20;
 	text-decoration: none;
-	box-shadow: 0 8px 20px rgb(0 0 0 / 20%);
+	box-shadow: 0 4px 2px rgb(0 0 0 / 25%);
 	transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 

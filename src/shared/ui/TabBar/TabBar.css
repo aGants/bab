@@ -7,7 +7,7 @@
   --tab-bar-ink-muted-on-cycle: color-mix(in srgb, var(--tab-bar-ink-on-cycle) 55%, transparent);
   /* icon + label + top/bottom padding, so other screens can float content
      above the tab bar instead of guessing its rendered height */
-  --tab-bar-height: calc(58px + env(safe-area-inset-bottom, 0px));
+  --tab-bar-height: calc(76px + env(safe-area-inset-bottom, 0px));
 }
 
 .tab-bar {
@@ -17,6 +17,7 @@
   bottom: 0;
   z-index: 1;
   background: var(--color-cycle);
+  filter: drop-shadow(0 2px 2px rgb(0 0 0 / 15%));
 }
 
 .tab-bar-item {
@@ -24,8 +25,8 @@
   flex: 1;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
-  padding: 10px 0 calc(10px + env(safe-area-inset-bottom, 0px));
+  gap: 4px;
+  padding: 16px 0 calc(16px + env(safe-area-inset-bottom, 0px));
   color: var(--tab-bar-ink-muted-on-cycle);
   text-decoration: none;
 }
@@ -41,5 +42,6 @@
 
 .tab-bar-label {
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
+  line-height: 16px;
 }
