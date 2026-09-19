@@ -188,6 +188,41 @@
   font-size: 15px;
 }
 
+/* the "Notice …" cue reads as a label pill: tinted fill, leading dot, dotted
+   underline, all in the anchor teal */
+.word-detail-tagline {
+  --tagline-color: var(--color-anchor);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 0 12px;
+  padding: 7px 14px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--tagline-color) 12%, var(--color-surface-raised));
+  color: var(--tagline-color);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.word-detail-tagline::before {
+  content: '';
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+:root[data-theme='dark'] .word-detail-tagline {
+  --tagline-color: var(--color-energy);
+}
+
 .word-detail-cue {
   margin-bottom: 10px;
 }

@@ -9,10 +9,6 @@ import { Greeting, TabBar } from '@/shared/ui'
 import { checkInRepository } from '@/entities/check-in/checkInRepository'
 import './BodyWordCards.css'
 
-// tagline is written as a standalone cue ("Notice how springy") without its own
-// end punctuation, so it can lead straight into the metaphor as one sentence pair
-const joinSentences = (a: string, b: string): string => `${/[.!?]$/.test(a) ? a : `${a}.`} ${b}`
-
 const BodyWordCards = () => {
   const [selected, setSelected] = useState<GridWord | null>(null)
   const { viewportRef, detailRef, registerCard } = useScrollToSelected(selected)
@@ -70,7 +66,8 @@ const BodyWordCards = () => {
           </strong>
           <div className="word-detail-body">
             <div className="word-detail-text">
-              <p className="word-detail-cue">{joinSentences(selected.tagline, selected.metaphor)}</p>
+              <p className="word-detail-tagline">{selected.tagline}</p>
+              <p className="word-detail-cue">{selected.metaphor}</p>
               <p className="word-detail-feels">{selected.feelsLike}</p>
             </div>
             <Link
