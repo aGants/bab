@@ -8,24 +8,24 @@
   }
   25% {
     transform: translate(
-        calc(-1% * var(--float-amp, 1) * var(--float-amp-boost, 1)),
-        calc(-1.5% * var(--float-amp, 1) * var(--float-amp-boost, 1))
+        calc(-1% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)),
+        calc(-1.5% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1))
       )
-      rotate(calc(-1.5deg * var(--float-amp, 1) * var(--float-amp-boost, 1)));
+      rotate(calc(-1.5deg * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)));
   }
   50% {
     transform: translate(
-        calc(1% * var(--float-amp, 1) * var(--float-amp-boost, 1)),
-        calc(1% * var(--float-amp, 1) * var(--float-amp-boost, 1))
+        calc(1% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)),
+        calc(1% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1))
       )
-      rotate(calc(1deg * var(--float-amp, 1) * var(--float-amp-boost, 1)));
+      rotate(calc(1deg * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)));
   }
   75% {
     transform: translate(
-        calc(-1% * var(--float-amp, 1) * var(--float-amp-boost, 1)),
-        calc(1% * var(--float-amp, 1) * var(--float-amp-boost, 1))
+        calc(-1% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)),
+        calc(1% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1))
       )
-      rotate(calc(-0.75deg * var(--float-amp, 1) * var(--float-amp-boost, 1)));
+      rotate(calc(-0.75deg * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)));
   }
 }
 
@@ -39,6 +39,15 @@
   transition: filter 0.15s ease;
   animation: shape-drift var(--float-dur, 6s) ease-in-out infinite;
   animation-delay: var(--float-delay, 0s);
+  /* multiplies every drift keyframe below */
+  --float-scale: 1;
+}
+
+/* Phone-sized cells are ~100px, so a 1% drift is a single pixel — invisible. */
+@media (max-width: 600px), (hover: none) {
+  .word-shape {
+    --float-scale: 3;
+  }
 }
 
 /* the actual outline morphing between "settled near a circle" and "full shape" —
@@ -88,9 +97,32 @@
   }
 }
 
-.word-shape--spike .word-shape-path {
-  animation: spike-breathe calc(var(--float-dur, 6s) * 0.45) ease-in-out infinite;
-  animation-delay: var(--float-delay, 0s);
+@supports (d: path("M0 0")) {
+  .word-shape--spike .word-shape-path {
+    animation: spike-breathe calc(var(--float-dur, 6s) * 0.45) ease-in-out infinite;
+    animation-delay: var(--float-delay, 0s);
+  }
+}
+
+/* Safari (all iOS browsers) can't animate the CSS `d` property, so the morph above
+   would silently do nothing there. Fall back to a scale + twist of the whole outline. */
+@keyframes spike-breathe-fallback {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(0.82) rotate(6deg);
+  }
+}
+
+@supports not (d: path("M0 0")) {
+  .word-shape--spike .word-shape-path {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: spike-breathe-fallback calc(var(--float-dur, 6s) * 0.45) ease-in-out infinite;
+    animation-delay: var(--float-delay, 0s);
+  }
 }
 
 /* Wobbly/erratic words (shaky, dizzy, unstable) get their own keyframes with
@@ -104,66 +136,66 @@
   }
   8% {
     transform: translate(
-        calc(-2.6% * var(--float-amp, 1) * var(--float-amp-boost, 1)),
-        calc(1.8% * var(--float-amp, 1) * var(--float-amp-boost, 1))
+        calc(-2.6% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)),
+        calc(1.8% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1))
       )
-      rotate(calc(-3.4deg * var(--float-amp, 1) * var(--float-amp-boost, 1)));
+      rotate(calc(-3.4deg * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)));
   }
   17% {
     transform: translate(
-        calc(2.2% * var(--float-amp, 1) * var(--float-amp-boost, 1)),
-        calc(-2% * var(--float-amp, 1) * var(--float-amp-boost, 1))
+        calc(2.2% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)),
+        calc(-2% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1))
       )
-      rotate(calc(2.8deg * var(--float-amp, 1) * var(--float-amp-boost, 1)));
+      rotate(calc(2.8deg * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)));
   }
   26% {
     transform: translate(
-        calc(-1.4% * var(--float-amp, 1) * var(--float-amp-boost, 1)),
-        calc(-2.4% * var(--float-amp, 1) * var(--float-amp-boost, 1))
+        calc(-1.4% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)),
+        calc(-2.4% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1))
       )
-      rotate(calc(-2.2deg * var(--float-amp, 1) * var(--float-amp-boost, 1)));
+      rotate(calc(-2.2deg * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)));
   }
   39% {
     transform: translate(
-        calc(2.8% * var(--float-amp, 1) * var(--float-amp-boost, 1)),
-        calc(1.4% * var(--float-amp, 1) * var(--float-amp-boost, 1))
+        calc(2.8% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)),
+        calc(1.4% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1))
       )
-      rotate(calc(3.6deg * var(--float-amp, 1) * var(--float-amp-boost, 1)));
+      rotate(calc(3.6deg * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)));
   }
   50% {
     transform: translate(
-        calc(-2.2% * var(--float-amp, 1) * var(--float-amp-boost, 1)),
-        calc(2.2% * var(--float-amp, 1) * var(--float-amp-boost, 1))
+        calc(-2.2% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)),
+        calc(2.2% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1))
       )
-      rotate(calc(-3deg * var(--float-amp, 1) * var(--float-amp-boost, 1)));
+      rotate(calc(-3deg * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)));
   }
   61% {
     transform: translate(
-        calc(1.8% * var(--float-amp, 1) * var(--float-amp-boost, 1)),
-        calc(-1.6% * var(--float-amp, 1) * var(--float-amp-boost, 1))
+        calc(1.8% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)),
+        calc(-1.6% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1))
       )
-      rotate(calc(2.4deg * var(--float-amp, 1) * var(--float-amp-boost, 1)));
+      rotate(calc(2.4deg * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)));
   }
   72% {
     transform: translate(
-        calc(-2.8% * var(--float-amp, 1) * var(--float-amp-boost, 1)),
-        calc(-1.2% * var(--float-amp, 1) * var(--float-amp-boost, 1))
+        calc(-2.8% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)),
+        calc(-1.2% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1))
       )
-      rotate(calc(-3.8deg * var(--float-amp, 1) * var(--float-amp-boost, 1)));
+      rotate(calc(-3.8deg * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)));
   }
   83% {
     transform: translate(
-        calc(1.6% * var(--float-amp, 1) * var(--float-amp-boost, 1)),
-        calc(1.8% * var(--float-amp, 1) * var(--float-amp-boost, 1))
+        calc(1.6% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)),
+        calc(1.8% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1))
       )
-      rotate(calc(3deg * var(--float-amp, 1) * var(--float-amp-boost, 1)));
+      rotate(calc(3deg * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)));
   }
   92% {
     transform: translate(
-        calc(-1.8% * var(--float-amp, 1) * var(--float-amp-boost, 1)),
-        calc(-1% * var(--float-amp, 1) * var(--float-amp-boost, 1))
+        calc(-1.8% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)),
+        calc(-1% * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1))
       )
-      rotate(calc(-2.6deg * var(--float-amp, 1) * var(--float-amp-boost, 1)));
+      rotate(calc(-2.6deg * var(--float-amp, 1) * var(--float-amp-boost, 1) * var(--float-scale, 1)));
   }
 }
 
