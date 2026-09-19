@@ -165,4 +165,65 @@ describe('AvatarPage', () => {
     renderPage()
     expect(character().getAttribute('aria-label')).toBe('Your character')
   })
+
+  describe('body colour', () => {
+    const bodyFill = (container: HTMLElement) => container.querySelector('svg[role="img"] rect')?.getAttribute('fill')
+
+    it('starts on pink', () => {
+      const { container } = renderPage()
+      expect(screen.getByRole('button', { name: 'Pink' }).getAttribute('aria-pressed')).toBe('true')
+      expect(bodyFill(container)).toBe('#FEA7A9')
+    })
+
+    it('recolours the character right away but only stores the colour on Customize', async () => {
+      const user = userEvent.setup()
+      const { container } = renderPage()
+
+      await user.click(screen.getByRole('button', { name: 'Lime' }))
+      expect(screen.getByRole('button', { name: 'Lime' }).getAttribute('aria-pressed')).toBe('true')
+      expect(screen.getByRole('button', { name: 'Pink' }).getAttribute('aria-pressed')).toBe('false')
+      expect(bodyFill(container)).toBe('#B7EA15')
+      expect(window.localStorage.getItem('world-body-color')).toBeNull()
+
+      await user.click(screen.getByRole('button', { name: 'Customize' }))
+      expect(window.localStorage.getItem('world-body-color')).toBe('lime')
+    })
+
+    it('keeps the colour after Customize, leaving and coming back', async () => {
+      const user = userEvent.setup()
+      const first = renderPage()
+      await user.click(screen.getByRole('button', { name: 'Red' }))
+      await user.click(screen.getByRole('button', { name: 'Customize' }))
+      first.unmount()
+
+      const { container } = renderPage()
+      expect(screen.getByRole('button', { name: 'Red' }).getAttribute('aria-pressed')).toBe('true')
+      expect(bodyFill(container)).toBe('#FF383C')
+    })
+
+    it('drops a colour that was picked but never saved', async () => {
+      const user = userEvent.setup()
+      const first = renderPage()
+      await user.click(screen.getByRole('button', { name: 'Teal' }))
+      first.unmount()
+
+      expect(bodyFill(renderPage().container)).toBe('#FEA7A9')
+    })
+
+    it('ignores a stored colour that no longer exists', () => {
+      window.localStorage.setItem('world-body-color', 'plaid')
+      renderPage()
+      expect(screen.getByRole('button', { name: 'Pink' }).getAttribute('aria-pressed')).toBe('true')
+    })
+
+    it('drops the saved confirmation when another colour is tried', async () => {
+      const user = userEvent.setup()
+      renderPage()
+      await user.click(screen.getByRole('button', { name: 'Customize' }))
+      expect(screen.getByRole('button', { name: 'Saved' })).toBeTruthy()
+
+      await user.click(screen.getByRole('button', { name: 'Coral' }))
+      expect(screen.getByRole('button', { name: 'Customize' })).toBeTruthy()
+    })
+  })
 })

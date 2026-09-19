@@ -1,6 +1,8 @@
 import { useLingui } from '@lingui/react/macro'
 import { Head } from '@/entities/avatar/Head'
 import { HAT_LABELS, type HatId } from '@/entities/avatar/hatCatalog'
+import type { BodyColorId } from '@/entities/avatar/types'
+import { DEFAULT_WORLD_BODY_COLOR_ID, WORLD_BODY_COLORS } from '@/entities/avatar/worldBodyColor'
 import { useContent } from '@/i18n'
 import './AvatarCharacter.css'
 
@@ -8,15 +10,18 @@ import './AvatarCharacter.css'
  * body, and hands held to the chest. Drawn on the design's own 199.856×302
  * canvas so it scales as one piece. A hat can stick out above the canvas
  * (the svg doesn't clip). `headWordId` swaps the cloud for that feeling's
- * shape; the cloud is what it wears otherwise. */
+ * shape; the cloud is what it wears otherwise. `bodyColorId` recolours the
+ * body (pink by default). */
 export const WorldCharacter = ({
   hatId = null,
+  bodyColorId = DEFAULT_WORLD_BODY_COLOR_ID,
   headWordId,
   animated = false,
   hatEntrance = false,
   className,
 }: {
   hatId?: HatId | null
+  bodyColorId?: BodyColorId
   headWordId?: string
   animated?: boolean
   /** the hat drops on with a little bounce each time it changes */
@@ -25,6 +30,7 @@ export const WorldCharacter = ({
 }) => {
   const { t, i18n } = useLingui()
   const { wordCards } = useContent()
+  const bodyFill = WORLD_BODY_COLORS[bodyColorId]
   const hat = hatId ? i18n._(HAT_LABELS[hatId]).toLocaleLowerCase(i18n.locale) : null
   // a stored word that no longer exists just gets the cloud
   const headCard = wordCards.find((card) => card.id === headWordId)
@@ -47,10 +53,10 @@ export const WorldCharacter = ({
       <g className="avatar-character__bob">
         {/* body: legs, then torso over them */}
         <path
-          fill="#FF383C"
+          fill={bodyFill}
           d="M100.426 181.582C119.642 181.582 136.087 187.061 149.08 197.532C161.69 207.694 169.14 221.014 173.653 233.681C182.363 258.132 182.117 286.381 182.117 302H131.407C131.407 284.72 131.161 265.211 125.787 250.127C123.258 243.028 120.145 238.636 116.911 236.029C114.059 233.731 109.378 231.383 100.426 231.383C91.4732 231.383 85.7511 233.754 81.6478 236.754C77.2334 239.981 73.2299 245.042 69.8706 252.258C62.899 267.233 60.8033 286.911 60.8033 302H10.0927C10.0927 284.191 12.318 256.11 23.7514 231.551C29.5945 219 38.3146 206.35 51.3651 196.808C64.7266 187.039 81.2108 181.582 100.426 181.582Z"
         />
-        <rect fill="#FF383C" x="9.79467" y="122.432" width="180.967" height="107.974" rx="45" />
+        <rect fill={bodyFill} x="9.79467" y="122.432" width="180.967" height="107.974" rx="45" />
 
         <Head wordId={headCard?.id} hatId={hatId} hatClassName={hatEntrance ? 'avatar-hat-enter' : undefined} />
 

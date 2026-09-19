@@ -30,4 +30,10 @@ describe('WorldCharacter', () => {
     expect(label(container)).toBe('Your character, feeling sharp, wearing a cap')
     expect(container.querySelectorAll('path').length).toBeGreaterThan(bare.querySelectorAll('path').length)
   })
+
+  it('has a pink body unless told otherwise, and takes another colour', () => {
+    const body = (container: HTMLElement) => container.querySelector('rect')?.getAttribute('fill')
+    expect(body(render(<WorldCharacter />).container)).toBe('#FEA7A9')
+    expect(body(render(<WorldCharacter bodyColorId="teal" />).container)).toBe('#3DBFAE')
+  })
 })

@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/react/macro'
 import type { WordCard } from '@/i18n'
 import { useWornHat } from '@/entities/avatar/wornHat'
+import { useWornBodyColor } from '@/entities/avatar/worldBodyColor'
 import { WorldCharacter } from '@/features/avatar/WorldCharacter'
 import checkHeart from './assets/check-heart.svg'
 import './SummaryStep.css'
@@ -9,11 +10,12 @@ const capitalize = (word: string): string => word.charAt(0).toUpperCase() + word
 
 export const SummaryStep = ({ word }: { word: WordCard }) => {
   const { hatId } = useWornHat()
+  const { bodyColorId } = useWornBodyColor()
 
   return (
     <div className="summary-step">
       <div className="summary-step__hero">
-        <WorldCharacter headWordId={word.id} hatId={hatId} className="summary-step__character" />
+        <WorldCharacter headWordId={word.id} hatId={hatId} bodyColorId={bodyColorId} className="summary-step__character" />
       </div>
 
       <div className="summary-step__intro">

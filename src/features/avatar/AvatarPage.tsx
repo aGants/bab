@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react'
 import { Trans } from '@lingui/react/macro'
 import type { HatId } from '@/entities/avatar/hatCatalog'
 import { useHeadWord } from '@/entities/avatar/headWord'
+import type { BodyColorId } from '@/entities/avatar/types'
 import { useWornHat } from '@/entities/avatar/wornHat'
+import { useWornBodyColor } from '@/entities/avatar/worldBodyColor'
 import { PageFrame } from '@/shared/layout'
 import { Button, Greeting, TabBar } from '@/shared/ui'
 import { AccessoryPicker } from './AccessoryPicker'
+import { BodyColorPicker } from './BodyColorPicker'
 import { WorldCharacter } from './WorldCharacter'
 import './AvatarPage.css'
 
@@ -13,10 +16,12 @@ const SAVED_FEEDBACK_MS = 2000
 
 export const AvatarPage = () => {
   const { hatId: savedHatId, saveHat } = useWornHat()
+  const { bodyColorId: savedBodyColorId, saveBodyColor } = useWornBodyColor()
   const { headWordId } = useHeadWord()
   // what's being tried on: shown on the big character right away, but only
   // reaches the header and storage once Customize is pressed
   const [draftHatId, setDraftHatId] = useState<HatId | null>(savedHatId)
+  const [draftBodyColorId, setDraftBodyColorId] = useState<BodyColorId>(savedBodyColorId)
   // brief confirmation after Customize: the button turns into a check and the
   // character hops; trying on another hat ends it early
   const [justSaved, setJustSaved] = useState(false)
@@ -32,8 +37,13 @@ export const AvatarPage = () => {
     setTriedOn(true)
     setDraftHatId((current) => (current === id ? null : id))
   }
+  const pickBodyColor = (id: BodyColorId) => {
+    setJustSaved(false)
+    setDraftBodyColorId(id)
+  }
   const save = () => {
     saveHat(draftHatId)
+    saveBodyColor(draftBodyColorId)
     setJustSaved(true)
   }
   return (
@@ -55,8 +65,10 @@ export const AvatarPage = () => {
         </div>
 
         <div className={justSaved ? 'avatar-page__stage avatar-page__stage--saved' : 'avatar-page__stage'}>
-          <WorldCharacter hatId={draftHatId} headWordId={headWordId ?? undefined} animated hatEntrance={triedOn} className="avatar-page__character" />
+          <WorldCharacter hatId={draftHatId} bodyColorId={draftBodyColorId} headWordId={headWordId ?? undefined} animated hatEntrance={triedOn} className="avatar-page__character" />
         </div>
+
+        <BodyColorPicker bodyColorId={draftBodyColorId} onPick={pickBodyColor} />
 
         <AccessoryPicker hatId={draftHatId} onToggleHat={toggleDraftHat} />
 

@@ -1,0 +1,26 @@
+.body-color-picker {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 8px;
+}
+
+.body-color-picker__swatch {
+  flex: 0 1 40px;
+  min-width: 0;
+  aspect-ratio: 1;
+  border: 2px solid var(--color-surface);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.body-color-picker__swatch--selected {
+  /* ring outside the fill so the chosen colour stays fully visible */
+  box-shadow: 0 0 0 2px var(--color-ink);
+}
+
+.body-color-picker__swatch:focus-visible {
+  outline: 2px solid var(--color-anchor);
+  outline-offset: 4px;
+}
