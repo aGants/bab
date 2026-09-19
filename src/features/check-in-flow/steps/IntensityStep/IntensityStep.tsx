@@ -1,11 +1,11 @@
 import type { MessageDescriptor } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
-import type { CSSProperties } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import type { CheckInIntensity, Trigger } from '@/entities/check-in/types'
 import { usesPainScale } from '@/entities/check-in/vasScale'
 import { WordShape } from '@/entities/word'
 import type { WordCard } from '@/i18n'
+import { Slider } from '@/shared/ui'
 import { MAX_INTENSITY, MIN_INTENSITY, scaleForIntensity } from '../../intensityScale'
 import './IntensityStep.css'
 
@@ -31,7 +31,6 @@ export const IntensityStep = ({
   onOpenInfo: () => void
 }) => {
   const { t, i18n } = useLingui()
-  const progress = (value - MIN_INTENSITY) / (MAX_INTENSITY - MIN_INTENSITY)
   return (
     <div className="intensity-step">
       <div className="intensity-step__heading">
@@ -69,16 +68,12 @@ export const IntensityStep = ({
         </div>
       </div>
 
-      <input
-        type="range"
-        className="intensity-step__slider"
+      <Slider
         min={MIN_INTENSITY}
         max={MAX_INTENSITY}
-        step={1}
         value={value}
-        onChange={(event) => onSelect(Number(event.target.value) as CheckInIntensity)}
-        aria-label={t`How big is it`}
-        style={{ '--slider-progress': progress } as CSSProperties}
+        onChange={(intensity) => onSelect(intensity as CheckInIntensity)}
+        label={t`How big is it`}
       />
 
       <p className="intensity-step__label">

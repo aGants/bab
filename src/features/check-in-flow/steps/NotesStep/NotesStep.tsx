@@ -1,8 +1,8 @@
-import type { CSSProperties } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { DEFAULT_ENERGY, type Energy } from '@/entities/check-in/types'
 import { useDailyLog } from '@/entities/daily-log/useDailyLog'
 import { todayKey } from '@/shared/lib/dateKey'
+import { Slider } from '@/shared/ui'
 import './NotesStep.css'
 
 const MIN_ENERGY = 1
@@ -28,7 +28,6 @@ export const NotesStep = ({
     date ?? todayKey(),
   )
   const energyLevel = energy ?? DEFAULT_ENERGY
-  const energyProgress = (energyLevel - MIN_ENERGY) / (MAX_ENERGY - MIN_ENERGY)
 
   const binaryQuestion = (
     label: string,
@@ -68,16 +67,12 @@ export const NotesStep = ({
         <p className="notes-step__label">
           <Trans>Energy level</Trans>
         </p>
-        <input
-          type="range"
-          className="notes-step__energy-slider"
+        <Slider
           min={MIN_ENERGY}
           max={MAX_ENERGY}
-          step={1}
           value={energyLevel}
-          style={{ '--slider-progress': energyProgress } as CSSProperties}
-          onChange={(event) => onEnergyChange(Number(event.target.value) as Energy)}
-          aria-label={t`Energy level`}
+          onChange={(energyValue) => onEnergyChange(energyValue as Energy)}
+          label={t`Energy level`}
         />
         <div className="notes-step__energy-ends">
           <span>
