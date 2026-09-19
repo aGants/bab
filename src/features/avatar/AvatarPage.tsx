@@ -1,12 +1,13 @@
-import { Trans, useLingui } from '@lingui/react/macro'
+import { Trans } from '@lingui/react/macro'
 import { PageFrame } from '@/shared/layout'
 import { Button, Greeting, TabBar } from '@/shared/ui'
-import accessories from './assets/accessories.png'
+import { AccessoryPicker } from './AccessoryPicker'
+import { useWornHat } from './useWornHat'
 import { WorldCharacter } from './WorldCharacter'
 import './AvatarPage.css'
 
 export const AvatarPage = () => {
-  const { t } = useLingui()
+  const { hatId, toggleHat } = useWornHat()
   return (
     <PageFrame>
       <Greeting />
@@ -19,20 +20,17 @@ export const AvatarPage = () => {
           <button type="button" className="avatar-page__switch-option avatar-page__switch-option--active" aria-pressed>
             <Trans>Avatar</Trans>
           </button>
-          {/* not built yet */}
+          {/* not built yet: dimmed so it reads as unavailable */}
           <button type="button" className="avatar-page__switch-option" aria-pressed={false} disabled>
             <Trans>Stickers</Trans>
           </button>
         </div>
 
         <div className="avatar-page__stage">
-          <WorldCharacter animated className="avatar-page__character" />
+          <WorldCharacter hatId={hatId} animated className="avatar-page__character" />
         </div>
 
-        {/* placeholder for the accessory picker until it's built */}
-        <div className="avatar-page__accessories">
-          <img src={accessories} alt={t`Accessories: hats, necklaces and shoes`} />
-        </div>
+        <AccessoryPicker hatId={hatId} onToggleHat={toggleHat} />
 
         <Button>
           <Trans>Customize</Trans>

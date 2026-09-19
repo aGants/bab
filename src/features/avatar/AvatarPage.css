@@ -48,7 +48,10 @@
 }
 
 .avatar-page__switch-option:disabled {
-  cursor: default;
+  /* grey pill (the page fill itself would be invisible), same dimming as the unavailable accessory categories */
+  background: var(--color-surface-raised);
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .avatar-page__switch-option:focus-visible {
@@ -69,28 +72,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 20px;
+  /* headroom: a worn hat sticks out above the head and must not run into the switch */
+  padding: 12px 20px 0;
 }
 
 .avatar-page__character {
   height: 100%;
   width: auto;
   max-width: 100%;
-}
-
-/* the design crops the screenshot slightly; same crop here */
-.avatar-page__accessories {
-  position: relative;
-  flex-shrink: 0;
-  aspect-ratio: 350 / 141.107;
-  overflow: hidden;
-}
-
-.avatar-page__accessories img {
-  position: absolute;
-  top: 0;
-  left: -1.58%;
-  width: 105.93%;
-  height: 100%;
-  max-width: none;
 }
