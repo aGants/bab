@@ -53,50 +53,52 @@ export const SettingsPage = () => {
           <ToggleSwitch options={themeOptions} value={theme} onChange={setTheme} />
         </div>
 
-        <div className="settings-section">
-          <span className="settings-label">
-            <Trans>Install app</Trans>
-          </span>
-          {installStatus === 'installed' && (
-            <p className="settings-hint">
-              <Trans>The app is installed on this device.</Trans>
-            </p>
-          )}
-          {installStatus === 'prompt' && (
-            <Button onClick={install}>
+        {installStatus !== 'unavailable' && (
+          <div className="settings-section">
+            <span className="settings-label">
               <Trans>Install app</Trans>
-            </Button>
-          )}
-          {installStatus === 'ios-safari' && (
-            <ol className="settings-hint settings-steps">
-              <li>
-                <Trans>Tap the Share button in Safari's toolbar.</Trans>
-              </li>
-              <li>
-                <Trans>Choose “Add to Home Screen”.</Trans>
-              </li>
-              <li>
-                <Trans>Tap “Add”.</Trans>
-              </li>
-            </ol>
-          )}
-          {installStatus === 'ios-other-browser' && (
-            <p className="settings-hint">
-              <Trans>
-                On iPhone and iPad the app can only be installed from Safari. Open this page in
-                Safari, then tap Share → “Add to Home Screen”.
-              </Trans>
-            </p>
-          )}
-          {installStatus === 'manual' && (
-            <p className="settings-hint">
-              <Trans>
-                Open your browser menu and choose “Install app” (or “Add to Dock” in Safari on
-                Mac).
-              </Trans>
-            </p>
-          )}
-        </div>
+            </span>
+            {installStatus === 'installed' && (
+              <p className="settings-hint">
+                <Trans>The app is installed on this device.</Trans>
+              </p>
+            )}
+            {installStatus === 'prompt' && (
+              <Button onClick={install}>
+                <Trans>Install app</Trans>
+              </Button>
+            )}
+            {installStatus === 'ios-safari' && (
+              <ol className="settings-hint settings-steps">
+                <li>
+                  <Trans>Tap the Share button in Safari's toolbar.</Trans>
+                </li>
+                <li>
+                  <Trans>Choose “Add to Home Screen”.</Trans>
+                </li>
+                <li>
+                  <Trans>Tap “Add”.</Trans>
+                </li>
+              </ol>
+            )}
+            {installStatus === 'ios-other-browser' && (
+              <p className="settings-hint">
+                <Trans>
+                  On iPhone and iPad the app can only be installed from Safari. Open this page in
+                  Safari, then tap Share → “Add to Home Screen”.
+                </Trans>
+              </p>
+            )}
+            {installStatus === 'manual' && (
+              <p className="settings-hint">
+                <Trans>
+                  Open your browser menu and choose “Install app” (or “Add to Dock” in Safari on
+                  Mac).
+                </Trans>
+              </p>
+            )}
+          </div>
+        )}
       </div>
       <TabBar />
     </PageFrame>

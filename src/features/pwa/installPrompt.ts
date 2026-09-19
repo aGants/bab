@@ -5,8 +5,10 @@ import { useSyncExternalStore } from 'react'
  * - prompt: the browser offers a one-tap install (Chrome/Edge on Android and desktop)
  * - ios-safari: iOS has no install API, the user must use Share → Add to Home Screen
  * - ios-other-browser: on iOS only Safari can install, so send them there
- * - manual: no install API here, point at the browser menu */
-export type InstallStatus = 'installed' | 'prompt' | 'ios-safari' | 'ios-other-browser' | 'manual'
+ * - manual: no install API here, point at the browser menu
+ * - unavailable: on a computer we don't offer installation at all */
+export type InstallStatus =
+  'installed' | 'prompt' | 'ios-safari' | 'ios-other-browser' | 'manual' | 'unavailable'
 
 // Chrome's non-standard install event, not in lib.dom
 type BeforeInstallPromptEvent = Event & {
@@ -29,9 +31,12 @@ const isIos = (): boolean =>
   // iPadOS reports itself as a Mac, but a Mac has no touch screen
   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
 
+const isAndroid = (): boolean => /android/i.test(navigator.userAgent)
+
 const isIosSafari = (): boolean => !/crios|fxios|edgios|opios/i.test(navigator.userAgent)
 
 const getStatus = (): InstallStatus => {
+  if (!isIos() && !isAndroid()) return 'unavailable'
   if (installed || isStandalone()) return 'installed'
   if (deferredPrompt) return 'prompt'
   if (isIos()) return isIosSafari() ? 'ios-safari' : 'ios-other-browser'
