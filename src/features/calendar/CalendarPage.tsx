@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { DayPicker, type DayButtonProps } from 'react-day-picker'
 import { format } from 'date-fns'
 import 'react-day-picker/style.css'
@@ -8,6 +8,7 @@ import { Greeting, TabBar } from '@/shared/ui'
 import { toDateKey } from '@/shared/lib/dateKey'
 import { WordShape } from '@/features/word-field/WordShape'
 import { CATEGORIES, WORD_CARDS, type WordCard } from '@/features/word-field/bodyWordsData'
+import { wordColor } from '@/features/word-field/helpers/shapes'
 import { wordsPath } from '@/routes/paths'
 import { bodyZoneLabel } from '@/features/check-in-flow/steps/BodyLocationStep/bodyZoneMap'
 import { checkInRepository } from '@/entities/check-in/checkInRepository'
@@ -143,13 +144,26 @@ export const CalendarPage = () => {
               <ul className="calendar-detail-log">
                 {selectedEntries.map((entry) => {
                   const word = WORD_CARDS.find((card) => card.id === entry.wordId)
+                  const entryColor = word ? wordColor(word.id) : 'var(--color-ink-muted)'
+                  const entryTime = format(new Date(entry.createdAt), 'h:mmaaa')
                   return (
-                    <li key={entry.id} className="calendar-detail-log-item">
-                      <span className="calendar-detail-log-emoji">
-                        {word ? CATEGORIES[word.category].emoji : '❓'}
-                      </span>
+                    <li
+                      key={entry.id}
+                      className="calendar-detail-log-item"
+                      style={{ '--entry-color': entryColor } as CSSProperties}
+                    >
+                      <div className="calendar-detail-log-shape" aria-hidden="true">
+                        {word ? (
+                          <WordShape card={word} expressive />
+                        ) : (
+                          <span className="calendar-detail-log-emoji">{CATEGORIES.pain.emoji}</span>
+                        )}
+                      </div>
                       <div className="calendar-detail-log-details">
-                        <strong>{word?.word ?? 'Unknown'}</strong>
+                        <div className="calendar-detail-log-header">
+                          <strong className="calendar-detail-log-word">{word?.word ?? 'Unknown'}</strong>
+                          <span className="calendar-detail-log-time">{entryTime}</span>
+                        </div>
                         <span className="calendar-detail-log-meta">
                           {formatZones(entry.bodyZones)} · intensity {entry.intensity}
                         </span>
