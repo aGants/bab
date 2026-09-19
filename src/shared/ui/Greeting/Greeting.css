@@ -58,3 +58,40 @@
 .app-greeting-cloud {
   flex-shrink: 0;
 }
+
+/* A cheerful "glad to see you": two little hops with a squash, a wiggle, then a
+   rest so it stays lively without nagging. Transform only (no layout or paint
+   work), and only for people who haven't asked for less motion. The hops are a
+   few px so a hat never gets pushed out of the bar's clipped top. */
+@media (prefers-reduced-motion: no-preference) {
+  .app-greeting-cloud {
+    transform-origin: 50% 100%;
+    animation: app-greeting-happy 3.2s ease-in-out infinite;
+  }
+}
+
+@keyframes app-greeting-happy {
+  0%,
+  72%,
+  100% {
+    transform: translateY(0) rotate(0) scale(1, 1);
+  }
+  8% {
+    transform: translateY(0) rotate(0) scale(1.04, 0.95);
+  }
+  20% {
+    transform: translateY(-4px) rotate(-3deg) scale(0.97, 1.04);
+  }
+  32% {
+    transform: translateY(0) rotate(0) scale(1.04, 0.95);
+  }
+  42% {
+    transform: translateY(-3px) rotate(3deg) scale(0.98, 1.03);
+  }
+  52% {
+    transform: translateY(0) rotate(-2deg) scale(1.02, 0.97);
+  }
+  62% {
+    transform: translateY(0) rotate(1.5deg) scale(1, 1);
+  }
+}
