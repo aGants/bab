@@ -29,9 +29,13 @@ msgstr "💊 Took a painkiller"
 msgid "🩸 On period"
 msgstr "🩸 On period"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:45
+#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:47
 msgid "About the intensity scale"
 msgstr "About the intensity scale"
+
+#: src/features/avatar/AvatarPage.tsx:34
+msgid "Accessories: hats, necklaces and shoes"
+msgstr "Accessories: hats, necklaces and shoes"
 
 #: src/features/calendar/CalendarPage.tsx:156
 msgid "Add new sensation"
@@ -41,7 +45,7 @@ msgstr "Add new sensation"
 msgid "Additional Notes"
 msgstr "Additional Notes"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:40
+#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:42
 msgid "Adjust the size as you feel"
 msgstr "Adjust the size as you feel"
 
@@ -57,8 +61,12 @@ msgstr "Anything you want to remember about this…"
 msgid "Arch"
 msgstr "Arch"
 
+#: src/features/avatar/AvatarPage.tsx:20
+msgid "Avatar"
+msgstr "Avatar"
+
 #: src/features/calendar/DayLogDialog.tsx:51
-#: src/shared/ui/ArrowButton/ArrowButton.tsx:24
+#: src/shared/ui/ArrowButton/ArrowButton.tsx:19
 msgid "Back"
 msgstr "Back"
 
@@ -78,10 +86,6 @@ msgstr "Bean"
 #: src/features/avatar/labels.ts:38
 msgid "Blush"
 msgstr "Blush"
-
-#: src/features/avatar/AvatarPage.tsx:16
-msgid "Body"
-msgstr "Body"
 
 #: src/features/avatar/panels.tsx:88
 msgid "Body colour"
@@ -144,7 +148,7 @@ msgstr "Coral"
 msgid "Crown"
 msgstr "Crown"
 
-#: src/features/avatar/AvatarPage.tsx:51
+#: src/features/avatar/AvatarPage.tsx:38
 msgid "Customize"
 msgstr "Customize"
 
@@ -176,22 +180,6 @@ msgstr "Energy"
 msgid "Energy level"
 msgstr "Energy level"
 
-#: src/features/avatar/AvatarPage.tsx:18
-msgid "Extras"
-msgstr "Extras"
-
-#: src/features/avatar/AvatarPage.tsx:17
-msgid "Face"
-msgstr "Face"
-
-#: src/features/avatar/AvatarPage.tsx:15
-msgid "Feeling"
-msgstr "Feeling"
-
-#: src/features/avatar/AvatarPage.tsx:45
-msgid "Feeling {feelingName}"
-msgstr "Feeling {feelingName}"
-
 #: src/features/check-in-flow/steps/SummaryStep/SummaryStep.tsx:61
 msgid "Felt in {zonesText}."
 msgstr "Felt in {zonesText}."
@@ -200,7 +188,7 @@ msgstr "Felt in {zonesText}."
 msgid "Flower"
 msgstr "Flower"
 
-#: src/shared/ui/ArrowButton/ArrowButton.tsx:24
+#: src/shared/ui/ArrowButton/ArrowButton.tsx:19
 msgid "Forward"
 msgstr "Forward"
 
@@ -237,15 +225,15 @@ msgstr "Happy"
 msgid "Head & neck"
 msgstr "Head & neck"
 
-#: src/shared/ui/TabBar/TabBar.tsx:50
+#: src/shared/ui/TabBar/TabBar.tsx:49
 msgid "Home"
 msgstr "Home"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:74
+#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:71
 msgid "How big is it"
 msgstr "How big is it"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:37
+#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:39
 msgid "How intense is it?"
 msgstr "How intense is it?"
 
@@ -272,7 +260,7 @@ msgstr "Intensity"
 msgid "Intensity scale"
 msgstr "Intensity scale"
 
-#: src/shared/ui/TabBar/TabBar.tsx:51
+#: src/shared/ui/TabBar/TabBar.tsx:50
 msgid "Journal"
 msgstr "Journal"
 
@@ -308,9 +296,9 @@ msgstr "Logged sensations ({count})"
 msgid "New sticker unlocked!"
 msgstr "New sticker unlocked!"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:113
-#: src/features/check-in-flow/CheckInFlow.tsx:118
-#: src/features/check-in-flow/CheckInFlow.tsx:123
+#: src/features/check-in-flow/CheckInFlow.tsx:104
+#: src/features/check-in-flow/CheckInFlow.tsx:109
+#: src/features/check-in-flow/CheckInFlow.tsx:114
 msgid "Next"
 msgstr "Next"
 
@@ -363,17 +351,13 @@ msgstr "Pink"
 msgid "Previous month"
 msgstr "Previous month"
 
-#: src/shared/ui/TabBar/TabBar.tsx:59
+#: src/shared/ui/TabBar/TabBar.tsx:58
 msgid "Primary"
 msgstr "Primary"
 
 #: src/features/avatar/labels.ts:21
 msgid "Red"
 msgstr "Red"
-
-#: src/features/avatar/AvatarPage.tsx:83
-msgid "Reset character"
-msgstr "Reset character"
 
 #: src/features/avatar/labels.ts:12
 msgid "Round"
@@ -383,11 +367,11 @@ msgstr "Round"
 msgid "Sad"
 msgstr "Sad"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:128
+#: src/features/check-in-flow/CheckInFlow.tsx:119
 msgid "Save check-in"
 msgstr "Save check-in"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:128
+#: src/features/check-in-flow/CheckInFlow.tsx:119
 msgid "Saving…"
 msgstr "Saving…"
 
@@ -396,7 +380,7 @@ msgid "Scarf"
 msgstr "Scarf"
 
 #: src/features/settings/SettingsPage.tsx:26
-#: src/shared/ui/TabBar/TabBar.tsx:53
+#: src/shared/ui/TabBar/TabBar.tsx:52
 msgid "Settings"
 msgstr "Settings"
 
@@ -408,13 +392,17 @@ msgstr "Sleepy"
 msgid "Sparkles"
 msgstr "Sparkles"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:14
+#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:15
 msgid "Standing still"
 msgstr "Standing still"
 
 #: src/features/check-in/CheckIn.tsx:37
 msgid "Start a check-in"
 msgstr "Start a check-in"
+
+#: src/features/avatar/AvatarPage.tsx:24
+msgid "Stickers"
+msgstr "Stickers"
 
 #: src/features/check-in-flow/CheckInFlow.tsx:20
 msgid "Summary"
@@ -464,7 +452,7 @@ msgstr "Unknown"
 msgid "Unknown word."
 msgstr "Unknown word."
 
-#: src/features/check-in-flow/CheckInFlow.tsx:128
+#: src/features/check-in-flow/CheckInFlow.tsx:119
 msgid "Update check-in"
 msgstr "Update check-in"
 
@@ -476,15 +464,19 @@ msgstr "Use my latest feeling: {latestName}"
 msgid "What can help right now?"
 msgstr "What can help right now?"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:78
+#: src/features/avatar/AvatarPage.tsx:15
+msgid "What’s new?"
+msgstr "What’s new?"
+
+#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:85
 msgid "When do you notice it?"
 msgstr "When do you notice it?"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:12
+#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:13
 msgid "When I move it"
 msgstr "When I move it"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:13
+#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:14
 msgid "When I press it"
 msgstr "When I press it"
 
@@ -496,6 +488,10 @@ msgstr "Where do you feel it?"
 msgid "Wink"
 msgstr "Wink"
 
+#: src/shared/ui/TabBar/TabBar.tsx:51
+msgid "World"
+msgstr "World"
+
 #: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:71
 #: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:93
 msgid "Yes"
@@ -504,6 +500,10 @@ msgstr "Yes"
 #: src/features/check-in-flow/steps/SummaryStep/SummaryStep.tsx:55
 msgid "Your body says…"
 msgstr "Your body says…"
+
+#: src/features/avatar/WorldCharacter.tsx:14
+msgid "Your character"
+msgstr "Your character"
 
 #: src/features/avatar/AvatarCharacter.tsx:35
 msgid "Your character, feeling {word}"

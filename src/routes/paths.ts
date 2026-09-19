@@ -3,8 +3,8 @@ export const ROUTES = {
   words: '/words',
   checkInFlow: '/words/:wordId/check-in',
   calendar: '/calendar',
-  avatar: '/avatar',
   settings: '/settings',
+  world: '/world',
 } as const
 
 export const checkInFlowPath = (wordId: string, date?: string, entryId?: string): string => {

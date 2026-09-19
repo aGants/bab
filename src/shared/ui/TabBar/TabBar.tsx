@@ -31,14 +31,6 @@ const CalendarIcon = () => (
   </svg>
 )
 
-// const AvatarIcon = () => (
-//   <svg {...ICON_PROPS}>
-//     <circle cx="12" cy="9" r="5" />
-//     <path d="M9.5 8.5v.5M14.5 8.5v.5M10 11.2q2 1.6 4 0" />
-//     <path d="M7 20v-3.5a5 5 0 0 1 10 0V20" />
-//   </svg>
-// )
-
 const SettingsIcon = () => (
   <svg {...ICON_PROPS}>
     <circle cx="12" cy="12" r="3" />
@@ -46,10 +38,17 @@ const SettingsIcon = () => (
   </svg>
 )
 
+const WorldIcon = () => (
+  <svg {...ICON_PROPS}>
+    <circle cx="12" cy="8" r="4" />
+    <path d="M4.5 20.5a7.5 7.5 0 0 1 15 0" />
+  </svg>
+)
+
 const TABS: { to: string; label: MessageDescriptor; icon: () => ReactNode }[] = [
   { to: ROUTES.checkIn, label: msg`Home`, icon: HomeIcon },
   { to: ROUTES.calendar, label: msg`Journal`, icon: CalendarIcon },
-  // { to: ROUTES.avatar, label: msg`Avatar`, icon: AvatarIcon },
+  { to: ROUTES.world, label: msg`World`, icon: WorldIcon },
   { to: ROUTES.settings, label: msg`Settings`, icon: SettingsIcon },
 ]
 

@@ -1,91 +1,96 @@
-.avatar-page__stage {
-  flex: 1 1 0;
-  min-height: 190px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 0 var(--padding);
-}
-
-.avatar-page__character {
+.avatar-page__content {
   flex: 1 1 0;
   min-height: 0;
-  width: auto;
-  max-width: 100%;
-}
-
-.avatar-page__feeling {
-  flex-shrink: 0;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--color-ink-muted);
-}
-
-.avatar-page__editor {
-  /* fixed share of the screen so switching tabs doesn't make the character jump */
-  flex: 0 0 46%;
   display: flex;
   flex-direction: column;
+  gap: 24px;
+  /* 20px gap under the greeting bar + the design's 8px top padding */
+  padding: 28px 20px 16px;
+  overflow-y: auto;
+}
+
+.avatar-page__title {
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: -0.64px;
+  color: var(--color-ink);
+}
+
+.avatar-page__switch {
+  display: flex;
+  flex-shrink: 0;
   gap: 12px;
-  min-height: 0;
-  padding: 14px var(--padding) 0;
-  border-radius: 24px 24px 0 0;
-  background: var(--color-surface-raised);
 }
 
-.avatar-page__tabs {
-  display: flex;
-  flex-shrink: 0;
-  gap: 4px;
-  padding: 4px;
-  border-radius: 999px;
-  background: var(--color-overlay);
-}
-
-.avatar-page__tab {
-  flex: 1;
-  padding: 9px 0;
-  border: none;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--color-ink-muted);
+.avatar-page__switch-option {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 44px;
+  border: 1px solid transparent;
+  border-radius: 22px;
+  background: var(--color-surface);
+  color: var(--color-ink);
   font-family: var(--font-body);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 500;
+  line-height: 18px;
   cursor: pointer;
 }
 
-.avatar-page__tab--active {
-  background: var(--color-anchor);
-  /* fixed cream, not the theme surface: the anchor fill is the same in both themes */
-  color: var(--color-ground);
+.avatar-page__switch-option--active {
+  border-color: var(--color-energy);
+  background: var(--color-energy);
+  /* fixed dark: the lime fill is the same in both themes */
+  color: var(--color-ink-on-light);
 }
 
-.avatar-page__tab:focus-visible {
+.avatar-page__switch-option:disabled {
+  cursor: default;
+}
+
+.avatar-page__switch-option:focus-visible {
   outline: 2px solid var(--color-anchor);
   outline-offset: 2px;
 }
 
-.avatar-page__panel {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  min-height: 0;
-  overflow-y: auto;
-  padding-bottom: 14px;
+.avatar-page__content > .button {
+  flex-shrink: 0;
 }
 
-.avatar-page__reset {
-  align-self: center;
-  padding: 8px 16px;
-  border: none;
-  background: transparent;
-  color: var(--color-ink-muted);
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: underline;
-  cursor: pointer;
+/* takes whatever height is left, up to the design's 302px */
+.avatar-page__stage {
+  flex: 1 0 140px;
+  /* explicit, or the svg's own 302px height becomes the minimum */
+  min-height: 140px;
+  max-height: 302px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+.avatar-page__character {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+}
+
+/* the design crops the screenshot slightly; same crop here */
+.avatar-page__accessories {
+  position: relative;
+  flex-shrink: 0;
+  aspect-ratio: 350 / 141.107;
+  overflow: hidden;
+}
+
+.avatar-page__accessories img {
+  position: absolute;
+  top: 0;
+  left: -1.58%;
+  width: 105.93%;
+  height: 100%;
+  max-width: none;
 }

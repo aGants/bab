@@ -12,6 +12,6 @@ describe('TabBar', () => {
     )
 
     const nav = screen.getByRole('navigation', { name: 'Primary' })
-    expect(nav.textContent).toBe('HomeJournalSettings')
+    expect(nav.textContent).toBe('HomeJournalWorldSettings')
   })
 })
