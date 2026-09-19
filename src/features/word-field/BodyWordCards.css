@@ -21,7 +21,7 @@
 }
 
 .word-cards-section-label {
-  margin: 12px 16px 0;
+  margin: 12px 16px 10px 16px;
   color: var(--color-ink);
   font-weight: 700;
   font-size: 15px;
@@ -335,12 +335,7 @@
 
 .word-detail-title {
   display: block;
-  width: fit-content;
   margin-bottom: 12px;
-  /* sits on the word's own fill (set inline) — the fill is theme-independent,
-     so the title can't rely on the theme's ink/surface for contrast */
-  padding: 2px 16px 4px;
-  border-radius: 999px;
   font-size: 32px;
   font-family: var(--font-display);
   font-weight: var(--display-weight);

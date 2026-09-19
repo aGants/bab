@@ -66,7 +66,6 @@ const BodyWordCards = () => {
           >
             ✕
           </button>
-          <span className="word-detail-pill">{CATEGORIES[selected.category].label}</span>
           <strong className="word-detail-title" style={{ background: wordColor(selected.id), color: wordLabelColor(selected.id) }}>
             {selected.word}
           </strong>
