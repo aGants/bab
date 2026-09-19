@@ -1,9 +1,19 @@
 import type { WordCard } from '@/features/word-field/bodyWordsData'
 import { WordShape } from '@/features/word-field/WordShape'
 import type { BodyZone, CheckInIntensity } from '@/entities/check-in/types'
+import { VAS_SCALE } from '@/entities/check-in/vasScale'
 import { bodyZoneLabel } from '../BodyLocationStep/bodyZoneMap'
 import { scaleForIntensity } from '../IntensityStep/IntensityStep'
 import './SummaryStep.css'
+
+/** These describe how ready/light the body feels, not pain — the intensity
+ * slider still applies (how strong/light), but the VAS scale itself doesn't,
+ * so they always get the "nothing at all, pain-free" level regardless of the
+ * value picked. */
+const NON_PAIN_WORD_IDS = new Set(['strong', 'light'])
+
+const vasLevelFor = (word: WordCard, intensity: CheckInIntensity) =>
+  NON_PAIN_WORD_IDS.has(word.id) ? VAS_SCALE[0] : VAS_SCALE[intensity]
 
 /** Shape's footprint at the smallest intensity — scaleForIntensity multiplies this
  * directly (rather than via CSS transform) so the stage actually reserves enough
@@ -29,29 +39,38 @@ export const SummaryStep = ({
   word: WordCard
   bodyZones: BodyZone[]
   intensity: CheckInIntensity
-}) => (
-  <div className="summary-step">
-    <div className="summary-step__stage">
-      <div
-        className="summary-step__shape"
-        style={{
-          width: `${SHAPE_BASE_SIZE * scaleForIntensity(intensity)}px`,
-          height: `${SHAPE_BASE_SIZE * scaleForIntensity(intensity)}px`,
-        }}
-      >
-        <WordShape card={word} expressive />
+}) => {
+  const vasLevel = vasLevelFor(word, intensity)
+
+  return (
+    <div className="summary-step">
+      <div className="summary-step__stage">
+        <div
+          className="summary-step__shape"
+          style={{
+            width: `${SHAPE_BASE_SIZE * scaleForIntensity(intensity)}px`,
+            height: `${SHAPE_BASE_SIZE * scaleForIntensity(intensity)}px`,
+          }}
+        >
+          <WordShape card={word} expressive />
+        </div>
+      </div>
+
+      <h3 className="summary-step__heading">Your body says…</h3>
+      <span className="summary-step__word-pill">{capitalize(word.word)}</span>
+
+      <p className="summary-step__description">{word.description}</p>
+      <p className="summary-step__location">Felt in {joinBodyZoneLabels(bodyZones)}.</p>
+
+      <div className="summary-step__vas">
+        <span className="summary-step__vas-label">{vasLevel.label}.</span>{' '}
+        {vasLevel.description}
+      </div>
+
+      <h3 className="summary-step__help-heading">What can help right now?</h3>
+      <div className={`summary-step__recommendation summary-step__recommendation--${word.signal}`}>
+        <p className="summary-step__recommendation-text">{word.recommendation}</p>
       </div>
     </div>
-
-    <h3 className="summary-step__heading">Your body says…</h3>
-    <span className="summary-step__word-pill">{capitalize(word.word)}</span>
-
-    <p className="summary-step__description">{word.description}</p>
-    <p className="summary-step__location">Felt in {joinBodyZoneLabels(bodyZones)}.</p>
-
-    <h3 className="summary-step__help-heading">What can help right now?</h3>
-    <div className={`summary-step__recommendation summary-step__recommendation--${word.signal}`}>
-      <p className="summary-step__recommendation-text">{word.recommendation}</p>
-    </div>
-  </div>
-)
+  )
+}
