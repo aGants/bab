@@ -45,7 +45,7 @@ const SettingsIcon = () => (
 
 const TABS: { to: string; label: string; icon: () => ReactNode }[] = [
   { to: ROUTES.checkIn, label: 'Home', icon: HomeIcon },
-  { to: ROUTES.calendar, label: 'Calendar', icon: CalendarIcon },
+  { to: ROUTES.calendar, label: 'Journal', icon: CalendarIcon },
   // { to: ROUTES.avatar, label: 'Avatar', icon: AvatarIcon },
   { to: ROUTES.settings, label: 'Settings', icon: SettingsIcon },
 ]

@@ -1,22 +1,30 @@
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
+import { useMemo, useState } from 'react'
 import { DayPicker, type DayButtonProps } from 'react-day-picker'
-import { format } from 'date-fns'
+import { addMonths, format } from 'date-fns'
 import 'react-day-picker/style.css'
 import { Link, useSearchParams } from 'react-router-dom'
 import { PageFrame } from '@/shared/layout'
 import { Greeting, TabBar } from '@/shared/ui'
 import { toDateKey } from '@/shared/lib/dateKey'
-import { WordShape, wordColor } from '@/entities/word'
-import { CATEGORIES, WORD_CARDS, bodyZoneShortLabel, type WordCard } from '@/i18n'
+import { WordShape } from '@/entities/word'
+import { WORD_CARDS, type WordCard } from '@/i18n'
 import { wordsPath } from '@/routes/paths'
 import { checkInRepository } from '@/entities/check-in/checkInRepository'
-import type { BodyZone } from '@/entities/check-in/types'
+import { DayLogDialog } from './DayLogDialog'
 import { useCalendarMonthData } from './useCalendarMonthData'
 import './CalendarPage.css'
 
-/** "left quad, right knee" — zone phrases without the "your" lead-in, for compact meta lines. */
-const formatZones = (zones: BodyZone[]): string =>
-  zones.map((zone) => bodyZoneShortLabel(zone)).join(', ')
+const MonthChevron = ({ direction }: { direction: 'left' | 'right' }) => (
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+    <path
+      d={direction === 'left' ? 'M12.5 4.5 7 10l5.5 5.5' : 'M7.5 4.5 13 10l-5.5 5.5'}
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+)
 
 const parseDateKey = (key: string | null): Date | undefined => {
   if (!key) return undefined
@@ -36,15 +44,6 @@ export const CalendarPage = () => {
   const selectedEntries = selectedKey ? (entriesByDate[selectedKey] ?? []) : []
   const selectedLog = selectedKey ? dailyLogsByDate[selectedKey] : undefined
 
-  // the grid fills the whole screen, so the panel for a picked day starts
-  // below the fold — bring it into view instead of leaving it to be discovered
-  const detailRef = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    if (!selectedKey) return
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    detailRef.current?.scrollIntoView({ block: 'nearest', behavior: reduceMotion ? 'auto' : 'smooth' })
-  }, [selectedKey, selectedEntries.length])
-
   const handleDelete = async (id: string) => {
     if (!window.confirm('Delete this check-in?')) return
     await checkInRepository.remove(id)
@@ -54,7 +53,9 @@ export const CalendarPage = () => {
   // Recreated whenever a month's data loads, so each day button closes over
   // fresh entries/logs without needing a separate context provider.
   const CalendarDayButton = useMemo(() => {
-    const MAX_VISIBLE_MOODS = 3
+    // a day's marks stay on a single row, so the period drop and the "+N"
+    // counter each take one of these slots instead of wrapping to a second line
+    const MARK_SLOTS = 3
     const DayButton = ({ day, modifiers: _modifiers, className, ...props }: DayButtonProps) => {
       const dateKey = toDateKey(day.date)
       const dayEntries = entriesByDate[dateKey]
@@ -69,9 +70,11 @@ export const CalendarPage = () => {
         const card = WORD_CARDS.find((c) => c.id === entry.wordId)
         if (card) dayWords.push(card)
       }
-      const visibleWords = dayWords.slice(0, MAX_VISIBLE_MOODS)
-      const extraMoodCount = dayWords.length - visibleWords.length
       const hadPeriod = dailyLogsByDate[dateKey]?.hadPeriod
+      const slots = hadPeriod ? MARK_SLOTS - 1 : MARK_SLOTS
+      // when the words don't all fit, the last slot turns into the "+N" counter
+      const visibleWords = dayWords.slice(0, dayWords.length > slots ? slots - 1 : slots)
+      const extraMoodCount = dayWords.length - visibleWords.length
 
       return (
         <button {...props} className={`${className ?? ''} calendar-day-button`}>
@@ -104,96 +107,60 @@ export const CalendarPage = () => {
       <Greeting />
       <div className="calendar-wrapper">
         <div className="calendar-header">
-          <h1 className="text-display calendar-title">Calendar</h1>
+          <h1 className="text-display calendar-title">How is your journey?</h1>
         </div>
 
-        <DayPicker
-          mode="single"
-          month={month}
-          onMonthChange={setMonth}
-          selected={selectedDate}
-          onSelect={setSelectedDate}
-          showOutsideDays
-          components={{ DayButton: CalendarDayButton }}
-          className="calendar-picker"
-        />
-
-        {selectedKey && (
-          <div className="calendar-detail" ref={detailRef}>
-            <div className="calendar-detail-heading">
-              <h2 className="calendar-detail-date">{format(selectedDate!, 'EEE, MMM d')}</h2>
-              <Link className="calendar-detail-add" to={wordsPath(selectedKey ?? undefined)}>
-                + Add check-in
-              </Link>
-            </div>
-
-            {(selectedLog?.hadPeriod || selectedLog?.tookPainkiller) && (
-              <div className="calendar-detail-flags">
-                {selectedLog?.hadPeriod && (
-                  <span className="calendar-detail-flag">🩸 On period</span>
-                )}
-                {selectedLog?.tookPainkiller && (
-                  <span className="calendar-detail-flag">💊 Took a painkiller</span>
-                )}
-              </div>
-            )}
-
-            {selectedEntries.length > 0 ? (
-              <ul className="calendar-detail-log">
-                {selectedEntries.map((entry) => {
-                  const word = WORD_CARDS.find((card) => card.id === entry.wordId)
-                  const entryColor = word ? wordColor(word.id) : 'var(--color-ink-muted)'
-                  const entryTime = format(new Date(entry.createdAt), 'h:mmaaa')
-                  return (
-                    <li
-                      key={entry.id}
-                      className="calendar-detail-log-item"
-                      style={{ '--entry-color': entryColor } as CSSProperties}
-                    >
-                      <div className="calendar-detail-log-shape" aria-hidden="true">
-                        {word ? (
-                          <WordShape card={word} expressive />
-                        ) : (
-                          <span className="calendar-detail-log-emoji">{CATEGORIES.pain.emoji}</span>
-                        )}
-                      </div>
-                      <div className="calendar-detail-log-details">
-                        <div className="calendar-detail-log-header">
-                          <strong className="calendar-detail-log-word">{word?.word ?? 'Unknown'}</strong>
-                          <span className="calendar-detail-log-time">{entryTime}</span>
-                        </div>
-                        <span className="calendar-detail-log-meta">
-                          {formatZones(entry.bodyZones)} · intensity {entry.intensity}
-                        </span>
-                        {entry.note && <p className="calendar-detail-log-note">{entry.note}</p>}
-                      </div>
-                      <div className="calendar-detail-log-actions">
-                        <Link
-                          className="calendar-detail-log-edit"
-                          to={wordsPath(entry.date, entry.id)}
-                          aria-label="Edit check-in"
-                        >
-                          ✎
-                        </Link>
-                        <button
-                          type="button"
-                          className="calendar-detail-log-delete"
-                          onClick={() => handleDelete(entry.id)}
-                          aria-label="Delete check-in"
-                        >
-                          ✕
-                        </button>
-                      </div>
-                    </li>
-                  )
-                })}
-              </ul>
-            ) : (
-              <p className="calendar-detail-empty">No check-ins this day.</p>
-            )}
+        <div className="calendar-month">
+          <div className="calendar-month-nav">
+            <button
+              type="button"
+              className="calendar-month-nav-button"
+              onClick={() => setMonth((current) => addMonths(current, -1))}
+              aria-label="Previous month"
+            >
+              <MonthChevron direction="left" />
+            </button>
+            <h2 className="calendar-month-title" aria-live="polite">
+              {format(month, 'LLLL yyyy')}
+            </h2>
+            <button
+              type="button"
+              className="calendar-month-nav-button"
+              onClick={() => setMonth((current) => addMonths(current, 1))}
+              aria-label="Next month"
+            >
+              <MonthChevron direction="right" />
+            </button>
           </div>
-        )}
+
+          <DayPicker
+            mode="single"
+            month={month}
+            onMonthChange={setMonth}
+            selected={selectedDate}
+            onSelect={setSelectedDate}
+            weekStartsOn={1}
+            hideNavigation
+            components={{ DayButton: CalendarDayButton }}
+            className="calendar-picker"
+          />
+        </div>
       </div>
+      <div className="calendar-cta">
+        <Link className="calendar-add-button" to={wordsPath()}>
+          Add new sensation
+        </Link>
+      </div>
+
+      {selectedDate && (
+        <DayLogDialog
+          date={selectedDate}
+          entries={selectedEntries}
+          dailyLog={selectedLog}
+          onClose={() => setSelectedDate(undefined)}
+          onDelete={handleDelete}
+        />
+      )}
       <TabBar />
     </PageFrame>
   )

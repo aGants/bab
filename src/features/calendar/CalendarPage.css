@@ -21,11 +21,46 @@
   margin: 0;
 }
 
-/* Compact, taller day cells so each one fits a number plus a feeling/period
-   row underneath, and swap the default circular selection for a soft pill.
-   The day size shrinks to fit 7 columns within the viewport (minus the page
-   padding) so the grid never overflows on narrow phone screens; it caps at
-   56px, the size the desktop-mimicking frame was designed around. */
+.calendar-month {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.calendar-month-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.calendar-month-title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.calendar-month-nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: none;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+/* Day cells are a number with a single row of feeling shapes underneath. The
+   picked day gets a soft lavender pill narrower than its column. The day size
+   shrinks to fit 7 columns within the viewport (minus the page padding) so the
+   grid never overflows on narrow phone screens; it caps at 56px, the size the
+   desktop-mimicking frame was designed around. */
 .calendar-picker {
   --calendar-day-size: clamp(
     38px,
@@ -35,11 +70,15 @@
   --rdp-accent-color: var(--color-ink);
   --rdp-accent-background-color: var(--color-surface-raised);
   --rdp-day-width: var(--calendar-day-size);
-  --rdp-day-height: 92px;
-  --rdp-day_button-width: var(--calendar-day-size);
-  --rdp-day_button-height: 92px;
-  --rdp-day_button-border-radius: 16px;
+  --rdp-day-height: 56px;
+  --rdp-day_button-width: calc(var(--calendar-day-size) * 0.72);
+  --rdp-day_button-height: 52px;
+  --rdp-day_button-border-radius: 12px;
+  --rdp-day_button-border: 0;
+  --rdp-selected-border: 0;
   --rdp-today-color: var(--color-signals);
+  --rdp-weekday-opacity: 1;
+  --rdp-weekday-padding: 0 0 14px;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -47,34 +86,61 @@
   font-size: 16px;
 }
 
+/* the month title and prev/next live in .calendar-month-nav above the grid */
+.calendar-picker .rdp-month_caption {
+  display: none;
+}
+
+.calendar-picker .rdp-weekday {
+  color: color-mix(in srgb, var(--color-ink) 40%, transparent);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.calendar-picker .rdp-today:not(.rdp-outside) {
+  font-weight: 700;
+}
+
+.calendar-picker .rdp-selected {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* --color-cycle is the same lavender in both themes, so the number on it
+   needs the theme-invariant anchor green rather than --color-ink */
+.calendar-picker .rdp-selected .calendar-day-button {
+  background: var(--color-cycle);
+  color: var(--color-anchor);
+}
+
 .calendar-day-button {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding-top: 8px;
-  gap: 8px;
+  padding-top: 6px;
+  gap: 4px;
   font-family: var(--font-body);
 }
 
 .calendar-day-number {
   font-size: 16px;
+  line-height: 20px;
 }
 
 .calendar-day-marks {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  width: 100%;
-  max-width: var(--calendar-day-size);
+  gap: 3px;
+  height: 12px;
 }
 
 .calendar-day-mood {
   position: relative;
-  width: clamp(16px, calc(var(--calendar-day-size) * 3 / 7), 24px);
-  height: clamp(16px, calc(var(--calendar-day-size) * 3 / 7), 24px);
+  flex-shrink: 0;
+  width: clamp(9px, calc(var(--calendar-day-size) * 0.22), 12px);
+  height: clamp(9px, calc(var(--calendar-day-size) * 0.22), 12px);
 }
 
 /* Calendar cells can show several feelings at once; the drift/pulse/spike
@@ -88,187 +154,34 @@
 }
 
 .calendar-day-mood-more {
-  font-size: 12px;
+  font-size: 10px;
   line-height: 1;
   color: var(--color-ink-muted);
 }
 
 .calendar-day-period {
-  font-size: 13px;
+  font-size: 10px;
   line-height: 1;
 }
 
-.calendar-detail {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  padding: 22px 20px;
-  border-radius: 20px;
-  background: var(--color-surface-raised);
-}
-
-.calendar-detail-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-}
-
-.calendar-detail-date {
-  margin: 0;
-  font-size: 16px;
-}
-
-.calendar-detail-add {
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: var(--color-ink);
-  color: var(--color-surface);
-  font-size: 13px;
-  font-weight: 600;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.calendar-detail-flags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.calendar-detail-flag {
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: var(--color-cycle);
-  color: var(--color-ink-on-light);
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.calendar-detail-empty {
-  margin: 0;
-  color: var(--color-ink-muted);
-  font-size: 14px;
-}
-
-.calendar-detail-log {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.calendar-detail-log-item {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 18px 18px 18px 20px;
-  border-radius: 22px;
-  overflow: hidden;
-  background:
-    radial-gradient(
-      120% 140% at 100% 0%,
-      color-mix(in srgb, var(--entry-color) 30%, transparent) 0%,
-      transparent 60%
-    ),
-    var(--color-surface);
-  border: 1px solid color-mix(in srgb, var(--entry-color) 22%, transparent);
-}
-
-.calendar-detail-log-shape {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Sits between the scrolling month and the tab bar so "add" is always in reach. */
+.calendar-cta {
   flex-shrink: 0;
-  width: 46px;
-  height: 46px;
+  padding: 12px var(--padding) 16px;
 }
 
-/* A single icon at rest reads fine animated elsewhere (the word grid), but
-   here it sits beside body text the eye is meant to actually read — keep it still. */
-.calendar-detail-log-shape .word-shape,
-.calendar-detail-log-shape .word-shape--pulse,
-.calendar-detail-log-shape .word-shape--spike,
-.calendar-detail-log-shape .word-shape--jitter,
-.calendar-detail-log-shape .word-shape--spike .word-shape-path {
-  animation: none;
-}
-
-.calendar-detail-log-emoji {
-  font-size: 22px;
-  line-height: 1;
-}
-
-.calendar-detail-log-details {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  flex: 1;
-  min-width: 0;
-}
-
-.calendar-detail-log-header {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-}
-
-.calendar-detail-log-word {
-  font-family: var(--font-display);
-  font-weight: var(--display-weight);
-  font-style: var(--display-style);
-  letter-spacing: var(--display-tracking);
-  font-size: 17px;
-  text-transform: capitalize;
-  color: color-mix(in srgb, var(--entry-color) 55%, var(--color-ink));
-}
-
-.calendar-detail-log-time {
-  font-size: 12px;
-  color: var(--color-ink-muted);
-  white-space: nowrap;
-}
-
-.calendar-detail-log-meta {
-  font-size: 13px;
-  line-height: 1.45;
-  color: var(--color-ink-muted);
-}
-
-.calendar-detail-log-note {
-  margin: 6px 0 0;
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-.calendar-detail-log-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-.calendar-detail-log-edit,
-.calendar-detail-log-delete {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
+.calendar-add-button {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 14px 16px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--color-surface-raised) 80%, transparent);
-  border: none;
-  color: var(--color-ink);
-  font-size: 12px;
-  line-height: 1;
+  background: var(--color-anchor);
+  /* fixed cream, not the theme surface: the anchor fill is the same in both themes */
+  color: var(--color-ground);
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
   text-decoration: none;
-  cursor: pointer;
-}
-
-.calendar-detail-log-delete {
-  color: var(--color-signals);
+  box-shadow: 0 6px 16px rgb(0 0 0 / 14%);
 }
