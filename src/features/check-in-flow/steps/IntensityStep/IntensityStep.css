@@ -32,13 +32,19 @@
 .intensity-step__info {
     display: grid;
     place-items: center;
-    /* 12px glyph, padded out to a comfortable tap target without shifting the layout */
-    padding: 10px;
-    margin: -10px;
+    /* 18px glyph, padded out to a comfortable tap target without shifting the layout */
+    padding: 8px;
+    margin: -8px;
     border: none;
     background: transparent;
-    color: var(--color-ink-muted);
+    /* brand accent instead of muted ink; lime on dark, deep teal on light so it
+       keeps its contrast in both themes */
+    color: var(--color-anchor);
     cursor: pointer;
+}
+
+:root[data-theme='dark'] .intensity-step__info {
+    color: var(--color-energy);
 }
 
 .intensity-step__stage {
@@ -58,10 +64,24 @@
    pixel box, so the hero shape actually grows to use extra room on a tall
    viewport instead of floating, still small, inside a bigger empty box. */
 .intensity-step__shape {
-    height: 55%;
+    --shape-height: 0.55;
+    height: calc(var(--shape-height) * 100%);
     aspect-ratio: 1;
-    z-index: 1;
+    /* Once the scaled shape would poke out above the stage (over the heading),
+       shift it down by the excess so it keeps growing downward — under the
+       slider — instead. 1 / --shape-height is the largest scale that still fits
+       when centred; the 50% is half the shape's own height per unit of scale. */
+    transform: translateY(calc(max(var(--shape-scale) - 1 / var(--shape-height), 0) * 50%))
+        scale(var(--shape-scale));
+    /* the oversized shape overlaps the slider; it must never steal its drags */
+    pointer-events: none;
     transition: transform 0.2s ease;
+}
+
+/* Paints above the oversized shape, which spills over it from the stage. */
+.intensity-step__slider {
+    position: relative;
+    z-index: 1;
 }
 
 .intensity-step__shape .word-shape {

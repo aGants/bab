@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import type { MessageDescriptor } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
 import { Trans, useLingui } from '@lingui/react/macro'
@@ -46,7 +47,7 @@ export const IntensityStep = ({
               aria-label={t`About the intensity scale`}
               onClick={onOpenInfo}
             >
-              <svg viewBox="0 0 13.2 13.2" width="12" height="12" fill="none" aria-hidden="true">
+              <svg viewBox="0 0 13.2 13.2" width="18" height="18" fill="none" aria-hidden="true">
                 <path
                   d="M6.6 9V6.6M6.6 4.2H6.606M12.6 6.6C12.6 9.91371 9.91371 12.6 6.6 12.6C3.28629 12.6 0.6 9.91371 0.6 6.6C0.6 3.28629 3.28629 0.6 6.6 0.6C9.91371 0.6 12.6 3.28629 12.6 6.6Z"
                   stroke="currentColor"
@@ -62,19 +63,21 @@ export const IntensityStep = ({
       <div className="intensity-step__stage">
         <div
           className="intensity-step__shape"
-          style={{ transform: `scale(${scaleForIntensity(value)})` }}
+          style={{ '--shape-scale': scaleForIntensity(value) } as CSSProperties}
         >
           <WordShape card={word} expressive />
         </div>
       </div>
 
-      <Slider
-        min={MIN_INTENSITY}
-        max={MAX_INTENSITY}
-        value={value}
-        onChange={(intensity) => onSelect(intensity as CheckInIntensity)}
-        label={t`How big is it`}
-      />
+      <div className="intensity-step__slider">
+        <Slider
+          min={MIN_INTENSITY}
+          max={MAX_INTENSITY}
+          value={value}
+          onChange={(intensity) => onSelect(intensity as CheckInIntensity)}
+          label={t`How big is it`}
+        />
+      </div>
 
       <p className="intensity-step__label">
         <Trans>When do you notice it?</Trans>
