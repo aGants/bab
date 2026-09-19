@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
-import { HAT_IDS, HAT_LABELS, type HatId } from './hatCatalog'
-import { HatThumbnail } from './hats'
+import { HAT_IDS, HAT_LABELS, type HatId } from '@/entities/avatar/hatCatalog'
+import { HatThumbnail } from '@/entities/avatar/hats'
 import './AccessoryPicker.css'
 
 const ICON_PROPS = {

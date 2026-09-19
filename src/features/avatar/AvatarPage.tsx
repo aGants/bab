@@ -1,8 +1,8 @@
 import { Trans } from '@lingui/react/macro'
+import { useWornHat } from '@/entities/avatar/wornHat'
 import { PageFrame } from '@/shared/layout'
 import { Button, Greeting, TabBar } from '@/shared/ui'
 import { AccessoryPicker } from './AccessoryPicker'
-import { useWornHat } from './useWornHat'
 import { WorldCharacter } from './WorldCharacter'
 import './AvatarPage.css'
 

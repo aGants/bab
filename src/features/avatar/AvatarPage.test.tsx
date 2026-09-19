@@ -54,6 +54,19 @@ describe('AvatarPage', () => {
     expect(character().getAttribute('aria-label')).toBe('Your character')
   })
 
+  it('puts the same hat on the header mascot', async () => {
+    const user = userEvent.setup()
+    const { container } = renderPage()
+    const mascotHat = () => container.querySelector('.app-greeting-cloud g')
+    expect(mascotHat()).toBeNull()
+
+    await user.click(screen.getByRole('button', { name: 'Beret' }))
+    expect(mascotHat()).toBeTruthy()
+
+    await user.click(screen.getByRole('button', { name: 'Beret' }))
+    expect(mascotHat()).toBeNull()
+  })
+
   it('swaps one hat for another', async () => {
     const user = userEvent.setup()
     renderPage()

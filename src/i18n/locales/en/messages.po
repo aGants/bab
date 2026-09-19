@@ -79,11 +79,11 @@ msgstr "Back to words"
 msgid "Bean"
 msgstr "Bean"
 
-#: src/features/avatar/hatCatalog.ts:18
+#: src/entities/avatar/hatCatalog.ts:18
 msgid "Beanie"
 msgstr "Beanie"
 
-#: src/features/avatar/hatCatalog.ts:20
+#: src/entities/avatar/hatCatalog.ts:20
 msgid "Beret"
 msgstr "Beret"
 
@@ -115,7 +115,7 @@ msgstr "Body, front view"
 msgid "Bow"
 msgstr "Bow"
 
-#: src/features/avatar/hatCatalog.ts:17
+#: src/entities/avatar/hatCatalog.ts:17
 msgid "Bucket hat"
 msgstr "Bucket hat"
 
@@ -123,7 +123,7 @@ msgstr "Bucket hat"
 msgid "Calm"
 msgstr "Calm"
 
-#: src/features/avatar/hatCatalog.ts:19
+#: src/entities/avatar/hatCatalog.ts:19
 msgid "Cap"
 msgstr "Cap"
 
@@ -213,11 +213,11 @@ msgstr "Front"
 msgid "Glasses"
 msgstr "Glasses"
 
-#: src/shared/ui/Greeting/Greeting.tsx:17
+#: src/shared/ui/Greeting/Greeting.tsx:18
 msgid "Good morning,"
 msgstr "Good morning,"
 
-#: src/shared/ui/Greeting/Greeting.tsx:29
+#: src/shared/ui/Greeting/Greeting.tsx:30
 msgid "Good morning, {displayName}"
 msgstr "Good morning, {displayName}"
 
@@ -512,7 +512,7 @@ msgstr "When I press it"
 msgid "Where do you feel it?"
 msgstr "Where do you feel it?"
 
-#: src/features/avatar/hatCatalog.ts:21
+#: src/entities/avatar/hatCatalog.ts:21
 msgid "Wide-brim hat"
 msgstr "Wide-brim hat"
 
@@ -533,7 +533,7 @@ msgstr "Yes"
 msgid "Your body says…"
 msgstr "Your body says…"
 
-#: src/features/avatar/WorldCharacter.tsx:31
+#: src/features/avatar/WorldCharacter.tsx:26
 msgid "Your character"
 msgstr "Your character"
 
@@ -545,7 +545,7 @@ msgstr "Your character, feeling {word}"
 msgid "Your character, feeling {word}, wearing {worn}"
 msgstr "Your character, feeling {word}, wearing {worn}"
 
-#: src/features/avatar/WorldCharacter.tsx:31
+#: src/features/avatar/WorldCharacter.tsx:26
 msgid "Your character, wearing a {hat}"
 msgstr "Your character, wearing a {hat}"
 
