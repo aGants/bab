@@ -52,11 +52,12 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     id: 'light',
     category: 'muscle',
     word: 'light',
-    tagline: 'Notice how springy',
-    metaphor: 'Like your body has springs.',
-    description: 'Your body feels free, fresh and ready to move almost effortlessly.',
+    tagline: 'Notice how fluid your movements feel',
+    metaphor: 'Like gravity has lost its grip.',
+    description:
+      'Your body feels agile, fluid and free to move. Without tension, as if gravity has lost its grip.',
     feelsLike:
-      'Bouncing on your toes and feeling like your body wants to move — light, quick and springy.',
+      'Bouncing on your toes and feeling your body move with ease: fresh, fluid and springy.',
     intensity: 0,
   },
   {
@@ -66,7 +67,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     tagline: 'Notice how sensitive it feels',
     metaphor: 'The day-after receipt.',
     description:
-      "The bill your muscles send 24–48 hours after new or harder work. Spread across a whole muscle, usually both sides, worse on the first move, better once you're warm.",
+      "The bill your muscles send 24–48 hours after new or harder work. A deep, ongoing and hard-to-pinpoint sensation that feels like a constant, widespread discomfort. It often affects more than one part of the body. Spread across a whole muscle, usually both sides, worse on the first move, better once you're warm.",
     feelsLike: 'More sensitive and tender than usual when you touch it, move it or use it.',
     intensity: 1,
   },
@@ -212,7 +213,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     tagline: "Notice if it's from the inside",
     metaphor: 'A balloon being slowly inflated.',
     description:
-      "A feeling of fullness, pressure or tightness from inside your belly — even when you haven't eaten much. Your waistband may feel tighter, or your middle section may feel swollen without anything visibly changing. Bloating is one of the most commonly reported menstrual-cycle symptoms in teenage athletes and is completely normal.",
+      'A feeling of fullness, pressure or tightness from inside. Your body part may feel tighter or swollen without anything visibly changing.',
     feelsLike:
       'Like your stomach has puffed up from the inside. A stretched, pressured feeling that sitting down can make worse.',
     intensity: 1,
@@ -222,11 +223,10 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     category: 'cycle',
     word: 'tender',
     tagline: 'Notice if touch makes it worse',
-    metaphor: "A bruise you didn't earn.",
+    metaphor: 'A bruise you cannot see.',
     description:
-      "A part of your body — often your chest, lower belly or back — feels sensitive, sore or painful when touched, pressed or bumped, even though you didn't injure it. Breast tenderness is very common in the days before your period as your hormones shift. It is not a sign that something is wrong.",
-    feelsLike:
-      'Like a patch of skin after a sunburn — nothing happened to it, but any contact makes you wince.',
+      "A part of your body feels more sensitive or painful than usual when touched, pressed or bumped, even though you didn't injure it.",
+    feelsLike: "Your body's sensitivity dial has been turned up.",
     intensity: 1,
   },
   {
@@ -234,11 +234,10 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     category: 'cycle',
     word: 'nauseous',
     tagline: 'Notice if it comes in waves',
-    metaphor: 'A boat rocking in your stomach.',
-    description:
-      "A queasy, unsettled feeling in your stomach, sometimes with the sense that you might be sick — even though you probably won't be. It can appear during the first days of your period, after intense exercise, when you're anxious, or when you haven't eaten enough.",
+    metaphor: 'A boat rocking.',
+    description: 'A queasy, unsettled feeling, that can come and go in waves.',
     feelsLike:
-      'That wavy, uncomfortable feeling in your stomach on a long car ride — not quite sick, but definitely not right.',
+      'That wavy, uncomfortable feeling on a long car ride, where everything feels to move a bit too much.',
     intensity: 1,
   },
   {
@@ -270,11 +269,11 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     category: 'energy',
     word: 'heavy',
     tagline: 'Notice how much effort everything takes',
-    metaphor: 'Moving through honey.',
+    metaphor: 'Gravity has been turned up.',
     description:
-      'Your whole body feels weighed down, sluggish and slow to respond. Every movement costs more effort than usual, as though gravity has been turned up. It can come from hard training, poor sleep, low energy, or hormonal shifts — especially in the days before or during your period.',
+      'Your whole body feels weighed down, sluggish and slow to respond. Every movement costs more effort than usual, as though gravity has been turned up.',
     feelsLike:
-      "Trying to run through waist-deep water. Your legs, arms and even your head feel like they're made of something heavier than usual.",
+      "Moving through waist-deep water. Your legs, arms and even your head feel like they're made of something heavier than usual.",
     intensity: 2,
   },
   {
@@ -284,7 +283,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     tagline: 'Pause. Let the world catch up',
     metaphor: 'A spinning top slowing down.',
     description:
-      "The room tilts, your balance wavers, or everything feels slightly off-centre. It can come in a flash when you stand up quickly, during hard exercise in the heat, or around your period — especially if you haven't eaten or drunk enough. Dizziness is a signal to stop and check in, not to push through.",
+      'The room tilts, your balance wavers, or everything feels slightly off-centre. It can come unexpectedly, in a flash.',
     feelsLike:
       'Standing up too fast after lying down and the floor seeming to tilt for a second or two.',
     intensity: 2,
@@ -296,7 +295,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     tagline: 'Notice where the pressure sits',
     metaphor: 'A too-tight headband.',
     description:
-      'Pressure, pounding or aching around your forehead, temples, or the back of your head. Headaches are one of the top five menstrual symptoms reported by teenage athletes and can also come from dehydration, skipping meals, bright light or poor sleep.',
+      'Pressure, pounding or aching around your forehead, temples, or the back of your head.',
     feelsLike:
       'A band of pressure squeezing around your head, or a dull thud behind your eyes that gets louder when you bend over.',
     intensity: 1,
@@ -308,7 +307,7 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     tagline: 'Notice if your thinking feels slower',
     metaphor: 'A steamed-up window.',
     description:
-      "Your brain feels cloudy, slow or disconnected. Decisions that are normally instant take extra time, you miss cues you'd usually catch, or you find yourself staring into space. Difficulty concentrating is one of the most commonly reported premenstrual symptoms in teenage athletes and can also signal that your body needs more fuel or sleep.",
+      "Your brain feels cloudy, slow or disconnected. Decisions that are normally instant take extra time, you miss cues you'd usually catch, or you find yourself staring into space.",
     feelsLike:
       'Reading the same sentence three times and still not taking it in. Knowing the answer but not being able to reach it.',
     intensity: 0,
@@ -320,9 +319,8 @@ const WORD_CARDS_RAW: WordCardInput[] = [
     tagline: 'Notice if your body needs fuel',
     metaphor: 'A phone on 3% battery.',
     description:
-      "An internal trembling or wobbliness — not from a joint being unstable, but from your whole system running low. Your hands might tremble, your legs might feel unreliable, or you might feel jittery inside. It often points to low blood sugar, not eating enough before training, or your body telling you it needs energy.",
-    feelsLike:
-      "The trembly, hollow feeling you get when you've skipped a meal and suddenly have to do something physical.",
+      "An internal trembling or wobbliness from your system telling you it's running low.",
+    feelsLike: 'The trembly, hollow feeling that makes you feel weak and unstable',
     intensity: 2,
   },
 ]
