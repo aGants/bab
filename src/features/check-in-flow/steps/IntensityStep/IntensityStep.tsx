@@ -60,6 +60,15 @@ export const IntensityStep = ({
           )}
         </p>
       </div>
+      <div className="intensity-step__stage">
+        <div
+          className="intensity-step__shape"
+          style={{ transform: `scale(${scaleForIntensity(value)})` }}
+        >
+          <WordShape card={word} expressive />
+        </div>
+      </div>
+
       <input
         type="range"
         className="intensity-step__slider"
@@ -71,15 +80,6 @@ export const IntensityStep = ({
         aria-label={t`How big is it`}
         style={{ '--slider-progress': progress } as CSSProperties}
       />
-
-      <div className="intensity-step__stage">
-        <div
-          className="intensity-step__shape"
-          style={{ transform: `scale(${scaleForIntensity(value)})` }}
-        >
-          <WordShape card={word} expressive />
-        </div>
-      </div>
 
       <p className="intensity-step__label">
         <Trans>When do you notice it?</Trans>
