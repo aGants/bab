@@ -21,23 +21,27 @@ export const BodyLocationStep = ({
       <h2>Where do you feel it?</h2>
       <p>Tap the areas on your body. Tap again to remove.</p>
 
-      <div className="body-location-step__toggle">
-        <ToggleSwitch
-          options={[
-            { value: 'front', label: 'Front' },
-            { value: 'back', label: 'Back' },
-          ]}
-          value={facing}
-          onChange={setFacing}
-        />
-      </div>
+      <div className="body-location-step__stage">
+        <div className="body-location-step__spacer" aria-hidden="true" />
 
-      <div className="body-location-step__body-wrap">
-        {facing === 'front' ? (
-          <FemaleBodyFront value={value} onToggle={onToggle} />
-        ) : (
-          <FemaleBodyBack value={value} onToggle={onToggle} />
-        )}
+        <div className="body-location-step__body-wrap">
+          {facing === 'front' ? (
+            <FemaleBodyFront value={value} onToggle={onToggle} />
+          ) : (
+            <FemaleBodyBack value={value} onToggle={onToggle} />
+          )}
+        </div>
+
+        <div className="body-location-step__toggle">
+          <ToggleSwitch
+            options={[
+              { value: 'front', label: 'Front' },
+              { value: 'back', label: 'Back' },
+            ]}
+            value={facing}
+            onChange={setFacing}
+          />
+        </div>
       </div>
     </div>
   )
