@@ -59,45 +59,33 @@
     color: var(--color-ink);
 }
 
-.summary-step__help-list {
+.summary-step__recommendation {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.summary-step__help-item {
-    display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 12px;
     padding: 14px 16px;
     border-radius: 16px;
     background: var(--color-surface-raised);
 }
 
-.summary-step__help-icon {
-    font-size: 20px;
-    line-height: 1;
+.summary-step__recommendation--yellow {
+    background: color-mix(in srgb, var(--color-energy) 20%, var(--color-surface-raised));
 }
 
-.summary-step__help-text {
+.summary-step__recommendation--red {
+    background: color-mix(in srgb, var(--color-signals) 20%, var(--color-surface-raised));
+}
+
+.summary-step__recommendation-signal {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.summary-step__recommendation-text {
     flex: 1;
     min-width: 0;
-}
-
-.summary-step__help-title {
     margin: 0;
-    font-weight: 700;
     color: var(--color-ink);
-    font-size: 15px;
-}
-
-.summary-step__help-subtitle {
-    margin: 2px 0 0;
-    color: var(--color-ink-muted);
-    font-size: 13px;
-}
-
-.summary-step__help-chevron {
-    color: var(--color-ink-muted);
-    font-size: 20px;
+    font-size: 14px;
+    line-height: var(--body-line-height);
 }
