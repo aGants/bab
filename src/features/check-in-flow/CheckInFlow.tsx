@@ -134,6 +134,7 @@ export const CheckInFlow = ({
       {intensityScaleOpen && (
         <IntensityScaleDialog
           level={draft.intensity}
+          onSelect={draft.setIntensity}
           onClose={() => setIntensityScaleOpen(false)}
         />
       )}
