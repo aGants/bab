@@ -306,8 +306,14 @@
   position: absolute;
   top: 12px;
   right: 12px;
+  /* above the skewed title, whose transform would otherwise paint over
+     (and swallow taps on) the middle of the button */
+  z-index: 1;
   width: 32px;
   height: 32px;
+  padding: 0;
+  display: grid;
+  place-items: center;
   border-radius: 999px;
   border: none;
   background: var(--color-overlay);
@@ -340,6 +346,7 @@
 .word-detail-title {
   display: block;
   margin-bottom: 12px;
+  padding-right: 40px;
   font-size: 32px;
   font-family: var(--font-display);
   font-weight: var(--display-weight);
