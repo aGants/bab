@@ -8,7 +8,7 @@ import './CheckIn.css';
 export const CheckIn = () => {
   return (
     <PageFrame>
-      <Greeting variant="home" />
+      <Greeting />
       <div className="check-in-banner">
         <span className="check-in-banner__icon">🌷</span>
         <div className="check-in-banner__text">

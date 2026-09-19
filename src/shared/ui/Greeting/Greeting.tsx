@@ -3,10 +3,6 @@ import { DEFAULT_NAME } from '@/entities/user-profile/userProfileRepository'
 import './Greeting.css'
 import { SensationIcon } from './SensationIcon'
 
-type GreetingProps = {
-  variant?: 'default' | 'home'
-}
-
 const getTimeBasedGreeting = () => {
   const hour = new Date().getHours()
 
@@ -16,12 +12,10 @@ const getTimeBasedGreeting = () => {
   return 'Good evening'
 }
 
-export const Greeting = ({ variant = 'default' }: GreetingProps) => {
+export const Greeting = () => {
   const { name } = useUserProfile()
-  const className =
-    variant === 'home' ? 'app-greeting app-greeting--home' : 'app-greeting'
   return (
-    <div className={className}>
+    <div className="app-greeting app-greeting--home">
       <p className="app-greeting-text">
         {getTimeBasedGreeting()}, {name.trim() || DEFAULT_NAME}
       </p>
