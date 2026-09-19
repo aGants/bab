@@ -53,7 +53,7 @@ msgstr "Qualcosa che ti va di aggiungere…"
 msgid "Arch"
 msgstr "Arco"
 
-#: src/features/avatar/AvatarPage.tsx:29
+#: src/features/avatar/AvatarPage.tsx:46
 msgid "Avatar"
 msgstr "Avatar"
 
@@ -136,7 +136,7 @@ msgid "Claim your weekly reward"
 msgstr "Ritira il tuo premio settimanale"
 
 #: src/features/calendar/DayLogDialog.tsx:58
-#: src/features/check-in-flow/IntensityScaleDialog.tsx:53
+#: src/features/check-in-flow/IntensityScaleDialog.tsx:55
 msgid "Close"
 msgstr "Chiudi"
 
@@ -160,7 +160,7 @@ msgstr "Impossibile caricare questa lingua. Controlla la connessione e riprova."
 msgid "Crown"
 msgstr "Corona"
 
-#: src/features/avatar/AvatarPage.tsx:44
+#: src/features/avatar/AvatarPage.tsx:69
 msgid "Customize"
 msgstr "Personalizza"
 
@@ -204,7 +204,7 @@ msgstr "Davanti"
 
 #. Friendly name the greeting uses until the user enters their own
 #: src/features/settings/SettingsPage.tsx:42
-#: src/shared/ui/Greeting/Greeting.tsx:13
+#: src/shared/ui/Greeting/Greeting.tsx:17
 msgid "Girl"
 msgstr "Ragazza"
 
@@ -212,7 +212,7 @@ msgstr "Ragazza"
 msgid "Glasses"
 msgstr "Occhiali"
 
-#: src/features/check-in-flow/IntensityScaleDialog.tsx:97
+#: src/features/check-in-flow/IntensityScaleDialog.tsx:101
 msgid "Got it"
 msgstr "Ho capito"
 
@@ -236,11 +236,11 @@ msgstr "Cappelli"
 msgid "Head & neck"
 msgstr "Testa e collo"
 
-#: src/shared/ui/Greeting/Greeting.tsx:22
+#: src/shared/ui/Greeting/Greeting.tsx:26
 msgid "Hi,"
 msgstr "Ciao,"
 
-#: src/shared/ui/Greeting/Greeting.tsx:34
+#: src/shared/ui/Greeting/Greeting.tsx:38
 msgid "Hi, {displayName}"
 msgstr "Ciao, {displayName}"
 
@@ -278,7 +278,7 @@ msgstr "Installa l’app"
 msgid "Intensity"
 msgstr "Intensità"
 
-#: src/features/check-in-flow/IntensityScaleDialog.tsx:51
+#: src/features/check-in-flow/IntensityScaleDialog.tsx:53
 msgid "Intensity scale"
 msgstr "Scala di intensità"
 
@@ -404,6 +404,10 @@ msgstr "Triste"
 msgid "Save check-in"
 msgstr "Salva check-in"
 
+#: src/features/avatar/AvatarPage.tsx:66
+msgid "Saved"
+msgstr "Salvato"
+
 #: src/features/check-in-flow/CheckInFlow.tsx:129
 msgid "Saving…"
 msgstr "Salvataggio…"
@@ -437,7 +441,7 @@ msgstr "A riposo"
 msgid "Start a check-in"
 msgstr "Inizia un check-in"
 
-#: src/features/avatar/AvatarPage.tsx:33
+#: src/features/avatar/AvatarPage.tsx:50
 msgid "Stickers"
 msgstr "Sticker"
 
@@ -501,7 +505,7 @@ msgstr "Usa la mia ultima sensazione: {latestName}"
 msgid "What can help right now?"
 msgstr "Cosa può aiutare adesso?"
 
-#: src/features/avatar/AvatarPage.tsx:24
+#: src/features/avatar/AvatarPage.tsx:41
 msgid "What’s new?"
 msgstr "Cosa c’è di nuovo?"
 

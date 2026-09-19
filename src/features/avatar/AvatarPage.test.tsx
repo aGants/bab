@@ -1,7 +1,8 @@
 import { render, screen } from '@/test/render'
+import { act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { AvatarPage } from './AvatarPage'
 
 const renderPage = () =>
@@ -89,6 +90,34 @@ describe('AvatarPage', () => {
     await user.click(screen.getByRole('button', { name: 'Customize' }))
     expect(mascotHat()).toBeNull()
     expect(window.localStorage.getItem('world-hat')).toBe('')
+  })
+
+  it('confirms the save on the button, and drops the confirmation when another hat is tried', async () => {
+    const user = userEvent.setup()
+    renderPage()
+    await user.click(screen.getByRole('button', { name: 'Cap' }))
+    await user.click(screen.getByRole('button', { name: 'Customize' }))
+    expect(screen.getByRole('button', { name: 'Saved' })).toBeTruthy()
+    expect(screen.queryByRole('button', { name: 'Customize' })).toBeNull()
+
+    await user.click(screen.getByRole('button', { name: 'Beret' }))
+    expect(screen.getByRole('button', { name: 'Customize' })).toBeTruthy()
+  })
+
+  it('goes back to Customize by itself after a moment', async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true })
+    try {
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime })
+      renderPage()
+      await user.click(screen.getByRole('button', { name: 'Customize' }))
+      expect(screen.getByRole('button', { name: 'Saved' })).toBeTruthy()
+      await act(async () => {
+        vi.advanceTimersByTime(2100)
+      })
+      expect(screen.getByRole('button', { name: 'Customize' })).toBeTruthy()
+    } finally {
+      vi.useRealTimers()
+    }
   })
 
   it('swaps one hat for another', async () => {
