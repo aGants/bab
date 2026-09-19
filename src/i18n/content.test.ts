@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { WORDS } from '@/entities/word'
-import { bodyZoneLabel, bodyZoneShortLabel, categoriesFor, wordCardsFor, WORD_CARDS } from './content'
+import { bodyZoneLabelFor, bodyZoneShortLabelFor, categoriesFor, wordCardsFor } from './content'
 import { LOCALES, type Locale } from './locales'
 
 const locales = Object.keys(LOCALES) as Locale[]
@@ -48,16 +48,18 @@ describe.each(locales)('locale "%s"', (locale) => {
   })
 })
 
-describe('default-language shortcuts', () => {
+describe.each(locales)('word cards in "%s"', (locale) => {
   it('list every word in the same order as the definitions', () => {
-    expect(WORD_CARDS.map((card) => card.id)).toEqual(WORDS.map((word) => word.id))
+    expect(wordCardsFor(locale).map((card) => card.id)).toEqual(WORDS.map((word) => word.id))
   })
+})
 
-  it('keep the English body-zone phrasing the summary and calendar rely on', () => {
-    expect(bodyZoneLabel('shoulderLeft')).toBe('your left shoulder')
-    expect(bodyZoneLabel('upperBackRight')).toBe('your right upper back')
-    expect(bodyZoneLabel('whole')).toBe('all over')
-    expect(bodyZoneShortLabel('kneeRight')).toBe('right knee')
-    expect(bodyZoneShortLabel('whole')).toBe('all over')
+describe('English body-zone phrasing', () => {
+  it('reads inside the summary sentence and stays compact in lists', () => {
+    expect(bodyZoneLabelFor('en', 'shoulderLeft')).toBe('your left shoulder')
+    expect(bodyZoneLabelFor('en', 'upperBackRight')).toBe('your right upper back')
+    expect(bodyZoneLabelFor('en', 'whole')).toBe('all over')
+    expect(bodyZoneShortLabelFor('en', 'kneeRight')).toBe('right knee')
+    expect(bodyZoneShortLabelFor('en', 'whole')).toBe('all over')
   })
 })

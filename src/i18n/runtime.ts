@@ -1,11 +1,8 @@
 import { i18n, type Messages } from '@lingui/core'
 import { safeStorage } from '@/shared/lib/safeStorage'
-import { DEFAULT_LOCALE, LOCALES, type Locale } from './locales'
+import { DEFAULT_LOCALE, isLocale, type Locale } from './locales'
 
 const STORAGE_KEY = 'locale'
-
-const isLocale = (value: string | null | undefined): value is Locale =>
-  value != null && Object.hasOwn(LOCALES, value)
 
 /** The language the app opens in: the one chosen in settings, else the browser's, else the default. */
 export const getInitialLocale = (): Locale => {
@@ -26,7 +23,9 @@ export const activateLocale = async (locale: Locale): Promise<void> => {
   document.documentElement.lang = locale
 }
 
-/** Switches the app language and remembers the choice for next launch. */
+/** Switches the app language and remembers the choice for next launch. If the catalog
+ * can't be loaded (offline, and this language was never fetched) it throws before
+ * anything changes, so the current language stays active. */
 export const setLocale = async (locale: Locale): Promise<void> => {
   await activateLocale(locale)
   safeStorage.setItem(STORAGE_KEY, locale)

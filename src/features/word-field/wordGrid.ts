@@ -1,4 +1,4 @@
-import { WORD_CARDS, type WordCard } from '@/i18n'
+import type { WordCard } from '@/i18n'
 
 /** A word placed on the pannable word-cloud grid. Position is purely a layout
  * concern of this screen, so it lives here rather than on the word itself. */
@@ -23,10 +23,13 @@ const featuredRank = (id: string): number => {
   return rank === -1 ? FEATURED_ORDER.length : rank
 }
 
-const ORDERED_WORDS = [...WORD_CARDS].sort((a, b) => featuredRank(a.id) - featuredRank(b.id))
-
-export const GRID_WORDS: GridWord[] = ORDERED_WORDS.map((card, i) => ({
-  ...card,
-  col: i % GRID_COLS,
-  row: Math.floor(i / GRID_COLS),
-}))
+/** Places the given cards on the grid. Positions depend only on the word ids, so the
+ * layout is the same in every language — only the text on the cards changes. */
+export const gridWordsFor = (cards: readonly WordCard[]): GridWord[] =>
+  [...cards]
+    .sort((a, b) => featuredRank(a.id) - featuredRank(b.id))
+    .map((card, i) => ({
+      ...card,
+      col: i % GRID_COLS,
+      row: Math.floor(i / GRID_COLS),
+    }))

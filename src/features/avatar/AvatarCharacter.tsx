@@ -1,6 +1,6 @@
 import { useLingui } from '@lingui/react/macro'
 import { wordColor, wordLabelColor, wordPath } from '@/entities/word'
-import { WORD_CARDS } from '@/i18n'
+import { useContent } from '@/i18n'
 import { FALLBACK_HEAD_WORD_ID } from '@/entities/avatar/avatarModel'
 import type { AvatarConfig } from '@/entities/avatar/types'
 import { headTopY, headTransform } from './headGeometry'
@@ -22,11 +22,12 @@ export const AvatarCharacter = ({
   className?: string
 }) => {
   const { t, i18n } = useLingui()
+  const { wordCards } = useContent()
   // a stored word that no longer exists still renders — it just borrows the default head
-  const headWordId = WORD_CARDS.some((card) => card.id === config.headWordId)
+  const headWordId = wordCards.some((card) => card.id === config.headWordId)
     ? config.headWordId
     : FALLBACK_HEAD_WORD_ID
-  const word = WORD_CARDS.find((card) => card.id === headWordId)!.word
+  const word = wordCards.find((card) => card.id === headWordId)!.word
   const worn = config.accessoryIds
     .map((id) => i18n._(ACCESSORY_LABELS[id]).toLocaleLowerCase(i18n.locale))
     .join(', ')

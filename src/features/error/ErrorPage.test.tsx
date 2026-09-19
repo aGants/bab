@@ -2,12 +2,14 @@ import { render, screen } from '@/test/render'
 import userEvent from '@testing-library/user-event'
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { ERROR_SCREEN } from '@/i18n'
+import { errorScreenFor } from '@/i18n'
 import { ErrorPage } from './ErrorPage'
 
 const Broken = () => {
   throw new Error('boom')
 }
+
+const ERROR_SCREEN = errorScreenFor('en')
 
 describe('ErrorPage', () => {
   afterEach(() => vi.restoreAllMocks())

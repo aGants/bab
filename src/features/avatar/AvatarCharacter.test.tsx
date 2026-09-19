@@ -1,6 +1,6 @@
 import { render } from '@/test/render'
 import { describe, expect, it } from 'vitest'
-import { WORD_CARDS } from '@/i18n'
+import { WORDS } from '@/entities/word'
 import { defaultAvatar } from '@/entities/avatar/avatarModel'
 import { ACCESSORY_IDS, BODY_COLOR_IDS, BODY_IDS, FACE_IDS } from '@/entities/avatar/types'
 import { AvatarCharacter } from './AvatarCharacter'
@@ -8,7 +8,7 @@ import { AvatarCharacter } from './AvatarCharacter'
 const label = (container: HTMLElement) => container.querySelector('svg')?.getAttribute('aria-label')
 
 describe('AvatarCharacter', () => {
-  it.each(WORD_CARDS.map((card) => card.id))('draws the %s head', (id) => {
+  it.each(WORDS.map((word) => word.id))('draws the %s head', (id) => {
     const { container } = render(<AvatarCharacter config={defaultAvatar(id)} />)
     expect(label(container)).toBe(`Your character, feeling ${id}`)
     expect(container.querySelectorAll('path').length).toBeGreaterThan(1)

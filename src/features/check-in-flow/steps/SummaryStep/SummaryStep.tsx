@@ -2,7 +2,7 @@ import { Trans, useLingui } from '@lingui/react/macro'
 import { WordShape } from '@/entities/word'
 import type { BodyZone, CheckInIntensity } from '@/entities/check-in/types'
 import { vasScoreFor } from '@/entities/check-in/vasScale'
-import { VAS_SCALE, bodyZoneLabel, type WordCard } from '@/i18n'
+import { useContent, type WordCard } from '@/i18n'
 import { scaleForIntensity } from '../../intensityScale'
 import './SummaryStep.css'
 
@@ -25,7 +25,8 @@ export const SummaryStep = ({
   intensity: CheckInIntensity
 }) => {
   const { t } = useLingui()
-  const vasLevel = VAS_SCALE[vasScoreFor(word.id, intensity)]
+  const { vasScale, bodyZoneLabel } = useContent()
+  const vasLevel = vasScale[vasScoreFor(word.id, intensity)]
 
   /** Joins zone phrases into a sentence-friendly list, e.g. "your left knee and your right knee". */
   const joinBodyZoneLabels = (zones: BodyZone[]): string => {

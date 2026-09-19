@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { Trans, useLingui } from '@lingui/react/macro'
-import { VAS_SCALE } from '@/i18n'
+import { useContent } from '@/i18n'
 import type { CheckInIntensity } from '@/entities/check-in/types'
 import { Button } from '@/shared/ui'
 import { MAX_INTENSITY, MIN_INTENSITY } from './intensityScale'
@@ -22,6 +22,7 @@ export const IntensityScaleDialog = ({
   onClose: () => void
 }) => {
   const { t } = useLingui()
+  const { vasScale } = useContent()
   const currentRef = useRef<HTMLLIElement>(null)
 
   useEffect(() => {
@@ -72,9 +73,9 @@ export const IntensityScaleDialog = ({
             >
               <p className="intensity-scale__level-head">
                 <span className="intensity-scale__level-number">{n}</span>
-                <span className="intensity-scale__level-label">{VAS_SCALE[n].label}</span>
+                <span className="intensity-scale__level-label">{vasScale[n].label}</span>
               </p>
-              <p className="intensity-scale__level-description">{VAS_SCALE[n].description}</p>
+              <p className="intensity-scale__level-description">{vasScale[n].description}</p>
             </li>
           ))}
         </ul>

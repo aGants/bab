@@ -6,7 +6,7 @@ import { defineConfig } from '@lingui/cli'
 // new messages.po, and register the language in src/i18n/locales/index.ts.
 export default defineConfig({
   sourceLocale: 'en',
-  locales: ['en'],
+  locales: ['en', 'it'],
   catalogs: [
     {
       path: '<rootDir>/src/i18n/locales/{locale}/messages',

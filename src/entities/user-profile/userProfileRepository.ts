@@ -1,9 +1,8 @@
 import type { UserProfile } from './types'
 import { safeStorage } from '@/shared/lib/safeStorage'
 
-export const DEFAULT_NAME = 'Girl'
-
-/** Written as if it already talks to a real API, same as CheckInRepository. */
+/** Written as if it already talks to a real API, same as CheckInRepository.
+ * An empty name means "not set"; screens show a translated fallback in its place. */
 export interface UserProfileRepository {
   get(): Promise<UserProfile>
   setName(name: string): Promise<UserProfile>
@@ -13,12 +12,12 @@ const STORAGE_KEY = 'user-profile'
 
 const read = (): UserProfile => {
   const raw = safeStorage.getItem(STORAGE_KEY)
-  if (!raw) return { name: DEFAULT_NAME }
+  if (!raw) return { name: '' }
   try {
     const parsed = JSON.parse(raw)
-    return parsed && typeof parsed.name === 'string' ? parsed : { name: DEFAULT_NAME }
+    return parsed && typeof parsed.name === 'string' ? parsed : { name: '' }
   } catch {
-    return { name: DEFAULT_NAME }
+    return { name: '' }
   }
 }
 

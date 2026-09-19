@@ -1,13 +1,15 @@
-import { Trans } from '@lingui/react/macro'
+import { Trans, useLingui } from '@lingui/react/macro'
 import { useUserProfile } from '@/entities/user-profile/useUserProfile'
-import { DEFAULT_NAME } from '@/entities/user-profile/userProfileRepository'
 import cloud from './assets/cloud.svg'
 import cloudSmall from './assets/cloud-small.svg'
 import './Greeting.css'
 
 export const Greeting = ({ welcome = false }: { welcome?: boolean }) => {
+  const { t } = useLingui()
   const { name } = useUserProfile()
-  const displayName = name.trim() || DEFAULT_NAME
+  const displayName =
+    name.trim() ||
+    t({ message: 'Girl', comment: 'Friendly name the greeting uses until the user enters their own' })
 
   if (welcome) {
     return (

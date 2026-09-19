@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Trans, useLingui } from '@lingui/react/macro'
 import { WordShape } from '@/entities/word'
-import { WORD_CARDS, bodyZoneShortLabel } from '@/i18n'
+import { useContent } from '@/i18n'
 import { wordsPath } from '@/routes/paths'
 import { toDateKey } from '@/shared/lib/dateKey'
 import type { CheckInEntry } from '@/entities/check-in/types'
@@ -26,6 +26,7 @@ export const DayLogDialog = ({
   onDelete: (id: string) => void
 }) => {
   const { t, i18n } = useLingui()
+  const { wordCards, bodyZoneShortLabel } = useContent()
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -82,7 +83,7 @@ export const DayLogDialog = ({
             </p>
             <ul className="day-log__list">
               {entries.map((entry) => {
-                const word = WORD_CARDS.find((card) => card.id === entry.wordId)
+                const word = wordCards.find((card) => card.id === entry.wordId)
                 const wordName = word?.word
                 return (
                   <li key={entry.id} className="day-log__card">

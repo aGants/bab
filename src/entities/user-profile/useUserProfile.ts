@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { DEFAULT_NAME, userProfileRepository } from './userProfileRepository'
+import { userProfileRepository } from './userProfileRepository'
 import type { UserProfile } from './types'
 
 export const useUserProfile = () => {
-  const [profile, setProfile] = useState<UserProfile>({ name: DEFAULT_NAME })
+  const [profile, setProfile] = useState<UserProfile>({ name: '' })
 
   useEffect(() => {
     userProfileRepository.get().then(setProfile)

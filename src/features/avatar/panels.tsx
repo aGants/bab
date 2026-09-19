@@ -1,6 +1,6 @@
 import { Trans, useLingui } from '@lingui/react/macro'
 import { wordColor, wordPath } from '@/entities/word'
-import { WORD_CARDS } from '@/i18n'
+import { useContent } from '@/i18n'
 import { BODY_COLORS } from '@/entities/avatar/catalog'
 import {
   ACCESSORY_IDS,
@@ -34,7 +34,8 @@ export const FeelingPanel = ({
   latestWordId: string | null
   onPick: (wordId: string) => void
 }) => {
-  const latest = latestWordId ? WORD_CARDS.find((card) => card.id === latestWordId) : undefined
+  const { wordCards } = useContent()
+  const latest = latestWordId ? wordCards.find((card) => card.id === latestWordId) : undefined
   const latestName = latest?.word
   return (
     <div className="avatar-panel">
@@ -44,7 +45,7 @@ export const FeelingPanel = ({
         </button>
       )}
       <div className="avatar-panel__grid avatar-panel__grid--feelings">
-        {WORD_CARDS.map((card) => (
+        {wordCards.map((card) => (
           <OptionButton
             key={card.id}
             label={card.word}

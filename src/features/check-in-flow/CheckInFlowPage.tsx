@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Trans } from '@lingui/react/macro'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
-import { WORD_CARDS } from '@/i18n'
+import { useContent } from '@/i18n'
 import { checkInRepository } from '@/entities/check-in/checkInRepository'
 import type { CheckInEntry } from '@/entities/check-in/types'
 import { ROUTES, calendarPath, wordsPath } from '@/routes/paths'
@@ -15,7 +15,8 @@ export const CheckInFlowPage = () => {
   const { wordId } = useParams<{ wordId: string }>()
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
-  const word = WORD_CARDS.find((card) => card.id === wordId)
+  const { wordCards } = useContent()
+  const word = wordCards.find((card) => card.id === wordId)
 
   const date = searchParams.get('date') ?? undefined
   const entryId = searchParams.get('entryId') ?? undefined

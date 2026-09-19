@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { msg } from '@lingui/core/macro'
 import { Trans, useLingui } from '@lingui/react/macro'
-import { WORD_CARDS } from '@/i18n'
+import { useContent } from '@/i18n'
 import { FALLBACK_HEAD_WORD_ID } from '@/entities/avatar/avatarModel'
 import { useAvatar } from '@/entities/avatar/useAvatar'
 import { PageFrame } from '@/shared/layout'
@@ -22,6 +22,7 @@ type TabId = (typeof TABS)[number]['id']
 
 export const AvatarPage = () => {
   const { t, i18n } = useLingui()
+  const { wordCards } = useContent()
   const latest = useLatestFeeling()
   const { avatar, loaded, setHead, setBody, setBodyColor, setFace, toggleAccessory, reset } = useAvatar(
     latest.wordId ?? FALLBACK_HEAD_WORD_ID,
@@ -30,7 +31,7 @@ export const AvatarPage = () => {
 
   // wait for both stores so the character doesn't flash the wrong head first
   const ready = loaded && latest.loaded
-  const feeling = WORD_CARDS.find((card) => card.id === avatar.headWordId)
+  const feeling = wordCards.find((card) => card.id === avatar.headWordId)
   const feelingName = feeling?.word
 
   return (

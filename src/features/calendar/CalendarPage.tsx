@@ -8,7 +8,7 @@ import { PageFrame } from '@/shared/layout'
 import { Greeting, TabBar } from '@/shared/ui'
 import { toDateKey } from '@/shared/lib/dateKey'
 import { WordShape } from '@/entities/word'
-import { WORD_CARDS, type WordCard } from '@/i18n'
+import { useContent, type WordCard } from '@/i18n'
 import { wordsPath } from '@/routes/paths'
 import { checkInRepository } from '@/entities/check-in/checkInRepository'
 import { DayLogDialog } from './DayLogDialog'
@@ -35,6 +35,7 @@ const parseDateKey = (key: string | null): Date | undefined => {
 
 export const CalendarPage = () => {
   const { t, i18n } = useLingui()
+  const { wordCards, dateLocale } = useContent()
   const [searchParams] = useSearchParams()
   const initialDate = useMemo(() => parseDateKey(searchParams.get('date')), [searchParams])
 
@@ -70,7 +71,7 @@ export const CalendarPage = () => {
         const entry = dayEntries![i]
         if (seenWordIds.has(entry.wordId)) continue
         seenWordIds.add(entry.wordId)
-        const card = WORD_CARDS.find((c) => c.id === entry.wordId)
+        const card = wordCards.find((c) => c.id === entry.wordId)
         if (card) dayWords.push(card)
       }
       const hadPeriod = dailyLogsByDate[dateKey]?.hadPeriod
@@ -103,7 +104,7 @@ export const CalendarPage = () => {
       )
     }
     return DayButton
-  }, [entriesByDate, dailyLogsByDate])
+  }, [entriesByDate, dailyLogsByDate, wordCards])
 
   return (
     <PageFrame>
@@ -145,6 +146,7 @@ export const CalendarPage = () => {
             selected={selectedDate}
             onSelect={setSelectedDate}
             weekStartsOn={1}
+            locale={dateLocale}
             hideNavigation
             components={{ DayButton: CalendarDayButton }}
             className="calendar-picker"

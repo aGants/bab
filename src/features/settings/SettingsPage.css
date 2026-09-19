@@ -31,7 +31,8 @@
   color: var(--color-ink-muted);
 }
 
-.settings-name-input {
+.settings-name-input,
+.settings-select {
   padding: 12px 14px;
   border: none;
   border-radius: 14px;
@@ -41,7 +42,8 @@
   font-size: 16px;
 }
 
-.settings-name-input:focus {
+.settings-name-input:focus,
+.settings-select:focus {
   outline: 2px solid var(--color-anchor);
   outline-offset: 2px;
 }

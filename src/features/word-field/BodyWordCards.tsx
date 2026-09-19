@@ -1,5 +1,5 @@
-import { useEffect, useState, type CSSProperties } from 'react'
-import { GRID_COLS, GRID_WORDS, type GridWord } from './wordGrid'
+import { useEffect, useMemo, useState, type CSSProperties } from 'react'
+import { GRID_COLS, gridWordsFor, type GridWord } from './wordGrid'
 import { WordCardButton } from './WordCardButton'
 import { useScrollToSelected } from './useScrollToSelected'
 import { Trans, useLingui } from '@lingui/react/macro'
@@ -8,10 +8,13 @@ import { checkInFlowPath } from '@/routes/paths'
 import { PageFrame } from '@/shared/layout'
 import { Greeting, TabBar } from '@/shared/ui'
 import { checkInRepository } from '@/entities/check-in/checkInRepository'
+import { useContent } from '@/i18n'
 import './BodyWordCards.css'
 
 const BodyWordCards = () => {
   const { t } = useLingui()
+  const { wordCards } = useContent()
+  const gridWords = useMemo(() => gridWordsFor(wordCards), [wordCards])
   const [selected, setSelected] = useState<GridWord | null>(null)
   const { viewportRef, detailRef, registerCard } = useScrollToSelected(selected)
   const [searchParams] = useSearchParams()
@@ -26,10 +29,10 @@ const BodyWordCards = () => {
     if (!entryId) return
     checkInRepository.getById(entryId).then((entry) => {
       if (!entry) return
-      const word = GRID_WORDS.find((card) => card.id === entry.wordId)
+      const word = gridWords.find((card) => card.id === entry.wordId)
       if (word) setSelected(word)
     })
-  }, [entryId])
+  }, [entryId, gridWords])
 
   return (
     <PageFrame>
@@ -45,7 +48,7 @@ const BodyWordCards = () => {
 
       <div className={`word-grid-viewport${selected ? ' has-detail' : ''}`} ref={viewportRef}>
         <div className="word-grid" style={{ '--grid-cols': GRID_COLS } as CSSProperties}>
-          {GRID_WORDS.map((card) => (
+          {gridWords.map((card) => (
             <WordCardButton
               key={card.id}
               card={card}

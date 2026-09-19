@@ -98,9 +98,17 @@
   font-weight: 500;
   line-height: 20px;
   text-align: center;
-  text-transform: capitalize;
   padding: 0 6px;
   display: inline-block;
+}
+
+/* Title case is an English convention; other languages capitalise only the first letter ("Mal di testa"). */
+.word-card-label::first-letter {
+  text-transform: uppercase;
+}
+
+:root:lang(en) .word-card-label {
+  text-transform: capitalize;
 }
 
 .word-card.is-selected .word-card-label {

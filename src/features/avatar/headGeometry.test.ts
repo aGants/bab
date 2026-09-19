@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import { WORD_CARDS } from '@/i18n'
+import { WORDS } from '@/entities/word'
 import { HEAD_CENTER, headTopY } from './headGeometry'
 
 describe('headTopY', () => {
-  it.each(WORD_CARDS.map((card) => card.id))('sits above the head centre and inside the canvas for %s', (id) => {
+  it.each(WORDS.map((word) => word.id))('sits above the head centre and inside the canvas for %s', (id) => {
     const top = headTopY(id)
     expect(top).toBeGreaterThan(0)
     expect(top).toBeLessThan(HEAD_CENTER.y)

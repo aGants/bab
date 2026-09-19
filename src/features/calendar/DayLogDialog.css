@@ -136,6 +136,14 @@
   font-size: 20px;
   font-weight: 500;
   letter-spacing: -0.01em;
+}
+
+/* Title case is an English convention; other languages capitalise only the first letter ("Mal di testa"). */
+.day-log__word::first-letter {
+  text-transform: uppercase;
+}
+
+:root:lang(en) .day-log__word {
   text-transform: capitalize;
 }
 
@@ -163,6 +171,13 @@
   border-radius: 6px;
   background: var(--color-surface);
   font-size: 12px;
+}
+
+.day-log__zone::first-letter {
+  text-transform: uppercase;
+}
+
+:root:lang(en) .day-log__zone {
   text-transform: capitalize;
 }
 

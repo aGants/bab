@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { WORD_CARDS } from '@/i18n'
+import { WORDS } from '@/entities/word'
 import { checkInRepository } from '@/entities/check-in/checkInRepository'
 
 /** The word from the user's most recent check-in, or null if they've never
@@ -19,7 +19,7 @@ export const useLatestFeeling = () => {
         (best, entry) => (!best || entry.createdAt > best.createdAt ? entry : best),
         null,
       )
-      const known = latest && WORD_CARDS.some((card) => card.id === latest.wordId)
+      const known = latest && WORDS.some((word) => word.id === latest.wordId)
       setState({ wordId: known ? latest.wordId : null, loaded: true })
     })
     return () => {
