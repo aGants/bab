@@ -26,7 +26,7 @@
 }
 
 .word-cards-section-label {
-  margin: 12px 20px 0;
+  margin: 12px 20px;
   color: var(--color-ink);
   font-family: var(--font-body);
   font-weight: 500;
@@ -41,7 +41,7 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
-  padding: 12px 20px 20px;
+  padding: 0 12px 20px 20px;
 }
 
 /* extra room at the end so a selected card can scroll up above the detail sheet */
