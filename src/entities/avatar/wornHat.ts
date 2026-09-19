@@ -24,15 +24,15 @@ const subscribe = (listener: () => void) => {
   }
 }
 
-/** Picking the hat already worn takes it off. Saved on every change, and every
- * place showing the character (the World page, the header mascot) updates at once. */
-const toggleHat = (id: HatId) => {
-  safeStorage.setItem(STORAGE_KEY, read() === id ? '' : id)
+/** Makes `id` (or no hat) the hat the character wears, and saves it. Every
+ * place showing the character (the header mascot, the World page) updates at once. */
+const saveHat = (id: HatId | null) => {
+  safeStorage.setItem(STORAGE_KEY, id ?? '')
   listeners.forEach((listener) => listener())
 }
 
-/** The hat on the user's character, or null. */
+/** The hat the user has saved on their character, or null. */
 export const useWornHat = () => {
   const hatId = useSyncExternalStore(subscribe, read, () => null)
-  return { hatId, toggleHat }
+  return { hatId, saveHat }
 }

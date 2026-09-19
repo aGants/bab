@@ -54,17 +54,35 @@ describe('AvatarPage', () => {
     expect(character().getAttribute('aria-label')).toBe('Your character')
   })
 
-  it('puts the same hat on the header mascot', async () => {
+  it('leaves the header mascot and storage alone until Customize is pressed', async () => {
     const user = userEvent.setup()
     const { container } = renderPage()
     const mascotHat = () => container.querySelector('.app-greeting-cloud g')
-    expect(mascotHat()).toBeNull()
 
     await user.click(screen.getByRole('button', { name: 'Beret' }))
+    // the big character shows it, nothing else does
+    expect(character().getAttribute('aria-label')).toBe('Your character, wearing a beret')
+    expect(mascotHat()).toBeNull()
+    expect(window.localStorage.getItem('world-hat')).toBeNull()
+
+    await user.click(screen.getByRole('button', { name: 'Customize' }))
+    expect(mascotHat()).toBeTruthy()
+    expect(window.localStorage.getItem('world-hat')).toBe('beret')
+  })
+
+  it('takes the hat off the header mascot when Customize is pressed with none picked', async () => {
+    const user = userEvent.setup()
+    window.localStorage.setItem('world-hat', 'cap')
+    const { container } = renderPage()
+    const mascotHat = () => container.querySelector('.app-greeting-cloud g')
     expect(mascotHat()).toBeTruthy()
 
-    await user.click(screen.getByRole('button', { name: 'Beret' }))
+    await user.click(screen.getByRole('button', { name: 'Cap' }))
+    expect(mascotHat()).toBeTruthy()
+
+    await user.click(screen.getByRole('button', { name: 'Customize' }))
     expect(mascotHat()).toBeNull()
+    expect(window.localStorage.getItem('world-hat')).toBe('')
   })
 
   it('swaps one hat for another', async () => {
@@ -76,14 +94,25 @@ describe('AvatarPage', () => {
     expect(character().getAttribute('aria-label')).toBe('Your character, wearing a beret')
   })
 
-  it('keeps the hat after leaving and coming back', async () => {
+  it('keeps the hat after Customize, leaving and coming back', async () => {
+    const user = userEvent.setup()
+    const first = renderPage()
+    await user.click(screen.getByRole('button', { name: 'Wide-brim hat' }))
+    await user.click(screen.getByRole('button', { name: 'Customize' }))
+    first.unmount()
+
+    renderPage()
+    expect(character().getAttribute('aria-label')).toBe('Your character, wearing a wide-brim hat')
+  })
+
+  it('drops a hat that was picked but never saved', async () => {
     const user = userEvent.setup()
     const first = renderPage()
     await user.click(screen.getByRole('button', { name: 'Wide-brim hat' }))
     first.unmount()
 
     renderPage()
-    expect(character().getAttribute('aria-label')).toBe('Your character, wearing a wide-brim hat')
+    expect(character().getAttribute('aria-label')).toBe('Your character')
   })
 
   it('ignores a stored hat that no longer exists', () => {

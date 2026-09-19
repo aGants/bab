@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { Trans } from '@lingui/react/macro'
+import type { HatId } from '@/entities/avatar/hatCatalog'
 import { useWornHat } from '@/entities/avatar/wornHat'
 import { PageFrame } from '@/shared/layout'
 import { Button, Greeting, TabBar } from '@/shared/ui'
@@ -7,7 +9,11 @@ import { WorldCharacter } from './WorldCharacter'
 import './AvatarPage.css'
 
 export const AvatarPage = () => {
-  const { hatId, toggleHat } = useWornHat()
+  const { hatId: savedHatId, saveHat } = useWornHat()
+  // what's being tried on: shown on the big character right away, but only
+  // reaches the header and storage once Customize is pressed
+  const [draftHatId, setDraftHatId] = useState<HatId | null>(savedHatId)
+  const toggleDraftHat = (id: HatId) => setDraftHatId((current) => (current === id ? null : id))
   return (
     <PageFrame>
       <Greeting />
@@ -27,12 +33,12 @@ export const AvatarPage = () => {
         </div>
 
         <div className="avatar-page__stage">
-          <WorldCharacter hatId={hatId} animated className="avatar-page__character" />
+          <WorldCharacter hatId={draftHatId} animated className="avatar-page__character" />
         </div>
 
-        <AccessoryPicker hatId={hatId} onToggleHat={toggleHat} />
+        <AccessoryPicker hatId={draftHatId} onToggleHat={toggleDraftHat} />
 
-        <Button>
+        <Button onClick={() => saveHat(draftHatId)}>
           <Trans>Customize</Trans>
         </Button>
       </div>
