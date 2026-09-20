@@ -1,52 +1,79 @@
-# React + TypeScript + Vite
+# Body Language for Athletes (BAB)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A mobile-first web app (installable PWA) that helps athletes notice and name what their body is telling them. Pick a word for a sensation, mark where you feel it, rate how strong it is, add a note — then look back at your history in a calendar and watch your character reflect how you feel.
 
-Currently, two official plugins are available:
+Everything is stored locally in the browser (`localStorage`). There is no backend and no account.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## What's inside
 
-## React Compiler
+| Screen | Route | What it does |
+| --- | --- | --- |
+| Check-in | `/` | Home screen with the daily entry point |
+| Words | `/words` | Field of body-sensation words to choose from |
+| Check-in flow | `/words/:wordId/check-in` | Steps: body location → intensity → notes → summary |
+| Calendar | `/calendar` | Browse past days, open, edit or add entries |
+| World | `/world` | Your avatar: body colour, accessories, hats |
+| Settings | `/settings` | Theme, language, install prompt |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Getting started
 
-## Expanding the Oxlint configuration
+Requires Node.js 20+ and npm.
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Open http://localhost:5173.
+
+## Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the dev server with hot reload |
+| `npm run build` | Type-check and build to `dist/` (fails on untranslated UI strings) |
+| `npm run preview` | Serve the production build locally (http://localhost:4173) |
+| `npm test` | Run the tests once (Vitest) |
+| `npm run test:watch` | Run the tests in watch mode |
+| `npm run lint` | Lint with Oxlint |
+| `npm run i18n:extract` | Extract UI strings into the `.po` catalogs |
+| `npm run i18n:compile` | Compile the catalogs |
+
+The service worker is registered only in production builds, so to try offline mode or "Add to Home Screen", use `npm run build && npm run preview`.
+
+## Tech stack
+
+React 19, TypeScript, Vite, React Router, [Lingui](https://lingui.dev) for translations, date-fns and react-day-picker for the calendar, Vitest + Testing Library for tests. Deployed on Vercel (`vercel.json` rewrites all routes to `index.html`).
+
+## Project structure
+
+```
+src/
+  entities/   Data models and storage (check-in, avatar, daily-log, user-profile, word)
+  features/   Screens and feature logic (check-in-flow, calendar, avatar, settings, ...)
+  shared/     Reusable UI, layout and helpers
+  i18n/       Translations and language setup
+  styles/     Design tokens
+  routes/     Route paths
+public/       PWA manifest, service worker, icons
+```
+
+`@/` is an alias for `src/`. Storage sits behind repository interfaces (e.g. `checkInRepository`), so a real backend can replace `localStorage` without touching the UI.
 
 ## Localization
 
-Two kinds of copy, two mechanisms:
+English and Italian are available; the language can be changed in Settings.
 
-- **UI strings** (buttons, headings, `aria-label`s) go through [Lingui](https://lingui.dev): `<Trans>`, `t` from `useLingui()`, and `msg` for module-level constants. Catalogs live in `src/i18n/locales/<code>/messages.po`; run `npm run i18n:extract` after changing any string.
-- **Domain content** (words, pain scale, body zones, error screen) lives in typed catalogs in `src/i18n/locales/<code>/*.ts`, typed by `Messages` so a missing translation is a compile error. Read it with `useContent()`.
+- **UI strings** (buttons, headings, `aria-label`s) go through Lingui: `<Trans>`, `t` from `useLingui()`, and `msg` for module-level constants. Catalogs live in `src/i18n/locales/<code>/messages.po`. Run `npm run i18n:extract` after changing any string.
+- **Domain content** (words, pain scale, body zones, error screen) lives in typed catalogs in `src/i18n/locales/<code>/*.ts`. They are typed by `Messages`, so a missing translation is a compile error. Read them with `useContent()`.
 
-A release build (`npm run build`) fails if any language has untranslated UI strings; `npm run dev` and the tests fall back to English.
+`npm run build` fails if any language has untranslated UI strings; `npm run dev` and the tests fall back to English.
 
-### Turning languages on
-
-Italian is in the codebase but not yet offered to users. `LANGUAGE_SELECTION_ENABLED` in `src/i18n/locales/index.ts` is `false`, which hides the language picker in Settings and stops the app from picking up the browser's language, so everyone gets English. Set it to `true` when a second language is ready to ship. To try Italian meanwhile, run `localStorage.setItem('locale', 'it')` in the browser console and reload.
+`LANGUAGE_SELECTION_ENABLED` in `src/i18n/locales/index.ts` switches the language picker and browser-language detection on or off. To force a language while testing, run `localStorage.setItem('locale', 'it')` in the browser console and reload.
 
 ### Adding a language
 
-1. Add the code to `locales` in `lingui.config.ts` and run `npm run i18n:extract`; translate the new `messages.po`.
+1. Add the code to `locales` in `lingui.config.ts`, run `npm run i18n:extract`, and translate the new `messages.po`.
 2. Add `src/i18n/locales/<code>/` providing `Messages` (copy `en/` as a starting point).
 3. Register it in `src/i18n/locales/index.ts` (`LOCALES`, `LOCALE_NAMES`) and `src/i18n/dateLocale.ts` (a `date-fns` locale for the calendar).
-4. Check the two CSS rules that title-case English labels (`:root:lang(en)`) still suit the language.
+4. Check that the two CSS rules that title-case English labels (`:root:lang(en)`) still suit the language.
