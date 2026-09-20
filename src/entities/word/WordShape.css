@@ -56,47 +56,52 @@
   transition: d 0.35s ease;
 }
 
+/* Runs on .word-shape-path (not the drifting .word-shape root) as a plain `transform:`
+   animation. Safari can't reliably run an individual `scale`/`translate` property
+   animation alongside a `transform:` keyframe animation on the same element — one of
+   the two silently freezes — so the drift stays on the root and this stays on the path. */
 @keyframes pulse-squeeze {
   0%,
   100% {
-    scale: 1;
+    transform: scale(1);
   }
   30% {
-    scale: 1.16;
+    transform: scale(1.16);
   }
   45% {
-    scale: 1.16;
+    transform: scale(1.16);
   }
   75% {
-    scale: 0.93;
+    transform: scale(0.93);
   }
 }
 
-.word-shape--pulse {
-  animation:
-    shape-drift var(--float-dur, 6s) ease-in-out infinite,
-    pulse-squeeze 4.5s ease-in-out infinite;
-  animation-delay: var(--float-delay, 0s), var(--float-delay, 0s);
+.word-shape--pulse .word-shape-path {
+  transform-box: view-box;
+  transform-origin: center;
+  animation: pulse-squeeze 4.5s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
 }
 
-/* Weightless words (light) lift a little and settle back. Uses the individual
-   `translate` property so it stacks with the drift's `transform`. The percentage
-   scales with --float-scale like the drift, so it's visible in ~100px phone cells. */
+/* Weightless words (light) lift a little and settle back. Runs on .word-shape-path
+   (see pulse-squeeze above for why it can't share the root's `transform:` animation).
+   The percentage scales with --float-scale like the drift, so it's visible in ~100px
+   phone cells. */
 @keyframes rise-lift {
   0%,
   100% {
-    translate: 0 0;
+    transform: translate(0, 0);
   }
   50% {
-    translate: 0 calc(-3% * var(--float-scale, 1));
+    transform: translate(0, calc(-3% * var(--float-scale, 1)));
   }
 }
 
-.word-shape--rise {
-  animation:
-    shape-drift var(--float-dur, 6s) ease-in-out infinite,
-    rise-lift 4.5s ease-in-out infinite;
-  animation-delay: var(--float-delay, 0s), var(--float-delay, 0s);
+.word-shape--rise .word-shape-path {
+  transform-box: view-box;
+  transform-origin: center;
+  animation: rise-lift 4.5s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
 }
 
 /* Spiky words (sharp/stabbing/tingling) breathe between their full jagged
@@ -147,23 +152,20 @@
 
 /* Hot words burn: the shape throbs in a double beat (a pulse racing), stretching
    upward and lifting like warm air, while a red glow flares and fades in step with
-   it. The outline itself stays put. Uses the individual `scale` / `translate`
-   properties so they stack with the drift's `transform`; the lift scales with
-   --float-scale like the drift so it shows in ~100px phone cells. */
+   it. The outline itself stays put. Runs on .word-shape-path as a single `transform:`
+   (see pulse-squeeze above for why it can't share the root's drift animation); the
+   lift scales with --float-scale like the drift so it shows in ~100px phone cells. */
 @keyframes heat-throb {
   0%,
   30%,
   100% {
-    scale: 1 1;
-    translate: 0 0;
+    transform: translate(0, 0) scale(1, 1);
   }
   12% {
-    scale: 1.06 1.11;
-    translate: 0 calc(-2% * var(--float-scale, 1));
+    transform: translate(0, calc(-2% * var(--float-scale, 1))) scale(1.06, 1.11);
   }
   42% {
-    scale: 0.98 1.06;
-    translate: 0 calc(-1% * var(--float-scale, 1));
+    transform: translate(0, calc(-1% * var(--float-scale, 1))) scale(0.98, 1.06);
   }
 }
 
@@ -183,15 +185,17 @@
 
 .word-shape--heat {
   --float-amp: 1.4;
-  animation:
-    shape-drift var(--float-dur, 6s) ease-in-out infinite,
-    heat-throb 1.8s ease-in-out infinite;
-  animation-delay: var(--float-delay, 0s), var(--float-delay, 0s);
+  animation: shape-drift var(--float-dur, 6s) ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
 }
 
 .word-shape--heat .word-shape-path {
-  animation: heat-glow 1.8s ease-in-out infinite;
-  animation-delay: var(--float-delay, 0s);
+  transform-box: view-box;
+  transform-origin: center;
+  animation:
+    heat-glow 1.8s ease-in-out infinite,
+    heat-throb 1.8s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s), var(--float-delay, 0s);
 }
 
 /* Wobbly/erratic words (shaky, dizzy, unstable) get their own keyframes with
@@ -292,7 +296,9 @@
   }
 
   .word-shape--spike .word-shape-path,
-  .word-shape--heat .word-shape-path {
+  .word-shape--heat .word-shape-path,
+  .word-shape--pulse .word-shape-path,
+  .word-shape--rise .word-shape-path {
     animation: none;
   }
 }

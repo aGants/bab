@@ -138,6 +138,8 @@
 .day-log__shape .word-shape--rise,
 .day-log__shape .word-shape--heat,
 .day-log__shape .word-shape--heat .word-shape-path,
+.day-log__shape .word-shape--pulse .word-shape-path,
+.day-log__shape .word-shape--rise .word-shape-path,
 .day-log__shape .word-shape--spike .word-shape-path {
   animation: none;
 }
