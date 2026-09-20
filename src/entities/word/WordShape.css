@@ -295,6 +295,18 @@
     animation-delay: var(--float-delay, 0s);
   }
 
+  /* Phone cells are ~100px: at 1.5 the drift is a pixel or two over 12s, which reads as frozen. */
+  @media (max-width: 600px), (hover: none) {
+    .word-shape,
+    .word-shape--pulse,
+    .word-shape--spike,
+    .word-shape--jitter,
+    .word-shape--rise,
+    .word-shape--heat {
+      --float-scale: 3;
+    }
+  }
+
   .word-shape--spike .word-shape-path,
   .word-shape--heat .word-shape-path,
   .word-shape--pulse .word-shape-path,
