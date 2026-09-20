@@ -90,7 +90,7 @@ export const DayLogDialog = ({
                     <li key={entry.id} className="day-log__card">
                       <div className="day-log__card-top">
                         <span className="day-log__shape" aria-hidden="true">
-                          {word && <WordShape card={word} expressive />}
+                          {word && <WordShape card={word} expressive fit />}
                         </span>
                         <strong className="day-log__word">{wordName ?? t`Unknown`}</strong>
                         <Link

@@ -25,6 +25,9 @@
   background: var(--color-surface);
   color: var(--color-ink);
   font-family: var(--font-body);
+  /* the root sets a positive tracking for body copy; the design only tracks the
+     title and sensation names (set explicitly below), everything else is 0 */
+  letter-spacing: 0;
   box-shadow: 0 12px 16px rgb(0 0 0 / 10%);
 }
 
@@ -38,6 +41,8 @@
 .day-log__title {
   flex: 1;
   margin: 0;
+  /* global h2 sets the system heading font; the design uses Instrument Sans Medium */
+  font-family: var(--font-body);
   font-size: 24px;
   font-weight: 500;
   line-height: 28px;
@@ -73,12 +78,13 @@
 }
 
 .day-log__flag {
-  padding: 5px 12px;
+  padding: 4px 12px;
   border-radius: 999px;
   background: var(--color-cycle);
   color: var(--color-ink-on-light);
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
 }
 
 .day-log__count {
@@ -95,6 +101,7 @@
 .day-log__empty {
   margin: 0;
   font-size: 14px;
+  line-height: 18px;
   color: var(--color-ink-muted);
 }
 
@@ -204,6 +211,7 @@
   flex-shrink: 0;
   gap: 4px;
   font-size: 12px;
+  font-weight: 400;
   line-height: 16px;
   white-space: nowrap;
 }
@@ -211,7 +219,7 @@
 .day-log__note {
   margin: 0;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 18px;
   color: var(--color-ink-muted);
 }
 
@@ -223,6 +231,7 @@
   color: var(--color-signals);
   font-family: inherit;
   font-size: 12px;
+  line-height: 16px;
   cursor: pointer;
 }
 
