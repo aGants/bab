@@ -45,10 +45,6 @@ msgstr "C’è altro che vuoi condividere?"
 msgid "Anything you feel like adding…"
 msgstr "Qualcosa che ti va di aggiungere…"
 
-#: src/features/avatar/labels.ts:9
-msgid "Arch"
-msgstr "Arco"
-
 #: src/features/avatar/AvatarPage.tsx:60
 msgid "Avatar"
 msgstr "Avatar"
@@ -67,10 +63,6 @@ msgstr "Dietro"
 msgid "Back to words"
 msgstr "Torna alle parole"
 
-#: src/features/avatar/labels.ts:10
-msgid "Bean"
-msgstr "Fagiolo"
-
 #: src/entities/avatar/hatCatalog.ts:18
 msgid "Beanie"
 msgstr "Berretto di lana"
@@ -79,16 +71,11 @@ msgstr "Berretto di lana"
 msgid "Beret"
 msgstr "Basco"
 
-#: src/features/avatar/labels.ts:38
-msgid "Blush"
-msgstr "Rossore"
-
 #: src/features/word-field/BodyWordCards.tsx:45
 msgid "Bodily Signals"
 msgstr "Segnali del corpo"
 
 #: src/features/avatar/BodyColorPicker.tsx:17
-#: src/features/avatar/panels.tsx:89
 msgid "Body colour"
 msgstr "Colore del corpo"
 
@@ -104,17 +91,9 @@ msgstr "Corpo, vista da dietro"
 msgid "Body, front view"
 msgstr "Corpo, vista frontale"
 
-#: src/features/avatar/labels.ts:35
-msgid "Bow"
-msgstr "Fiocco"
-
 #: src/entities/avatar/hatCatalog.ts:17
 msgid "Bucket hat"
 msgstr "Cappello a secchiello"
-
-#: src/features/avatar/labels.ts:26
-msgid "Calm"
-msgstr "Calma"
 
 #: src/entities/avatar/hatCatalog.ts:19
 msgid "Cap"
@@ -122,7 +101,7 @@ msgstr "Cappellino"
 
 #. Friendly name the greeting uses until the user enters their own
 #: src/features/settings/SettingsPage.tsx:42
-#: src/shared/ui/Greeting/Greeting.tsx:17
+#: src/shared/ui/Greeting/Greeting.tsx:20
 msgid "Champ"
 msgstr "Campionessa"
 
@@ -155,17 +134,13 @@ msgstr "In arrivo presto"
 msgid "Continue"
 msgstr "Continua"
 
-#: src/features/avatar/labels.ts:16
+#: src/features/avatar/labels.ts:9
 msgid "Coral"
 msgstr "Corallo"
 
 #: src/features/settings/LanguagePicker.tsx:41
 msgid "Couldn't load this language. Check your connection and try again."
 msgstr "Impossibile caricare questa lingua. Controlla la connessione e riprova."
-
-#: src/features/avatar/labels.ts:34
-msgid "Crown"
-msgstr "Corona"
 
 #: src/features/avatar/AvatarPage.tsx:91
 msgid "Customize"
@@ -196,10 +171,6 @@ msgstr "Modifica check-in"
 msgid "Energy level"
 msgstr "Livello di energia"
 
-#: src/features/avatar/labels.ts:36
-msgid "Flower"
-msgstr "Fiore"
-
 #: src/shared/ui/ArrowButton/ArrowButton.tsx:19
 msgid "Forward"
 msgstr "Avanti"
@@ -209,21 +180,9 @@ msgctxt "body view"
 msgid "Front"
 msgstr "Davanti"
 
-#: src/features/avatar/labels.ts:37
-msgid "Glasses"
-msgstr "Occhiali"
-
 #: src/features/check-in-flow/IntensityScaleDialog.tsx:101
 msgid "Got it"
 msgstr "Ho capito"
-
-#: src/features/avatar/labels.ts:40
-msgid "Hands"
-msgstr "Mani"
-
-#: src/features/avatar/labels.ts:25
-msgid "Happy"
-msgstr "Felice"
 
 #: src/features/avatar/AccessoryPicker.tsx:63
 msgid "Hat"
@@ -237,11 +196,11 @@ msgstr "Cappelli"
 msgid "Head & neck"
 msgstr "Testa e collo"
 
-#: src/shared/ui/Greeting/Greeting.tsx:26
+#: src/shared/ui/Greeting/Greeting.tsx:29
 msgid "Hi,"
 msgstr "Ciao,"
 
-#: src/shared/ui/Greeting/Greeting.tsx:38
+#: src/shared/ui/Greeting/Greeting.tsx:41
 msgid "Hi, {displayName}"
 msgstr "Ciao, {displayName}"
 
@@ -291,7 +250,7 @@ msgstr "Diario"
 msgid "Language"
 msgstr "Lingua"
 
-#: src/features/avatar/labels.ts:20
+#: src/features/avatar/labels.ts:13
 msgid "Lavender"
 msgstr "Lavanda"
 
@@ -299,7 +258,7 @@ msgstr "Lavanda"
 msgid "Light"
 msgstr "Chiaro"
 
-#: src/features/avatar/labels.ts:18
+#: src/features/avatar/labels.ts:11
 msgid "Lime"
 msgstr "Lime"
 
@@ -374,11 +333,7 @@ msgstr "Hai il ciclo oggi?"
 msgid "Open your browser menu and choose “Install app” (or “Add to Dock” in Safari on Mac)."
 msgstr "Apri il menu del browser e scegli “Installa l’app” (o “Aggiungi al Dock” in Safari su Mac)."
 
-#: src/features/avatar/labels.ts:11
-msgid "Pear"
-msgstr "Pera"
-
-#: src/features/avatar/labels.ts:19
+#: src/features/avatar/labels.ts:12
 msgid "Pink"
 msgstr "Rosa"
 
@@ -390,17 +345,9 @@ msgstr "Mese precedente"
 msgid "Primary"
 msgstr "Principale"
 
-#: src/features/avatar/labels.ts:21
+#: src/features/avatar/labels.ts:14
 msgid "Red"
 msgstr "Rosso"
-
-#: src/features/avatar/labels.ts:12
-msgid "Round"
-msgstr "Tondo"
-
-#: src/features/avatar/labels.ts:30
-msgid "Sad"
-msgstr "Triste"
 
 #: src/features/check-in-flow/CheckInFlow.tsx:118
 msgid "Save check-in"
@@ -414,10 +361,6 @@ msgstr "Salvato"
 msgid "Saving…"
 msgstr "Salvataggio…"
 
-#: src/features/avatar/labels.ts:39
-msgid "Scarf"
-msgstr "Sciarpa"
-
 #: src/features/check-in-flow/steps/SummaryStep/SummaryStep.tsx:35
 msgid "Scroll down to save"
 msgstr "Scorri giù per salvare"
@@ -430,14 +373,6 @@ msgstr "Impostazioni"
 #: src/features/avatar/AccessoryPicker.tsx:65
 msgid "Shoes"
 msgstr "Scarpe"
-
-#: src/features/avatar/labels.ts:27
-msgid "Sleepy"
-msgstr "Assonnata"
-
-#: src/features/avatar/labels.ts:41
-msgid "Sparkles"
-msgstr "Scintille"
 
 #: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:16
 msgid "Standing still"
@@ -455,10 +390,6 @@ msgstr "Sticker"
 msgid "Summary"
 msgstr "Riepilogo"
 
-#: src/features/avatar/labels.ts:28
-msgid "Surprised"
-msgstr "Sorpresa"
-
 #: src/features/settings/SettingsPage.tsx:80
 msgid "Tap “Add”."
 msgstr "Tocca “Aggiungi”."
@@ -471,7 +402,7 @@ msgstr "Tocca le zone del tuo corpo. Tocca di nuovo per rimuovere."
 msgid "Tap the Share button in Safari's toolbar."
 msgstr "Tocca il pulsante Condividi nella barra degli strumenti di Safari."
 
-#: src/features/avatar/labels.ts:17
+#: src/features/avatar/labels.ts:10
 msgid "Teal"
 msgstr "Verde petrolio"
 
@@ -503,10 +434,6 @@ msgstr "Parola sconosciuta."
 msgid "Update check-in"
 msgstr "Aggiorna check-in"
 
-#: src/features/avatar/panels.tsx:44
-msgid "Use my latest feeling: {latestName}"
-msgstr "Usa la mia ultima sensazione: {latestName}"
-
 #: src/features/check-in-flow/steps/SummaryStep/SummaryStep.tsx:65
 msgid "What can help right now?"
 msgstr "Cosa può aiutare adesso?"
@@ -535,10 +462,6 @@ msgstr "Dove la senti?"
 msgid "Wide-brim hat"
 msgstr "Cappello a tesa larga"
 
-#: src/features/avatar/labels.ts:29
-msgid "Wink"
-msgstr "Occhiolino"
-
 #: src/shared/ui/TabBar/TabBar.tsx:51
 msgid "World"
 msgstr "Mondo"
@@ -551,14 +474,9 @@ msgstr "Sì"
 msgid "Your character"
 msgstr "Il tuo personaggio"
 
-#: src/features/avatar/AvatarCharacter.tsx:36
 #: src/features/avatar/WorldCharacter.tsx:42
 msgid "Your character, feeling {word}"
 msgstr "Il tuo personaggio, sensazione: {word}"
-
-#: src/features/avatar/AvatarCharacter.tsx:35
-msgid "Your character, feeling {word}, wearing {worn}"
-msgstr "Il tuo personaggio, sensazione: {word}, con {worn}"
 
 #: src/features/avatar/WorldCharacter.tsx:40
 msgid "Your character, feeling {word}, wearing a {hat}"
