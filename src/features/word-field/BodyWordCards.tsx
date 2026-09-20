@@ -42,7 +42,7 @@ const BodyWordCards = () => {
         </h1>
       </header>
       <p className="word-cards-section-label">
-        <Trans>Body Signals</Trans>
+        <Trans>Bodily Signals</Trans>
       </p>
 
       <div className={`word-grid-viewport${selected ? ' has-detail' : ''}`} ref={viewportRef}>

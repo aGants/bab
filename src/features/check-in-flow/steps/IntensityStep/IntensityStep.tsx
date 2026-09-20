@@ -20,15 +20,15 @@ export const IntensityStep = ({
   word,
   value,
   onSelect,
-  trigger,
-  onTriggerChange,
+  triggers,
+  onTriggerToggle,
   onOpenInfo,
 }: {
   word: WordCard
   value: CheckInIntensity
   onSelect: (intensity: CheckInIntensity) => void
-  trigger: Trigger | null
-  onTriggerChange: (trigger: Trigger) => void
+  triggers: Trigger[]
+  onTriggerToggle: (trigger: Trigger) => void
   onOpenInfo: () => void
 }) => {
   const { t, i18n } = useLingui()
@@ -88,8 +88,8 @@ export const IntensityStep = ({
             key={option.value}
             type="button"
             className="intensity-step__trigger-pill"
-            aria-pressed={trigger === option.value}
-            onClick={() => onTriggerChange(option.value)}
+            aria-pressed={triggers.includes(option.value)}
+            onClick={() => onTriggerToggle(option.value)}
           >
             {i18n._(option.label)}
           </button>

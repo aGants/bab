@@ -22,13 +22,19 @@ export const useCheckInDraft = (word: WordCard, date?: string, editing?: CheckIn
     editing?.intensity ?? DEFAULT_CHECK_IN_INTENSITY,
   )
   const [energy, setEnergy] = useState<Energy | null>(editing?.energy ?? DEFAULT_ENERGY)
-  const [trigger, setTrigger] = useState<Trigger | null>(editing?.trigger ?? null)
+  const [triggers, setTriggers] = useState<Trigger[]>(editing?.triggers ?? [])
   const [note, setNote] = useState(editing?.note ?? '')
   const [saving, setSaving] = useState(false)
 
   const toggleBodyZone = (zone: BodyZone) => {
     setBodyZones((zones) =>
       zones.includes(zone) ? zones.filter((existing) => existing !== zone) : [...zones, zone],
+    )
+  }
+
+  const toggleTrigger = (trigger: Trigger) => {
+    setTriggers((current) =>
+      current.includes(trigger) ? current.filter((existing) => existing !== trigger) : [...current, trigger],
     )
   }
 
@@ -41,7 +47,7 @@ export const useCheckInDraft = (word: WordCard, date?: string, editing?: CheckIn
         bodyZones,
         intensity,
         energy: energy ?? undefined,
-        trigger: trigger ?? undefined,
+        triggers: triggers.length > 0 ? triggers : undefined,
         note: note.trim() || undefined,
       }
       return editing ? await checkInRepository.update(editing.id, payload) : await checkInRepository.save(payload, date)
@@ -57,8 +63,8 @@ export const useCheckInDraft = (word: WordCard, date?: string, editing?: CheckIn
     setIntensity,
     energy,
     setEnergy,
-    trigger,
-    setTrigger,
+    triggers,
+    toggleTrigger,
     note,
     setNote,
     saving,

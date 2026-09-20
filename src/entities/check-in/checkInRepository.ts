@@ -1,4 +1,4 @@
-import type { BodyZone, CheckInEntry, NewCheckInEntry } from './types'
+import type { BodyZone, CheckInEntry, NewCheckInEntry, Trigger } from './types'
 import { createId } from '@/shared/lib/createId'
 import { toDateKey } from '@/shared/lib/dateKey'
 import { safeStorage } from '@/shared/lib/safeStorage'
@@ -25,7 +25,7 @@ const STORAGE_KEY = 'check-ins'
 /** Pre-multi-zone entries stored a single `bodyZone` instead of `bodyZones` —
  * normalize them on read so old localStorage data doesn't crash new UI. */
 type StoredCheckInEntry = (CheckInEntry | (Omit<CheckInEntry, 'bodyZones'> & { bodyZone: BodyZone })) &
-  Partial<Pick<CheckInEntry, 'bodyZones'>>
+  Partial<Pick<CheckInEntry, 'bodyZones'>> & { trigger?: Trigger }
 
 /** Zone ids from earlier versions of the body map, mapped to their current
  * equivalents. Without this, old entries point at zones that no longer exist. */
@@ -44,10 +44,19 @@ const migrateZones = (zones: BodyZone[]): BodyZone[] => [
   ...new Set(zones.flatMap((zone) => LEGACY_ZONES[zone] ?? [zone])),
 ]
 
+/** Entries saved while the trigger question was single-choice hold one `trigger`
+ * instead of a `triggers` list. */
+const migrateTriggers = <T extends { trigger?: Trigger; triggers?: Trigger[] }>(entry: T): Omit<T, 'trigger'> => {
+  const { trigger, ...rest } = entry
+  return trigger && !rest.triggers ? { ...rest, triggers: [trigger] } : rest
+}
+
 const normalizeEntry = (entry: StoredCheckInEntry): CheckInEntry => {
-  if (entry.bodyZones) return { ...entry, bodyZones: migrateZones(entry.bodyZones) } as CheckInEntry
+  if (entry.bodyZones) {
+    return migrateTriggers({ ...entry, bodyZones: migrateZones(entry.bodyZones) }) as CheckInEntry
+  }
   const { bodyZone, ...rest } = entry as Omit<CheckInEntry, 'bodyZones'> & { bodyZone: BodyZone }
-  return { ...rest, bodyZones: migrateZones([bodyZone]) }
+  return migrateTriggers({ ...rest, bodyZones: migrateZones([bodyZone]) }) as CheckInEntry
 }
 
 const readAll = (): CheckInEntry[] => {

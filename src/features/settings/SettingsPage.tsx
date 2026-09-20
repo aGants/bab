@@ -39,7 +39,7 @@ export const SettingsPage = () => {
             maxLength={30}
             autoComplete="given-name"
             value={name}
-            placeholder={t`Girl`}
+            placeholder={t`Champ`}
             onChange={(event) => setName(event.target.value)}
           />
         </div>

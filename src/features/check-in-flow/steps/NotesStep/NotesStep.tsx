@@ -93,7 +93,7 @@ export const NotesStep = ({
 
       <div className="notes-step__field notes-step__field--grow">
         <label className="notes-step__label" htmlFor="notes-step-textarea">
-          <Trans>Additional Notes</Trans>
+          <Trans>Notes</Trans>
         </label>
         <textarea
           id="notes-step-textarea"

@@ -65,7 +65,7 @@ export type Energy = 1 | 2 | 3 | 4 | 5 | 6 | 7
 /** Slider starts here so a user who never touches it still has a valid answer. */
 export const DEFAULT_ENERGY: Energy = 4
 
-/** When the sensation shows up — surfaced right after "how big is it". */
+/** When the sensation shows up — surfaced right after "how big is it". More than one can apply. */
 export type Trigger = 'movement' | 'pressure' | 'stillness'
 
 export interface NewCheckInEntry {
@@ -75,7 +75,7 @@ export interface NewCheckInEntry {
   bodyZones: BodyZone[]
   intensity: CheckInIntensity
   energy?: Energy
-  trigger?: Trigger
+  triggers?: Trigger[]
   note?: string
 }
 

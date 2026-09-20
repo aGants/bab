@@ -14,7 +14,7 @@ export const Greeting = ({ welcome = false }: { welcome?: boolean }) => {
   const { name } = useUserProfile()
   const displayName =
     name.trim() ||
-    t({ message: 'Girl', comment: 'Friendly name the greeting uses until the user enters their own' })
+    t({ message: 'Champ', comment: 'Friendly name the greeting uses until the user enters their own' })
   const { hatId } = useWornHat()
   const { headWordId } = useHeadWord()
 

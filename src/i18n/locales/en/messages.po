@@ -33,10 +33,6 @@ msgstr "About the intensity scale"
 msgid "Add new sensation"
 msgstr "Add new sensation"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:96
-msgid "Additional Notes"
-msgstr "Additional Notes"
-
 #: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:42
 msgid "Adjust the size as you feel"
 msgstr "Adjust the size as you feel"
@@ -87,18 +83,18 @@ msgstr "Beret"
 msgid "Blush"
 msgstr "Blush"
 
+#: src/features/word-field/BodyWordCards.tsx:45
+msgid "Bodily Signals"
+msgstr "Bodily Signals"
+
 #: src/features/avatar/BodyColorPicker.tsx:17
 #: src/features/avatar/panels.tsx:89
 msgid "Body colour"
 msgstr "Body colour"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:18
+#: src/features/check-in-flow/CheckInFlow.tsx:19
 msgid "Body Map"
 msgstr "Body Map"
-
-#: src/features/word-field/BodyWordCards.tsx:45
-msgid "Body Signals"
-msgstr "Body Signals"
 
 #: src/features/check-in-flow/steps/BodyLocationStep/FemaleBodyBack.tsx:59
 msgid "Body, back view"
@@ -124,7 +120,13 @@ msgstr "Calm"
 msgid "Cap"
 msgstr "Cap"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:67
+#. Friendly name the greeting uses until the user enters their own
+#: src/features/settings/SettingsPage.tsx:42
+#: src/shared/ui/Greeting/Greeting.tsx:17
+msgid "Champ"
+msgstr "Champ"
+
+#: src/features/check-in-flow/CheckInFlow.tsx:69
 msgid "Check in: {wordName}"
 msgstr "Check in: {wordName}"
 
@@ -207,12 +209,6 @@ msgctxt "body view"
 msgid "Front"
 msgstr "Front"
 
-#. Friendly name the greeting uses until the user enters their own
-#: src/features/settings/SettingsPage.tsx:42
-#: src/shared/ui/Greeting/Greeting.tsx:17
-msgid "Girl"
-msgstr "Girl"
-
 #: src/features/avatar/labels.ts:37
 msgid "Glasses"
 msgstr "Glasses"
@@ -279,7 +275,7 @@ msgstr "How is your journey?"
 msgid "Install app"
 msgstr "Install app"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:19
+#: src/features/check-in-flow/CheckInFlow.tsx:20
 msgid "Intensity"
 msgstr "Intensity"
 
@@ -335,9 +331,9 @@ msgstr "Necklace"
 msgid "New sticker unlocked!"
 msgstr "New sticker unlocked!"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:114
-#: src/features/check-in-flow/CheckInFlow.tsx:119
-#: src/features/check-in-flow/CheckInFlow.tsx:124
+#: src/features/check-in-flow/CheckInFlow.tsx:116
+#: src/features/check-in-flow/CheckInFlow.tsx:121
+#: src/features/check-in-flow/CheckInFlow.tsx:126
 msgid "Next"
 msgstr "Next"
 
@@ -353,7 +349,8 @@ msgstr "No"
 msgid "No check-ins this day."
 msgstr "No check-ins this day."
 
-#: src/features/check-in-flow/CheckInFlow.tsx:20
+#: src/features/check-in-flow/CheckInFlow.tsx:21
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:96
 msgid "Notes"
 msgstr "Notes"
 
@@ -405,7 +402,7 @@ msgstr "Round"
 msgid "Sad"
 msgstr "Sad"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:129
+#: src/features/check-in-flow/CheckInFlow.tsx:131
 msgid "Save check-in"
 msgstr "Save check-in"
 
@@ -413,7 +410,7 @@ msgstr "Save check-in"
 msgid "Saved"
 msgstr "Saved"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:129
+#: src/features/check-in-flow/CheckInFlow.tsx:131
 msgid "Saving…"
 msgstr "Saving…"
 
@@ -450,7 +447,7 @@ msgstr "Start a check-in"
 msgid "Stickers"
 msgstr "Stickers"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:21
+#: src/features/check-in-flow/CheckInFlow.tsx:22
 msgid "Summary"
 msgstr "Summary"
 
@@ -498,7 +495,7 @@ msgstr "Unknown"
 msgid "Unknown word."
 msgstr "Unknown word."
 
-#: src/features/check-in-flow/CheckInFlow.tsx:129
+#: src/features/check-in-flow/CheckInFlow.tsx:131
 msgid "Update check-in"
 msgstr "Update check-in"
 

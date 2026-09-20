@@ -80,8 +80,8 @@ export const CheckInFlow = ({
             word={word}
             value={draft.intensity}
             onSelect={draft.setIntensity}
-            trigger={draft.trigger}
-            onTriggerChange={draft.setTrigger}
+            triggers={draft.triggers}
+            onTriggerToggle={draft.toggleTrigger}
             onOpenInfo={() => setIntensityScaleOpen(true)}
           />
         )}

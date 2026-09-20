@@ -14,7 +14,7 @@ const renderPage = () =>
 describe('SettingsPage', () => {
   it('shows the translated fallback name until the user types their own', () => {
     renderPage()
-    expect(screen.getByPlaceholderText('Girl')).toBeTruthy()
+    expect(screen.getByPlaceholderText('Champ')).toBeTruthy()
   })
 
   it('offers the language picker only while language selection is enabled', () => {
