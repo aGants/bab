@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import type { MessageDescriptor } from '@lingui/core'
 import { msg } from '@lingui/core/macro'
 import { Trans, useLingui } from '@lingui/react/macro'
@@ -54,6 +54,12 @@ export const CheckInFlow = ({
   const { saveHeadWord } = useHeadWord()
 
   const wordName = word.word
+
+  // the scrolling box is the same element for every step, so it would otherwise
+  // carry the previous step's scroll position into the next one
+  useLayoutEffect(() => {
+    if (contentRef.current) contentRef.current.scrollTop = 0
+  }, [step])
 
   const handleSave = async () => {
     const entry = await draft.commit()
