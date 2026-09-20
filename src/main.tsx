@@ -1,5 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { Analytics } from '@vercel/analytics/react'
 import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
 import { RouterProvider } from 'react-router-dom'
@@ -26,6 +27,7 @@ activateLocale(getInitialLocale())
         <I18nProvider i18n={i18n}>
           <RouterProvider router={router} />
         </I18nProvider>
+        <Analytics />
       </StrictMode>,
     )
     // once the first screen is up and the browser is idle, fetch the other screens

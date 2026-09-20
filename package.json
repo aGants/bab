@@ -16,6 +16,7 @@
   "dependencies": {
     "@lingui/core": "^6.7.0",
     "@lingui/react": "^6.7.0",
+    "@vercel/analytics": "^2.0.1",
     "blobs": "^2.2.0",
     "date-fns": "^4.4.0",
     "react": "^19.2.8",

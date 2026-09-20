@@ -4,6 +4,8 @@ A mobile-first web app (installable PWA) that helps athletes notice and name wha
 
 Everything is stored locally in the browser (`localStorage`). There is no backend and no account.
 
+The only thing that leaves the device is an anonymous page-view ping (via [Vercel Web Analytics](https://vercel.com/docs/analytics)), used solely to count how many people use the app. It carries no identifiers and no check-in data.
+
 ## What's inside
 
 | Screen | Route | What it does |
