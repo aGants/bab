@@ -17,15 +17,15 @@ msgstr ""
 msgid "+{extraMoodCount} more"
 msgstr "+{extraMoodCount} more"
 
-#: src/features/calendar/DayLogDialog.tsx:72
+#: src/features/calendar/DayLogDialog.tsx:73
 msgid "💊 Took a painkiller"
 msgstr "💊 Took a painkiller"
 
-#: src/features/calendar/DayLogDialog.tsx:67
+#: src/features/calendar/DayLogDialog.tsx:68
 msgid "🩸 On period"
 msgstr "🩸 On period"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:47
+#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:40
 msgid "About the intensity scale"
 msgstr "About the intensity scale"
 
@@ -33,15 +33,15 @@ msgstr "About the intensity scale"
 msgid "Add new sensation"
 msgstr "Add new sensation"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:42
+#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:35
 msgid "Adjust the size as you feel"
 msgstr "Adjust the size as you feel"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:63
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:60
 msgid "Anything else you want to share?"
 msgstr "Anything else you want to share?"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:103
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:100
 msgid "Anything you feel like adding…"
 msgstr "Anything you feel like adding…"
 
@@ -49,7 +49,7 @@ msgstr "Anything you feel like adding…"
 msgid "Avatar"
 msgstr "Avatar"
 
-#: src/features/calendar/DayLogDialog.tsx:52
+#: src/features/calendar/DayLogDialog.tsx:53
 #: src/shared/ui/ArrowButton/ArrowButton.tsx:19
 msgid "Back"
 msgstr "Back"
@@ -105,7 +105,7 @@ msgstr "Cap"
 msgid "Champ"
 msgstr "Champ"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:77
+#: src/features/check-in-flow/CheckInFlow.tsx:83
 msgid "Check in: {wordName}"
 msgstr "Check in: {wordName}"
 
@@ -117,12 +117,12 @@ msgstr "Choose “Add to Home Screen”."
 msgid "Claim your weekly reward"
 msgstr "Claim your weekly reward"
 
-#: src/features/calendar/DayLogDialog.tsx:58
+#: src/features/calendar/DayLogDialog.tsx:59
 #: src/features/check-in-flow/IntensityScaleDialog.tsx:55
 msgid "Close"
 msgstr "Close"
 
-#: src/features/word-field/BodyWordCards.tsx:68
+#: src/features/word-field/BodyWordCards.tsx:73
 msgid "Close detail"
 msgstr "Close detail"
 
@@ -130,7 +130,7 @@ msgstr "Close detail"
 msgid "Coming soon"
 msgstr "Coming soon"
 
-#: src/features/word-field/BodyWordCards.tsx:84
+#: src/features/word-field/BodyWordCards.tsx:89
 msgid "Continue"
 msgstr "Continue"
 
@@ -150,7 +150,7 @@ msgstr "Customize"
 msgid "Dark"
 msgstr "Dark"
 
-#: src/features/calendar/DayLogDialog.tsx:123
+#: src/features/calendar/DayLogDialog.tsx:160
 msgid "Delete"
 msgstr "Delete"
 
@@ -158,16 +158,17 @@ msgstr "Delete"
 msgid "Delete this check-in?"
 msgstr "Delete this check-in?"
 
-#: src/features/calendar/DayLogDialog.tsx:99
+#: src/features/calendar/DayLogDialog.tsx:100
 msgid "Edit {wordName}"
 msgstr "Edit {wordName}"
 
-#: src/features/calendar/DayLogDialog.tsx:99
+#: src/features/calendar/DayLogDialog.tsx:100
 msgid "Edit check-in"
 msgstr "Edit check-in"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:68
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:75
+#: src/features/calendar/DayLogDialog.tsx:121
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:65
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:72
 msgid "Energy level"
 msgstr "Energy level"
 
@@ -204,7 +205,7 @@ msgstr "Hi,"
 msgid "Hi, {displayName}"
 msgstr "Hi, {displayName}"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:82
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:79
 msgid "High"
 msgstr "High"
 
@@ -212,11 +213,11 @@ msgstr "High"
 msgid "Home"
 msgstr "Home"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:78
+#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:71
 msgid "How big is it"
 msgstr "How big is it"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:39
+#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:32
 msgid "How intense is it?"
 msgstr "How intense is it?"
 
@@ -266,19 +267,19 @@ msgstr "Lime"
 msgid "Loading…"
 msgstr "Loading…"
 
-#: src/features/calendar/DayLogDialog.tsx:138
+#: src/features/calendar/DayLogDialog.tsx:175
 msgid "Log a sensation"
 msgstr "Log a sensation"
 
-#: src/features/calendar/DayLogDialog.tsx:138
+#: src/features/calendar/DayLogDialog.tsx:175
 msgid "Log another sensation"
 msgstr "Log another sensation"
 
-#: src/features/calendar/DayLogDialog.tsx:83
+#: src/features/calendar/DayLogDialog.tsx:84
 msgid "Logged sensations ({count})"
 msgstr "Logged sensations ({count})"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:79
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:76
 msgid "Low"
 msgstr "Low"
 
@@ -290,9 +291,9 @@ msgstr "Necklace"
 msgid "New sticker unlocked!"
 msgstr "New sticker unlocked!"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:135
-#: src/features/check-in-flow/CheckInFlow.tsx:140
-#: src/features/check-in-flow/CheckInFlow.tsx:145
+#: src/features/check-in-flow/CheckInFlow.tsx:141
+#: src/features/check-in-flow/CheckInFlow.tsx:146
+#: src/features/check-in-flow/CheckInFlow.tsx:151
 msgid "Next"
 msgstr "Next"
 
@@ -300,16 +301,16 @@ msgstr "Next"
 msgid "Next month"
 msgstr "Next month"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:54
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:51
 msgid "No"
 msgstr "No"
 
-#: src/features/calendar/DayLogDialog.tsx:132
+#: src/features/calendar/DayLogDialog.tsx:169
 msgid "No check-ins this day."
 msgstr "No check-ins this day."
 
 #: src/features/check-in-flow/CheckInFlow.tsx:21
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:96
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:93
 msgid "Notes"
 msgstr "Notes"
 
@@ -321,11 +322,11 @@ msgstr "On iPhone and iPad the app can only be installed from Safari. Open this 
 msgid "On period"
 msgstr "On period"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:87
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:84
 msgid "On period that day?"
 msgstr "On period that day?"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:87
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:84
 msgid "On period today?"
 msgstr "On period today?"
 
@@ -349,7 +350,7 @@ msgstr "Primary"
 msgid "Red"
 msgstr "Red"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:118
+#: src/features/check-in-flow/CheckInFlow.tsx:124
 msgid "Save check-in"
 msgstr "Save check-in"
 
@@ -357,7 +358,7 @@ msgstr "Save check-in"
 msgid "Saved"
 msgstr "Saved"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:118
+#: src/features/check-in-flow/CheckInFlow.tsx:124
 msgid "Saving…"
 msgstr "Saving…"
 
@@ -374,7 +375,7 @@ msgstr "Settings"
 msgid "Shoes"
 msgstr "Shoes"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:16
+#: src/entities/check-in/triggerOptions.ts:8
 msgid "Standing still"
 msgstr "Standing still"
 
@@ -414,15 +415,15 @@ msgstr "The app is installed on this device."
 msgid "Theme"
 msgstr "Theme"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:89
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:86
 msgid "Took a painkiller that day?"
 msgstr "Took a painkiller that day?"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:89
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:86
 msgid "Took a painkiller today?"
 msgstr "Took a painkiller today?"
 
-#: src/features/calendar/DayLogDialog.tsx:95
+#: src/features/calendar/DayLogDialog.tsx:96
 msgid "Unknown"
 msgstr "Unknown"
 
@@ -430,7 +431,7 @@ msgstr "Unknown"
 msgid "Unknown word."
 msgstr "Unknown word."
 
-#: src/features/check-in-flow/CheckInFlow.tsx:118
+#: src/features/check-in-flow/CheckInFlow.tsx:124
 msgid "Update check-in"
 msgstr "Update check-in"
 
@@ -442,15 +443,16 @@ msgstr "What can help right now?"
 msgid "What’s new?"
 msgstr "What’s new?"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:83
+#: src/features/calendar/DayLogDialog.tsx:141
+#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:76
 msgid "When do you notice it?"
 msgstr "When do you notice it?"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:14
+#: src/entities/check-in/triggerOptions.ts:6
 msgid "When I move it"
 msgstr "When I move it"
 
-#: src/features/check-in-flow/steps/IntensityStep/IntensityStep.tsx:15
+#: src/entities/check-in/triggerOptions.ts:7
 msgid "When I press it"
 msgstr "When I press it"
 
@@ -466,7 +468,7 @@ msgstr "Wide-brim hat"
 msgid "World"
 msgstr "World"
 
-#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:46
+#: src/features/check-in-flow/steps/NotesStep/NotesStep.tsx:43
 msgid "Yes"
 msgstr "Yes"
 

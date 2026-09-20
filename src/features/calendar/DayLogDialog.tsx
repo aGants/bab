@@ -5,7 +5,8 @@ import { WordShape } from '@/entities/word'
 import { useContent } from '@/i18n'
 import { wordsPath } from '@/routes/paths'
 import { toDateKey } from '@/shared/lib/dateKey'
-import type { CheckInEntry } from '@/entities/check-in/types'
+import { TRIGGER_OPTIONS } from '@/entities/check-in/triggerOptions'
+import { MAX_ENERGY, MIN_ENERGY, type CheckInEntry } from '@/entities/check-in/types'
 import type { DailyLog } from '@/entities/daily-log/types'
 import { BackIcon, ClockIcon, CloseIcon, EditIcon, ListIcon, PlusIcon } from './icons'
 import './DayLogDialog.css'
@@ -114,6 +115,42 @@ export const DayLogDialog = ({
                           {i18n.date(new Date(entry.createdAt), { hour: 'numeric', minute: '2-digit' })}
                         </span>
                       </div>
+                      {entry.energy !== undefined && (
+                        <div className="day-log__detail">
+                          <span className="day-log__detail-label">
+                            <Trans>Energy level</Trans>
+                          </span>
+                          <span className="day-log__energy">
+                            <span className="day-log__energy-track" aria-hidden="true">
+                              <span
+                                className="day-log__energy-fill"
+                                style={{
+                                  width: `${((entry.energy - MIN_ENERGY) / (MAX_ENERGY - MIN_ENERGY)) * 100}%`,
+                                }}
+                              />
+                            </span>
+                            <span className="day-log__energy-value">
+                              {entry.energy}/{MAX_ENERGY}
+                            </span>
+                          </span>
+                        </div>
+                      )}
+                      {entry.triggers && entry.triggers.length > 0 && (
+                        <div className="day-log__detail">
+                          <span className="day-log__detail-label">
+                            <Trans>When do you notice it?</Trans>
+                          </span>
+                          <span className="day-log__zones">
+                            {TRIGGER_OPTIONS.filter((option) => entry.triggers?.includes(option.value)).map(
+                              (option) => (
+                                <span key={option.value} className="day-log__zone">
+                                  {i18n._(option.label)}
+                                </span>
+                              ),
+                            )}
+                          </span>
+                        </div>
+                      )}
                       {entry.note && <p className="day-log__note">{entry.note}</p>}
                       <button
                         type="button"

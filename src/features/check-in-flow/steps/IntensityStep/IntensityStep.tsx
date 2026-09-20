@@ -1,20 +1,13 @@
 import type { CSSProperties } from 'react'
-import type { MessageDescriptor } from '@lingui/core'
-import { msg } from '@lingui/core/macro'
 import { Trans, useLingui } from '@lingui/react/macro'
 import type { CheckInIntensity, Trigger } from '@/entities/check-in/types'
+import { TRIGGER_OPTIONS } from '@/entities/check-in/triggerOptions'
 import { usesPainScale } from '@/entities/check-in/vasScale'
 import { WordShape } from '@/entities/word'
 import type { WordCard } from '@/i18n'
 import { Slider } from '@/shared/ui'
 import { MAX_INTENSITY, MIN_INTENSITY, scaleForIntensity } from '../../intensityScale'
 import './IntensityStep.css'
-
-const TRIGGER_OPTIONS: { value: Trigger; label: MessageDescriptor }[] = [
-  { value: 'movement', label: msg`When I move it` },
-  { value: 'pressure', label: msg`When I press it` },
-  { value: 'stillness', label: msg`Standing still` },
-]
 
 export const IntensityStep = ({
   word,

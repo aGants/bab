@@ -1,12 +1,9 @@
 import { Trans, useLingui } from '@lingui/react/macro'
-import { DEFAULT_ENERGY, type Energy } from '@/entities/check-in/types'
+import { DEFAULT_ENERGY, MAX_ENERGY, MIN_ENERGY, type Energy } from '@/entities/check-in/types'
 import { useDailyLog } from '@/entities/daily-log/useDailyLog'
 import { todayKey } from '@/shared/lib/dateKey'
 import { Slider } from '@/shared/ui'
 import './NotesStep.css'
-
-const MIN_ENERGY = 1
-const MAX_ENERGY = 7
 
 export const NotesStep = ({
   energy,

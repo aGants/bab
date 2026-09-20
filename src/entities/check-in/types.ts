@@ -62,6 +62,9 @@ export const DEFAULT_CHECK_IN_INTENSITY: CheckInIntensity = 5
 /** Energy level on a 1 (empty) to 7 (full) scale. */
 export type Energy = 1 | 2 | 3 | 4 | 5 | 6 | 7
 
+export const MIN_ENERGY = 1
+export const MAX_ENERGY = 7
+
 /** Slider starts here so a user who never touches it still has a valid answer. */
 export const DEFAULT_ENERGY: Energy = 4
 
