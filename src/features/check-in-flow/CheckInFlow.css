@@ -66,3 +66,17 @@
     text-align: left;
     color: var(--color-ink);
 }
+
+/* The body-location step keeps its silhouette close to the button: a tighter
+   gap than the other steps, so the body gets that height instead. */
+.check-in-flow:has(.body-location-step) .check-in-flow-content {
+    padding-bottom: 8px;
+}
+
+.check-in-flow:has(.body-location-step) .check-in-flow-footer {
+    padding-top: 8px;
+}
+
+.check-in-flow:has(.body-location-step) .check-in-flow-footer::before {
+    height: 8px;
+}

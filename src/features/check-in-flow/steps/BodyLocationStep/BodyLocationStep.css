@@ -4,10 +4,16 @@
     --body-fill: var(--color-cycle);
     --body-outline: var(--color-ink);
     --body-selected: color-mix(in srgb, var(--color-signals) 55%, var(--color-ground));
+    /* Smallest body height that still has comfortable tap targets. On a
+       screen too short for it the step stops shrinking and the flow's content
+       box scrolls instead. It's an explicit size (heading 36 + hint 30 on top
+       of the stage) rather than `min-height: auto`, because the svg's
+       intrinsic height is circular here (see __stage). */
+    --body-min-height: 520px;
     display: flex;
     flex-direction: column;
     flex: 1;
-    min-height: 0;
+    min-height: calc(var(--body-min-height) + var(--padding) + 66px);
 }
 
 :root[data-theme='dark'] .body-location-step {
@@ -76,7 +82,7 @@
     justify-self: center;
     min-height: 0;
     height: 100%;
-    aspect-ratio: 431.5 / 1175;
+    aspect-ratio: 420 / 1165;
     max-width: 100%;
     /* Mobile browsers flash their default tap-highlight rectangle on any
        element that handles a tap, and it inherits into the SVG's <path>

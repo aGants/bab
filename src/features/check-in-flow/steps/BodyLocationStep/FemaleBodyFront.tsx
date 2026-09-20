@@ -57,7 +57,7 @@ export const FemaleBodyFront = ({
   const { t } = useLingui()
   const regionLabel = useRegionLabel()
   return (
-    <svg viewBox="187.5 82 405.5 1169.5" role="group" aria-label={t`Body, front view`}>
+    <svg viewBox="193.5 88 394 1165" role="group" aria-label={t`Body, front view`}>
       {REGIONS.map((region) => (
         <path
           key={region.zone}
