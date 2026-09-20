@@ -3,6 +3,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { CalendarPage } from '@/features/calendar/CalendarPage'
 import { TabBar } from '@/shared/ui/TabBar/TabBar'
 import { act, render, screen } from '@/test/render'
+import { LOCALES } from './locales'
 import { useContent } from './useContent'
 import { activateLocale, setLocale } from './runtime'
 
@@ -36,16 +37,23 @@ describe('changing the language', () => {
   })
 
   it('serves domain content in the active language', async () => {
+    // expected values come from the catalogs, so editing a translation doesn't break this test
+    const expected = (locale: 'en' | 'it') => ({
+      word: LOCALES[locale].words.strong.word,
+      vas: LOCALES[locale].vas[0].label,
+      zone: LOCALES[locale].bodyZones.kneeLeft.phrase,
+    })
+
     render(<Probe />)
-    expect(screen.getByTestId('word').textContent).toBe('strong')
-    expect(screen.getByTestId('vas').textContent).toBe('Nothing at all')
-    expect(screen.getByTestId('zone').textContent).toBe('your left knee')
+    expect(screen.getByTestId('word').textContent).toBe(expected('en').word)
+    expect(screen.getByTestId('vas').textContent).toBe(expected('en').vas)
+    expect(screen.getByTestId('zone').textContent).toBe(expected('en').zone)
 
     await switchTo('it')
 
-    expect(screen.getByTestId('word').textContent).toBe('forte')
-    expect(screen.getByTestId('vas').textContent).toBe('Per niente')
-    expect(screen.getByTestId('zone').textContent).toBe('ginocchio sinistro')
+    expect(screen.getByTestId('word').textContent).toBe(expected('it').word)
+    expect(screen.getByTestId('vas').textContent).toBe(expected('it').vas)
+    expect(screen.getByTestId('zone').textContent).toBe(expected('it').zone)
   })
 
   it('names the calendar month and weekdays in that language', async () => {
