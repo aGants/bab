@@ -64,6 +64,27 @@
     gap: 24px;
 }
 
+.summary-step__title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.summary-step__scroll-down {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 999px;
+    background: var(--summary-step-fill);
+    color: var(--color-ink-on-light);
+    cursor: pointer;
+}
+
 .summary-step__description {
     display: flex;
     flex-direction: column;

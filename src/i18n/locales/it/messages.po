@@ -126,7 +126,7 @@ msgstr "Cappellino"
 msgid "Champ"
 msgstr "Campionessa"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:69
+#: src/features/check-in-flow/CheckInFlow.tsx:77
 msgid "Check in: {wordName}"
 msgstr "Check-in: {wordName}"
 
@@ -331,9 +331,9 @@ msgstr "Collana"
 msgid "New sticker unlocked!"
 msgstr "Nuovo sticker sbloccato!"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:116
-#: src/features/check-in-flow/CheckInFlow.tsx:121
-#: src/features/check-in-flow/CheckInFlow.tsx:126
+#: src/features/check-in-flow/CheckInFlow.tsx:135
+#: src/features/check-in-flow/CheckInFlow.tsx:140
+#: src/features/check-in-flow/CheckInFlow.tsx:145
 msgid "Next"
 msgstr "Avanti"
 
@@ -402,7 +402,7 @@ msgstr "Tondo"
 msgid "Sad"
 msgstr "Triste"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:131
+#: src/features/check-in-flow/CheckInFlow.tsx:118
 msgid "Save check-in"
 msgstr "Salva check-in"
 
@@ -410,13 +410,17 @@ msgstr "Salva check-in"
 msgid "Saved"
 msgstr "Salvato"
 
-#: src/features/check-in-flow/CheckInFlow.tsx:131
+#: src/features/check-in-flow/CheckInFlow.tsx:118
 msgid "Saving…"
 msgstr "Salvataggio…"
 
 #: src/features/avatar/labels.ts:39
 msgid "Scarf"
 msgstr "Sciarpa"
+
+#: src/features/check-in-flow/steps/SummaryStep/SummaryStep.tsx:35
+msgid "Scroll down to save"
+msgstr "Scorri giù per salvare"
 
 #: src/features/settings/SettingsPage.tsx:27
 #: src/shared/ui/TabBar/TabBar.tsx:52
@@ -495,7 +499,7 @@ msgstr "Sconosciuta"
 msgid "Unknown word."
 msgstr "Parola sconosciuta."
 
-#: src/features/check-in-flow/CheckInFlow.tsx:131
+#: src/features/check-in-flow/CheckInFlow.tsx:118
 msgid "Update check-in"
 msgstr "Aggiorna check-in"
 
@@ -503,7 +507,7 @@ msgstr "Aggiorna check-in"
 msgid "Use my latest feeling: {latestName}"
 msgstr "Usa la mia ultima sensazione: {latestName}"
 
-#: src/features/check-in-flow/steps/SummaryStep/SummaryStep.tsx:35
+#: src/features/check-in-flow/steps/SummaryStep/SummaryStep.tsx:65
 msgid "What can help right now?"
 msgstr "Cosa può aiutare adesso?"
 

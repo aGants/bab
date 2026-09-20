@@ -27,6 +27,12 @@
     container-name: flow;
 }
 
+/* The content box is a fixed-height flex column, so without this the button
+   gets squeezed below its 56px height once the Summary is taller than the screen. */
+.check-in-flow-content > .check-in-flow-save {
+    flex-shrink: 0;
+}
+
 /* Always visible below the scrollable step content — never itself scrolls
    out of reach, and sits outside the container-query box above so its own
    tap target isn't affected by that box's size containment. */
