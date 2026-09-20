@@ -58,6 +58,15 @@ body {
   line-height: 0.95;
 }
 
+/* iOS Safari flashes its own rectangle over any tapped button or link; the
+   app shows pressed/selected state itself, so the system highlight is just noise. */
+button,
+a,
+label,
+[role='button'] {
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* On wide screens there's no real phone to fill, so the app sits in a
    centered, phone-proportioned frame instead of stretching edge to edge. */
 @media (min-width: 700px) {
