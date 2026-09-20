@@ -3,6 +3,7 @@
    theme-invariant dark ink — otherwise dark mode swaps in near-white text
    and the contrast disappears. */
 :root {
+  --tab-bar-background: var(--color-cycle);
   --tab-bar-ink-on-cycle: color-mix(in srgb, var(--color-ground) 8%, black);
   --tab-bar-ink-muted-on-cycle: color-mix(in srgb, var(--tab-bar-ink-on-cycle) 55%, transparent);
   /* icon + label + top/bottom padding, so other screens can float content
@@ -16,8 +17,16 @@
   position: sticky;
   bottom: 0;
   z-index: 1;
-  background: var(--color-cycle);
+  background: var(--tab-bar-background);
   filter: drop-shadow(0 2px 2px rgb(0 0 0 / 15%));
+}
+
+/* Dark mode drops the lavender fill for the raised dark surface, so the bar
+   sits in the theme instead of glowing — its ink follows the theme too. */
+:root[data-theme='dark'] {
+  --tab-bar-background: var(--color-surface-raised);
+  --tab-bar-ink-on-cycle: var(--color-ink);
+  --tab-bar-ink-muted-on-cycle: var(--color-ink-muted);
 }
 
 .tab-bar-item {
