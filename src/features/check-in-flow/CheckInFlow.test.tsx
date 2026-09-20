@@ -2,6 +2,7 @@ import { render, screen, waitFor } from '@/test/render'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { wordCardsFor } from '@/i18n'
+import { todayKey } from '@/shared/lib/dateKey'
 import { CheckInFlow } from './CheckInFlow'
 
 const word = wordCardsFor('en').find((card) => card.id === 'sharp')!
@@ -39,5 +40,12 @@ describe('CheckInFlow', () => {
   it('leaves the head alone when logging an earlier day', async () => {
     await saveCheckIn({ date: '2020-01-01' })
     expect(window.localStorage.getItem(HEAD_KEY)).toBeNull()
+  })
+
+  it('still updates the head when a later same-day check-in is logged with today\'s date', async () => {
+    // the calendar's "log another sensation" link on today's day cell passes
+    // today's own date key, same as one picked from the past
+    await saveCheckIn({ date: todayKey() })
+    expect(window.localStorage.getItem(HEAD_KEY)).toBe('sharp')
   })
 })

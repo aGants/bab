@@ -5,6 +5,7 @@ import { Trans, useLingui } from '@lingui/react/macro'
 import type { WordCard } from '@/i18n'
 import type { CheckInEntry } from '@/entities/check-in/types'
 import { useHeadWord } from '@/entities/avatar/headWord'
+import { todayKey } from '@/shared/lib/dateKey'
 import { useCheckInDraft } from './useCheckInDraft'
 import { BodyLocationStep, IntensityStep, NotesStep, SummaryStep } from './steps'
 import { CheckInStepHeader } from './CheckInStepHeader'
@@ -56,9 +57,10 @@ export const CheckInFlow = ({
   const handleSave = async () => {
     const entry = await draft.commit()
     if (entry) {
-      // a check-in for today puts its feeling on the character's head; logging an
-      // earlier day or fixing an old entry says nothing about the present
-      if (!date && !editing) saveHeadWord(word.id)
+      // a check-in for today puts its feeling on the character's head, whether
+      // it's the day's first or another one added later; logging an earlier
+      // day or fixing an old entry says nothing about the present
+      if (!editing && (!date || date === todayKey())) saveHeadWord(word.id)
       onDone()
     }
   }
