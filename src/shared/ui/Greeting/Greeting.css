@@ -9,10 +9,16 @@
   box-sizing: border-box;
   width: 100%;
   margin: 0;
-  padding: 12px 20px;
-  min-height: 80px;
+  padding: 8px 20px 0;
+  min-height: 56px;
   overflow: hidden;
   background: var(--color-surface);
+}
+
+/* two stacked text lines: keeps the roomier bar */
+.app-greeting--welcome {
+  padding: 12px 20px;
+  min-height: 80px;
 }
 
 .app-greeting-text {

@@ -83,11 +83,35 @@
   max-width: 100%;
 }
 
-/* phone-height screens: tighten the spacing so the whole page fits without
-   scrolling; the stage (the only flexible part) takes what's left */
-@media (max-height: 720px) {
+/* shorter phones (most of them once the browser bars are counted): tighten
+   the spacing so the whole page fits without scrolling; the stage (the only
+   flexible part) takes what's left */
+/* on desktop the phone-shaped frame is 64px shorter than the window, so the
+   same thresholds apply 64px later */
+@media (max-height: 780px), (min-width: 700px) and (max-height: 844px) {
+  .avatar-page__content {
+    gap: 16px;
+  }
+
+  .avatar-page__stage {
+    flex-basis: 120px;
+    min-height: 120px;
+  }
+}
+
+@media (max-height: 720px), (min-width: 700px) and (max-height: 784px) {
   .avatar-page__content {
     gap: 12px;
+    padding-bottom: 8px;
+  }
+
+  .avatar-page__title {
+    font-size: 28px;
+    line-height: 32px;
+  }
+
+  .avatar-page__switch-option {
+    height: 40px;
   }
 
   .avatar-page__stage {
