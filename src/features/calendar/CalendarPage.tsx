@@ -82,7 +82,7 @@ const CalendarDayButton = ({ day, modifiers: _modifiers, className, ...props }: 
       <span className="calendar-day-marks">
         {visibleWords.map((word) => (
           <span key={word.id} className="calendar-day-mood" title={word.word}>
-            <WordShape card={word} expressive />
+            <WordShape card={word} expressive fit />
           </span>
         ))}
         {extraMoodCount > 0 && (

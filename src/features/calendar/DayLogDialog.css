@@ -133,8 +133,8 @@
 .day-log__shape {
   position: relative;
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
 }
 
 /* the icon sits beside text meant to be read — keep it still */
