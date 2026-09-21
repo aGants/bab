@@ -1,0 +1,14 @@
+Copyright (c) 2026 Adelia Mattis. All rights reserved.
+
+This license applies ONLY to the source code written by Adelia Mattis.
+No part of that source code may be copied, modified, distributed, or used
+without explicit written permission from the copyright holder.
+
+This license does NOT cover, and the copyright holder makes no claim to:
+  - text content and translations (src/i18n/locales/),
+  - visual design, illustrations, icons and other graphic assets
+    (including the files in public/),
+  - the concept of the application and its name,
+  - third-party fonts and dependencies, which remain under their own licenses.
+
+Rights to these materials belong to their respective authors.
