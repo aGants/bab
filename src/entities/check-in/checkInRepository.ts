@@ -1,7 +1,7 @@
 import type { BodyZone, CheckInEntry, NewCheckInEntry, Trigger } from './types'
 import { createId } from '@/shared/lib/createId'
 import { toDateKey } from '@/shared/lib/dateKey'
-import { safeStorage } from '@/shared/lib/safeStorage'
+import { createStoredJson } from '@/shared/lib/storedJson'
 
 /**
  * Written as if it already talks to a real API — every method is async even
@@ -59,57 +59,51 @@ const normalizeEntry = (entry: StoredCheckInEntry): CheckInEntry => {
   return migrateTriggers({ ...rest, bodyZones: migrateZones([bodyZone]) }) as CheckInEntry
 }
 
-const readAll = (): CheckInEntry[] => {
-  const raw = safeStorage.getItem(STORAGE_KEY)
-  if (!raw) return []
-  try {
-    const parsed = JSON.parse(raw)
-    return Array.isArray(parsed) ? parsed.map(normalizeEntry) : []
-  } catch {
-    return []
+export const createLocalStorageCheckInRepository = (): CheckInRepository => {
+  // what is stored is parsed (and migrated) once, not on every call; see createStoredJson
+  const stored = createStoredJson<readonly CheckInEntry[]>(STORAGE_KEY, (json) =>
+    Array.isArray(json) ? json.map(normalizeEntry) : [],
+  )
+  const readAll = () => stored.read()
+  const writeAll = (entries: readonly CheckInEntry[]) => stored.write(entries)
+
+  return {
+    save: async (input, date) => {
+      const now = new Date()
+      const entry: CheckInEntry = {
+        ...input,
+        id: createId(),
+        date: date ?? toDateKey(now),
+        createdAt: now.toISOString(),
+      }
+      writeAll([...readAll(), entry])
+      return entry
+    },
+
+    update: async (id, patch) => {
+      const entries = [...readAll()]
+      const index = entries.findIndex((entry) => entry.id === id)
+      if (index === -1) return null
+      const updated: CheckInEntry = { ...entries[index], ...patch }
+      entries[index] = updated
+      writeAll(entries)
+      return updated
+    },
+
+    getAll: async () => [...readAll()],
+
+    getById: async (id) => readAll().find((entry) => entry.id === id) ?? null,
+
+    getByDate: async (date) => readAll().filter((entry) => entry.date === date),
+
+    getRange: async (fromDate, toDate) =>
+      readAll().filter((entry) => entry.date >= fromDate && entry.date <= toDate),
+
+    remove: async (id) => {
+      writeAll(readAll().filter((entry) => entry.id !== id))
+    },
   }
 }
-
-const writeAll = (entries: CheckInEntry[]): void => {
-  safeStorage.setItem(STORAGE_KEY, JSON.stringify(entries))
-}
-
-export const createLocalStorageCheckInRepository = (): CheckInRepository => ({
-  save: async (input, date) => {
-    const now = new Date()
-    const entry: CheckInEntry = {
-      ...input,
-      id: createId(),
-      date: date ?? toDateKey(now),
-      createdAt: now.toISOString(),
-    }
-    writeAll([...readAll(), entry])
-    return entry
-  },
-
-  update: async (id, patch) => {
-    const entries = readAll()
-    const index = entries.findIndex((entry) => entry.id === id)
-    if (index === -1) return null
-    const updated: CheckInEntry = { ...entries[index], ...patch }
-    entries[index] = updated
-    writeAll(entries)
-    return updated
-  },
-
-  getAll: async () => readAll(),
-
-  getById: async (id) => readAll().find((entry) => entry.id === id) ?? null,
-
-  getByDate: async (date) => readAll().filter((entry) => entry.date === date),
-
-  getRange: async (fromDate, toDate) =>
-    readAll().filter((entry) => entry.date >= fromDate && entry.date <= toDate),
-
-  remove: async (id) => {
-    writeAll(readAll().filter((entry) => entry.id !== id))
-  },
-})
 
 /** App-wide instance — import this in features, not the factory, unless you're testing. */
 export const checkInRepository: CheckInRepository = createLocalStorageCheckInRepository()

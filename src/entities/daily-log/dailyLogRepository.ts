@@ -1,5 +1,5 @@
 import type { DailyLog } from './types'
-import { safeStorage } from '@/shared/lib/safeStorage'
+import { createStoredJson } from '@/shared/lib/storedJson'
 
 /**
  * One record per calendar day, independent of how many check-ins happen that
@@ -18,39 +18,30 @@ const STORAGE_KEY = 'daily-logs'
 
 const emptyLog = (date: string): DailyLog => ({ date, hadPeriod: null, tookPainkiller: null })
 
-const readAll = (): Record<string, DailyLog> => {
-  const raw = safeStorage.getItem(STORAGE_KEY)
-  if (!raw) return {}
-  try {
-    const parsed = JSON.parse(raw)
-    return parsed && typeof parsed === 'object' ? parsed : {}
-  } catch {
-    return {}
+export const createLocalStorageDailyLogRepository = (): DailyLogRepository => {
+  // what is stored is parsed once, not on every call; see createStoredJson
+  const stored = createStoredJson<Readonly<Record<string, DailyLog>>>(STORAGE_KEY, (json) =>
+    json && typeof json === 'object' ? (json as Record<string, DailyLog>) : {},
+  )
+
+  const upsert = (date: string, patch: Partial<Omit<DailyLog, 'date'>>): DailyLog => {
+    const logs = stored.read()
+    const next: DailyLog = { ...(logs[date] ?? emptyLog(date)), ...patch }
+    stored.write({ ...logs, [date]: next })
+    return next
+  }
+
+  return {
+    get: async (date) => stored.read()[date] ?? null,
+
+    getRange: async (fromDate, toDate) =>
+      Object.values(stored.read()).filter((log) => log.date >= fromDate && log.date <= toDate),
+
+    setHadPeriod: async (date, hadPeriod) => upsert(date, { hadPeriod }),
+
+    setTookPainkiller: async (date, tookPainkiller) => upsert(date, { tookPainkiller }),
   }
 }
-
-const writeAll = (logs: Record<string, DailyLog>): void => {
-  safeStorage.setItem(STORAGE_KEY, JSON.stringify(logs))
-}
-
-const upsert = (date: string, patch: Partial<Omit<DailyLog, 'date'>>): DailyLog => {
-  const logs = readAll()
-  const next: DailyLog = { ...(logs[date] ?? emptyLog(date)), ...patch }
-  logs[date] = next
-  writeAll(logs)
-  return next
-}
-
-export const createLocalStorageDailyLogRepository = (): DailyLogRepository => ({
-  get: async (date) => readAll()[date] ?? null,
-
-  getRange: async (fromDate, toDate) =>
-    Object.values(readAll()).filter((log) => log.date >= fromDate && log.date <= toDate),
-
-  setHadPeriod: async (date, hadPeriod) => upsert(date, { hadPeriod }),
-
-  setTookPainkiller: async (date, tookPainkiller) => upsert(date, { tookPainkiller }),
-})
 
 /** App-wide instance — import this in features, not the factory, unless you're testing. */
 export const dailyLogRepository: DailyLogRepository = createLocalStorageDailyLogRepository()
