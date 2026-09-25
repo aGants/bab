@@ -8,6 +8,10 @@ import path from 'node:path'
 import type { Plugin } from 'vite'
 import { defineConfig } from 'vitest/config'
 
+// Fonts for alphabets beyond the basic Latin one (a name with a "ł" in it). Only fetched when a page
+// has such characters, so they are left out of the up-front download and cached when first used.
+const RARELY_NEEDED = /-latin-ext-.*\.woff2$/
+
 /** Tells the service worker (public/sw.js) what this deploy consists of. It gets an id and the list
  * of hashed files in front of its code, so it can cache them up front and drop the previous
  * deploy's cache instead of letting old files pile up. The id is derived from the file names,
@@ -23,7 +27,7 @@ const precacheManifest = (): Plugin => {
     },
     generateBundle: (_options, bundle) => {
       assets = Object.keys(bundle)
-        .filter((file) => file.startsWith('assets/'))
+        .filter((file) => file.startsWith('assets/') && !RARELY_NEEDED.test(file))
         .map((file) => `/${file}`)
         .sort()
     },
@@ -55,5 +59,7 @@ export default defineConfig(({ mode }) => ({
   test: {
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],
+    // stylesheets are blanked in tests unless listed here; these two are read as text to check the fonts
+    css: { include: [/src\/styles\/(fonts|tokens)\.css/] },
   },
 }))

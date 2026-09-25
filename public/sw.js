@@ -6,7 +6,7 @@ const { id: BUILD_ID, assets: BUILD_ASSETS } = self.__BUILD__ ?? { id: 'dev', as
 // Everything that belongs to one deploy. The next deploy gets a cache of its own and this one is
 // dropped on activate, so files from old deploys never pile up.
 const BUILD_CACHE = `build-${BUILD_ID}`
-// Fonts, icons and the like: they outlive a deploy, so they are refreshed in place instead.
+// Icons and the like: they outlive a deploy, so they are refreshed in place instead.
 const RUNTIME_CACHE = 'runtime-v1'
 const SHELL = ['/', '/index.html', '/manifest.webmanifest', '/favicon.png', '/icon-192.png', '/icon-512.png']
 
@@ -62,7 +62,7 @@ const handleNavigation = async (request, event) => {
   }
 }
 
-// Hashed build assets never change: cache first. Everything else (fonts, images): serve cached, refresh in background.
+// Hashed build assets never change: cache first. Everything else (icons, images): serve cached, refresh in background.
 const handleAsset = async (request) => {
   const cached = await caches.match(request)
   if (cached && isBuildAsset(request)) return cached
@@ -83,7 +83,7 @@ self.addEventListener('fetch', (event) => {
 
   if (request.mode === 'navigate') {
     event.respondWith(handleNavigation(request, event))
-  } else if (url.origin === self.location.origin || url.hostname.endsWith('fonts.googleapis.com') || url.hostname.endsWith('fonts.gstatic.com')) {
+  } else if (url.origin === self.location.origin) {
     event.respondWith(handleAsset(request))
   }
 })

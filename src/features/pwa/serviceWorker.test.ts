@@ -182,6 +182,16 @@ describe('service worker', () => {
     })
   })
 
+  describe('other sites', () => {
+    it('leaves requests to other origins alone, fonts included', () => {
+      const { dispatch } = loadWorker({ id: 'abc', assets: [] })
+
+      for (const url of ['https://fonts.googleapis.com/css2?family=X', 'https://fonts.gstatic.com/s/x.woff2', 'https://example.com/a.js']) {
+        expect(dispatch('fetch', { request: { method: 'GET', mode: 'cors', url } }).response, url).toBeUndefined()
+      }
+    })
+  })
+
   describe('assets', () => {
     it('serves hashed build files from the cache without touching the network', async () => {
       const { caches, dispatch } = loadWorker({ id: 'abc', assets: [] })
