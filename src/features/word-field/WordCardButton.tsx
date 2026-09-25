@@ -1,40 +1,28 @@
-import { useMemo, type CSSProperties } from 'react'
+import { memo, type CSSProperties } from 'react'
 import { WordShape, wordIsPale, wordLabelColor, wordLabelColorOffShape } from '@/entities/word'
 import type { GridWord } from './wordGrid'
 
-/** How many grid steps out a neighbour still gets pushed, and how far (in px)
- * the closest ones move — tapers to 0 at PUSH_RADIUS, so only cards actually
- * next to the selected one make room for it; the rest of the field stays put. */
-const PUSH_RADIUS = 2
-const PUSH_STRENGTH = 26
-
-export const WordCardButton = ({
+/** Everything it takes is a plain value or a stable callback, so `memo` can skip a card that
+ * neither is affected by a pick nor moves for it — picking a word redraws a handful of cards,
+ * not the whole field. */
+export const WordCardButton = memo(({
   card,
-  selected,
+  isSelected,
+  pushX,
+  pushY,
   onSelect,
   cardRef,
 }: {
   card: GridWord
-  /** The single card selected across the whole field, or null — each button
-   * figures out for itself whether that's this card, or a neighbour that
-   * should retreat away from it. */
-  selected: GridWord | null
+  isSelected: boolean
+  /** How far (px) a pick nearby pushes this card away; 0 and 0 when it stays put. */
+  pushX: number
+  pushY: number
   onSelect: (card: GridWord) => void
   cardRef: (el: HTMLButtonElement | null) => void
 }) => {
-  const isSelected = selected?.id === card.id
   const offShapeColor = wordLabelColorOffShape(card.id, false)
   const offShapeColorSelected = wordLabelColorOffShape(card.id, true)
-
-  const push = useMemo(() => {
-    if (!selected || isSelected) return null
-    const dCol = card.col - selected.col
-    const dRow = card.row - selected.row
-    const dist = Math.hypot(dCol, dRow)
-    if (dist === 0 || dist > PUSH_RADIUS) return null
-    const magnitude = PUSH_STRENGTH * (1 - dist / PUSH_RADIUS)
-    return { x: (dCol / dist) * magnitude, y: (dRow / dist) * magnitude }
-  }, [selected, isSelected, card.col, card.row])
 
   return (
     <button
@@ -45,7 +33,7 @@ export const WordCardButton = ({
       style={{
         gridColumn: card.col + 1,
         gridRow: card.row + 1,
-        transform: push ? `translate(${push.x}px, ${push.y}px)` : undefined,
+        transform: pushX || pushY ? `translate(${pushX}px, ${pushY}px)` : undefined,
       }}
       onClick={() => onSelect(card)}
       aria-pressed={isSelected}
@@ -65,4 +53,4 @@ export const WordCardButton = ({
       </span>
     </button>
   )
-}
+})

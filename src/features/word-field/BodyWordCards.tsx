@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type CSSProperties } from 'react'
-import { GRID_COLS, gridWordsFor, type GridWord } from './wordGrid'
+import { GRID_COLS, gridWordsFor, pushOffset, type GridWord } from './wordGrid'
 import { WordCardButton } from './WordCardButton'
 import { useScrollToSelected } from './useScrollToSelected'
 import { Trans, useLingui } from '@lingui/react/macro'
@@ -47,15 +47,20 @@ const BodyWordCards = () => {
 
       <div className={`word-grid-viewport${selected ? ' has-detail' : ''}`} ref={viewportRef}>
         <div className="word-grid" style={{ '--grid-cols': GRID_COLS } as CSSProperties}>
-          {gridWords.map((card) => (
-            <WordCardButton
-              key={card.id}
-              card={card}
-              selected={selected}
-              onSelect={setSelected}
-              cardRef={registerCard(card.id)}
-            />
-          ))}
+          {gridWords.map((card) => {
+            const { x, y } = pushOffset(card, selected)
+            return (
+              <WordCardButton
+                key={card.id}
+                card={card}
+                isSelected={selected?.id === card.id}
+                pushX={x}
+                pushY={y}
+                onSelect={setSelected}
+                cardRef={registerCard(card.id)}
+              />
+            )
+          })}
         </div>
       </div>
 

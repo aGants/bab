@@ -33,3 +33,25 @@ export const gridWordsFor = (cards: readonly WordCard[]): GridWord[] =>
       col: i % GRID_COLS,
       row: Math.floor(i / GRID_COLS),
     }))
+
+/** How many grid steps out a neighbour still gets pushed, and how far (in px)
+ * the closest ones move — tapers to 0 at PUSH_RADIUS, so only cards actually
+ * next to the selected one make room for it; the rest of the field stays put. */
+export const PUSH_RADIUS = 2
+export const PUSH_STRENGTH = 26
+
+/** How far (px) a card moves away from the picked one to make room for it. No move at all
+ * (zero on both axes) when nothing is picked, for the picked card itself and for cards out of reach. */
+export const pushOffset = (
+  card: Pick<GridWord, 'col' | 'row'>,
+  selected: Pick<GridWord, 'col' | 'row'> | null,
+): { x: number; y: number } => {
+  if (!selected) return { x: 0, y: 0 }
+  const dCol = card.col - selected.col
+  const dRow = card.row - selected.row
+  const dist = Math.hypot(dCol, dRow)
+  // at PUSH_RADIUS the push has tapered to nothing, which is the same as out of reach (and this keeps a -0 out of the result)
+  if (dist === 0 || dist >= PUSH_RADIUS) return { x: 0, y: 0 }
+  const magnitude = PUSH_STRENGTH * (1 - dist / PUSH_RADIUS)
+  return { x: (dCol / dist) * magnitude, y: (dRow / dist) * magnitude }
+}
