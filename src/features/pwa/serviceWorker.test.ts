@@ -41,11 +41,12 @@ const createCaches = () => {
 }
 
 /** Runs public/sw.js against a fake service worker scope and hands back its event listeners. */
-const loadWorker = (build?: { id: string; assets: string[] }) => {
+const loadWorker = (build?: { id: string; assets: string[] }, connection?: { saveData?: boolean; effectiveType?: string }) => {
   const listeners: Record<string, Listener> = {}
   const scope = {
     __BUILD__: build,
     location: { origin: ORIGIN },
+    navigator: { connection },
     addEventListener: (type: string, listener: Listener) => void (listeners[type] = listener),
     skipWaiting: vi.fn(),
     clients: { claim: vi.fn(async () => {}) },
@@ -94,6 +95,21 @@ describe('service worker', () => {
       const cached = [...caches.stores.get('build-abc')!.keys()]
       expect(cached).toEqual(expect.arrayContaining(['/index.html', '/assets/a.js', '/assets/b.css']))
       expect(scope.skipWaiting).toHaveBeenCalled()
+    })
+
+    it.each([
+      ['asked to save data', { saveData: true, effectiveType: '4g' }],
+      ['on a very slow connection', { saveData: false, effectiveType: '2g' }],
+    ])('caches only the shell, not the rest of the deploy, when %s', async (_reason, connection) => {
+      fetchMock.mockImplementation(async () => page('ok'))
+      const { caches, dispatch } = loadWorker({ id: 'abc', assets: ['/assets/a.js', '/assets/b.css'] }, connection)
+
+      await dispatch('install').settled()
+
+      const cached = [...caches.stores.get('build-abc')!.keys()]
+      expect(cached).toContain('/index.html')
+      expect(cached).not.toContain('/assets/a.js')
+      expect(fetchMock).not.toHaveBeenCalledWith('/assets/a.js')
     })
 
     it('still installs when one of the files fails to download', async () => {

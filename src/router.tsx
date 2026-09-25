@@ -2,6 +2,7 @@ import { lazy, Suspense, type ReactNode } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import { ROUTES } from '@/routes/paths'
 import { PageFrame } from '@/shared/layout'
+import { isDataSaverOn } from '@/shared/lib/dataSaver'
 import { ErrorPage } from './features/error/ErrorPage'
 
 const loadBodyWordCards = () => import('./features/word-field/BodyWordCards')
@@ -24,8 +25,10 @@ const SettingsPage = lazy(loadSettingsPage)
 
 /** Downloads every route's chunk in the background so a first visit to a page opens
  * instantly instead of waiting on the network. Failures are ignored: the route just
- * loads on demand as before. */
+ * loads on demand as before. Skipped when the visitor is saving data: then a screen
+ * downloads only when they open it. */
 export const preloadRoutes = (): void => {
+  if (isDataSaverOn()) return
   ;[loadCheckIn, loadBodyWordCards, loadCalendarPage, loadAvatarPage, loadSettingsPage, loadCheckInFlowPage].forEach(
     (load) => load().catch(() => {}),
   )

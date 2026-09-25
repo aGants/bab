@@ -13,9 +13,18 @@ const SHELL = ['/', '/index.html', '/manifest.webmanifest', '/favicon.png', '/ic
 // How long a page waits on the network before the cached shell is shown instead.
 const NAVIGATION_TIMEOUT_MS = 3000
 
+// Same rule as isDataSaverOn in the app (src/shared/lib/dataSaver.ts), which the worker can't import.
+// Safari has no connection info, so there it is always false.
+const isDataSaverOn = () => {
+  const connection = self.navigator?.connection
+  return connection?.saveData === true || connection?.effectiveType === 'slow-2g' || connection?.effectiveType === '2g'
+}
+
 const precache = async () => {
   const cache = await caches.open(BUILD_CACHE)
   await cache.addAll(SHELL)
+  // when saving data only the shell is fetched up front; the rest is cached as it gets used
+  if (isDataSaverOn()) return
   // best effort: a file that fails to download must not stop the worker from installing, it is cached on first use instead
   await Promise.allSettled(BUILD_ASSETS.map((url) => cache.add(url)))
 }
